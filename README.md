@@ -38,7 +38,7 @@ Abra `http://127.0.0.1:3000` e informe sua `ADMIN_API_KEY`. Se não configurar `
 
 ## Banco Supabase
 
-Para banco criado via interface do Supabase, use **`db/supabase-setup.sql`** no SQL Editor de um projeto GSW de desenvolvimento, somente após revisar o script. Ele cria as tabelas no schema **`gsw_sdr`**, sem expô-las à API REST pública e ativa RLS sem políticas para o navegador. A alternativa para conexões diretas é `npm run db:migrate` com `DATABASE_URL`, que executa `db/001_init.sql` dentro de uma transação e grava a migração no mesmo commit. **Não execute `db/001_init.sql` isoladamente no SQL Editor sem antes fixar o schema.** Consulte `docs/SUPABASE.md`.
+Para banco criado via interface do Supabase, use **`db/supabase-setup.sql`** no SQL Editor de um projeto GSW de desenvolvimento, somente após revisar o script. Ele cria as tabelas no schema **`gsw_sdr`**, sem expô-las à API REST pública e ativa RLS sem políticas para o navegador. A role exclusiva do backend possui políticas internas restritas a `gsw_sdr_backend`, conforme `db/backend-role-setup.sql`. A alternativa para conexões diretas é `npm run db:migrate` com `DATABASE_URL`, que executa `db/001_init.sql` dentro de uma transação e grava a migração no mesmo commit. **Não execute `db/001_init.sql` isoladamente no SQL Editor sem antes fixar o schema.** Consulte `docs/SUPABASE.md`.
 
 ## Endpoints
 
@@ -57,7 +57,7 @@ Para banco criado via interface do Supabase, use **`db/supabase-setup.sql`** no 
 | DELETE | `/api/conversations/:phone` | Apaga dados com JSON `{ "confirm": "DELETE" }` |
 | POST | `/api/demo/inbound` | Apenas quando `ENABLE_DEMO=true` |
 
-Todas as rotas `/api/` exigem `Authorization: Bearer <ADMIN_API_KEY>`. **Não existe endpoint de envio Meta**. Aprovar rascunho não envia WhatsApp. O painel usa uma única chave e não deve ser exposto publicamente antes de login por usuário, RBAC e proteção operacional.
+Todas as rotas `/api/` exigem `Authorization: Bearer <ADMIN_API_KEY>`. **Não existe endpoint de envio Meta**. Aprovar rascunho não envia WhatsApp. O painel de desenvolvimento usa uma única chave administrativa privada. Não o utilize com dados reais nem como operação comercial antes de login por usuário, RBAC e revisão de segurança.
 
 ## Segurança, LGPD e integração
 
@@ -69,6 +69,6 @@ Todas as rotas `/api/` exigem `Authorization: Bearer <ADMIN_API_KEY>`. **Não ex
 
 ## Verificações
 
-Execute `npm test`: **24 testes locais passando** na versão 0.3, incluindo webhook, handoff, opt-out, revisão, contexto, migração transacional simulada e qualificação. **Ainda não houve testes contra PostgreSQL/Supabase real, OpenAI real ou Meta real**. Na execução Work, a instalação de `pg` foi concluída e os 24 testes locais foram executados com sucesso. Consulte `docs/WORK-STATUS.md` para o estado atual das conexões e do deploy.
+Execute `npm test`: **24 testes locais passando** na versão 0.3, incluindo webhook, handoff, opt-out, revisão, contexto, migração transacional simulada e qualificação. **O PostgreSQL/Supabase real e o backend HTTPS de testes foram verificados no Work; OpenAI real e Meta real não foram testados**. Veja o estado e os resultados em `docs/WORK-STATUS.md`. Na execução Work, a instalação de `pg` foi concluída e os 24 testes locais foram executados com sucesso. Consulte `docs/WORK-STATUS.md` para o estado atual das conexões e do deploy.
 
 Consulte `docs/SEGURANCA-E-PENDENCIAS.md`, `docs/RELATORIO-TESTES.md` e `docs/WORK-HANDOFF.md` antes de publicar.
