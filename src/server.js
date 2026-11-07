@@ -1,8 +1,9 @@
 import http from 'node:http';
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, timingSafeEqual, randomBytes, randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { createStore, normalizePhone } from './core.js';
+import { createOperatorAuth } from './auth.js';
 import { createReviewedDraft } from './advisor.js';
 import { summarizeQualification } from './qualification.js';
 
@@ -38,19 +39,21 @@ export function decodeMeta(payload) {
       const phone = normalizePhone(m.from);
       if (!phone || typeof m.id !== 'string') continue;
       const ts = m.timestamp ? Number(m.timestamp) : NaN;
-      messages.push({ phone, id: m.id, text: m.text?.body ?? '', timestamp: Number.isFinite(ts) && ts > 0 ? new Date(ts * 1000).toISOString() : undefined });
+      messages.push({ phone, id: m.id, text: m.text?.body ?? '', timestamp: Number.isFinite(ts) && ts > 0 ? new Date(Math.min(ts * 1000, 8640000000000000)).toISOString() : undefined });
     }
   }
   return messages;
 }
 const htmlPath = fileURLToPath(new URL('../web/index.html', import.meta.url));
-export function createApp({ adminKey, metaSecret, verifyToken, demo = false, autoDrafts = false, store = createStore(), aiConfig = {}, fetcher = fetch } = {}) {
+export function createApp({ adminKey, metaSecret, verifyToken, demo = false, autoDrafts = false, store = createStore(), aiConfig = {}, fetcher = fetch, operatorAuth, integrationStatus = {} } = {}) {
   if (!adminKey || adminKey.length < 20 || !metaSecret || !verifyToken) throw new Error('Configure ADMIN_API_KEY (20+ caracteres), META_APP_SECRET e META_VERIFY_TOKEN');
-  // Rate limiter local de desenvolvimento; em produção usar gateway/proxy.
+  // Bounded process-local limiter. Sessions expire on deployment/restart.
   const attempts = new Map();
   function adminRateLimit(req) {
     const address = req.socket.remoteAddress || 'unknown';
     const now = Date.now();
+    for (const [key, value] of attempts) if (value.until < now) attempts.delete(key);
+    if (attempts.size >= 10000 && !attempts.has(address)) return true;
     const item = attempts.get(address);
     if (!item || item.until < now) { attempts.set(address, { count: 1, until: now + 60000 }); return false; }
     item.count += 1;
@@ -64,6 +67,19 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
     try {
       const url = new URL(req.url, 'http://localhost');
       if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'prototype-v0.3', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
+      if (req.method === 'GET' && url.pathname === '/ready') {
+        try { if (store.ping) await store.ping(); return json(res,200,{ok:true}); }
+        catch { return json(res,503,{ok:false}); }
+      }
+      if (operatorAuth && url.pathname === '/auth/login' && req.method === 'POST') {
+        const result=await operatorAuth.login(req,JSON.parse((await readRaw(req,4096)).toString('utf8')));
+        if(result.cookie) res.setHeader('set-cookie',result.cookie);
+        return json(res,result.status,result.status===200?{ok:true,username:result.username}:{error:'Acesso recusado; confira os dados ou tente mais tarde'});
+      }
+      if (operatorAuth && url.pathname === '/auth/logout' && req.method === 'POST') {
+        if(!operatorAuth.sameOrigin(req)) return json(res,403,{error:'Origem recusada'});
+        res.setHeader('set-cookie',operatorAuth.logout(req)); return json(res,200,{ok:true});
+      }
       if (req.method === 'GET' && url.pathname === '/webhook/meta') {
         if (url.searchParams.get('hub.mode') === 'subscribe' && safeEqual(url.searchParams.get('hub.verify_token'), verifyToken) && url.searchParams.get('hub.challenge')) {
           res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' });
@@ -89,16 +105,27 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
         return;
       }
       if (req.method === 'GET' && url.pathname === '/') {
+        const nonce=randomBytes(18).toString('base64');
         res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff',
-          'content-security-policy': "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" });
-        return res.end(await readFile(htmlPath));
+          'content-security-policy': `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'` });
+        return res.end((await readFile(htmlPath,'utf8')).replaceAll('__CSP_NONCE__',nonce));
       }
       if (url.pathname.startsWith('/api/')) {
         if (adminRateLimit(req)) return json(res, 429, { error: 'Muitas requisicoes; tente mais tarde' });
-        if (!authorized(req)) return json(res, 401, { error: 'Autorizacao necessaria' });
+        const admin=authorized(req), operator=operatorAuth?.session(req);
+        if (!admin && !operator) return json(res, 401, { error: 'Autorizacao necessaria' });
+        if (operator && !admin && !['GET','HEAD'].includes(req.method) && !operatorAuth.sameOrigin(req)) return json(res,403,{error:'Origem recusada'});
+        if (req.method === 'DELETE' && !admin) return json(res,403,{error:'Exclusao restrita ao administrador'});
+        if (req.method === 'GET' && url.pathname === '/api/status') return json(res,200,{ operator:operator?.username||'administrador',storage:store.ping?'postgres':'memory',ai:integrationStatus.ai||'regras locais',whatsapp:integrationStatus.whatsapp||'nao configurado',autoSend:false });
         if (req.method === 'GET' && url.pathname === '/api/conversations') return json(res, 200, { conversations: await store.list() });
         const match = /^\/api\/conversations\/(\d{8,15})(?:\/(mode|draft|context))?$/.exec(url.pathname);
         if (match && req.method === 'GET' && !match[2]) return json(res, 200, await store.get(match[1]));
+        const inbound = /^\/api\/conversations\/(\d{8,15})\/inbound$/.exec(url.pathname);
+        if (inbound && req.method === 'POST') {
+          const data=JSON.parse((await readRaw(req,16384)).toString('utf8'));
+          if (!data || typeof data.text !== 'string' || !data.text.trim() || data.text.length>4000) return json(res,400,{error:'Informe uma mensagem recebida de ate 4000 caracteres'});
+          return json(res,200,await store.ingest({phone:inbound[1],id:'manual.'+randomUUID(),text:data.text.trim()}));
+        }
         const qualification = /^\/api\/conversations\/(\d{8,15})\/qualification$/.exec(url.pathname);
         if (qualification && req.method === 'GET') return json(res, 200, summarizeQualification(await store.get(qualification[1])));
         if (match && req.method === 'DELETE' && !match[2]) {
@@ -146,7 +173,8 @@ if (launchedDirectly) {
       throw new Error('Producao exige DATABASE_URL, segredos reais e ENABLE_DEMO=false');
     }
     const store = process.env.DATABASE_URL ? await (await import('./db/postgres.js')).createPostgresStore(process.env.DATABASE_URL) : createStore();
-    const app = createApp({ adminKey: process.env.ADMIN_API_KEY, metaSecret: process.env.META_APP_SECRET, verifyToken: process.env.META_VERIFY_TOKEN,
+    const operatorAuth = createOperatorAuth({username:process.env.OPERATOR_USERNAME,passwordScrypt:process.env.OPERATOR_PASSWORD_SCRYPT,origin:process.env.PUBLIC_ORIGIN,secure:process.env.NODE_ENV==='production'});
+    const app = createApp({ operatorAuth, integrationStatus:{ai:process.env.OPENAI_API_KEY?'configurada; teste real pendente':'regras locais',whatsapp:process.env.META_CONFIGURED==='true'?'configurado; teste real pendente':'nao configurado'}, adminKey: process.env.ADMIN_API_KEY, metaSecret: process.env.META_APP_SECRET, verifyToken: process.env.META_VERIFY_TOKEN,
       demo: process.env.ENABLE_DEMO === 'true', autoDrafts: process.env.AUTO_DRAFTS === 'true', store });
     const port = Number(process.env.PORT || 3000), host = process.env.HOST || '127.0.0.1';
     app.listen(port, host, () => console.log(`GSW SDR PRIME v0.3 em http://${host}:${port} (${process.env.DATABASE_URL ? 'PostgreSQL' : 'memoria de testes'})`));

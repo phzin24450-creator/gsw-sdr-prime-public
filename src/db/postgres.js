@@ -133,5 +133,5 @@ export async function createPostgresStore(url) {
       return { created: true, draft: { id:d.id, sourceMessageId, text:d.body, intent:d.intent, provider:d.provider, status:d.status, createdAt:d.created_at } };
     });
   }
-  return { get, list, ingest, setMode, setContext, reviewDraft, erase, saveDraft, close: () => pool.end() };
+  return { get, list, ingest, setMode, setContext, reviewDraft, erase, saveDraft, ping: () => pool.query('SELECT 1'), close: () => pool.end() };
 }
