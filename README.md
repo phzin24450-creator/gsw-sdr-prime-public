@@ -32,7 +32,7 @@ npm test
 node --env-file=.env src/server.js
 ```
 
-Abra `http://127.0.0.1:3000` e informe sua `ADMIN_API_KEY`. Se não configurar `DATABASE_URL`, o servidor usa memória e os dados serão apagados ao reiniciar. A variável `ENABLE_DEMO=true` habilita `/api/demo/inbound` para testes com números fictícios; mantenha `false` em produção.
+Configure `OPERATOR_USERNAME`, `OPERATOR_PASSWORD_SCRYPT` (hash produzido por `passwordHash()` de `src/auth.js`) e `PUBLIC_ORIGIN=http://127.0.0.1:3000`. Abra esse endereço e entre com o usuário e senha do operador. A chave administrativa não é usada no painel. Se não configurar `DATABASE_URL`, o servidor usa memória e os dados serão apagados ao reiniciar. A variável `ENABLE_DEMO=true` habilita `/api/demo/inbound` para testes com números fictícios; mantenha `false` em produção.
 
 `AUTO_DRAFTS=true` gera **rascunhos, não mensagens**, ao receber eventos Meta assinados. A execução ocorre em segundo plano no mesmo processo, **sem fila durável**; por isso esse modo é somente para desenvolvimento. A condição `AI_ACTIVE` e a versão atual são checadas antes de salvar o rascunho.
 
@@ -57,7 +57,7 @@ Para banco criado via interface do Supabase, use **`db/supabase-setup.sql`** no 
 | DELETE | `/api/conversations/:phone` | Apaga dados com JSON `{ "confirm": "DELETE" }` |
 | POST | `/api/demo/inbound` | Apenas quando `ENABLE_DEMO=true` |
 
-Todas as rotas `/api/` exigem `Authorization: Bearer <ADMIN_API_KEY>`. **Não existe endpoint de envio Meta**. Aprovar rascunho não envia WhatsApp. O painel de desenvolvimento usa uma única chave administrativa privada. Não o utilize com dados reais nem como operação comercial antes de login por usuário, RBAC e revisão de segurança.
+Rotas `/api/` exigem sessão de operador ou `Authorization: Bearer <ADMIN_API_KEY>`. Exclusão é restrita à chave administrativa técnica. O painel usa login de um operador com sessão de uma hora; não há administração multiusuário. Alterações pela sessão exigem origem igual a `PUBLIC_ORIGIN`. **Não existe endpoint de envio Meta**. Aprovar rascunho não envia WhatsApp. Consulte `docs/OPERATION.md` para o fluxo assistido e as limitações.
 
 ## Segurança, LGPD e integração
 
@@ -69,6 +69,10 @@ Todas as rotas `/api/` exigem `Authorization: Bearer <ADMIN_API_KEY>`. **Não ex
 
 ## Verificações
 
-Execute `npm test`: **24 testes locais passando** na versão 0.3, incluindo webhook, handoff, opt-out, revisão, contexto, migração transacional simulada e qualificação. **O PostgreSQL/Supabase real e o backend HTTPS de testes foram verificados no Work; OpenAI real e Meta real não foram testados**. Veja o estado e os resultados em `docs/WORK-STATUS.md`. Na execução Work, a instalação de `pg` foi concluída e os 24 testes locais foram executados com sucesso. Consulte `docs/WORK-STATUS.md` para o estado atual das conexões e do deploy.
+Execute `npm test`: **29 testes locais passando** na versão 0.3, incluindo webhook, handoff, opt-out, revisão, contexto, migração transacional simulada e qualificação. **O PostgreSQL/Supabase real e o backend HTTPS de testes foram verificados no Work; OpenAI real e Meta real não foram testados**. Veja o estado e os resultados em `docs/WORK-STATUS.md`. Na execução Work, a instalação de `pg` foi concluída e os 29 testes locais foram executados com sucesso. Consulte `docs/WORK-STATUS.md` para o estado atual das conexões e do deploy.
 
 Consulte `docs/SEGURANCA-E-PENDENCIAS.md`, `docs/RELATORIO-TESTES.md` e `docs/WORK-HANDOFF.md` antes de publicar.
+
+## Atualização de acesso e operação assistida
+
+O painel publicado tem login de operador, logout, sessão segura com expiração e registro manual de mensagens recebidas. `/ready` consulta a disponibilidade do banco; `/api/status` mostra a configuração sem segredos. A entrada manual permite testar o copiloto sem integrar o número comercial. Consulte `docs/OPERATION.md` e `docs/WORK-STATUS.md`. IA OpenAI real e WhatsApp oficial permanecem pendentes de configuração e validação.
