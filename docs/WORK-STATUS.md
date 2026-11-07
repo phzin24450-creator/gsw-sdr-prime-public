@@ -28,3 +28,8 @@ PR: https://github.com/phzin24450-creator/gsw-sdr-prime-public/pull/1
 
 ## Restrições preservadas
 Nenhum WhatsApp comercial conectado, nenhuma mensagem enviada, nenhum dado real de cliente usado. Repositório privado e Prospecta preservados. Nenhum recurso de plano pago provisionado.
+
+## Resultado do primeiro deploy
+- Deploy dep-dbnl94qjnfac73cmu3eg terminou como update_failed.
+- O build chegou ao npm start. O processo encerrou com status 1: produção exige DATABASE_URL.
+- Serviço permanece sem implantação saudável. Não foram repetidos deploys sem corrigir a credencial ausente.
