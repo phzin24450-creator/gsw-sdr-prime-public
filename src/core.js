@@ -35,9 +35,11 @@ export function createStore() {
     return conversations.get(id);
   }
   function supersede(c) { for (const d of c.drafts) if (d.status === 'PENDING_REVIEW') d.status = 'SUPERSEDED'; }
-  function ingest({ phone, id, text, timestamp }) {
+  function ingest({ phone, id, text, timestamp, manual = false, allowRepeat = false }) {
     if (!normalizePhone(phone) || typeof id !== 'string' || id.length < 1 || id.length > 300 || typeof text !== 'string') return { accepted: false, reason: 'invalid' };
     if (seen.has(id)) return { accepted: false, reason: 'duplicate' };
+    const previous = getInternal(phone).messages.at(-1);
+    if (manual && !allowRepeat && previous?.text === text.trim()) return { accepted:false, reason:"duplicate_text" };
     seen.add(id);
     if (seen.size > 10000) seen.delete(seen.values().next().value);
     const c = getInternal(phone);
@@ -60,13 +62,15 @@ export function createStore() {
     c.updatedAt = new Date().toISOString();
     return structuredClone(c);
   }
-  function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider }) {
+  function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, manual = false, regenerate = false }) {
     const c = getInternal(phone);
-    if (c.mode !== MODES.AI_ACTIVE || c.optedOut || c.version !== expectedVersion) return { created: false, reason: 'Estado mudou; rascunho descartado' };
+    if (!(c.mode === MODES.AI_ACTIVE || (manual && c.mode === MODES.HUMAN)) || c.optedOut || c.version !== expectedVersion) return { created: false, reason: 'Estado mudou; rascunho descartado' };
     const latest = [...c.messages].reverse().find(m => m.direction === 'inbound');
     if (!latest || latest.id !== sourceMessageId) return { created: false, reason: 'Chegou uma mensagem mais recente' };
-    if (c.drafts.some(d => d.sourceMessageId === sourceMessageId)) return { created: false, reason: 'Rascunho ja existe para essa mensagem' };
-    const draft = { id: randomUUID(), conversationVersion: expectedVersion, sourceMessageId, text: String(text).slice(0, 1000), intent, provider, status: 'PENDING_REVIEW', createdAt: new Date().toISOString() };
+    if (!regenerate && c.drafts.some(d => d.sourceMessageId === sourceMessageId && d.conversationVersion === c.version && d.status !== 'SUPERSEDED')) return { created: false, reason: 'Rascunho ja existe para essa mensagem' };
+    supersede(c);
+    c.version += 1;
+    const draft = { id: randomUUID(), conversationVersion: c.version, sourceMessageId, text: String(text).slice(0, 1000), intent, provider, status: 'PENDING_REVIEW', createdAt: new Date().toISOString() };
     c.drafts.push(draft);
     return { created: true, draft: structuredClone(draft) };
   }
@@ -84,12 +88,22 @@ export function createStore() {
     if (!REVIEW_DECISIONS.has(decision)) throw new Error('Decisao invalida');
     const d = c.drafts.find(d => d.id === draftId);
     if (!d || d.status !== 'PENDING_REVIEW') return { updated: false, reason: 'Rascunho nao esta pendente' };
-    if (decision === 'APPROVED' && (c.mode !== MODES.AI_ACTIVE || c.optedOut || d.conversationVersion !== c.version)) {
+    if (decision === 'APPROVED' && (![MODES.AI_ACTIVE, MODES.HUMAN].includes(c.mode) || c.optedOut || d.conversationVersion !== c.version)) {
       return { updated: false, reason: 'Estado mudou; rascunho nao pode ser aprovado' };
     }
     d.status = decision;
     d.reviewedAt = new Date().toISOString();
     return { updated: true, draft: structuredClone(d), sent: false };
+  }
+  function editDraft(phone, draftId, {text, expectedVersion}) {
+    const c = getInternal(phone), d = c.drafts.find(d => d.id === draftId);
+    if (typeof text !== 'string' || !text.trim() || text.length > 1000) throw new Error('Texto invalido');
+    if (!d || d.status !== 'PENDING_REVIEW' || c.version !== expectedVersion || d.conversationVersion !== c.version || c.optedOut || ![MODES.HUMAN, MODES.AI_ACTIVE].includes(c.mode)) return {updated:false, reason:'A conversa ou sugestão mudou. Gere uma nova sugestão.'};
+    const previous = structuredClone(d); previous.status = 'SUPERSEDED';
+    c.drafts.splice(c.drafts.indexOf(d), 0, previous);
+    d.id = randomUUID(); d.text = text.trim(); d.createdAt = new Date().toISOString();
+    c.version += 1; d.conversationVersion = c.version;
+    return {updated:true, draft:structuredClone(d), sent:false};
   }
   function erase(phone) {
     const key = normalizePhone(phone);
@@ -100,5 +114,5 @@ export function createStore() {
     return { deleted: hadData };
   }
   function list() { return [...conversations.values()].map(c => ({ id: c.id, mode: c.mode, version: c.version, optedOut: c.optedOut, messageCount: c.messages.length, updatedAt: c.updatedAt })); }
-  return { get: phone => structuredClone(getInternal(phone)), ingest, setMode, setContext, saveDraft, reviewDraft, erase, list };
+  return { get: phone => structuredClone(getInternal(phone)), ingest, setMode, setContext, saveDraft, editDraft, reviewDraft, erase, list };
 }

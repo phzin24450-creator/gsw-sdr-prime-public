@@ -66,7 +66,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
   return http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://localhost');
-      if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'prototype-v0.3', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
+      if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'v4.0.0', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
       if (req.method === 'GET' && url.pathname === '/ready') {
         try { if (store.ping) await store.ping(); return json(res,200,{ok:true}); }
         catch { return json(res,503,{ok:false}); }
@@ -124,7 +124,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
         if (inbound && req.method === 'POST') {
           const data=JSON.parse((await readRaw(req,16384)).toString('utf8'));
           if (!data || typeof data.text !== 'string' || !data.text.trim() || data.text.length>4000) return json(res,400,{error:'Informe uma mensagem recebida de ate 4000 caracteres'});
-          return json(res,200,await store.ingest({phone:inbound[1],id:'manual.'+randomUUID(),text:data.text.trim()}));
+          return json(res,200,await store.ingest({phone:inbound[1],id:'manual.'+randomUUID(),text:data.text.trim(),manual:true,allowRepeat:data.allowRepeat===true}));
         }
         const qualification = /^\/api\/conversations\/(\d{8,15})\/qualification$/.exec(url.pathname);
         if (qualification && req.method === 'GET') return json(res, 200, summarizeQualification(await store.get(qualification[1])));
@@ -137,7 +137,16 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
           const data = JSON.parse((await readRaw(req, 4096)).toString('utf8'));
           return json(res, 200, await store.setMode(match[1], data.mode));
         }
-        if (match && req.method === 'POST' && match[2] === 'draft') return json(res, 200, await createReviewedDraft(store, match[1], aiConfig, fetcher));
+        if (match && req.method === 'POST' && match[2] === 'draft') {
+          const raw=await readRaw(req,4096); const data=raw.length?JSON.parse(raw.toString('utf8')):{};
+          if (data.tone && !['consultivo','objetivo','acolhedor'].includes(data.tone)) return json(res,400,{error:'Estilo invalido'});
+          return json(res,200,await createReviewedDraft(store,match[1],{...aiConfig,manual:true,regenerate:data.regenerate===true,expectedVersion:data.expectedVersion,tone:data.tone},fetcher));
+        }
+        const edit = /^\/api\/conversations\/(\d{8,15})\/drafts\/([a-f0-9-]{36})\/edit$/i.exec(url.pathname);
+        if (edit && req.method === 'POST') {
+          const data=JSON.parse((await readRaw(req,8192)).toString('utf8'));
+          return json(res,200,await store.editDraft(edit[1],edit[2],data));
+        }
         if (match && req.method === 'POST' && match[2] === 'context') {
           const data = JSON.parse((await readRaw(req, 4096)).toString('utf8'));
           return json(res, 200, await store.setContext(match[1], data));
@@ -177,7 +186,7 @@ if (launchedDirectly) {
     const app = createApp({ operatorAuth, integrationStatus:{ai:process.env.OPENAI_API_KEY?'configurada; teste real pendente':'regras locais',whatsapp:process.env.META_CONFIGURED==='true'?'configurado; teste real pendente':'nao configurado'}, adminKey: process.env.ADMIN_API_KEY, metaSecret: process.env.META_APP_SECRET, verifyToken: process.env.META_VERIFY_TOKEN,
       demo: process.env.ENABLE_DEMO === 'true', autoDrafts: process.env.AUTO_DRAFTS === 'true', store });
     const port = Number(process.env.PORT || 3000), host = process.env.HOST || '127.0.0.1';
-    app.listen(port, host, () => console.log(`GSW SDR PRIME v0.3 em http://${host}:${port} (${process.env.DATABASE_URL ? 'PostgreSQL' : 'memoria de testes'})`));
+    app.listen(port, host, () => console.log(`GSW SDR PRIME V4 em http://${host}:${port} (${process.env.DATABASE_URL ? 'PostgreSQL' : 'memoria de testes'})`));
     for (const sig of ['SIGINT','SIGTERM']) process.on(sig, () => app.close(async () => { if (store.close) await store.close(); process.exit(0); }));
   };
   main().catch(e => { console.error('Nao foi possivel iniciar:', e.message); process.exitCode = 1; });

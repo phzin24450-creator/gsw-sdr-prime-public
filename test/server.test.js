@@ -24,18 +24,19 @@ test('webhook valida challenge e assinatura de Meta',async()=>testServer(async({
   assert.equal((await duplicate.json()).accepted,0);
   assert.equal(store.get(phone).messages.length,1);
 }));
-test('painel exige chave e gera apenas rascunho com modo AI_ACTIVE',async()=>testServer(async({url,store})=>{
+test('painel exige chave e gera rascunho manual em HUMAN e AI_ACTIVE',async()=>testServer(async({url,store})=>{
   assert.equal((await fetch(url+'/api/conversations')).status,401);
   const headers={authorization:'Bearer testing-admin-secret-12345','content-type':'application/json'};
   const m=await fetch(url+'/api/demo/inbound',{method:'POST',headers,body:JSON.stringify({phone,id:'demo-1',text:'Qual valor do site?'})});
   assert.equal(m.status,200);
   const noDraft=await fetch(url+'/api/conversations/'+phone+'/draft',{method:'POST',headers});
-  assert.equal((await noDraft.json()).created,false);
+  assert.equal((await noDraft.json()).created,true);
+  assert.equal(store.get(phone).mode,MODES.HUMAN);
   const change=await fetch(url+'/api/conversations/'+phone+'/mode',{method:'POST',headers,body:JSON.stringify({mode:MODES.AI_ACTIVE})});
   assert.equal(change.status,200);
   const draft=await fetch(url+'/api/conversations/'+phone+'/draft',{method:'POST',headers});
   assert.equal((await draft.json()).created,true);
-  assert.equal(store.get(phone).drafts.length,1);
+  assert.equal(store.get(phone).drafts.length,2);
   // Não há rota de envio Meta nesta versão.
   assert.equal((await fetch(url+'/api/conversations/'+phone+'/send',{method:'POST',headers})).status,404);
 }));
