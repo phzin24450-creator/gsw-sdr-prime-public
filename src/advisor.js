@@ -20,6 +20,7 @@ export function localDraft(intent, latest, context = {}) {
     case INTENTS.SERVICES: {
       const s = fold(latest);
       if (/whatsapp|automacao|atendimento/.test(s)) return 'A GSW trabalha com automações de atendimento. Hoje, qual parte do seu WhatsApp mais toma tempo: responder dúvidas, organizar pedidos ou fazer acompanhamento?';
+      if (/\b(?:seo|google)\b/.test(s) && /\b(?:endereco|localizacao|horarios?)\b/.test(s)) return 'Podemos avaliar a atualização dos dados no Perfil da Empresa no Google. Vocês têm acesso para editar o perfil atual?';
       if (/site|pagina|landing/.test(s)) return 'A GSW desenvolve sites e soluções digitais conforme a necessidade. Você já tem um site que precisa melhorar ou quer criar o primeiro?';
       if (/seo|google|trafego|anuncio/.test(s)) return 'A GSW também atua com presença no Google, SEO e tráfego pago. Seu foco é aumentar a procura pelo negócio ou melhorar a presença digital atual?';
       if (/inteligencia artificial|\bia\b/.test(s)) return 'A utilização de IA depende da necessidade do projeto. Qual tarefa ou processo você quer melhorar?';

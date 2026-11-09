@@ -69,3 +69,9 @@ test('pedidos de humano não geram novo rascunho',async()=>{
   assert.equal(d.canDraft,false);
   assert.equal(store.get(phone).mode,MODES.HANDOFF_PENDING);
 });
+
+test('fallback de endereço no Google preserva o objetivo quando o lead já tem site', () => {
+  const text = localDraft(INTENTS.SERVICES, 'Já temos site. Queremos atualizar o endereço no Google.');
+  assert.match(text, /Perfil da Empresa no Google/);
+  assert.doesNotMatch(text, /site/);
+});

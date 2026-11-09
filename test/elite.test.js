@@ -194,3 +194,9 @@ test('bloqueia oferta direta de agentes de IA e permite descrever a tecnologia n
   assert.equal(reviewCopy('Oferecemos agentes de IA para sua empresa.', {}, opening), 'standalone_ai_offer');
   assert.equal(reviewCopy('Se fizer sentido para esse processo, o sistema pode usar IA na triagem.', {}, opening), null);
 });
+
+test('objetivo informado não vira observação externa em abertura', () => {
+  const conversation = {context: {goal: 'Mostrar opções de uniformes'}};
+  assert.equal(reviewCopy('Notei o trabalho de vocês com uniformes.', conversation, opening), 'unsupported_research');
+  assert.equal(reviewCopy('Como vocês apresentam as opções de uniformes hoje?', conversation, opening), null);
+});
