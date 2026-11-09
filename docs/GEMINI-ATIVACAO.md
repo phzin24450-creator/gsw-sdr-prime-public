@@ -20,7 +20,7 @@ A versão publicada só consultava `OPENAI_API_KEY` e a OpenAI Responses API. Se
 
 49 testes locais passaram. As chamadas Gemini nos testes são **simuladas**, incluindo seis situações comerciais fictícias. O código de navegador verifica as etiquetas de regras locais e Gemini simulado em 360/1440px. Isso não substitui uma chamada real.
 
-A chave substituta está mascarada no ambiente do serviço Render `gsw-sdr-prime-dev`, no projeto Google AI Studio Free Tier. A revogação da chave anterior está pendente. A migração aditiva foi aplicada ao Supabase antes da publicação.
+A chave substituta está mascarada no ambiente do serviço Render `gsw-sdr-prime-dev`, no projeto Google AI Studio Free Tier. A chave anterior foi revogada no Google AI Studio em 09/11/2026. A lista do projeto confirmou que a chave substituta permanece no Free Tier. A migração aditiva foi aplicada ao Supabase antes da publicação.
 
 Deploy validado: `dep-dbonmsjm8hqs73eg8n1g`, commit `832a02b52386bd64119c330794fe2abc906f02b2`.
 
