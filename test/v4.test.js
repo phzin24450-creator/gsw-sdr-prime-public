@@ -8,7 +8,8 @@ test('V4 HUMAN: manual draft, edit, regenerate preserve history and never change
  const s=setup();const a=await createReviewedDraft(s,phone,{manual:true,geminiApiKey:''});assert.equal(a.created,true);assert.equal(s.get(phone).mode,'HUMAN');
  const edit=s.editDraft(phone,a.draft.id,{text:'Texto revisado pelo operador',expectedVersion:s.get(phone).version});assert.equal(edit.updated,true);assert.equal(edit.sent,false);
  assert.equal(s.editDraft(phone,a.draft.id,{text:'Edição antiga',expectedVersion:a.draft.conversationVersion}).updated,false);
- const b=await createReviewedDraft(s,phone,{manual:true,regenerate:true,geminiApiKey:''});assert.equal(b.created,true);assert.equal(s.get(phone).drafts.length,3);assert.equal(s.get(phone).mode,'HUMAN');
+ const newSuggestion=async()=>({ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:'Qual é a principal função que o site deve cumprir?'}]}}]})});
+ const b=await createReviewedDraft(s,phone,{manual:true,regenerate:true,geminiApiKey:'fake'},newSuggestion);assert.equal(b.created,true);assert.equal(s.get(phone).drafts.length,3);assert.equal(s.get(phone).mode,'HUMAN');
 });
 test('V4 automatic generation remains blocked in HUMAN',async()=>{const s=setup();assert.equal((await createReviewedDraft(s,phone,{geminiApiKey:''})).created,false)});
 for(const mode of ['PAUSED','HANDOFF_PENDING'])test('V4 manual blocked in '+mode,async()=>{const s=setup();s.setMode(phone,mode);assert.equal((await createReviewedDraft(s,phone,{manual:true,geminiApiKey:''})).created,false)});
