@@ -62,7 +62,7 @@ export function createStore() {
     c.updatedAt = new Date().toISOString();
     return structuredClone(c);
   }
-  function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, manual = false, regenerate = false }) {
+  function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, generationMeta = {}, manual = false, regenerate = false }) {
     const c = getInternal(phone);
     if (!(c.mode === MODES.AI_ACTIVE || (manual && c.mode === MODES.HUMAN)) || c.optedOut || c.version !== expectedVersion) return { created: false, reason: 'Estado mudou; rascunho descartado' };
     const latest = [...c.messages].reverse().find(m => m.direction === 'inbound');
@@ -70,7 +70,7 @@ export function createStore() {
     if (!regenerate && c.drafts.some(d => d.sourceMessageId === sourceMessageId && d.conversationVersion === c.version && d.status !== 'SUPERSEDED')) return { created: false, reason: 'Rascunho ja existe para essa mensagem' };
     supersede(c);
     c.version += 1;
-    const draft = { id: randomUUID(), conversationVersion: c.version, sourceMessageId, text: String(text).slice(0, 1000), intent, provider, status: 'PENDING_REVIEW', createdAt: new Date().toISOString() };
+    const draft = { id: randomUUID(), conversationVersion: c.version, sourceMessageId, text: String(text).slice(0, 1000), intent, provider, generationMeta, status: 'PENDING_REVIEW', createdAt: new Date().toISOString() };
     c.drafts.push(draft);
     return { created: true, draft: structuredClone(draft) };
   }

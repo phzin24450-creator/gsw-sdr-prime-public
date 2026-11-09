@@ -6,7 +6,7 @@ import { createStore, MODES } from '../src/core.js';
 const phone='5511999999999';
 async function testServer(fn) {
   const store=createStore();
-  const app=createApp({ adminKey:'testing-admin-secret-12345',metaSecret:'meta-secret',verifyToken:'verify-token',demo:true,store,aiConfig:{apiKey:''}});
+  const app=createApp({ adminKey:'testing-admin-secret-12345',metaSecret:'meta-secret',verifyToken:'verify-token',demo:true,store,aiConfig:{geminiApiKey:''}});
   await new Promise(resolve=>app.listen(0,'127.0.0.1',resolve));
   try {return await fn({url:'http://127.0.0.1:'+app.address().port,store})}
   finally { await new Promise(resolve=>app.close(resolve)); }

@@ -29,22 +29,22 @@ test('pedidos de humano e opt-out são prioritários', () => {
 test('rascunho contextual é gerado e nunca enviado; preço não é inventado',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
   store.ingest({phone,id:'m1',text:'Quanto custa uma automação?'});
-  const r=await createReviewedDraft(store,phone,{apiKey:''});
+  const r=await createReviewedDraft(store,phone,{geminiApiKey:''});
   assert.equal(r.created,true);
   assert.equal(r.draft.provider,'rules');
   assert.equal(r.draft.intent,INTENTS.PRICING);
   assert.match(r.draft.text,/valores|opções/);
   assert.doesNotMatch(r.draft.text,/R\$\s*[0-9]/);
   assert.equal(store.get(phone).drafts.length,1);
-  assert.equal((await createReviewedDraft(store,phone,{apiKey:''})).created,false);
+  assert.equal((await createReviewedDraft(store,phone,{geminiApiKey:''})).created,false);
 });
 test('takeover humano durante geração longa descarta resposta atrasada',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
   store.ingest({phone,id:'m1',text:'Quero um site'});
   let release;
   const gate=new Promise(resolve=>{release=resolve});
-  const fetcher=async()=>{await gate;return {ok:true,json:async()=>({output:[{content:[{type:'output_text',text:'Mensagem de teste'}]}]})}};
-  const draftPromise=createReviewedDraft(store,phone,{apiKey:'fake-for-tests',model:'test-model'},fetcher);
+  const fetcher=async()=>{await gate;return {ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:'Mensagem de teste'}]}}]})}};
+  const draftPromise=createReviewedDraft(store,phone,{geminiApiKey:'fake-for-tests'},fetcher);
   await new Promise(resolve=>setImmediate(resolve));
   store.setMode(phone,MODES.HUMAN);
   release();
@@ -55,10 +55,10 @@ test('takeover humano durante geração longa descarta resposta atrasada',async(
 test('nova mensagem invalida o rascunho anterior',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
   store.ingest({phone,id:'m1',text:'Oi'});
-  await createReviewedDraft(store,phone,{apiKey:''});
+  await createReviewedDraft(store,phone,{geminiApiKey:''});
   store.ingest({phone,id:'m2',text:'Queria falar sobre um sistema'});
   assert.equal(store.get(phone).drafts[0].status,'SUPERSEDED');
-  const r=await createReviewedDraft(store,phone,{apiKey:''});
+  const r=await createReviewedDraft(store,phone,{geminiApiKey:''});
   assert.equal(r.created,true);
   assert.equal(store.get(phone).drafts[1].intent,INTENTS.SERVICES);
 });

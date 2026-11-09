@@ -12,7 +12,7 @@ const phone = '5511999999999';
 test('contexto validado altera versao e invalida rascunho antigo',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
   store.ingest({phone,id:'c1',text:'Quanto custa?'});
-  const old=await createReviewedDraft(store,phone,{apiKey:''});assert.equal(old.created,true);
+  const old=await createReviewedDraft(store,phone,{geminiApiKey:''});assert.equal(old.created,true);
   store.setContext(phone,{sector:'pet shop',challenge:'perco tempo respondendo',goal:'melhorar atendimento'});
   assert.equal(store.get(phone).drafts[0].status,'SUPERSEDED');
   assert.equal(store.get(phone).context.sector,'pet shop');
@@ -22,7 +22,7 @@ test('contexto validado altera versao e invalida rascunho antigo',async()=>{
 test('revisao exige rascunho pendente e nunca envia',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
   store.ingest({phone,id:'c2',text:'Preciso de site'});
-  const r=await createReviewedDraft(store,phone,{apiKey:''});
+  const r=await createReviewedDraft(store,phone,{geminiApiKey:''});
   const review=store.reviewDraft(phone,r.draft.id,'APPROVED');
   assert.equal(review.updated,true);assert.equal(review.sent,false);
   assert.equal(store.reviewDraft(phone,r.draft.id,'APPROVED').updated,false);
@@ -32,7 +32,7 @@ test('revisao exige rascunho pendente e nunca envia',async()=>{
 test('takeover cancela revisao pendente e nao permite aprovar',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
   store.ingest({phone,id:'c3',text:'preciso de site'});
-  const r=await createReviewedDraft(store,phone,{apiKey:''});
+  const r=await createReviewedDraft(store,phone,{geminiApiKey:''});
   store.setMode(phone,MODES.HUMAN);
   assert.equal(store.reviewDraft(phone,r.draft.id,'APPROVED').updated,false);
 });
@@ -65,7 +65,7 @@ test('schema usa namespace separado em vez de tabelas diretamente no public',asy
 });
 test('API exige autenticacao para contexto e revisao; nao existe rota de envio',async()=>{
   const store=createStore();
-  const app=createApp({adminKey:'admin-key-strong-enough-for-tests',metaSecret:'meta-secret',verifyToken:'verify',demo:true,store,aiConfig:{apiKey:''}});
+  const app=createApp({adminKey:'admin-key-strong-enough-for-tests',metaSecret:'meta-secret',verifyToken:'verify',demo:true,store,aiConfig:{geminiApiKey:''}});
   await new Promise(r=>app.listen(0,'127.0.0.1',r));
   try{
     const url='http://127.0.0.1:'+app.address().port, headers={authorization:'Bearer admin-key-strong-enough-for-tests','content-type':'application/json'};
@@ -79,7 +79,7 @@ test('API exige autenticacao para contexto e revisao; nao existe rota de envio',
 });
 test('geracao automatica opcional cria apenas rascunho apos webhook valido',async()=>{
   const store=createStore();store.setMode(phone,MODES.AI_ACTIVE);
-  const app=createApp({adminKey:'admin-key-strong-enough-for-tests',metaSecret:'meta-secret',verifyToken:'verify',autoDrafts:true,store,aiConfig:{apiKey:''}});
+  const app=createApp({adminKey:'admin-key-strong-enough-for-tests',metaSecret:'meta-secret',verifyToken:'verify',autoDrafts:true,store,aiConfig:{geminiApiKey:''}});
   await new Promise(r=>app.listen(0,'127.0.0.1',r));
   try {
     const url='http://127.0.0.1:'+app.address().port;

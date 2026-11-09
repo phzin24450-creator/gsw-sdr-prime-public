@@ -183,7 +183,7 @@ if (launchedDirectly) {
     }
     const store = process.env.DATABASE_URL ? await (await import('./db/postgres.js')).createPostgresStore(process.env.DATABASE_URL) : createStore();
     const operatorAuth = createOperatorAuth({username:process.env.OPERATOR_USERNAME,passwordScrypt:process.env.OPERATOR_PASSWORD_SCRYPT,origin:process.env.PUBLIC_ORIGIN,secure:process.env.NODE_ENV==='production'});
-    const app = createApp({ operatorAuth, integrationStatus:{ai:process.env.OPENAI_API_KEY?'configurada; teste real pendente':'regras locais',whatsapp:process.env.META_CONFIGURED==='true'?'configurado; teste real pendente':'nao configurado'}, adminKey: process.env.ADMIN_API_KEY, metaSecret: process.env.META_APP_SECRET, verifyToken: process.env.META_VERIFY_TOKEN,
+    const app = createApp({ operatorAuth, integrationStatus:{ai:process.env.GEMINI_API_KEY?'Gemini configurado · confira o provedor em cada resposta':'Gemini sem chave · regras locais',whatsapp:process.env.META_CONFIGURED==='true'?'configurado; teste real pendente':'nao configurado'}, adminKey: process.env.ADMIN_API_KEY, metaSecret: process.env.META_APP_SECRET, verifyToken: process.env.META_VERIFY_TOKEN,
       demo: process.env.ENABLE_DEMO === 'true', autoDrafts: process.env.AUTO_DRAFTS === 'true', store });
     const port = Number(process.env.PORT || 3000), host = process.env.HOST || '127.0.0.1';
     app.listen(port, host, () => console.log(`GSW SDR PRIME V4 em http://${host}:${port} (${process.env.DATABASE_URL ? 'PostgreSQL' : 'memoria de testes'})`));

@@ -10,7 +10,7 @@ function validPhone(phone) {
 function mapConversation(row, messages = [], drafts = []) {
   return { id: row.phone, mode: row.mode, optedOut: row.opted_out, version: Number(row.version), updatedAt: row.updated_at, context: row.context ?? {},
     messages: messages.map(m => ({ id: m.external_id, direction: m.direction, text: m.body, timestamp: m.occurred_at })),
-    drafts: drafts.map(d => ({ id: d.id, conversationVersion: Number(d.conversation_version), sourceMessageId: d.source_external_id, text: d.body, intent: d.intent, provider: d.provider, status: d.status, reviewedAt: d.reviewed_at, createdAt: d.created_at })) };
+    drafts: drafts.map(d => ({ id: d.id, conversationVersion: Number(d.conversation_version), sourceMessageId: d.source_external_id, text: d.body, intent: d.intent, provider: d.provider, generationMeta: d.generation_meta??{}, status: d.status, reviewedAt: d.reviewed_at, createdAt: d.created_at })) };
 }
 export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
   if (!url) throw new Error('DATABASE_URL ausente');
@@ -39,7 +39,7 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     const [c, m, d, history] = await Promise.all([
       pool.query('SELECT * FROM conversations WHERE phone=$1', [id]),
       pool.query('SELECT external_id, direction, body, occurred_at FROM (SELECT external_id, direction, body, occurred_at, created_at FROM messages WHERE conversation_phone=$1 ORDER BY created_at DESC LIMIT 50) recent ORDER BY created_at ASC', [id]),
-      pool.query('SELECT d.id,d.body,d.intent,d.provider,d.status,d.reviewed_at,d.conversation_version,d.created_at,m.external_id AS source_external_id FROM drafts d JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 ORDER BY d.created_at DESC LIMIT 25', [id]),
+      pool.query('SELECT d.id,d.body,d.intent,d.provider,d.generation_meta,d.status,d.reviewed_at,d.conversation_version,d.created_at,m.external_id AS source_external_id FROM drafts d JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 ORDER BY d.created_at DESC LIMIT 25', [id]),
       pool.query("SELECT details FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_REVISION' ORDER BY id DESC LIMIT 25", [id])
     ]);
     const result = mapConversation(c.rows[0], m.rows, d.rows);
@@ -126,7 +126,7 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     });
   }
   async function archiveDraft(client, key, d, sourceMessageId) {
-    const snapshot = {id:d.id,conversationVersion:Number(d.conversation_version),sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,status:'SUPERSEDED',createdAt:d.created_at,reviewedAt:d.reviewed_at};
+    const snapshot = {id:d.id,conversationVersion:Number(d.conversation_version),sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,generationMeta:d.generation_meta??{},status:'SUPERSEDED',createdAt:d.created_at,reviewedAt:d.reviewed_at};
     await client.query("INSERT INTO audit_events(conversation_phone,event_type,details) VALUES($1,'DRAFT_REVISION',$2::jsonb)",[key,JSON.stringify(snapshot)]);
   }
   async function editDraft(phone, draftId, {text, expectedVersion}) {
@@ -140,10 +140,10 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
       const id=randomUUID(),version=Number(c.version)+1;
       await client.query('UPDATE conversations SET version=version+1,updated_at=NOW() WHERE phone=$1',[key]);
       const row=(await client.query('UPDATE drafts SET id=$3,body=$4,conversation_version=$5,created_at=NOW() WHERE conversation_phone=$1 AND id=$2 RETURNING *',[key,draftId,id,text.trim(),version])).rows[0];
-      return {updated:true,sent:false,draft:{id,conversationVersion:version,sourceMessageId:d.external_id,text:row.body,intent:row.intent,provider:row.provider,status:row.status,createdAt:row.created_at}};
+      return {updated:true,sent:false,draft:{id,conversationVersion:version,sourceMessageId:d.external_id,text:row.body,intent:row.intent,provider:row.provider,generationMeta:row.generation_meta??{},status:row.status,createdAt:row.created_at}};
     });
   }
-  async function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, manual = false, regenerate = false }) {
+  async function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, generationMeta = {}, manual = false, regenerate = false }) {
     const key = validPhone(phone);
     return transaction(async client => {
       const c = await ensureLocked(client, key);
@@ -156,11 +156,11 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
       const version = expectedVersion + 1;
       await client.query('UPDATE conversations SET version=version+1,updated_at=NOW() WHERE phone=$1',[key]);
       await client.query("UPDATE drafts SET status='SUPERSEDED' WHERE conversation_phone=$1 AND status='PENDING_REVIEW'",[key]);
-      const saved = await client.query(`INSERT INTO drafts(id,conversation_phone,source_message_id,conversation_version,intent,provider,body)
-        VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(source_message_id) DO UPDATE SET id=EXCLUDED.id,conversation_version=EXCLUDED.conversation_version,intent=EXCLUDED.intent,provider=EXCLUDED.provider,body=EXCLUDED.body,status='PENDING_REVIEW',reviewed_at=NULL,created_at=NOW() RETURNING *`,
-        [randomUUID(),key,m.id,version,intent,provider,String(text).slice(0,1000)]);
+      const saved = await client.query(`INSERT INTO drafts(id,conversation_phone,source_message_id,conversation_version,intent,provider,body,generation_meta)
+        VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb) ON CONFLICT(source_message_id) DO UPDATE SET id=EXCLUDED.id,conversation_version=EXCLUDED.conversation_version,intent=EXCLUDED.intent,provider=EXCLUDED.provider,body=EXCLUDED.body,generation_meta=EXCLUDED.generation_meta,status='PENDING_REVIEW',reviewed_at=NULL,created_at=NOW() RETURNING *`,
+        [randomUUID(),key,m.id,version,intent,provider,String(text).slice(0,1000),JSON.stringify(generationMeta)]);
       const d = saved.rows[0];
-      return {created:true,draft:{id:d.id,conversationVersion:version,sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,status:d.status,createdAt:d.created_at}};
+      return {created:true,draft:{id:d.id,conversationVersion:version,sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,generationMeta:d.generation_meta??{},status:d.status,createdAt:d.created_at}};
     });
   }
   return { get, list, ingest, setMode, setContext, reviewDraft, editDraft, erase, saveDraft, ping: () => pool.query('SELECT 1'), close: () => pool.end() };
