@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createApp } from '../src/server.js';
 import { createStore } from '../src/core.js';
-import { commercialPrompt, handoffAccepted, reviewCopy, trimBoilerplate } from '../src/commercial.js';
+import { commercialPrompt, handoffAccepted, reviewCopy, polishCopy } from '../src/commercial.js';
 import { createReviewedDraft } from '../src/advisor.js';
 
 const phone='000000059001';
@@ -73,8 +73,10 @@ test('revisor bloqueia promessas, repetição, múltiplas perguntas e handoff se
   assert.equal(reviewCopy('Garanto que vai funcionar.',c,decision),'unsafe_claim');
   assert.equal(reviewCopy('Um painel pode mostrar o responsável, eliminando esse retrabalho.',c,decision),'absolute_outcome');
   assert.equal(reviewCopy('Um painel pode mostrar o responsável e reduzir o retrabalho.',c,decision),null);
-  assert.equal(trimBoilerplate('Compreendo perfeitamente. Sua equipe continua respondendo.'),'Sua equipe continua respondendo.');
-  assert.equal(trimBoilerplate('Com certeza podemos avaliar.'),'Com certeza podemos avaliar.');
+  assert.equal(polishCopy('Compreendo perfeitamente. Sua equipe continua respondendo.'),'Sua equipe continua respondendo.');
+  assert.equal(polishCopy('Com certeza podemos avaliar.'),'Com certeza podemos avaliar.');
+  assert.equal(polishCopy('Podemos organizar a triagem de documentos, sem que o cliente perceba qualquer automação na conversa.'),'Podemos organizar a triagem de documentos, mantendo a conversa com sua equipe.');
+  assert.equal(reviewCopy('Os clientes não perceberão a automação.',c,decision),'unverified_visibility');
   assert.equal(reviewCopy('Visitei o seu site.',c,opening),'unsupported_research');
   assert.equal(reviewCopy('Quer saber como estamos aplicando isso no seu segmento?',c,opening),'unsupported_experience');
   assert.equal(reviewCopy('Posso explicar o que propomos para o seu segmento?',c,opening),'unsupported_sector');

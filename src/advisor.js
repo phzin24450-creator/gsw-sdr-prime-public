@@ -1,7 +1,7 @@
 import { classify, fold, INTENTS } from './intent.js';
 import { MODES } from './core.js';
 
-import { commercialPrompt, reviewCopy, trimBoilerplate } from './commercial.js';
+import { commercialPrompt, reviewCopy, polishCopy } from './commercial.js';
 
 function serviceFromHistory(messages = []) {
   const history = [...messages].reverse().map(m => fold(m.text || '')).slice(0, 8);
@@ -96,7 +96,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     let data;try{data=await response.json()}catch{throw new GenerationError('invalid_response')}
     const candidate=data.candidates?.[0];
     if(data.promptFeedback?.blockReason || ['SAFETY','RECITATION','BLOCKLIST','PROHIBITED_CONTENT','SPII'].includes(candidate?.finishReason)) throw new GenerationError('safety_block');
-    const text=trimBoilerplate((candidate?.content?.parts||[]).filter(p=>!p.thought&&typeof p.text==='string').map(p=>p.text).join('').trim());
+    const text=polishCopy((candidate?.content?.parts||[]).filter(p=>!p.thought&&typeof p.text==='string').map(p=>p.text).join('').trim());
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
     const issue=reviewCopy(text,conversation,decision);
     if(issue) throw new GenerationError('quality_block');
