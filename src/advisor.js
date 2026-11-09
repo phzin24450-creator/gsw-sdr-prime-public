@@ -98,7 +98,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     if(data.promptFeedback?.blockReason || ['SAFETY','RECITATION','BLOCKLIST','PROHIBITED_CONTENT','SPII'].includes(candidate?.finishReason)) throw new GenerationError('safety_block');
     const text=polishCopy((candidate?.content?.parts||[]).filter(p=>!p.thought&&typeof p.text==='string').map(p=>p.text).join('').trim());
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
-    const issue=reviewCopy(text,conversation,decision);
+    const issue=reviewCopy(text,conversation,decision,config.now);
     if(issue) throw new GenerationError('quality_block');
     return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success'}};
   }catch(error){if(error instanceof GenerationError)throw error;throw new GenerationError(error.name==='AbortError'?'timeout':'network_error')}

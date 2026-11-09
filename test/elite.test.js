@@ -200,3 +200,28 @@ test('objetivo informado não vira observação externa em abertura', () => {
   assert.equal(reviewCopy('Notei o trabalho de vocês com uniformes.', conversation, opening), 'unsupported_research');
   assert.equal(reviewCopy('Como vocês apresentam as opções de uniformes hoje?', conversation, opening), null);
 });
+
+test('bloqueia pressupostos comerciais sem evidência, inclusive dentro de perguntas', () => {
+  const conversation = {context: {goal: 'Apresentar uniformes'}, drafts: [{text: 'Volume crescente de encomendas'}]};
+  for (const copy of [
+    'Como vocês lidam com um volume crescente de encomendas?',
+    'O aumento dos pedidos pode ser organizado pelo site.',
+    'Vamos conversar sobre as dificuldades comerciais da sua empresa?'
+  ]) assert.equal(reviewCopy(copy, conversation, opening), 'unsupported_lead_fact');
+  assert.equal(reviewCopy('Como chegam as encomendas de uniformes hoje?', conversation, opening), null);
+  const decision = {latest: {text: 'Temos um volume crescente de encomendas.'}};
+  assert.equal(reviewCopy('Para esse volume crescente de encomendas, um catálogo pode ajudar na consulta.', conversation, decision), null);
+});
+
+test('bloqueia garantias de precisão e resultado, preservando entregáveis e oportunidades', () => {
+  for (const copy of [
+    'Podemos estruturar o perfil, garantindo que as informações de localização estejam corretas.',
+    'O site vai aumentar as vendas.',
+    'O painel deixa os dados sempre atualizados.'
+  ]) assert.equal(reviewCopy(copy, {}, opening), 'absolute_outcome');
+  for (const copy of [
+    'Podemos revisar o endereço do perfil e corrigir divergências que encontrarmos.',
+    'Uma página com os modelos pode facilitar a consulta antes do orçamento.',
+    'Podemos testar uma campanha local e acompanhar os pedidos recebidos.'
+  ]) assert.equal(reviewCopy(copy, {}, opening), null);
+});
