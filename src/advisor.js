@@ -10,7 +10,6 @@ function serviceFromHistory(messages = []) {
     if (/site|landing page|pagina web/.test(s)) return 'site';
     if (/seo|trafego|anuncio|google/.test(s)) return 'presença no Google e marketing digital';
     if (/sistema|software|dashboard|painel/.test(s)) return 'sistema sob medida';
-    if (/inteligencia artificial|\bia\b/.test(s)) return 'solução com inteligência artificial';
   }
   return null;
 }
@@ -23,9 +22,9 @@ export function localDraft(intent, latest, context = {}) {
       if (/whatsapp|automacao|atendimento/.test(s)) return 'A GSW trabalha com automações de atendimento. Hoje, qual parte do seu WhatsApp mais toma tempo: responder dúvidas, organizar pedidos ou fazer acompanhamento?';
       if (/site|pagina|landing/.test(s)) return 'A GSW desenvolve sites e soluções digitais conforme a necessidade. Você já tem um site que precisa melhorar ou quer criar o primeiro?';
       if (/seo|google|trafego|anuncio/.test(s)) return 'A GSW também atua com presença no Google, SEO e tráfego pago. Seu foco é aumentar a procura pelo negócio ou melhorar a presença digital atual?';
-      if (/inteligencia artificial|\bia\b/.test(s)) return 'A GSW desenvolve soluções com inteligência artificial. Você imagina usar IA no atendimento aos clientes ou em algum processo interno?';
+      if (/inteligencia artificial|\bia\b/.test(s)) return 'A utilização de IA depende da necessidade do projeto. Qual tarefa ou processo você quer melhorar?';
       if (/sistema|software|painel|dashboard/.test(s)) return 'A GSW desenvolve sistemas e painéis sob medida. Que tarefa ou informação você gostaria de organizar melhor no seu negócio?';
-      return 'A GSW desenvolve sistemas, automações, inteligência artificial, sites e outras soluções digitais. Qual desafio você gostaria de resolver primeiro?';
+      return 'A GSW desenvolve soluções digitais conforme a necessidade de cada empresa. O que você gostaria de melhorar no seu negócio?';
     }
     case INTENTS.SCHEDULING: return 'Podemos encaminhar seu interesse para uma conversa com a equipe. Qual assunto você gostaria de tratar e qual período costuma ser melhor para você? Ainda não estou confirmando nenhum horário.';
     case INTENTS.OBJECTION: return 'Entendido, obrigado por explicar. Não quero insistir. Se fizer sentido, posso anotar o principal ponto para a equipe considerar; caso prefira, encerramos por aqui.';
@@ -43,7 +42,7 @@ export function prepareDecision(conversation, { manual = false, opening = false 
   if (opening) {
     if (!manual || conversation.messages?.length) return {canDraft:false,reason:'Primeiro contato disponível apenas antes de mensagens registradas.'};
     return {canDraft:true,opening:true,intent:'OPENING',latest:{id:null,text:''},
-      fallback:'Oi, aqui é o Pedro, da GSW. Trabalho com soluções de tecnologia para empresas. Posso explicar brevemente por que estou entrando em contato?'};
+      fallback:'Oi, aqui é o Pedro, da GSW, uma empresa de tecnologia especializada em soluções digitais e operações inteligentes para negócios. Posso explicar brevemente o motivo do contato?'};
   }
   const latest = getLatestInbound(conversation);
   if (!latest) return { canDraft: false, reason: 'Nenhuma mensagem recebida' };

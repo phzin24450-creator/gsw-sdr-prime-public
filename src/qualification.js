@@ -3,10 +3,13 @@ import { MODES } from './core.js';
 
 const SERVICE_PATTERNS = [
   ['WhatsApp / automações', /whatsapp|automacao|chatbot/],
-  ['Sites', /\bsite\b|landing page|loja virtual/],
-  ['Sistemas sob medida', /sistema|software|painel|dashboard|aplicativo/],
-  ['IA aplicada', /inteligencia artificial|\bia\b/],
-  ['SEO / Google / anúncios', /\bseo\b|trafego|google|anuncios/]
+  ['Sites', /\bsites?\b|loja virtual/],
+  ['Landing pages', /landing page/],
+  ['Sistemas sob medida', /sistema|software|aplicativo/],
+  ['Painéis administrativos', /painel|paineis|dashboard/],
+  ['Integrações', /integracao|integracoes/],
+  ['Google / SEO', /\bseo\b|google/],
+  ['Tráfego pago', /trafego|anuncios|campanhas pagas/]
 ];
 
 // Extrai só sinais explicitamente mencionados; não inventa orçamento, decisão ou intenção de compra.
@@ -25,7 +28,7 @@ export function summarizeQualification(conversation) {
   if (!context.challenge && !context.goal) missing.push('desafio ou objetivo comercial');
   if (!hasUrgentSignal) missing.push('prazo (não informado)');
   return {
-    summary: services.length ? `Interesse mencionado: ${services.join(', ')}.` : 'Serviço ainda não identificado.',
+    summary: services.length ? `Serviços mencionados (interesse a confirmar): ${services.join(', ')}.` : 'Serviço ainda não identificado.',
     services,
     sector: context.sector || null,
     challenge: context.challenge || null,

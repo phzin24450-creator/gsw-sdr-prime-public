@@ -166,3 +166,31 @@ test('fallback que repete versão arquivada mantém a edição atual e a explica
   assert.equal(store.get(phone).drafts.length,2);
   assert.equal(store.get(phone).version,edit.draft.conversationVersion);
 });
+
+test('permissao para explicar ou apresentar opcoes nao autoriza handoff', () => {
+  for (const text of ['Pode explicar.', 'Pode apresentar as opções.', 'Sim', 'Pode', 'Agora não quero falar com o responsável.']) {
+    assert.equal(handoffAccepted(text), false);
+    const decision = {latest: {text}};
+    assert.equal(reviewCopy('Vou te encaminhar ao responsável.', {}, decision), 'handoff_without_consent');
+    assert.equal(reviewCopy('Posso explicar uma possibilidade de estrutura para o site.', {}, decision), null);
+  }
+  assert.equal(handoffAccepted('Pode me encaminhar ao responsável de desenvolvimento.'), true);
+});
+
+test('abertura excessiva e promessas absolutas sao bloqueadas sem bloquear possibilidade concreta', () => {
+  assert.equal(reviewCopy('palavra '.repeat(91), {}, opening), 'opening_too_long');
+  for (const text of ['Isso funciona sem aumentar o trabalho.', 'Você ficará em primeiro lugar no Google.', 'Terá retorno financeiro garantido.']) {
+    assert.equal(reviewCopy(text, {}, opening), 'absolute_outcome');
+  }
+  assert.equal(reviewCopy('Um site poderia reunir os serviços e facilitar o pedido de orçamento. Qual serviço vocês querem destacar?', {}, opening), null);
+});
+
+test('falar sobre o responsável não autoriza encaminhamento', () => {
+  assert.equal(handoffAccepted('Pode falar sobre o responsável de desenvolvimento?'), false);
+  assert.equal(handoffAccepted('Pode falar com o responsável de desenvolvimento.'), true);
+});
+
+test('bloqueia oferta direta de agentes de IA e permite descrever a tecnologia no projeto', () => {
+  assert.equal(reviewCopy('Oferecemos agentes de IA para sua empresa.', {}, opening), 'standalone_ai_offer');
+  assert.equal(reviewCopy('Se fizer sentido para esse processo, o sistema pode usar IA na triagem.', {}, opening), null);
+});

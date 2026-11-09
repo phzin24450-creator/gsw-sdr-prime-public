@@ -17,3 +17,17 @@ test('pedido de humano tem precedencia no proximo passo',()=>{
  assert.equal(q.handoffRecommended,true);
  assert.match(q.nextAction,/humano/);
 });
+
+test('IA isolada nao cria uma oferta comercial', () => {
+  const store = createStore();
+  store.ingest({ phone, id: 'ai-only', text: 'Vocês vendem agentes de IA?' });
+  assert.deepEqual(summarizeQualification(store.get(phone)).services, []);
+});
+
+test('separa landing pages, paineis e trafego sem afirmar interesse', () => {
+  const store = createStore();
+  store.ingest({ phone, id: 'services', text: 'Já tenho landing page, painel e tráfego pago.' });
+  const result = summarizeQualification(store.get(phone));
+  assert.deepEqual(result.services, ['Landing pages', 'Painéis administrativos', 'Tráfego pago']);
+  assert.match(result.summary, /interesse a confirmar/);
+});
