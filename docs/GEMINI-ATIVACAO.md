@@ -1,4 +1,4 @@
-# Gemini — integração preparada, ativação real pendente
+# Gemini — validação em desenvolvimento
 
 ## Diagnóstico
 
@@ -20,11 +20,15 @@ A versão publicada só consultava `OPENAI_API_KEY` e a OpenAI Responses API. Se
 
 49 testes locais passaram. As chamadas Gemini nos testes são **simuladas**, incluindo seis situações comerciais fictícias. O código de navegador verifica as etiquetas de regras locais e Gemini simulado em 360/1440px. Isso não substitui uma chamada real.
 
-Conta Google AI Studio acessível: projeto `Default Gemini Project`, ID `gen-lang-client-0898581877`, modalidade **Free tier**. Não havia chave listada. Formulário de criação preparado para `GSW SDR PRIME V4 - Render`; criação ainda não confirmada.
+A chave substituta está mascarada no ambiente do serviço Render `gsw-sdr-prime-dev`, no projeto Google AI Studio Free Tier. A revogação da chave anterior está pendente. A migração aditiva foi aplicada ao Supabase antes da publicação.
 
-O navegador do Render solicitou login, embora o conector Render continue conectado. Esse acesso de navegador é necessário para transferir a chave diretamente entre as interfaces sem revelá-la em chat ou código. Não foi iniciada cobrança.
+Deploy validado: `dep-dbonmsjm8hqs73eg8n1g`, commit `832a02b52386bd64119c330794fe2abc906f02b2`.
 
-Antes de publicar: concluir criação segura da chave, confirmar a configuração no Render, aplicar migração aditiva, executar teste real com leads fictícios e confirmar `provider:gemini` no painel. Não considerar esta branch ativada enquanto esses passos estiverem pendentes. A versão publicada foi mantida.
+- Oficina fictícia (final 0091): o Gemini abordou a consulta de etapas do serviço e perguntou sobre integrar ao site existente.
+- Escola fictícia (final 0092): o Gemini relacionou a duplicidade de atendimento às solicitações de matrícula e perguntou pelo volume mensal.
+- Nos dois casos, o painel exibiu **Gemini · IA generativa**. O PostgreSQL confirmou `gemini-3.1-flash-lite`, sucesso e modo `HUMAN`.
+- A edição da escola foi salva no histórico, preservando a versão anterior e a etiqueta do provedor. A área de transferência recebeu o texto revisado. Um terceiro caso fictício confirmou o bloqueio por opt-out. Nenhuma mensagem foi enviada.
+- Com o 3.8 Flash, a indisponibilidade e os timeouts foram exibidos ao lado do fallback de regras locais.
 
 ## Referências oficiais consultadas
 
