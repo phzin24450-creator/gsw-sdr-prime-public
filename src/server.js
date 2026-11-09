@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createStore, normalizePhone } from './core.js';
 import { createOperatorAuth } from './auth.js';
 import { createReviewedDraft } from './advisor.js';
+import { TONES } from './commercial.js';
 import { summarizeQualification } from './qualification.js';
 
 export function safeEqual(a, b) {
@@ -66,7 +67,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
   return http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://localhost');
-      if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'v4.0.0', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
+      if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'v4.1.0', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
       if (req.method === 'GET' && url.pathname === '/ready') {
         try { if (store.ping) await store.ping(); return json(res,200,{ok:true}); }
         catch { return json(res,503,{ok:false}); }
@@ -139,8 +140,8 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
         }
         if (match && req.method === 'POST' && match[2] === 'draft') {
           const raw=await readRaw(req,4096); const data=raw.length?JSON.parse(raw.toString('utf8')):{};
-          if (data.tone && !['consultivo','objetivo','acolhedor'].includes(data.tone)) return json(res,400,{error:'Estilo invalido'});
-          return json(res,200,await createReviewedDraft(store,match[1],{...aiConfig,manual:true,regenerate:data.regenerate===true,expectedVersion:data.expectedVersion,tone:data.tone},fetcher));
+          if (data.tone && !TONES.includes(data.tone)) return json(res,400,{error:'Estilo invalido'});
+          return json(res,200,await createReviewedDraft(store,match[1],{...aiConfig,manual:true,regenerate:data.regenerate===true,expectedVersion:data.expectedVersion,tone:data.tone,opening:data.opening===true},fetcher));
         }
         const edit = /^\/api\/conversations\/(\d{8,15})\/drafts\/([a-f0-9-]{36})\/edit$/i.exec(url.pathname);
         if (edit && req.method === 'POST') {
@@ -150,6 +151,11 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
         if (match && req.method === 'POST' && match[2] === 'context') {
           const data = JSON.parse((await readRaw(req, 4096)).toString('utf8'));
           return json(res, 200, await store.setContext(match[1], data));
+        }
+        const feedback = /^\/api\/conversations\/(\d{8,15})\/drafts\/([a-f0-9-]{36})\/feedback$/i.exec(url.pathname);
+        if (feedback && req.method === 'POST') {
+          const data=JSON.parse((await readRaw(req,4096)).toString('utf8'));
+          return json(res,200,await store.recordFeedback(feedback[1],feedback[2],data.category));
         }
         const review = /^\/api\/conversations\/(\d{8,15})\/drafts\/([a-f0-9-]{36})\/review$/i.exec(url.pathname);
         if (review && req.method === 'POST') {

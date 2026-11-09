@@ -1,10 +1,15 @@
 import { randomUUID } from 'node:crypto';
 import { classify, INTENTS } from './intent.js';
+import { CONTEXT_FIELDS } from './commercial.js';
 
 export const MODES = Object.freeze({ HUMAN: 'HUMAN', AI_ACTIVE: 'AI_ACTIVE', HANDOFF_PENDING: 'HANDOFF_PENDING', PAUSED: 'PAUSED' });
 const validModes = new Set(Object.values(MODES));
 const REVIEW_DECISIONS = new Set(['APPROVED', 'REJECTED']);
-const CONTEXT_KEYS = new Set(['sector', 'challenge', 'goal']);
+const CONTEXT_KEYS = new Set(CONTEXT_FIELDS);
+const FEEDBACK = new Set(['boa','longa','generica','comercial','contexto','repetida','artificial','interesse','objecao','avanco']);
+export function validateFeedback(category) {
+  if (!FEEDBACK.has(category)) throw new Error('Feedback invalido');
+}
 export function validateContext(context) {
   if (!context || typeof context !== 'object' || Array.isArray(context)) throw new Error('Contexto invalido');
   const clean = {};
@@ -28,6 +33,7 @@ export function createStore() {
   // Fallback estritamente local para testes. DATABASE_URL ativa o Postgres.
   const conversations = new Map();
   const seen = new Set();
+  const feedback = new Map();
   function getInternal(phone) {
     const id = normalizePhone(phone);
     if (!id) throw new Error('Telefone invalido');
@@ -62,12 +68,14 @@ export function createStore() {
     c.updatedAt = new Date().toISOString();
     return structuredClone(c);
   }
-  function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, generationMeta = {}, manual = false, regenerate = false }) {
+  function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, generationMeta = {}, manual = false, regenerate = false, opening = false }) {
     const c = getInternal(phone);
     if (!(c.mode === MODES.AI_ACTIVE || (manual && c.mode === MODES.HUMAN)) || c.optedOut || c.version !== expectedVersion) return { created: false, reason: 'Estado mudou; rascunho descartado' };
     const latest = [...c.messages].reverse().find(m => m.direction === 'inbound');
-    if (!latest || latest.id !== sourceMessageId) return { created: false, reason: 'Chegou uma mensagem mais recente' };
+    if (opening ? (c.messages.length || sourceMessageId!==null) : (!latest || latest.id !== sourceMessageId)) return { created: false, reason: 'Chegou uma mensagem mais recente' };
     if (!regenerate && c.drafts.some(d => d.sourceMessageId === sourceMessageId && d.conversationVersion === c.version && d.status !== 'SUPERSEDED')) return { created: false, reason: 'Rascunho ja existe para essa mensagem' };
+    const current = c.drafts.find(d=>d.sourceMessageId===sourceMessageId && d.conversationVersion===c.version && d.status==='PENDING_REVIEW');
+    if (current && current.provider===provider && current.text.trim()===String(text).trim()) return {created:false,draft:structuredClone(current),reason:'A sugestão já é a versão atual.'};
     supersede(c);
     c.version += 1;
     const draft = { id: randomUUID(), conversationVersion: c.version, sourceMessageId, text: String(text).slice(0, 1000), intent, provider, generationMeta, status: 'PENDING_REVIEW', createdAt: new Date().toISOString() };
@@ -99,20 +107,30 @@ export function createStore() {
     const c = getInternal(phone), d = c.drafts.find(d => d.id === draftId);
     if (typeof text !== 'string' || !text.trim() || text.length > 1000) throw new Error('Texto invalido');
     if (!d || d.status !== 'PENDING_REVIEW' || c.version !== expectedVersion || d.conversationVersion !== c.version || c.optedOut || ![MODES.HUMAN, MODES.AI_ACTIVE].includes(c.mode)) return {updated:false, reason:'A conversa ou sugestão mudou. Gere uma nova sugestão.'};
+    if (d.text === text.trim()) return {updated:true,unchanged:true,draft:structuredClone(d),sent:false};
     const previous = structuredClone(d); previous.status = 'SUPERSEDED';
     c.drafts.splice(c.drafts.indexOf(d), 0, previous);
     d.id = randomUUID(); d.text = text.trim(); d.createdAt = new Date().toISOString();
     c.version += 1; d.conversationVersion = c.version;
     return {updated:true, draft:structuredClone(d), sent:false};
   }
+  function recordFeedback(phone, draftId, category) {
+    validateFeedback(category);
+    const c = getInternal(phone);
+    if (!c.drafts.some(d=>d.id===draftId)) return {recorded:false,reason:'Sugestão não encontrada nesta conversa.'};
+    if (!feedback.has(c.id)) feedback.set(c.id, new Set());
+    feedback.get(c.id).add(draftId+':'+category);
+    return {recorded:true};
+  }
   function erase(phone) {
     const key = normalizePhone(phone);
     if (!key) throw new Error('Telefone invalido');
     const record = conversations.get(key);
     if (record) for (const m of record.messages) seen.delete(m.id);
+    feedback.delete(key);
     const hadData = conversations.delete(key);
     return { deleted: hadData };
   }
   function list() { return [...conversations.values()].map(c => ({ id: c.id, mode: c.mode, version: c.version, optedOut: c.optedOut, messageCount: c.messages.length, updatedAt: c.updatedAt })); }
-  return { get: phone => structuredClone(getInternal(phone)), ingest, setMode, setContext, saveDraft, editDraft, reviewDraft, erase, list };
+  return { get: phone => structuredClone(getInternal(phone)), ingest, setMode, setContext, saveDraft, editDraft, reviewDraft, recordFeedback, erase, list };
 }

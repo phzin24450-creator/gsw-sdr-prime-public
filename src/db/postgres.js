@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { normalizePhone, MODES, assertMode, validateContext } from '../core.js';
+import { normalizePhone, MODES, assertMode, validateContext, validateFeedback } from '../core.js';
 import { classify, INTENTS } from '../intent.js';
 
 function validPhone(phone) {
@@ -39,11 +39,14 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     const [c, m, d, history] = await Promise.all([
       pool.query('SELECT * FROM conversations WHERE phone=$1', [id]),
       pool.query('SELECT external_id, direction, body, occurred_at FROM (SELECT external_id, direction, body, occurred_at, created_at FROM messages WHERE conversation_phone=$1 ORDER BY created_at DESC LIMIT 50) recent ORDER BY created_at ASC', [id]),
-      pool.query('SELECT d.id,d.body,d.intent,d.provider,d.generation_meta,d.status,d.reviewed_at,d.conversation_version,d.created_at,m.external_id AS source_external_id FROM drafts d JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 ORDER BY d.created_at DESC LIMIT 25', [id]),
+      pool.query('SELECT d.id,d.body,d.intent,d.provider,d.generation_meta,d.status,d.reviewed_at,d.conversation_version,d.created_at,m.external_id AS source_external_id FROM drafts d LEFT JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 ORDER BY d.created_at DESC LIMIT 25', [id]),
       pool.query("SELECT details FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_REVISION' ORDER BY id DESC LIMIT 25", [id])
     ]);
     const result = mapConversation(c.rows[0], m.rows, d.rows);
-    result.drafts = [...result.drafts, ...history.rows.map(r=>r.details)].sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt));
+    // Reads can overlap a commit. Prefer the live row when its ID also appears in the audit snapshot.
+    const revisions = new Map(history.rows.map(r=>[r.details.id,r.details]));
+    for (const draft of result.drafts) revisions.set(draft.id,draft);
+    result.drafts = [...revisions.values()].sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt) || a.conversationVersion-b.conversationVersion);
     return result;
   }
   async function erase(phone) {
@@ -126,7 +129,7 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     });
   }
   async function archiveDraft(client, key, d, sourceMessageId) {
-    const snapshot = {id:d.id,conversationVersion:Number(d.conversation_version),sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,generationMeta:d.generation_meta??{},status:'SUPERSEDED',createdAt:d.created_at,reviewedAt:d.reviewed_at};
+    const snapshot = {id:d.id,conversationVersion:Number(d.conversation_version),sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,generationMeta:d.generation_meta??{},status:d.status==='PENDING_REVIEW'?'SUPERSEDED':d.status,createdAt:d.created_at,reviewedAt:d.reviewed_at};
     await client.query("INSERT INTO audit_events(conversation_phone,event_type,details) VALUES($1,'DRAFT_REVISION',$2::jsonb)",[key,JSON.stringify(snapshot)]);
   }
   async function editDraft(phone, draftId, {text, expectedVersion}) {
@@ -134,8 +137,9 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     if (typeof text !== 'string' || !text.trim() || text.length>1000) throw new Error('Texto invalido');
     return transaction(async client => {
       const c = await ensureLocked(client,key);
-      const d = (await client.query('SELECT d.*,m.external_id FROM drafts d JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 AND d.id=$2 FOR UPDATE OF d',[key,draftId])).rows[0];
+      const d = (await client.query('SELECT d.*,m.external_id FROM drafts d LEFT JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 AND d.id=$2 FOR UPDATE OF d',[key,draftId])).rows[0];
       if (!d || d.status!=='PENDING_REVIEW' || Number(c.version)!==expectedVersion || Number(d.conversation_version)!==Number(c.version) || c.opted_out || ![MODES.HUMAN,MODES.AI_ACTIVE].includes(c.mode)) return {updated:false,reason:'A conversa ou sugestão mudou. Gere uma nova sugestão.'};
+      if (d.body===text.trim()) return {updated:true,unchanged:true,sent:false,draft:mapConversation(c,[],[{...d,source_external_id:d.external_id}]).drafts[0]};
       await archiveDraft(client,key,d,d.external_id);
       const id=randomUUID(),version=Number(c.version)+1;
       await client.query('UPDATE conversations SET version=version+1,updated_at=NOW() WHERE phone=$1',[key]);
@@ -143,25 +147,52 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
       return {updated:true,sent:false,draft:{id,conversationVersion:version,sourceMessageId:d.external_id,text:row.body,intent:row.intent,provider:row.provider,generationMeta:row.generation_meta??{},status:row.status,createdAt:row.created_at}};
     });
   }
-  async function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, generationMeta = {}, manual = false, regenerate = false }) {
+  async function saveDraft({ phone, expectedVersion, sourceMessageId, text, intent, provider, generationMeta = {}, manual = false, regenerate = false, opening = false }) {
     const key = validPhone(phone);
     return transaction(async client => {
       const c = await ensureLocked(client, key);
       if (!(c.mode === MODES.AI_ACTIVE || (manual && c.mode === MODES.HUMAN)) || c.opted_out || Number(c.version) !== expectedVersion) return { created: false, reason: 'Estado mudou; rascunho descartado' };
       const m = (await client.query("SELECT id,external_id FROM messages WHERE conversation_phone=$1 AND direction='inbound' ORDER BY created_at DESC, id DESC LIMIT 1",[key])).rows[0];
-      if (!m || m.external_id !== sourceMessageId) return { created: false, reason: 'Chegou uma mensagem mais recente' };
-      const old = (await client.query('SELECT * FROM drafts WHERE source_message_id=$1',[m.id])).rows[0];
+      if (opening) {
+        const any = (await client.query('SELECT 1 FROM messages WHERE conversation_phone=$1 LIMIT 1',[key])).rows[0];
+        if (any || sourceMessageId!==null) return {created:false,reason:'Já existem mensagens nesta conversa.'};
+      } else if (!m || m.external_id !== sourceMessageId) return { created: false, reason: 'Chegou uma mensagem mais recente' };
+      const old = (opening
+        ? await client.query('SELECT * FROM drafts WHERE conversation_phone=$1 AND source_message_id IS NULL',[key])
+        : await client.query('SELECT * FROM drafts WHERE source_message_id=$1',[m.id])).rows[0];
       if (old && !regenerate && Number(old.conversation_version) === expectedVersion && old.status !== 'SUPERSEDED') return {created:false,reason:'Rascunho ja existe para essa mensagem'};
+      if (old && old.status==='PENDING_REVIEW' && Number(old.conversation_version)===expectedVersion && old.provider===provider && old.body.trim()===String(text).trim()) {
+        return {created:false,draft:mapConversation(c,[],[{...old,source_external_id:sourceMessageId}]).drafts[0],reason:'A sugestão já é a versão atual.'};
+      }
       if (old) await archiveDraft(client,key,old,sourceMessageId);
       const version = expectedVersion + 1;
       await client.query('UPDATE conversations SET version=version+1,updated_at=NOW() WHERE phone=$1',[key]);
       await client.query("UPDATE drafts SET status='SUPERSEDED' WHERE conversation_phone=$1 AND status='PENDING_REVIEW'",[key]);
-      const saved = await client.query(`INSERT INTO drafts(id,conversation_phone,source_message_id,conversation_version,intent,provider,body,generation_meta)
-        VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb) ON CONFLICT(source_message_id) DO UPDATE SET id=EXCLUDED.id,conversation_version=EXCLUDED.conversation_version,intent=EXCLUDED.intent,provider=EXCLUDED.provider,body=EXCLUDED.body,generation_meta=EXCLUDED.generation_meta,status='PENDING_REVIEW',reviewed_at=NULL,created_at=NOW() RETURNING *`,
-        [randomUUID(),key,m.id,version,intent,provider,String(text).slice(0,1000),JSON.stringify(generationMeta)]);
+      const values=[randomUUID(),key,opening?null:m.id,version,intent,provider,String(text).slice(0,1000),JSON.stringify(generationMeta)];
+      const saved = old
+        ? await client.query(`UPDATE drafts SET id=$1,conversation_version=$4,intent=$5,provider=$6,body=$7,generation_meta=$8::jsonb,
+            status='PENDING_REVIEW',reviewed_at=NULL,created_at=NOW()
+          WHERE conversation_phone=$2 AND source_message_id IS NOT DISTINCT FROM $3::uuid AND id=$9 RETURNING *`,[...values,old.id])
+        : await client.query(`INSERT INTO drafts(id,conversation_phone,source_message_id,conversation_version,intent,provider,body,generation_meta)
+            VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb) RETURNING *`,values);
       const d = saved.rows[0];
       return {created:true,draft:{id:d.id,conversationVersion:version,sourceMessageId,text:d.body,intent:d.intent,provider:d.provider,generationMeta:d.generation_meta??{},status:d.status,createdAt:d.created_at}};
     });
   }
-  return { get, list, ingest, setMode, setContext, reviewDraft, editDraft, erase, saveDraft, ping: () => pool.query('SELECT 1'), close: () => pool.end() };
+  async function recordFeedback(phone,draftId,category) {
+    const key=validPhone(phone);
+    validateFeedback(category);
+    return transaction(async client=>{
+      await ensureLocked(client,key);
+      const valid=(await client.query(`SELECT 1 FROM drafts WHERE conversation_phone=$1 AND id=$2::uuid
+        UNION ALL SELECT 1 FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_REVISION' AND details->>'id'=($2::uuid)::text LIMIT 1`,[key,draftId])).rows[0];
+      if (!valid) return {recorded:false,reason:'Sugestão não encontrada nesta conversa.'};
+      const details=JSON.stringify({draft_id:draftId,category});
+      await client.query(`INSERT INTO audit_events(conversation_phone,event_type,details)
+        SELECT $1,'DRAFT_FEEDBACK',$2::jsonb WHERE NOT EXISTS
+          (SELECT 1 FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_FEEDBACK' AND details=$2::jsonb)`,[key,details]);
+      return {recorded:true};
+    });
+  }
+  return { get, list, ingest, setMode, setContext, reviewDraft, editDraft, erase, saveDraft, recordFeedback, ping: () => pool.query('SELECT 1'), close: () => pool.end() };
 }

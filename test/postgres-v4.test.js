@@ -7,6 +7,7 @@ import {createReviewedDraft} from '../src/advisor.js';
 test('V4 PostgreSQL engine: draft/edit/regenerate/reconnect/history/duplicate/opt-out with additive Gemini migration',async()=>{
  const db=new PGlite();await db.exec('CREATE SCHEMA gsw_sdr; SET search_path=gsw_sdr;');await db.exec(await readFile(new URL('../db/001_init.sql',import.meta.url),'utf8'));
  await db.exec(await readFile(new URL('../db/20261109015059_gemini_provider_metadata.sql',import.meta.url),'utf8'));
+ await db.exec(await readFile(new URL('../db/20261109090000_elite_opening_drafts.sql',import.meta.url),'utf8'));
  const query=async(sql,args)=>{const r=await db.query(sql,args);return {...r,rowCount:r.affectedRows??r.rows.length}};
  const pool={query,connect:async()=>({query,release(){}}),end:async()=>{}};
  const s=await createPostgresStore('test',{pool});const phone='000000040002';
@@ -21,6 +22,21 @@ test('V4 PostgreSQL engine: draft/edit/regenerate/reconnect/history/duplicate/op
  assert.equal((await s.ingest({phone,id:'sql-2',text:'Quero um site',manual:true,allowRepeat:true})).accepted,true);
  assert.equal((await s.ingest({phone,id:'sql-3',text:'Não tenho interesse',manual:true})).accepted,true);assert.equal((await s.get(phone)).optedOut,true);
  assert.equal((await createReviewedDraft(s,phone,{manual:true,geminiApiKey:''})).created,false);
+ const openingPhone='000000040003';
+ const initial=await createReviewedDraft(s,openingPhone,{manual:true,opening:true,geminiApiKey:''});
+ assert.equal(initial.draft.sourceMessageId,null);
+ assert.equal((await s.get(openingPhone)).messages.length,0);
+ const unchanged=await s.editDraft(openingPhone,initial.draft.id,{text:initial.draft.text,expectedVersion:initial.draft.conversationVersion});
+ assert.equal(unchanged.draft.id,initial.draft.id);assert.equal(unchanged.unchanged,true);
+ assert.equal((await createReviewedDraft(s,openingPhone,{manual:true,opening:true,regenerate:true,geminiApiKey:''})).draft.id,initial.draft.id);
+ assert.equal((await s.get(openingPhone)).drafts.length,1);
+ const changed=await s.editDraft(openingPhone,initial.draft.id,{text:'Abertura revisada pelo SDR.',expectedVersion:initial.draft.conversationVersion});
+ assert.equal(changed.updated,true);
+ assert.equal((await s.recordFeedback(openingPhone,initial.draft.id,'boa')).recorded,true);
+ await s.recordFeedback(openingPhone,initial.draft.id,'boa');
+ assert.equal((await db.query("SELECT count(*)::int AS n FROM audit_events WHERE event_type='DRAFT_FEEDBACK'")).rows[0].n,1);
+ assert.equal((await s.get(openingPhone)).drafts.length,2);
+ await s.erase(openingPhone);
  await s.erase(phone);assert.equal((await s.list()).length,0);
  }finally{await db.close()}
 });
