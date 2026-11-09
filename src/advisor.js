@@ -60,7 +60,7 @@ function rulesVariant(conversation, decision, config) {
   return 'Para indicar uma solução adequada à sua operação, quero entender melhor a necessidade. Qual parte desse processo mais dificulta a rotina da equipe hoje?';
 }
 
-export const GEMINI_MODEL = 'gemini-3.8-flash';
+export const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 const GENERATION_ERRORS = Object.freeze({
   missing_key:'GEMINI_API_KEY não está configurada no Render.',
   invalid_key:'O Gemini recusou a chave de API (HTTP 401). Confira a credencial.',

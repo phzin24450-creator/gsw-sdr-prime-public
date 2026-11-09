@@ -7,7 +7,7 @@ A versão publicada só consultava `OPENAI_API_KEY` e a OpenAI Responses API. Se
 ## Implementação nesta branch
 
 - Provedor principal: Gemini, endpoint oficial `generativelanguage.googleapis.com`, `generateContent`.
-- Modelo: `gemini-3.8-flash`, listado na modalidade gratuita na documentação oficial consultada em 08/11/2026 (São Paulo).
+- Modelo: `gemini-3.1-flash-lite`, com entrada e saída gratuitas no projeto Free Tier. O teste no Render com `gemini-3.8-flash` retornou indisponibilidade e, nas tentativas seguintes, excedeu 25 segundos.
 - Credencial: `GEMINI_API_KEY` apenas no ambiente seguro do Render. Nenhuma chave foi escrita no GitHub, no HTML ou em arquivo local.
 - Sem ativação de cobrança, sem troca silenciosa para outro modelo ou provedor.
 - Prompt inclui fatos e restrições da GSW, contexto comercial, últimas 12 mensagens, última mensagem completa e rascunhos anteriores marcados como não necessariamente enviados.
