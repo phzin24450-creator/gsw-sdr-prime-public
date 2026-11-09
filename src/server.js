@@ -7,6 +7,7 @@ import { createOperatorAuth } from './auth.js';
 import { createReviewedDraft } from './advisor.js';
 import { TONES } from './commercial.js';
 import { summarizeQualification } from './qualification.js';
+import { analyzeVisual, createVisualReview, draftVisual, MAX_VISUAL_BODY } from './visual.js';
 
 export function safeEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
@@ -50,6 +51,8 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
   if (!adminKey || adminKey.length < 20 || !metaSecret || !verifyToken) throw new Error('Configure ADMIN_API_KEY (20+ caracteres), META_APP_SECRET e META_VERIFY_TOKEN');
   // Bounded process-local limiter. Sessions expire on deployment/restart.
   const attempts = new Map();
+  const visualReview = createVisualReview();
+  let visualInFlight = 0;
   function adminRateLimit(req) {
     const address = req.socket.remoteAddress || 'unknown';
     const now = Date.now();
@@ -67,7 +70,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
   return http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://localhost');
-      if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'v4.1.0', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
+      if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'v4.2.0', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
       if (req.method === 'GET' && url.pathname === '/ready') {
         try { if (store.ping) await store.ping(); return json(res,200,{ok:true}); }
         catch { return json(res,503,{ok:false}); }
@@ -118,7 +121,34 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
         if (operator && !admin && !['GET','HEAD'].includes(req.method) && !operatorAuth.sameOrigin(req)) return json(res,403,{error:'Origem recusada'});
         if (req.method === 'DELETE' && !admin) return json(res,403,{error:'Exclusao restrita ao administrador'});
         if (req.method === 'GET' && url.pathname === '/api/status') return json(res,200,{ operator:operator?.username||'administrador',storage:store.ping?'postgres':'memory',ai:integrationStatus.ai||'regras locais',whatsapp:integrationStatus.whatsapp||'nao configurado',autoSend:false });
-        if (req.method === 'GET' && url.pathname === '/api/conversations') return json(res, 200, { conversations: await store.list() });
+        if (req.method === 'POST' && url.pathname === '/api/visual/analyze') {
+          if (visualInFlight >= 2) return json(res, 429, { error: 'Há análises em andamento. Tente novamente em instantes.' });
+          visualInFlight++;
+          try {
+            const data = JSON.parse((await readRaw(req, MAX_VISUAL_BODY)).toString('utf8'));
+            const analysis = await analyzeVisual(data, aiConfig, fetcher);
+            return json(res, 200, { ...analysis, reviewToken: visualReview.issue(analysis.blocked, admin ? 'admin' : 'operator:' + operator.username) });
+          } finally { visualInFlight--; }
+        }
+        if (req.method === 'POST' && ['/api/visual/draft', '/api/visual/opening'].includes(url.pathname)) {
+          const data = JSON.parse((await readRaw(req, 256 * 1024)).toString('utf8'));
+          if (data?.tone && !TONES.includes(data.tone)) return json(res, 400, { error: 'Estilo inválido' });
+          const opening = url.pathname.endsWith('/opening');
+          const blocked = !opening && visualReview.verify(data?.reviewToken, admin ? 'admin' : 'operator:' + operator.username);
+          return json(res, 200, await draftVisual(data, { blocked, opening, config: { ...aiConfig, tone: data?.tone }, fetcher }));
+        }
+        if (req.method === 'GET' && url.pathname === '/api/conversations') {
+          const archived = url.searchParams.get('archived') === '1';
+          const search = (url.searchParams.get('q') ?? '').trim().slice(0, 200);
+          return json(res, 200, { conversations: await store.list({ archived, search }) });
+        }
+        const archive = /^\/api\/conversations\/(\d{8,15})\/archive$/.exec(url.pathname);
+        if (archive && req.method === 'POST') {
+          const data = JSON.parse((await readRaw(req, 4096)).toString('utf8'));
+          if (typeof data?.archived !== 'boolean') return json(res, 400, { error: 'Estado de arquivamento inválido.' });
+          const result = await store.setArchived(archive[1], data.archived);
+          return json(res, result ? 200 : 404, result ?? { error: 'Conversa não encontrada.' });
+        }
         const match = /^\/api\/conversations\/(\d{8,15})(?:\/(mode|draft|context))?$/.exec(url.pathname);
         if (match && req.method === 'GET' && !match[2]) return json(res, 200, await store.get(match[1]));
         const inbound = /^\/api\/conversations\/(\d{8,15})\/inbound$/.exec(url.pathname);
@@ -171,6 +201,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
       return json(res, 404, { error: 'Nao encontrado' });
     } catch (err) {
       const status = err.status || (err instanceof SyntaxError || /invalido|bloquead|inv[aá]lid|grande demais/i.test(err.message) ? 400 : 500);
+      if (err.visual) return json(res, status, { error: err.message });
       if (status >= 500) console.error('Erro interno:', err?.message); // Não imprimir corpos nem tokens.
       return json(res, status, { error: status === 413 ? err.message : status === 400 ? 'Entrada invalida ou operacao bloqueada' : 'Erro interno' });
     }

@@ -17,6 +17,8 @@
 .inline-4{color:var(--cyan);font-style:normal}
 .inline-5{color:var(--cyan);font-style:normal}
 [hidden]{display:none!important}select,input:not([type=checkbox]),.rail textarea{width:100%;min-width:0;border:1px solid #304767;background:#0a1426;color:#e4f0ff;border-radius:10px;padding:12px;font:inherit}select{margin:9px 0 12px}label,summary{font-size:12px;color:#a9bedb}summary{cursor:pointer;font-weight:750}.rail label{display:block;margin:14px 0 7px}.rail textarea{resize:vertical}.conversation-picker{margin-bottom:20px}.conversation-picker .formrow input{flex:1;min-width:130px}.repeat{display:flex;gap:9px;line-height:1.6;align-items:flex-start;margin-top:12px}.repeat input{margin-top:4px}.auth-screen{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:#070b15;padding:20px}.auth-card{width:min(440px,100%)}.auth-card label{display:block;margin:18px 0 8px}.auth-card button{width:100%;margin-top:20px}.historyitem{overflow-wrap:anywhere}.sourcebadge{max-width:150px;white-space:normal}.answertext{min-height:180px}.mode-notice{line-height:1.6}#input-feedback{scroll-margin:20px}#response-card{scroll-margin:20px}#active-label{overflow-wrap:anywhere}.buttons{align-items:stretch}.cardhead{flex-wrap:wrap}#context-warning:empty{display:none}.auth-card h1{font-size:28px}.content[aria-busy=true]{cursor:progress}
+
+fieldset.inline-6{min-width:0;border:0;padding:0;margin:0} #visual-images{max-width:100%}
 </style>
 </head>
 <body><div id="auth-screen" class="auth-screen"><form id="login-form" class="card auth-card"><div class="cardbody"><div class="eyebrow">GSW SALES INTELLIGENCE</div><h1>Entre no PRIME.</h1><p class="paragraph">Seu copiloto de conversas. Você mantém o controle.</p><label for="username">Usuário</label><input id="username" autocomplete="username" required><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required><button class="primary" type="submit">Entrar</button><p id="login-feedback" role="status" aria-live="polite"></p></div></form></div>
@@ -44,8 +46,42 @@
 <div class="strip"><div class="mini"><span class="dot"></span> Copiloto assistido</div><div class="mini"><span class="dot blue"></span> WhatsApp manual</div><div class="mini"><span class="dot orange"></span> <span id="ai-status">Verificando conexão…</span></div></div>
 <div class="main-grid"><div class="workstack">
 <section class="card"><div class="cardbody"><div class="cardhead"><div class="step"><div class="stepnum">01</div><div><h2>Mensagem do lead</h2><p>O que o cliente respondeu no WhatsApp?</p></div></div><span class="sourcebadge">● ENTRADA MANUAL</span></div>
-<div class="conversation-picker"><label for="conversation">CONVERSA ATIVA</label><select id="conversation"><option value="">Escolha uma conversa</option></select><div class="formrow"><input id="phone" inputmode="tel" aria-label="Número da conversa" placeholder="Número com DDI e DDD"><button class="secondary" id="open">Abrir conversa</button></div><p class="hint" id="active-label">Nenhuma conversa selecionada</p><p class="feedback" id="mode-notice"></p></div><label class="fieldlabel" for="lead"><span>MENSAGEM RECEBIDA</span><span id="lead-count">0 / 4000</span></label><textarea id="lead" class="leadtextarea" maxlength="4000" spellcheck="true" placeholder="Cole aqui a mensagem do lead..."></textarea>
+<div class="conversation-picker"><label for="conversation">CONVERSA ATIVA</label><div class="formrow"><input id="conversation-search" aria-label="Buscar por empresa ou número" placeholder="Buscar por empresa ou número"><button class="secondary" type="button" id="search-conversations">Buscar</button></div><label class="repeat"><input type="checkbox" id="show-archived"> Mostrar arquivadas</label><select id="conversation"><option value="">Escolha uma conversa</option></select><div class="formrow"><input id="phone" inputmode="tel" aria-label="Número da conversa" placeholder="Número com DDI e DDD"><button class="secondary" id="open">Abrir conversa</button></div><p class="hint" id="active-label">Nenhuma conversa selecionada</p><button type="button" class="secondary" id="archive-conversation" hidden>Arquivar conversa</button><p class="feedback" id="mode-notice"></p></div><label class="fieldlabel" for="lead"><span>MENSAGEM RECEBIDA</span><span id="lead-count">0 / 4000</span></label><textarea id="lead" class="leadtextarea" maxlength="4000" spellcheck="true" placeholder="Cole aqui a mensagem do lead..."></textarea>
 <label class="repeat"><input type="checkbox" id="allow-repeat"> Esta é uma nova mensagem, embora o texto seja igual ao anterior</label><p class="feedback" id="input-feedback" role="status" aria-live="polite"></p><div class="divider"></div><div class="formrow"><div><span class="inline-2 fieldlabel">ESTILO DA RESPOSTA</span><div class="tonegroup" aria-label="Estilo da sugestão"><button type="button" class="tone selected" data-tone="consultivo">Consultivo</button><button type="button" class="tone" data-tone="objetivo">Direto</button><button type="button" class="tone" data-tone="estrategico">Estratégico</button></div></div><button type="button" class="primary" id="generate"><svg><use href="#ic-stars"/></svg> Analisar e sugerir <svg><use href="#ic-arrow"/></svg></button></div><button type="button" class="secondary" id="opening" hidden>Preparar primeiro contato</button></div></section>
+<section class="card"><div class="cardbody">
+<details id="visual-copilot"><summary>Copiloto Visual · analisar prints</summary>
+<p class="hint">Sessão separada, sem telefone ou cadastro. O painel não guarda as imagens nem o texto da sessão visual.</p>
+<fieldset id="visual-fields" class="inline-6">
+<label for="visual-images">Prints de WhatsApp</label><input id="visual-images" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+<p class="hint">Até quatro imagens de 3 MB. Envie na ordem aproximada. Antes de selecionar, cubra nomes de pessoas, números, e-mails, documentos e outros dados pessoais. O Gemini recebe as imagens selecionadas.</p>
+<label class="repeat"><input type="checkbox" id="visual-consent"> Revisei os dados das imagens e autorizo a análise pelo Gemini</label>
+<button type="button" class="secondary" id="visual-analyze">Analisar prints</button>
+<div id="visual-review" hidden>
+<p class="hint" id="visual-evidence"></p>
+<label for="visual-company">Empresa</label><input id="visual-company" maxlength="200">
+<label for="visual-sector">Nicho a confirmar</label><input id="visual-sector" maxlength="200">
+<label for="visual-messages">Mensagens na ordem correta, da mais antiga à mais recente</label>
+<p class="hint">Uma linha por mensagem. Use “lead | texto” ou “sdr | texto”. Corrija o remetente, mova as linhas para ajustar a ordem e remova trechos incertos que não podem ser usados.</p>
+<textarea id="visual-messages" rows="8" maxlength="163000"></textarea>
+<label class="repeat"><input type="checkbox" id="visual-confirm"> Conferi empresa, nicho, remetentes, sequência e mensagens</label>
+<button type="button" class="primary" id="visual-draft" disabled>Gerar resposta do print</button>
+</div>
+<label for="visual-answer">Resposta do print · editável</label><textarea id="visual-answer" maxlength="1000" rows="4" disabled></textarea>
+<button type="button" class="secondary" id="visual-copy" disabled>Copiar resposta do print</button>
+</fieldset><p class="feedback" id="visual-status" role="status" aria-live="polite"></p>
+</details>
+<div class="divider"></div>
+<details id="standalone-opening"><summary>Primeira abordagem sem telefone</summary>
+<fieldset id="opening-fields" class="inline-6">
+<p class="hint">Use para um primeiro contato independente. Informe apenas contexto confirmado. A sugestão fica nesta sessão.</p>
+<label for="opening-company">Empresa</label><input id="opening-company" maxlength="200" placeholder="Desconhecido">
+<label for="opening-sector">Nicho confirmado</label><input id="opening-sector" maxlength="200" placeholder="Desconhecido">
+<button type="button" class="secondary" id="standalone-generate">Gerar primeira abordagem</button>
+<label for="standalone-answer">Abordagem inicial · editável</label><textarea id="standalone-answer" maxlength="1000" rows="4" disabled></textarea>
+<button type="button" class="secondary" id="standalone-copy" disabled>Copiar abordagem inicial</button>
+</fieldset><p class="feedback" id="standalone-status" role="status" aria-live="polite"></p>
+</details>
+</div></section>
 <section class="card" id="response-card"><div class="cardbody"><div class="cardhead"><div class="step"><div class="stepnum">02</div><div><h2>Resposta preparada</h2><p>Edite, aprove e copie para o WhatsApp.</p></div></div><span class="sourcebadge" id="response-badge">AGUARDANDO</span></div>
 <div class="answerwrap"><div class="answerhead"><span class="ring"></span> <span id="provider">SUGESTÃO PARA REVISÃO MANUAL</span></div><textarea id="answer" class="answertext" maxlength="1000" placeholder="Sua sugestão aparecerá aqui depois da análise. Você poderá editar antes de copiar." spellcheck="true"></textarea></div>
 <div class="answerfoot"><span class="hint">Você decide se vai usar o texto.</span><span class="counter" id="answer-count">0 caracteres</span></div>
@@ -72,15 +108,21 @@ const contextFields=['company','sector','challenge','goal','offer','observation'
 const providers={gemini:'Gemini · IA generativa',rules:'Regras locais · sem IA generativa',rules_fallback:'Regras locais · fallback',openai:'OpenAI · IA generativa'};
 function feedback(text,error=false){for(const id of ['feedback','input-feedback']){$(id).textContent=text;$(id).classList.toggle('iserror',error)}}
 function locked(c=state.c){return !c||c.optedOut||!['HUMAN','AI_ACTIVE'].includes(c.mode)}
-function refresh(){const opening=state.c&&!state.c.messages.length&&!locked();$('opening').hidden=!opening;$('opening').disabled=state.busy||!opening||!!$('lead').value.trim()||state.draft?.intent==='OPENING';$('record-feedback').disabled=state.busy||!state.draft||!$('quality-feedback').value;const valid=state.draft&&state.draft.status==='PENDING_REVIEW'&&state.draft.conversationVersion===state.c?.version&&!locked();$('copy').disabled=state.busy||!valid||!$('answer').value.trim();$('save').disabled=$('copy').disabled;$('whatsapp').disabled=$('copy').disabled||!/^\d{10,15}$/.test(state.phone||'');$('regen').disabled=state.busy||!state.c||locked()||(!state.c.messages.length&&!state.draft);$('generate').disabled=state.busy||!state.c;$('open').disabled=state.busy;$('conversation').disabled=state.busy;$('save-context').disabled=state.busy||!state.c;$('lead-count').textContent=$('lead').value.length+' / 4000';$('answer-count').textContent=$('answer').value.length+' caracteres';$('answer').disabled=state.busy||!valid;}
+function refresh(){const opening=state.c&&!state.c.messages.length&&!locked();$('opening').hidden=!opening;$('opening').disabled=state.busy||!opening||!!$('lead').value.trim()||state.draft?.intent==='OPENING';$('record-feedback').disabled=state.busy||!state.draft||!$('quality-feedback').value;const valid=state.draft&&state.draft.status==='PENDING_REVIEW'&&state.draft.conversationVersion===state.c?.version&&!locked();$('copy').disabled=state.busy||!valid||!$('answer').value.trim();$('save').disabled=$('copy').disabled;$('whatsapp').disabled=$('copy').disabled||!/^\d{10,15}$/.test(state.phone||'');$('regen').disabled=state.busy||!state.c||locked()||(!state.c.messages.length&&!state.draft);$('generate').disabled=state.busy||!state.c;$('open').disabled=state.busy;$('conversation').disabled=state.busy;$('save-context').disabled=state.busy||!state.c;$('archive-conversation').disabled=state.busy||!state.c;$('search-conversations').disabled=state.busy;$('show-archived').disabled=state.busy;$('lead-count').textContent=$('lead').value.length+' / 4000';$('answer-count').textContent=$('answer').value.length+' caracteres';$('answer').disabled=state.busy||!valid;}
 async function api(path,body){const r=await fetch(path,{method:body===undefined?'GET':'POST',credentials:'same-origin',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const d=await r.json();if(r.status===401){$('auth-screen').hidden=false;throw Error('Sua sessão expirou. Entre novamente.')}if(!r.ok)throw Error(d.error||'Falha na conexão. Tente novamente.');return d}
 async function run(fn){if(state.busy)return;state.busy=true;refresh();try{await fn()}catch(e){feedback(e.message,true)}finally{state.busy=false;refresh()}}
 function selectTab(name){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+name));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));window.scrollTo({top:0,behavior:'smooth'})}
 function history(){const box=$('history-list');box.replaceChildren();const entries=[...(state.c?.messages||[]).map(m=>({time:m.timestamp,label:'Mensagem recebida',text:m.text})),...(state.c?.drafts||[]).map(d=>({time:d.createdAt,label:(providers[d.provider]||d.provider)+' · '+({PENDING_REVIEW:'Para revisão',SUPERSEDED:'Versão anterior',APPROVED:'Revisada',REJECTED:'Rejeitada'}[d.status]||d.status),text:d.text+(d.generationMeta?.message?'\n\nAviso: '+d.generationMeta.message:'')}))].sort((a,b)=>new Date(b.time)-new Date(a.time));$('history-count').textContent=(state.c?.drafts?.length||0)+' VERSÕES';for(const item of entries){const card=document.createElement('div'),meta=document.createElement('small'),text=document.createElement('p');card.className='historyitem';meta.textContent=new Date(item.time).toLocaleString('pt-BR')+' · '+item.label;text.textContent=item.text;card.append(meta,text);box.append(card)}if(!entries.length)box.textContent='Ainda não há mensagens nesta conversa.'}
 function contextWarning(){const text=$('lead').value.toLowerCase(),sector=$('sector').value.toLowerCase();$('context-warning').textContent=/advoca|jurídic|juridic/.test(text)&&/pet|veterin|restaurante/.test(sector)?'Possível inconsistência: a mensagem menciona o setor jurídico. Confira o setor registrado antes de gerar.':''}
 function displayDraft(d){if(state.draft?.id!==d?.id)$('quality-feedback').value='';state.draft=d||null;$('answer').value=d?.text||'';$('provider').textContent=d?(providers[d.provider]||d.provider):'SUGESTÃO PARA REVISÃO MANUAL';$('response-badge').textContent=d?'PARA REVISÃO':'AGUARDANDO';refresh()}
-async function list(){const data=await api('/api/conversations');$('conversation').replaceChildren(new Option('Escolha uma conversa',''));for(const c of data.conversations){$('conversation').append(new Option(c.id+' · '+c.messageCount+' mensagens',c.id))}$('conversation').value=state.phone||''}
-async function open(phone){const id=phone.replace(/\D/g,'');if(!/^\d{8,15}$/.test(id))throw Error('Informe o número com DDI e DDD.');state.epoch++;state.phone=id;state.c=await api('/api/conversations/'+id);$('phone').value=id;$('active-label').textContent='Conversa ativa: +'+id;$('context-for').textContent='Contexto vinculado a +'+id;for(const field of contextFields)$(field).value=state.c.context?.[field]||'';$('lead').value=[...state.c.messages].reverse().find(m=>m.direction==='inbound')?.text||'';$('allow-repeat').checked=false;const modes={HUMAN:'Modo Humano: sugestões manuais liberadas. Você revisa, copia e envia.',AI_ACTIVE:'Sugestões disponíveis; o envio continua manual.',PAUSED:'Conversa pausada. Sugestões bloqueadas.',HANDOFF_PENDING:'Pedido de atendimento humano: encaminhe ao responsável. Sugestões bloqueadas.'};$('mode-notice').textContent=state.c.optedOut?'Contato pediu interrupção. Não envie novas abordagens.':modes[state.c.mode];const d=[...state.c.drafts].reverse().find(d=>d.status==='PENDING_REVIEW'&&d.conversationVersion===state.c.version);displayDraft(d);if(d?.generationMeta?.message)feedback(d.generationMeta.message,true);else feedback('Nenhuma mensagem é enviada automaticamente.');history();contextWarning();await list();refresh()}
+async function list(){
+ const params=new URLSearchParams({q:$('conversation-search').value,archived:$('show-archived').checked?'1':'0'});
+ const data=await api('/api/conversations?'+params);
+ $('conversation').replaceChildren(new Option('Escolha uma conversa',''));
+ for(const c of data.conversations)$('conversation').append(new Option((c.company?c.company+' · ':'')+c.id+' · '+c.messageCount+' mensagens',c.id));
+ $('conversation').value=state.phone||'';
+}
+async function open(phone){const id=phone.replace(/\D/g,'');if(!/^\d{8,15}$/.test(id))throw Error('Informe o número com DDI e DDD.');state.epoch++;state.phone=id;state.c=await api('/api/conversations/'+id);$('archive-conversation').hidden=false;$('archive-conversation').textContent=state.c.archivedAt?'Restaurar conversa':'Arquivar conversa';$('phone').value=id;$('active-label').textContent='Conversa ativa: +'+id;$('context-for').textContent='Contexto vinculado a +'+id;for(const field of contextFields)$(field).value=state.c.context?.[field]||'';$('lead').value=[...state.c.messages].reverse().find(m=>m.direction==='inbound')?.text||'';$('allow-repeat').checked=false;const modes={HUMAN:'Modo Humano: sugestões manuais liberadas. Você revisa, copia e envia.',AI_ACTIVE:'Sugestões disponíveis; o envio continua manual.',PAUSED:'Conversa pausada. Sugestões bloqueadas.',HANDOFF_PENDING:'Pedido de atendimento humano: encaminhe ao responsável. Sugestões bloqueadas.'};$('mode-notice').textContent=state.c.optedOut?'Contato pediu interrupção. Não envie novas abordagens.':modes[state.c.mode];const d=[...state.c.drafts].reverse().find(d=>d.status==='PENDING_REVIEW'&&d.conversationVersion===state.c.version);displayDraft(d);if(d?.generationMeta?.message)feedback(d.generationMeta.message,true);else feedback('Nenhuma mensagem é enviada automaticamente.');history();contextWarning();await list();refresh()}
 async function generate(regenerate, opening=false){
  await run(async()=>{
   if(!state.phone)throw Error('Selecione uma conversa.');
@@ -123,6 +165,130 @@ $('opening').onclick=()=>generate(false,true);$('generate').onclick=()=>generate
 $('copy').onclick=()=>run(async()=>{const text=await save();try{await navigator.clipboard.writeText(text);feedback('Resposta copiada. Envie manualmente pelo WhatsApp.')}catch{$('answer').disabled=false;$('answer').focus();$('answer').select();let ok=false;try{ok=document.execCommand('copy')}catch{}feedback(ok?'Resposta copiada. Envie manualmente.':'Selecione o texto e use Copiar no seu navegador.',!ok)}});
 $('whatsapp').onclick=()=>run(async()=>{if(locked()||!state.draft||state.draft.status!=='PENDING_REVIEW')throw Error('Contato bloqueado ou resposta inválida.');const number=state.phone;if(!/^\d{10,15}$/.test(number))throw Error('Número inválido. Confira DDI e DDD.');const text=$('answer').value.trim();if(!text)throw Error('Revise a resposta antes de abrir o WhatsApp.');await save();if(locked()||state.phone!==number||state.draft?.conversationVersion!==state.c?.version)throw Error('Conversa alterada. Operação cancelada.');feedback('Abrindo WhatsApp. O envio continua manual e não foi registrado.');window.location.href='https://wa.me/'+number+'?text='+encodeURIComponent(text)});
 $('save-context').onclick=()=>run(async()=>{await api('/api/conversations/'+state.phone+'/context',Object.fromEntries(contextFields.map(k=>[k,$(k).value])));state.c=await api('/api/conversations/'+state.phone);displayDraft(null);history();contextWarning();feedback('Contexto salvo para esta conversa. Gere uma nova sugestão.')});
+$('search-conversations').onclick=()=>run(list);
+$('show-archived').onchange=()=>run(list);
+$('archive-conversation').onclick=()=>run(async()=>{
+ const archived=!state.c.archivedAt;
+ const r=await api('/api/conversations/'+state.phone+'/archive',{archived});
+ state.c.archivedAt=r.archivedAt;
+ $('archive-conversation').textContent=archived?'Restaurar conversa':'Arquivar conversa';
+ await list();
+ feedback(archived?'Conversa arquivada. O histórico foi preservado.':'Conversa restaurada.');
+});
+
+let visualToken=null, visualBlocked=false;
+function clearVisualAnswer(){
+ $('visual-answer').value='';
+ $('visual-answer').disabled=true;
+ $('visual-copy').disabled=true;
+}
+function resetVisualReview(){
+ visualToken=null;
+ visualBlocked=false;
+ $('visual-review').hidden=true;
+ $('visual-confirm').checked=false;
+ $('visual-draft').disabled=true;
+ for(const id of ['visual-company','visual-sector','visual-messages'])$(id).value='';
+ $('visual-evidence').textContent='';
+ clearVisualAnswer();
+}
+function showVisualStatus(id,text,error=false){
+ $(id).textContent=text;
+ $(id).classList.toggle('iserror',error);
+}
+async function runVisual(fields,status,operation){
+ if($(fields).disabled)return;
+ $(fields).disabled=true;
+ try{await operation()}catch(error){showVisualStatus(status,error.message,true)}
+ finally{$(fields).disabled=false}
+}
+function readVisualFile(file){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onerror=()=>reject(Error('Não foi possível ler a imagem.'));
+  reader.onload=()=>resolve({mimeType:file.type,data:reader.result.split(',')[1]});
+  reader.readAsDataURL(file);
+ });
+}
+$('visual-images').onchange=()=>{
+ resetVisualReview();
+ $('visual-consent').checked=false;
+ showVisualStatus('visual-status','');
+};
+$('visual-analyze').onclick=()=>runVisual('visual-fields','visual-status',async()=>{
+ resetVisualReview();
+ const files=[...$('visual-images').files];
+ if(!$('visual-consent').checked)throw Error('Confirme a revisão dos dados antes de enviar.');
+ if(!files.length||files.length>4||files.some(file=>file.size>3*1024*1024))throw Error('Selecione de 1 a 4 prints de até 3 MB cada.');
+ showVisualStatus('visual-status','Analisando os prints com Gemini…');
+ const result=await api('/api/visual/analyze',{consent:true,images:await Promise.all(files.map(readVisualFile))});
+ visualToken=result.reviewToken;
+ visualBlocked=result.blocked;
+ $('visual-company').value=result.company.value;
+ $('visual-sector').value=result.sector.value;
+ const direction={inbound:'lead',outbound:'sdr',unknown:'desconhecido'};
+ $('visual-messages').value=result.messages.map(row=>direction[row.direction]+' | '+(row.time?'['+row.time+'] ':'')+row.text.replace(/\s+/g,' ')+(row.cropped?' [recorte]':'')).join('\n');
+ const label=field=>field.value+(field.evidence?' (“'+field.evidence+'”)':'');
+ $('visual-evidence').textContent='Empresa lida · '+label(result.company)+'. Hipótese de nicho · '+label(result.sector)+'. Hipótese de intenção · '+label(result.intent)+'. Hipótese de oportunidade · '+label(result.opportunity)+'. '+(result.uncertainOrder?'Ordem ou trechos a confirmar.':'Confira a ordem sugerida.');
+ $('visual-review').hidden=false;
+ $('visual-images').value='';
+ $('visual-consent').checked=false;
+ showVisualStatus('visual-status',visualBlocked?'Recusa, opt-out ou pedido humano identificado. Geração bloqueada.':'Leitura disponível. Revise os dados e a ordem antes de gerar.',visualBlocked);
+});
+for(const id of ['visual-company','visual-sector','visual-messages'])$(id).oninput=()=>{
+ $('visual-confirm').checked=false;
+ $('visual-draft').disabled=true;
+ clearVisualAnswer();
+};
+$('visual-confirm').onchange=()=>{
+ clearVisualAnswer();
+ $('visual-draft').disabled=!$('visual-confirm').checked||visualBlocked||!visualToken;
+};
+$('visual-draft').onclick=()=>runVisual('visual-fields','visual-status',async()=>{
+ clearVisualAnswer();
+ const messages=$('visual-messages').value.split('\n').filter(line=>line.trim()).map(line=>{
+  const row=/^\s*(lead|sdr)\s*\|\s*(?:\[\d{2}:\d{2}\]\s*)?(.+)$/i.exec(line);
+  if(!row)throw Error('Identifique cada remetente com “lead | texto” ou “sdr | texto”.');
+  return {direction:row[1].toLowerCase()==='lead'?'inbound':'outbound',text:row[2]};
+ });
+ showVisualStatus('visual-status','Preparando uma resposta para revisão…');
+ const result=await api('/api/visual/draft',{reviewed:$('visual-confirm').checked,reviewToken:visualToken,
+  messages,company:$('visual-company').value,sector:$('visual-sector').value,tone:state.tone});
+ showStandaloneAnswer('visual',result);
+});
+function showStandaloneAnswer(prefix,result){
+ $(prefix+'-answer').value=result.text;
+ $(prefix+'-answer').disabled=false;
+ $(prefix+'-copy').disabled=false;
+ showVisualStatus(prefix+'-status',providers[result.provider]+'. Revise antes de copiar.');
+}
+$('standalone-generate').onclick=()=>runVisual('opening-fields','standalone-status',async()=>{
+ $('standalone-answer').value='';
+ $('standalone-answer').disabled=true;
+ $('standalone-copy').disabled=true;
+ showVisualStatus('standalone-status','Preparando primeira abordagem…');
+ const result=await api('/api/visual/opening',{reviewed:true,company:$('opening-company').value,sector:$('opening-sector').value,tone:state.tone});
+ showStandaloneAnswer('standalone',result);
+});
+for(const id of ['opening-company','opening-sector'])$(id).oninput=()=>{
+ $('standalone-answer').value='';
+ $('standalone-answer').disabled=true;
+ $('standalone-copy').disabled=true;
+};
+for(const prefix of ['visual','standalone']){
+ const answer=$(prefix+'-answer'), copy=$(prefix+'-copy');
+ answer.oninput=()=>{copy.disabled=!answer.value.trim()};
+ copy.onclick=async()=>{
+  try{
+   await navigator.clipboard.writeText(answer.value.trim());
+   showVisualStatus(prefix+'-status','Resposta copiada. Envie manualmente pelo WhatsApp.');
+  }catch{
+   answer.focus();answer.select();
+   showVisualStatus(prefix+'-status','Texto selecionado. Use Copiar no navegador.',true);
+  }
+ };
+}
+
 $('quality-feedback').onchange=refresh;
 $('record-feedback').onclick=()=>run(async()=>{
  const category=$('quality-feedback').value;

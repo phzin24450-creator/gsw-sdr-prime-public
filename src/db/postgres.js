@@ -8,7 +8,7 @@ function validPhone(phone) {
   return p;
 }
 function mapConversation(row, messages = [], drafts = []) {
-  return { id: row.phone, mode: row.mode, optedOut: row.opted_out, version: Number(row.version), updatedAt: row.updated_at, context: row.context ?? {},
+  return { id: row.phone, mode: row.mode, optedOut: row.opted_out, version: Number(row.version), updatedAt: row.updated_at, archivedAt: row.archived_at ?? null, context: row.context ?? {},
     messages: messages.map(m => ({ id: m.external_id, direction: m.direction, text: m.body, timestamp: m.occurred_at })),
     drafts: drafts.map(d => ({ id: d.id, conversationVersion: Number(d.conversation_version), sourceMessageId: d.source_external_id, text: d.body, intent: d.intent, provider: d.provider, generationMeta: d.generation_meta??{}, status: d.status, reviewedAt: d.reviewed_at, createdAt: d.created_at })) };
 }
@@ -54,10 +54,19 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     const result = await pool.query('DELETE FROM conversations WHERE phone=$1', [key]);
     return { deleted: result.rowCount > 0 };
   }
-  async function list() {
-    const result = await pool.query(`SELECT c.phone AS id,c.mode,c.opted_out AS "optedOut",c.version,c.updated_at AS "updatedAt",
+  async function setArchived(phone, archived) {
+    const result = await pool.query(`UPDATE conversations
+      SET archived_at = CASE WHEN $2::boolean THEN COALESCE(archived_at, NOW()) ELSE NULL END
+      WHERE phone=$1 RETURNING archived_at AS "archivedAt"`, [validPhone(phone), archived]);
+    return result.rows[0] ?? null;
+  }
+  async function list({ archived = false, search = '' } = {}) {
+    const result = await pool.query(`SELECT c.phone AS id,c.context->>'company' AS company,c.mode,
+      c.opted_out AS "optedOut",c.version,c.updated_at AS "updatedAt",c.archived_at AS "archivedAt",
       (SELECT count(*)::integer FROM messages m WHERE m.conversation_phone=c.phone) AS "messageCount"
-      FROM conversations c ORDER BY c.updated_at DESC LIMIT 100`);
+      FROM conversations c WHERE (c.archived_at IS NOT NULL)=$1
+      AND ($2='' OR strpos(c.phone,$2)>0 OR strpos(lower(c.context->>'company'),lower($2))>0)
+      ORDER BY c.updated_at DESC LIMIT 100`, [archived, search]);
     return result.rows.map(r => ({ ...r, version: Number(r.version) }));
   }
   async function ingest({ phone, id, text, timestamp, manual = false, allowRepeat = false }) {
@@ -194,5 +203,5 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
       return {recorded:true};
     });
   }
-  return { get, list, ingest, setMode, setContext, reviewDraft, editDraft, erase, saveDraft, recordFeedback, ping: () => pool.query('SELECT 1'), close: () => pool.end() };
+  return { get, list, setArchived, ingest, setMode, setContext, reviewDraft, editDraft, erase, saveDraft, recordFeedback, ping: () => pool.query('SELECT 1'), close: () => pool.end() };
 }

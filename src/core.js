@@ -131,6 +131,19 @@ export function createStore() {
     const hadData = conversations.delete(key);
     return { deleted: hadData };
   }
-  function list() { return [...conversations.values()].map(c => ({ id: c.id, mode: c.mode, version: c.version, optedOut: c.optedOut, messageCount: c.messages.length, updatedAt: c.updatedAt })); }
-  return { get: phone => structuredClone(getInternal(phone)), ingest, setMode, setContext, saveDraft, editDraft, reviewDraft, recordFeedback, erase, list };
+  function setArchived(phone, archived) {
+    const c = conversations.get(normalizePhone(phone));
+    if (!c) return null;
+    c.archivedAt = archived ? c.archivedAt ?? new Date().toISOString() : null;
+    return { archivedAt: c.archivedAt };
+  }
+  function list({ archived = false, search = '' } = {}) {
+    const needle = search.toLowerCase();
+    return [...conversations.values()]
+      .filter(c => Boolean(c.archivedAt) === archived &&
+        (c.id.includes(search) || (c.context.company ?? '').toLowerCase().includes(needle)))
+      .map(c => ({ id: c.id, company: c.context.company, mode: c.mode, version: c.version,
+        optedOut: c.optedOut, archivedAt: c.archivedAt ?? null, messageCount: c.messages.length, updatedAt: c.updatedAt }));
+  }
+  return { get: phone => structuredClone(getInternal(phone)), ingest, setMode, setContext, saveDraft, editDraft, reviewDraft, recordFeedback, erase, list, setArchived };
 }
