@@ -1,0 +1,20 @@
+# Banco local opcional para DESENVOLVIMENTO. Não expõe a porta fora de localhost.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gsw_sdr_prime
+      POSTGRES_USER: gsw_local
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD em variavel de ambiente}
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gsw_local -d gsw_sdr_prime"]
+      interval: 5s
+      retries: 10
+      timeout: 3s
+volumes:
+  postgres_data:
