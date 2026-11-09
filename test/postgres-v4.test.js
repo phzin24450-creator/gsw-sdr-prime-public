@@ -1,15 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import { applyMigrations } from '../src/db/migrate.js';
 import {PGlite} from '@electric-sql/pglite';
 import {createPostgresStore} from '../src/db/postgres.js';
 import {createReviewedDraft} from '../src/advisor.js';
 test('V4 PostgreSQL engine: draft/edit/regenerate/reconnect/history/duplicate/opt-out with additive Gemini migration',async()=>{
- const db=new PGlite();await db.exec('CREATE SCHEMA gsw_sdr; SET search_path=gsw_sdr;');await db.exec(await readFile(new URL('../db/001_init.sql',import.meta.url),'utf8'));
- await db.exec(await readFile(new URL('../db/20261109015059_gemini_provider_metadata.sql',import.meta.url),'utf8'));
- await db.exec(await readFile(new URL('../db/20261109090000_elite_opening_drafts.sql',import.meta.url),'utf8'));
- const query=async(sql,args)=>{const r=await db.query(sql,args);return {...r,rowCount:r.affectedRows??r.rows.length}};
+ const db=new PGlite();
+ const query=async(sql,args)=>{
+  const result=args?.length?await db.query(sql,args):(await db.exec(sql)).at(-1);
+  return {...result,rowCount:result.rows.length || result.affectedRows || 0};
+ };
  const pool={query,connect:async()=>({query,release(){}}),end:async()=>{}};
+ const migration='20261109190000_conversation_archive.sql';
+ assert.ok((await applyMigrations(pool)).some(item=>item.filename===migration&&item.status==='applied'));
+ assert.ok((await applyMigrations(pool)).every(item=>item.status==='already-applied'));
+ await db.exec('SET search_path TO gsw_sdr');
  const s=await createPostgresStore('test',{pool});const phone='000000040002';
  try{
  assert.equal((await s.ingest({phone,id:'sql-1',text:'Quero um site',manual:true})).accepted,true);
@@ -22,6 +27,20 @@ test('V4 PostgreSQL engine: draft/edit/regenerate/reconnect/history/duplicate/op
  assert.equal((await s.ingest({phone,id:'sql-2',text:'Quero um site',manual:true,allowRepeat:true})).accepted,true);
  assert.equal((await s.ingest({phone,id:'sql-3',text:'Não tenho interesse',manual:true})).accepted,true);assert.equal((await s.get(phone)).optedOut,true);
  assert.equal((await createReviewedDraft(s,phone,{manual:true,geminiApiKey:''})).created,false);
+ await s.setContext(phone,{company:'Empresa Fictícia'});
+ const archive=await s.setArchived(phone,true);
+ assert.ok(archive.archivedAt);
+ assert.equal((await s.setArchived(phone,true)).archivedAt.toISOString(),archive.archivedAt.toISOString());
+ assert.deepEqual(await s.list(),[]);
+ assert.equal((await restarted.list({archived:true,search:'fictícia'}))[0].id,phone);
+ assert.equal((await restarted.list({archived:true,search:'40002'}))[0].id,phone);
+ assert.equal(await s.setArchived('000000000000',true),null);
+ assert.equal((await s.setArchived(phone,false)).archivedAt,null);
+ const restored=await restarted.get(phone);
+ assert.equal(restored.optedOut,true);
+ assert.equal(restored.messages.length,3);
+ assert.equal(restored.drafts.length,3);
+ assert.equal((await s.list())[0].id,phone);
  const openingPhone='000000040003';
  const initial=await createReviewedDraft(s,openingPhone,{manual:true,opening:true,geminiApiKey:''});
  assert.equal(initial.draft.sourceMessageId,null);

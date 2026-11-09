@@ -6,7 +6,18 @@ import {createStore} from '../src/core.js';
 import {createOperatorAuth,passwordHash} from '../src/auth.js';
 const store=createStore();const origin='http://127.0.0.1:3084';
 const simulatedGemini=process.env.GSW_TEST_GEMINI==='1';
-const app=createApp({fetcher:async()=>({ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:'Sugestão simulada para o escritório fictício: quais canais geram visitas ao seu site?'}]}}]})}),adminKey:'local-test-admin-123456789',metaSecret:'test',verifyToken:'test',store,aiConfig:{geminiApiKey:simulatedGemini?'fake-ui-test':''},operatorAuth:createOperatorAuth({username:'tester',passwordScrypt:await passwordHash('test-password-only-123'),origin,secure:false})});
+const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j5v8AAAAASUVORK5CYII=', 'base64');
+const mockResponse = async (_url, options) => {
+ const parts = JSON.parse(options.body).contents[0].parts;
+ const text = parts[0].inlineData ? JSON.stringify({
+  company: {value:'Ateliê Inventado',evidence:'Ateliê Inventado'},
+  sector: {value:'',evidence:''}, intent: {value:'',evidence:''}, opportunity: {value:'',evidence:''},
+  uncertainOrder:true, restrictionEvidence:'',
+  messages:[{direction:'unknown',time:'09:00',text:'Quero melhorar meu site.',source:1,cropped:false}]
+ }) : 'Sugestão simulada para o escritório fictício: quais canais geram visitas ao seu site?';
+ return {ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text}]}}]})};
+};
+const app=createApp({fetcher:mockResponse,adminKey:'local-test-admin-123456789',metaSecret:'test',verifyToken:'test',store,aiConfig:{geminiApiKey:simulatedGemini?'fake-ui-test':''},operatorAuth:createOperatorAuth({username:'tester',passwordScrypt:await passwordHash('test-password-only-123'),origin,secure:false})});
 await new Promise(r=>app.listen(3084,'127.0.0.1',r));
 await mkdir('test-results',{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:process.env.GSW_TEST_CHROMIUM});
@@ -27,6 +38,44 @@ try{
  assert.ok(await page.locator('#answer').inputValue());
  await page.locator('#lead').fill('Não me envie mais mensagens');await page.locator('#generate').click();await page.waitForFunction(()=>!document.getElementById('generate').disabled);assert.equal(store.get(phone).optedOut,true);assert.equal(await page.locator('#copy').isDisabled(),true);
  await page.locator('#phone').fill('00000005'+width);await page.locator('#open').click();await page.locator('#active-label').filter({hasText:'00000005'+width}).waitFor();await page.locator('#opening').click();await page.waitForFunction(()=>!document.getElementById('copy').disabled);assert.equal(store.get('00000005'+width).messages.length,0);assert.equal(store.get('00000005'+width).drafts[0].intent,'OPENING');
- assert.deepEqual(errors,[]);console.log('UI PASS',simulatedGemini?'SIMULATED_GEMINI':'RULES',width,'login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP');await context.close();
+ const countBeforeVisual=store.list().length;
+ await page.locator('#standalone-opening summary').click();
+ await page.locator('#standalone-generate').click();
+ await page.waitForFunction(()=>!document.getElementById('standalone-copy').disabled);
+ await page.locator('#standalone-copy').click();
+ await page.locator('#standalone-status').filter({hasText:'copiada'}).waitFor();
+ assert.ok(await page.evaluate(()=>navigator.clipboard.readText()));
+ await page.locator('#standalone-opening summary').click();
+ if(simulatedGemini){
+  await page.locator('#visual-copilot summary').click();
+  await page.locator('#visual-images').setInputFiles({name:'print-ficticio.png',mimeType:'image/png',buffer:png});
+  await page.locator('#visual-consent').check();
+  await page.locator('#visual-analyze').click();
+  await page.locator('#visual-review').waitFor();
+  assert.equal(await page.locator('#visual-sector').inputValue(),'Desconhecido');
+  assert.equal(await page.locator('#visual-draft').isDisabled(),true);
+  await page.locator('#visual-company').fill('Ateliê Corrigido');
+  await page.locator('#visual-messages').fill('lead | Quero melhorar meu site.');
+  await page.locator('#visual-confirm').check();
+  await page.locator('#visual-draft').click();
+  await page.waitForFunction(()=>!document.getElementById('visual-copy').disabled);
+  await page.locator('#visual-answer').fill('Qual parte do seu site vocês gostariam de melhorar?');
+  await page.locator('#visual-copy').click();
+  await page.locator('#visual-status').filter({hasText:'copiada'}).waitFor();
+  assert.match(await page.evaluate(()=>navigator.clipboard.readText()),/parte do seu site/);
+  await page.screenshot({path:'test-results/v4-visual-'+width+'.png',fullPage:true});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Visual sem rolagem horizontal '+width);
+ }
+ assert.equal(store.list().length,countBeforeVisual);
+ const activeId=await page.locator('#phone').inputValue();
+ await page.locator('#archive-conversation').click();
+ await page.locator('#archive-conversation').filter({hasText:'Restaurar'}).waitFor();
+ assert.equal(store.list().some(c=>c.id===activeId),false);
+ await page.locator('#show-archived').check();
+ await page.locator('#conversation option[value="'+activeId+'"]').waitFor({state:'attached'});
+ await page.locator('#archive-conversation').click();
+ await page.locator('#archive-conversation').filter({hasText:'Arquivar'}).waitFor();
+ assert.equal(store.list().some(c=>c.id===activeId),true);
+ assert.deepEqual(errors,[]);console.log('UI PASS',simulatedGemini?'SIMULATED_GEMINI':'RULES',width,'login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo'+(simulatedGemini?'/revisão-visual':''));await context.close();
  }
 }finally{await browser.close();await new Promise(r=>app.close(r))}

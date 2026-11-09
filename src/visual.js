@@ -17,6 +17,7 @@ const INSTRUCTIONS = [
   'Use source 1 a N, conforme a ordem de envio das imagens. Preserve a ordem dentro de cada print.',
   'Retorne as mensagens na ordem cronológica quando houver evidência. Se a ordem for ambígua, retorne a ordem visível e uncertainOrder true. Não ordene só pela hora se o dia for incerto.',
   'Não deduza empresa pelo nome de um contato. Informe company apenas se houver nome de empresa legível, com a transcrição literal da evidência.',
+  'Em restrictionEvidence, transcreva a recusa, pedido de parar ou de atendimento humano do lead. Deixe vazio quando ausente.',
   'Em sector, intent e opportunity, indique um possível nicho, intenção e oportunidade comercial como hipóteses com trecho literal de uma mensagem do lead. Sem evidência use value e evidence vazios. Não presuma que já existe consentimento ou que algo foi enviado.',
 ].join('\n');
 
@@ -26,7 +27,7 @@ const responseSchema = {
   type: 'OBJECT',
   properties: {
     company: evidence, sector: evidence, intent: evidence, opportunity: evidence,
-    uncertainOrder: { type: 'BOOLEAN' },
+    uncertainOrder: { type: 'BOOLEAN' }, restrictionEvidence: STRING,
     messages: {
       type: 'ARRAY', items: {
         type: 'OBJECT',
@@ -38,7 +39,7 @@ const responseSchema = {
       }
     }
   },
-  required: ['company', 'sector', 'intent', 'opportunity', 'uncertainOrder', 'messages']
+  required: ['company', 'sector', 'intent', 'opportunity', 'uncertainOrder', 'restrictionEvidence', 'messages']
 };
 
 function visualError(status, message) {
@@ -47,9 +48,9 @@ function visualError(status, message) {
 
 export function redactVisualText(value, limit) {
   if (typeof value !== 'string') return '';
-  return value.trim().slice(0, limit)
+  return value.trim()
     .replace(/\b[\w.%+-]+@[\w.-]+\.[a-z]{2,}\b/gi, '[dado oculto]')
-    .replace(/\+?\d(?:[\s()./-]*\d){7,}/g, '[dado oculto]');
+    .replace(/\+?\d(?:[\s()./-]*\d){7,}/g, '[dado oculto]').slice(0, limit);
 }
 
 function imageType(bytes) {
@@ -144,6 +145,7 @@ export async function analyzeVisual(data, config = {}, fetcher = fetch) {
     throw visualError(502, 'Gemini não retornou uma leitura completa. Tente novamente com menos prints.');
   }
   const messages = normalizeMessages(result.messages, parts.length);
+  const restriction = fold(redactVisualText(result.restrictionEvidence, 300));
   return {
     provider: 'gemini', model, messages,
     company: groundedField(result.company, messages, true),
@@ -151,7 +153,8 @@ export async function analyzeVisual(data, config = {}, fetcher = fetch) {
     intent: groundedField(result.intent, messages),
     opportunity: groundedField(result.opportunity, messages),
     uncertainOrder: result.uncertainOrder !== false || messages.some(row => row.direction === 'unknown' || row.cropped || !row.source),
-    blocked: visualStop(messages)
+    blocked: visualStop(messages) || Boolean(restriction && messages.some(row =>
+      row.direction !== 'outbound' && fold(row.text).includes(restriction)))
   };
 }
 
