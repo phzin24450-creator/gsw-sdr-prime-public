@@ -131,6 +131,13 @@ async function generate(store, phone, config, fetcher) {
     if(['safety_block','quality_block'].includes(code))return {created:false,reason:generationMeta.message,generationMeta:{...generationMeta,status:'error'}};
     generated={text:rulesVariant(conversation,decision,config),provider:code==='missing_key'?'rules':'rules_fallback',generationMeta};
   }
+  // Uma regeneração pode repetir uma sugestão arquivada, inclusive após uma edição manual.
+  if (current && config.regenerate && conversation.drafts.some(d =>
+    d.sourceMessageId===decision.latest.id && fold(d.text)===fold(generated.text))) {
+    const reason=generated.generationMeta?.message;
+    return {created:false,draft:current,reason:(reason ? reason+' ' : '')+
+      'A tentativa repetiu um texto do histórico. A versão atual foi mantida.'};
+  }
   // A revalidação com revisão otimista de versão impede salvar um rascunho
   // produzido antes de uma troca para HUMANO ou de nova mensagem.
   return store.saveDraft({ phone, expectedVersion: conversation.version, sourceMessageId: decision.latest.id,

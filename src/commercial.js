@@ -21,7 +21,7 @@ const OPENINGS = {
   oportunidade: 'Conecte a observação pública ao objetivo como hipótese. Não atribua problema, perda ou impacto ao lead.',
   pergunta: 'Abra com pergunta simples e específica sobre a dificuldade informada como hipótese; não a apresente como fato do lead.',
   segmento: 'Conecte ao segmento sem atribuir dificuldades particulares. Explore uma necessidade plausível.',
-  direta: 'Apresente Pedro e a GSW, explique brevemente o motivo e peça permissão para continuar. Sem pesquisa, diagnóstico ou pitch inventado.'
+  direta: 'Apresente Pedro e a GSW, explique brevemente o motivo e peça permissão para continuar. Sem pesquisa, diagnóstico ou pitch inventado. Sem setor informado, não fale em “seu segmento” nem sugira experiência prévia naquele mercado. Use uma possibilidade para a operação, sem insinuar trabalhos anteriores.'
 };
 
 export function minimize(text, limit = 1000) {
@@ -86,5 +86,7 @@ export function reviewCopy(text, conversation, decision) {
   const sent = (conversation.messages ?? []).filter(m=>m.direction==='outbound').flatMap(m=>questions(m.text));
   if (current.some(q=>sent.includes(q))) return 'repeated_question';
   if (decision.opening && /\b(?:visitei|pesquisei|analisei|acessei)\b/.test(clean)) return 'unsupported_research';
+  if (decision.opening && /\b(?:estamos aplicando|ja aplicamos|ja fizemos|ja atendemos|temos clientes|temos experiencia)\b/.test(clean)) return 'unsupported_experience';
+  if (decision.opening && !conversation.context?.sector && /\b(?:seu|nesse|neste) segmento\b/.test(clean)) return 'unsupported_sector';
   return null;
 }

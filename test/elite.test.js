@@ -76,6 +76,9 @@ test('revisor bloqueia promessas, repetição, múltiplas perguntas e handoff se
   assert.equal(trimBoilerplate('Compreendo perfeitamente. Sua equipe continua respondendo.'),'Sua equipe continua respondendo.');
   assert.equal(trimBoilerplate('Com certeza podemos avaliar.'),'Com certeza podemos avaliar.');
   assert.equal(reviewCopy('Visitei o seu site.',c,opening),'unsupported_research');
+  assert.equal(reviewCopy('Quer saber como estamos aplicando isso no seu segmento?',c,opening),'unsupported_experience');
+  assert.equal(reviewCopy('Posso explicar o que propomos para o seu segmento?',c,opening),'unsupported_sector');
+  assert.equal(reviewCopy('Posso explicar em uma mensagem por que entrei em contato?',c,opening),null);
   assert.equal(handoffAccepted('Pode encaminhar depois ao responsável.'),false);
   assert.equal(handoffAccepted('Pode me dizer quem é o responsável?'),false);
   assert.equal(handoffAccepted('Pode encaminhar meu contexto ao responsável.'),true);
@@ -145,4 +148,19 @@ test('HTTP: primeira abordagem, três estilos, edição idempotente e feedback a
     const script=html.match(/<script[^>]*>([\s\S]*?)<\/script>/)?.[1];
     assert.ok(script);assert.doesNotThrow(()=>new Function(script));
   }finally{await new Promise(resolve=>app.close(resolve))}
+});
+
+test('fallback que repete versão arquivada mantém a edição atual e a explicação da falha',async()=>{
+  const store=createStore();
+  const options={...config,opening:true};
+  const unavailable=async()=>({ok:false,status:503});
+  const original=await createReviewedDraft(store,phone,options,unavailable);
+  assert.equal(original.draft.provider,'rules_fallback');
+  const edit=store.editDraft(phone,original.draft.id,{text:'Primeiro contato revisado.',expectedVersion:original.draft.conversationVersion});
+  const repeated=await createReviewedDraft(store,phone,{...options,regenerate:true},unavailable);
+  assert.equal(repeated.created,false);
+  assert.equal(repeated.draft.id,edit.draft.id);
+  assert.match(repeated.reason,/indisponível.*versão atual foi mantida/);
+  assert.equal(store.get(phone).drafts.length,2);
+  assert.equal(store.get(phone).version,edit.draft.conversationVersion);
 });
