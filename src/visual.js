@@ -1,5 +1,5 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-import { GEMINI_MODEL, prepareDecision, requestModelDraft } from './advisor.js';
+import { GEMINI_MODEL, prepareDecision, requestModelDraft, generationFailure } from './advisor.js';
 import { MODES } from './core.js';
 import { classify, fold, INTENTS } from './intent.js';
 
@@ -200,9 +200,9 @@ export async function draftVisual(data, { blocked = false, opening = false, conf
   }
   try {
     const result = await requestModelDraft(conversation, decision, config, fetcher);
-    return { text: redactVisualText(result.text, 1000), provider: result.provider };
+    return { text: redactVisualText(result.text, 1000), provider: result.provider, generationMeta: result.generationMeta };
   } catch (error) {
     if (['safety_block', 'quality_block'].includes(error.code)) throw visualError(409, error.message);
-    return { text: decision.fallback, provider: error.code === 'missing_key' ? 'rules' : 'rules_fallback' };
+    return { text: decision.fallback, provider: error.code === 'missing_key' ? 'rules' : 'rules_fallback', generationMeta: generationFailure(error) };
   }
 }

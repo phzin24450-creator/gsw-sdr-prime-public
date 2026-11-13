@@ -74,6 +74,7 @@ fieldset.visual-fields{min-width:0;border:0;padding:0;margin:0} #visual-images{m
 </div>
 <label for="visual-answer">Resposta do print · editável</label><textarea id="visual-answer" maxlength="1000" rows="4" disabled></textarea>
 <button type="button" class="secondary" id="visual-copy" disabled>Copiar resposta do print</button>
+<button type="button" class="secondary" id="visual-whatsapp" disabled>Abrir WhatsApp manualmente</button>
 </fieldset><p class="feedback" id="visual-status" role="status" aria-live="polite"></p>
 </details>
 <div class="divider"></div>
@@ -85,6 +86,7 @@ fieldset.visual-fields{min-width:0;border:0;padding:0;margin:0} #visual-images{m
 <button type="button" class="secondary" id="standalone-generate">Gerar primeira abordagem</button>
 <label for="standalone-answer">Abordagem inicial · editável</label><textarea id="standalone-answer" maxlength="1000" rows="4" disabled></textarea>
 <button type="button" class="secondary" id="standalone-copy" disabled>Copiar abordagem inicial</button>
+<button type="button" class="secondary" id="standalone-whatsapp" disabled>Abrir WhatsApp manualmente</button>
 </fieldset><p class="feedback" id="standalone-status" role="status" aria-live="polite"></p>
 </details>
 </div></section>
@@ -181,6 +183,7 @@ function clearVisualAnswer(){
  $('visual-answer').value='';
  $('visual-answer').disabled=true;
  $('visual-copy').disabled=true;
+ $('visual-whatsapp').disabled=true;
 }
 function resetVisualReview(){
  visualToken=null;
@@ -260,12 +263,14 @@ function showStandaloneAnswer(prefix,result){
  $(prefix+'-answer').value=result.text;
  $(prefix+'-answer').disabled=false;
  $(prefix+'-copy').disabled=false;
- showVisualStatus(prefix+'-status',providers[result.provider]+'. Revise antes de copiar.');
+ $(prefix+'-whatsapp').disabled=false;
+ showVisualStatus(prefix+'-status',providers[result.provider]+'. '+(result.generationMeta?.message || 'Resposta pronta para revisão. Revise antes de copiar.')+(result.provider!=='gemini'?' Texto de contingência local, sem análise generativa. Você pode editar manualmente.':''),result.provider!=='gemini');
 }
 $('standalone-generate').onclick=()=>runVisual('opening-fields','standalone-status',async()=>{
  $('standalone-answer').value='';
  $('standalone-answer').disabled=true;
  $('standalone-copy').disabled=true;
+ $('standalone-whatsapp').disabled=true;
  showVisualStatus('standalone-status','Preparando primeira abordagem…');
  const result=await api('/api/visual/opening',{reviewed:true,company:$('opening-company').value,sector:$('opening-sector').value,tone:state.tone});
  showStandaloneAnswer('standalone',result);
@@ -274,10 +279,16 @@ for(const id of ['opening-company','opening-sector'])$(id).oninput=()=>{
  $('standalone-answer').value='';
  $('standalone-answer').disabled=true;
  $('standalone-copy').disabled=true;
+ $('standalone-whatsapp').disabled=true;
 };
 for(const prefix of ['visual','standalone']){
  const answer=$(prefix+'-answer'), copy=$(prefix+'-copy');
- answer.oninput=()=>{copy.disabled=!answer.value.trim()};
+ answer.oninput=()=>{copy.disabled=!answer.value.trim();$(prefix+'-whatsapp').disabled=copy.disabled};
+ $(prefix+'-whatsapp').onclick=()=>{
+  const text=answer.value.trim();if(!text||copy.disabled||$(prefix+'-fields')?.disabled)return;
+  showVisualStatus(prefix+'-status','Escolha o destinatário no WhatsApp e confira o texto. Nenhum envio foi registrado.');
+  window.location.href='https://wa.me/?text='+encodeURIComponent(text);
+ };
  copy.onclick=async()=>{
   try{
    await navigator.clipboard.writeText(answer.value.trim());

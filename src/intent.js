@@ -10,7 +10,7 @@ export function fold(text) {
 export function classify(text) {
   const s = fold(text).slice(0, 4000);
   // Não tratar frases negativas como solicitação de handoff ou opt-out.
-  if (/\b(pare[m]? de (me )?(enviar|mandar|contatar|chamar)|nao (me )?(mande|envie|contate|chame)|remova (meu|o meu) (numero|contato)|exclua (meu|o meu) (contato|numero)|nao (tenho|quero) interesse|nao estou interessado|quero sair da lista|descadastrar|nao quero mais receber|nao quero receber (mais )?mensagens|nao quero (continuar (a )?conversa|ser contatad[oa])|nao me procure|pode encerrar por aqui|stop\b|sair da lista)\b/.test(s)) return INTENTS.OPT_OUT;
+  if (/\b(pare[m]? de (me )?(enviar|mandar|contatar|chamar)|nao (me )?(mande|envie|contate|chame)|remova (meu|o meu) (numero|contato)|exclua (meu|o meu) (contato|numero)|nao (tenho|temos|quero) interesse|nao estou interessado|quero sair da lista|descadastrar|nao quero mais receber|nao quero receber (mais )?mensagens|nao quero (continuar (a )?conversa|ser contatad[oa])|nao me procure|pode encerrar por aqui|stop\b|sair da lista)\b/.test(s)) return INTENTS.OPT_OUT;
   if (/\b(quero (falar|conversar) com (um |uma )?(humano|pessoa|atendente|consultor)|falar com alguem|me passa pra (um |uma )?(pessoa|atendente)|atendimento humano|chama (um |uma )?(atendente|pessoa)|prefiro (um |uma )?(humano|pessoa))\b/.test(s)) return INTENTS.HUMAN_REQUEST;
   if (/\b(preco|precos|quanto custa|qual o valor|orcamento|cotacao|mensalidade|investimento|quanto fica)\b/.test(s)) return INTENTS.PRICING;
   if (/\b(agendar|agendamento|reuniao|marcar horario|marcar uma conversa|disponibilidade|podemos conversar|ligacao|chamada)\b/.test(s)) return INTENTS.SCHEDULING;

@@ -36,13 +36,15 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
   async function get(phone) {
     const id = validPhone(phone);
     await pool.query('INSERT INTO conversations(phone) VALUES($1) ON CONFLICT DO NOTHING', [id]);
-    const [c, m, d, history] = await Promise.all([
+    const [c, m, d, history, feedback] = await Promise.all([
       pool.query('SELECT * FROM conversations WHERE phone=$1', [id]),
       pool.query('SELECT external_id, direction, body, occurred_at FROM (SELECT external_id, direction, body, occurred_at, created_at FROM messages WHERE conversation_phone=$1 ORDER BY created_at DESC LIMIT 50) recent ORDER BY created_at ASC', [id]),
       pool.query('SELECT d.id,d.body,d.intent,d.provider,d.generation_meta,d.status,d.reviewed_at,d.conversation_version,d.created_at,m.external_id AS source_external_id FROM drafts d LEFT JOIN messages m ON m.id=d.source_message_id WHERE d.conversation_phone=$1 ORDER BY d.created_at DESC LIMIT 25', [id]),
-      pool.query("SELECT details FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_REVISION' ORDER BY id DESC LIMIT 25", [id])
+      pool.query("SELECT details FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_REVISION' ORDER BY id DESC LIMIT 25", [id]),
+      pool.query("SELECT details FROM audit_events WHERE conversation_phone=$1 AND event_type='DRAFT_FEEDBACK' ORDER BY id DESC LIMIT 10", [id])
     ]);
     const result = mapConversation(c.rows[0], m.rows, d.rows);
+    result.feedback=feedback.rows.map(r=>r.details);
     // Reads can overlap a commit. Prefer the live row when its ID also appears in the audit snapshot.
     const revisions = new Map(history.rows.map(r=>[r.details.id,r.details]));
     for (const draft of result.drafts) revisions.set(draft.id,draft);

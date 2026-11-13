@@ -76,7 +76,11 @@ const GENERATION_ERRORS = Object.freeze({
   quality_block:'A resposta do Gemini não passou pela revisão de qualidade. Gere outra versão ou altere o estilo.',
   invalid_model:'O modelo configurado não é o modelo gratuito aprovado para esta integração.'
 });
-class GenerationError extends Error { constructor(code) {super(GENERATION_ERRORS[code]);this.code=code;} }
+class GenerationError extends Error { constructor(code, status) {super(GENERATION_ERRORS[code]);this.code=code;if(Number.isInteger(status))this.httpStatus=status;} }
+export function generationFailure(error) {
+  const code=error instanceof GenerationError?error.code:'provider_unavailable';
+  return {provider:'gemini',status:'fallback',errorCode:code,message:GENERATION_ERRORS[code],...(error.httpStatus?{httpStatus:error.httpStatus}:{})};
+}
 export const generationPrompt = commercialPrompt;
 // API oficial do Google; chave somente em cabeçalho servidor-servidor.
 export async function requestModelDraft(conversation, decision, config = {}, fetcher = fetch) {
@@ -86,21 +90,25 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   // Não troca silenciosamente para modelos/provedores potencialmente pagos.
   if (model!==GEMINI_MODEL) throw new GenerationError('invalid_model');
   const prompt=generationPrompt(conversation,decision,config);
+  if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
   const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
   try {
     const response=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
       method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
       body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.7,maxOutputTokens:2048}}),signal:controller.signal
     });
-    if(!response.ok) throw new GenerationError(({400:'invalid_request',401:'invalid_key',403:'permission_denied',404:'model_unavailable',429:'quota_exceeded'})[response.status]||'provider_unavailable');
+    if(!response.ok) throw new GenerationError(({400:'invalid_request',401:'invalid_key',403:'permission_denied',404:'model_unavailable',429:'quota_exceeded'})[response.status]||'provider_unavailable',response.status);
     let data;try{data=await response.json()}catch{throw new GenerationError('invalid_response')}
     const candidate=data.candidates?.[0];
     if(data.promptFeedback?.blockReason || ['SAFETY','RECITATION','BLOCKLIST','PROHIBITED_CONTENT','SPII'].includes(candidate?.finishReason)) throw new GenerationError('safety_block');
     const text=polishCopy((candidate?.content?.parts||[]).filter(p=>!p.thought&&typeof p.text==='string').map(p=>p.text).join('').trim());
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
     const issue=reviewCopy(text,conversation,decision,config.now);
-    if(issue) throw new GenerationError('quality_block');
-    return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success'}};
+    if(issue) {
+      if (!config.qualityRetry) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue},fetcher);
+      throw new GenerationError('quality_block');
+    }
+    return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',qualityAttempts:config.qualityRetry?2:1}};
   }catch(error){if(error instanceof GenerationError)throw error;throw new GenerationError(error.name==='AbortError'?'timeout':'network_error')}
   finally{clearTimeout(timer)}
 }
@@ -127,7 +135,7 @@ async function generate(store, phone, config, fetcher) {
   try { generated = await requestModelDraft(conversation, decision, config, fetcher); }
   catch(error) {
     const code=error instanceof GenerationError?error.code:'provider_unavailable';
-    const generationMeta={provider:'gemini',model:config.geminiModel??process.env.GEMINI_MODEL??GEMINI_MODEL,status:'fallback',errorCode:code,message:GENERATION_ERRORS[code]};
+    const generationMeta={...generationFailure(error),model:config.geminiModel??process.env.GEMINI_MODEL??GEMINI_MODEL};
     if(['safety_block','quality_block'].includes(code))return {created:false,reason:generationMeta.message,generationMeta:{...generationMeta,status:'error'}};
     generated={text:rulesVariant(conversation,decision,config),provider:code==='missing_key'?'rules':'rules_fallback',generationMeta};
   }

@@ -1,4 +1,5 @@
 import { fold } from './intent.js';
+import { commercialSignals, ADAPTIVE_POLICY } from './intelligence.js';
 
 export const CONTEXT_FIELDS = ['company', 'sector', 'challenge', 'goal', 'offer', 'observation', 'sourceUrl', 'verifiedOn'];
 export const TONES = ['consultivo', 'objetivo', 'estrategico', 'acolhedor'];
@@ -66,9 +67,9 @@ export function commercialPrompt(conversation, decision, config = {}) {
     .map(m=>({direction:m.direction,text:minimize(m.text)}));
   const drafts = (conversation.drafts ?? []).slice(-3).map(d=>({text:minimize(d.text),note:'Rascunho: NÃO comprova envio nem aceite do lead'}));
   return {
-    system: PLAYBOOK + (strategy ? '\nPrimeiro contato sem mensagem do lead. ' + OPENINGS[strategy] : ''),
+    system: PLAYBOOK + ADAPTIVE_POLICY + (strategy ? '\nPrimeiro contato sem mensagem do lead. ' + OPENINGS[strategy] : ''),
     input: JSON.stringify({tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
-      commercialContext, history, previousDrafts:drafts, channel:'WhatsApp manual', strategy,
+      commercialContext, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(commercialSignals(conversation, decision), (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,
       verifiedObservation:observation||null, handoffAccepted:handoffAccepted(decision.latest.text),
       regenerate:config.regenerate===true})
   };
@@ -101,6 +102,11 @@ function unsupportedLeadFact(clean, conversation, decision, now) {
 
 export function reviewCopy(text, conversation, decision, now = Date.now()) {
   const clean = fold(text);
+  const signals = commercialSignals(conversation, decision);
+  if (signals.refusal && (/\?|\b(?:retomar|desconto|orcamento|agendar|reuniao|volto a|posso explicar)\b/.test(clean))) return 'pressure_after_refusal';
+  if (signals.interlocutor.confidence === 'alta' && /quem.{0,35}(?:responsavel|decide)|voce e.{0,20}responsavel/.test(clean)) return 'resolved_identity';
+  if (/voce e (?:um |uma )?(?:robo|chatbot)|percebi que.{0,25}automatizad/.test(clean)) return 'unsupported_interlocutor';
+  if (/conseguiu ver minha proposta|alguma novidade\?|passando para saber se teve tempo/.test(clean)) return 'generic_followup';
   if (/\b(?:ja )?(?:encaminhei|transferi|agendei|enviei)\b|\b(?:garanto|garantimos|resultado garantido|sem risco)\b|(?:r\$|\bus\$)\s*\d/.test(clean)) return 'unsafe_claim';
   if (!handoffAccepted(decision.latest.text) && /\b(?:(?:vou|vamos|irei) (?:te )?(?:encaminhar|transferir|repassar|colocar em contato)|obrigad[oa] por autorizar|como voce autorizou)\b/.test(clean)) return 'handoff_without_consent';
   if (/\b(?:elimin(?:a|am|ando|ara|aria)|acaba com) (?:todo (?:o )?|o |esse |este |qualquer )?(?:retrabalho|conflito|problema)|\bsem perder (?:mais )?tempo com|\bresolve (?:definitivamente|de vez)\b/.test(clean)) return 'absolute_outcome';
