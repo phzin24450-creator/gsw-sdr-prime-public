@@ -69,7 +69,7 @@ const GENERATION_ERRORS = Object.freeze({
   quota_exceeded:'O limite ou a cota gratuita do Gemini foi atingido (HTTP 429). Aguarde a renovação; cobrança não foi ativada.',
   model_unavailable:'O modelo Gemini não está disponível para este projeto (HTTP 404).',
   provider_unavailable:'O Gemini está temporariamente indisponível.',
-  timeout:'O Gemini excedeu o tempo limite de 25 segundos.',
+  timeout:'Uma etapa do Gemini excedeu o tempo limite de 25 segundos.',
   network_error:'Não foi possível conectar ao Gemini.',
   safety_block:'O Gemini bloqueou a resposta por segurança. Revise a mensagem e o contexto.',
   invalid_response:'O Gemini não retornou uma resposta completa utilizável.',
@@ -100,7 +100,7 @@ Conte pedidos de informações distintos, não pontos de interrogação. Pedir s
 Pedro é o SDR. Não trate Pedro como cliente sem declaração. Saudação não prova chatbot nem cargo de responsável. Marque cargo inventado em unsupportedClaims mesmo que esteja apenas no assessment.
 Detecte problemas presumidos, promessa de automação/integração ou dispensa de atualização manual sem viabilidade confirmada. Possibilidade explicitamente condicional e sem promessa é aceitável.
 Detecte pergunta já respondida semanticamente. Recusa/opt-out encerram; prioridade diferente não autoriza follow-up. Aceite de explicação não autoriza handoff.
-Marque genericApproach se apenas apresenta tecnologia/lista serviços e pede diagnóstico amplo, quando existe dado específico que permitiria uma pergunta ou aplicação relevante. Sem nenhum dado da empresa, uma pergunta única para obter contexto, sem pitch de portfólio, é aceitável.
+Lista de dois ou mais serviços é inadequada sem solicitação explícita de portfólio, mesmo sem contexto: marque genericApproach. Um cumprimento não é evidência de interesse comercial. Não aceite pergunta genérica sobre desafios quando há nicho que permita uma pergunta neutra sobre um processo concreto. Marque genericApproach se apenas apresenta tecnologia/lista serviços e pede diagnóstico amplo, quando existe dado específico que permitiria uma pergunta ou aplicação relevante. Sem nenhum dado da empresa, uma pergunta única para obter contexto, sem pitch de portfólio, é aceitável.
 strategyConsistent avalia se a ação declarada e o próximo passo combinam com o texto, histórico, permissões e momento. Nunca invente fatos para avaliar. Não penalize ausência de preço, cases ou pesquisa quando não fornecidos.`;
  const r=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
   method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},signal,
@@ -126,7 +126,8 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   const prompt=generationPrompt(conversation,decision,config);
   if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
   if(config.qualityDraft) { const input=JSON.parse(prompt.input);input.rejectedDraft=minimize(config.qualityDraft);prompt.input=JSON.stringify(input); }
-  const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
+  const controller=new AbortController(); let timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
+  const started=Date.now();
   try {
     const response=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
       method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
@@ -147,6 +148,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     const commercialDecision=assessment?{strategy:assessment.strategy,interlocutor:String(assessment.interlocutor||'Desconhecido').slice(0,200),evidence:String(assessment.evidence||'').slice(0,300),unknowns:Array.isArray(assessment.unknowns)?assessment.unknowns.slice(0,8).map(x=>String(x).slice(0,150)):[],nextStep:String(assessment.nextStep||'').slice(0,200)}:null;
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
     const localIssue=reviewCopy(text,conversation,decision,config.now);
+    clearTimeout(timer); timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
     const semantic=assessment&&!localIssue?await semanticReview({assessment:{...commercialDecision,text},prompt,apiKey,model,signal:controller.signal,fetcher}):null;
     const apiRequests=(config.callsBefore??0)+1+(semantic?1:0);
     const issue=localIssue||semantic?.issues.join(',');
@@ -154,7 +156,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
       if (!config.qualityRetry && !config.transientRetry) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue,qualityDraft:text,callsBefore:apiRequests},fetcher);
       throw new GenerationError('quality_block');
     }
-    return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',qualityReview:semantic?'gemini_semantic_and_local':'legacy_local_rules',semanticQuestionCount:semantic?.questionCount??null,qualityAttempts:config.qualityRetry?2:1,requestAttempts:apiRequests,generationAttempts:config.qualityRetry||config.transientRetry?2:1,commercialDecision:commercialDecision?JSON.parse(JSON.stringify(commercialDecision,(key,value)=>typeof value==='string'?minimize(value):value)):null}};
+    return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',durationMs:Date.now()-started,qualityReview:semantic?'gemini_semantic_and_local':'legacy_local_rules',semanticQuestionCount:semantic?.questionCount??null,qualityAttempts:config.qualityRetry?2:1,requestAttempts:apiRequests,generationAttempts:config.qualityRetry||config.transientRetry?2:1,commercialDecision:commercialDecision?JSON.parse(JSON.stringify(commercialDecision,(key,value)=>typeof value==='string'?minimize(value):value)):null}};
   }catch(error){if(error instanceof GenerationError)throw error;throw new GenerationError(error.name==='AbortError'?'timeout':'network_error')}
   finally{clearTimeout(timer)}
 }

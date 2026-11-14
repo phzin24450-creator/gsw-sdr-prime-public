@@ -105,6 +105,8 @@ export function reviewCopy(text, conversation, decision, now = Date.now()) {
   const signals = commercialSignals(conversation, decision);
   const leadEvidence=fold((conversation.messages||[]).filter(m=>m.direction==='inbound').map(m=>m.text).join(' ')+' '+(conversation.context?.interlocutor||''));
   if (/\bpedro\b/.test(clean) && !/\bpedro\b/.test(leadEvidence) && !/(?:sou (?:o )?|e o |me chamo |aqui e (?:o )?|aqui quem fala e (?:o )?)pedro|pedro (?:aqui|da gsw)/.test(clean)) return 'wrong_interlocutor_name';
+  const serviceFamilies=[/sites?|landing page/,/automac|atendimento/,/paineis|painel|sistemas?/].filter(re=>re.test(clean)).length;
+  if(serviceFamilies>1 && !/quais.{0,20}servicos|portfolio|todos os servicos/.test(fold(decision.latest.text))) return 'portfolio_pitch';
   if (/entendo perfeitamente|compreendo perfeitamente/.test(clean)) return 'canned_empathy';
   if (/qual.{0,70}(?:segmento|setor).{0,35}e (?:qual|se)|como.{0,80}ou (?:o |a )?(?:controle|atendimento)/.test(clean)) return 'multiple_questions';
   if (/empresas (?:do|desse|deste) setor|acompanhamos empresas|parceiro estrategico/.test(clean)) return 'unsupported_experience';

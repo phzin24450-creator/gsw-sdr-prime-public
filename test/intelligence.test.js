@@ -90,3 +90,15 @@ test('Semantic review failures block instead of exposing an unreviewed draft',as
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação',unknowns:['empresa'],nextStep:'Conhecer contexto',text:'Aqui é o Pedro, da GSW. Qual é a área de atuação da empresa?'}));
  }),e=>e.code==='quota_exceeded');assert.equal(calls,2);
 });
+test('Portfolio pitch is blocked without an explicit request for services',()=>{
+ const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
+ assert.equal(reviewCopy('Oferecemos sites, automações de atendimento e painéis de gestão. Qual desafio você tem?',c,d),'portfolio_pitch');
+});
+test('Generation and semantic review receive separate bounded deadlines',async()=>{
+ const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
+ const result=await requestModelDraft(c,d,{geminiApiKey:'fake',timeoutMs:100},async(u,o)=>{
+  await new Promise((resolve,reject)=>{const t=setTimeout(resolve,65);o.signal.addEventListener('abort',()=>{clearTimeout(t);reject(Object.assign(Error(),{name:'AbortError'}));},{once:true});});
+  if(JSON.parse(o.body).generationConfig.responseSchema.properties.questionCount)return acceptedReview();
+  return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação',unknowns:['empresa'],nextStep:'Conhecer segmento',text:'Sou Pedro, da GSW. Qual é a área de atuação da empresa?'}));
+ });assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');assert.equal(result.generationMeta.requestAttempts,2);
+});

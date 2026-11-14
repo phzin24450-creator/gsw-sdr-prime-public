@@ -45,7 +45,10 @@ jobs:
         if: always()
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+          GSW_LIVE_CASES: atendente,decisor,preco,pergunta-respondida,aceite-handoff,ambiguidade-inedita
         run: node scripts/commercial-gemini-live.mjs
+        # Targeted regression after semantic-review latency and portfolio fixes.
+        # Clear this selection only for an explicitly needed full live suite.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
