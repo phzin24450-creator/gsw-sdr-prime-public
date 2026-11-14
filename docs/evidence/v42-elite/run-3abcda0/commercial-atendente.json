@@ -1,0 +1,70 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá Marina, tudo bem? O motivo do meu contato é entender como vocês organizam o recebimento de pedidos de orçamento de novos clientes hoje. Você cuida dessa parte ou poderia me indicar quem é a pessoa responsável por esse fluxo?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "local"
+    }
+  ],
+  "response": "O motivo do meu contato é conversar sobre como a Brisa Técnica organiza o fluxo de recebimento de pedidos de orçamento de novos clientes. Esse é um ponto importante para garantir que as demandas cheguem corretamente à equipe técnica.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 3267,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 0,
+    "qualityAttempts": 2,
+    "requestAttempts": 3,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "focus": {
+        "topic": "Processo de recepção de orçamentos",
+        "basis": "hypothesis",
+        "relevance": "Empresas de climatização lidam com demandas de manutenção e instalação que dependem de organização para fluir entre o primeiro contato e a proposta comercial."
+      },
+      "interlocutor": "Marina",
+      "evidence": "A interlocutora se identificou como Marina e perguntou como pode ajudar.",
+      "unknowns": [
+        "cargo da Marina",
+        "processo atual de gestão de orçamentos da Brisa Técnica"
+      ],
+      "nextStep": "Aguardar reação espontânea da interlocutora sobre o tema proposto."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "não aprovado comercialmente",
+    "strengths": [
+      "um tópico",
+      "identidade preservada",
+      "sem pergunta composta na saída final",
+      "sem lista de serviços"
+    ],
+    "issues": [
+      "Linguagem excessiva: garantir que demandas cheguem corretamente, sem fundamento suficiente.",
+      "Motivo de contato ainda não demonstra valor específico suficiente para esta empresa."
+    ],
+    "note": "pass=true preserva o resultado automático; não é aprovação comercial nem do operador."
+  }
+}

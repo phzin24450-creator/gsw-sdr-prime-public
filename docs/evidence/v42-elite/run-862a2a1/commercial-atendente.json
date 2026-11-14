@@ -1,0 +1,43 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina. O motivo do contato é entender se vocês utilizam algum sistema para automatizar o agendamento de visitas técnicas ou se esse processo ainda é feito manualmente. Poderia me confirmar se esse é um ponto que ocupa muito tempo da sua equipe?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "semantic"
+    },
+    {
+      "text": "O motivo do contato é compartilhar como a automação de agendamentos de visitas técnicas pode reduzir o tempo que a equipe gasta com a organização manual da agenda. Esse tipo de integração permite que o fluxo de solicitações seja processado diretamente pelo sistema de gestão da Brisa Técnica.",
+      "issues": [
+        "portfolio_pitch"
+      ],
+      "stage": "local"
+    }
+  ],
+  "pass": false,
+  "errorCode": "quality_block",
+  "httpStatus": null,
+  "qualityIssues": [
+    "portfolio_pitch"
+  ],
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "reason": "Primeira tentativa pede estado atual e tempo gasto; reparo presume sistema da empresa e integração. Bloqueado, embora portfolio_pitch não descreva precisamente esse defeito."
+  }
+}

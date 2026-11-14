@@ -1,0 +1,70 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "O assunto é a organização dos pedidos de assistência técnica que chegam à empresa. Gostaria de entender como vocês gerenciam essas solicitações atualmente para verificar se existe uma forma mais simples de centralizar essas informações. Você poderia me indicar quem cuida dessa parte operacional?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "semantic"
+    }
+  ],
+  "response": "O assunto é a centralização das solicitações de assistência técnica que chegam à Brisa Técnica. O objetivo é entender como esse fluxo é organizado para avaliar se a estrutura atual pode ganhar mais clareza no registro das demandas.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2957,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 0,
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "focus": {
+        "topic": "Centralização de solicitações de assistência técnica",
+        "basis": "hypothesis",
+        "relevance": "Empresas de climatização lidam com demanda variável e a organização desses chamados impacta a fluidez da operação técnica."
+      },
+      "interlocutor": "Marina (Recepção)",
+      "evidence": "A interlocutora identificou-se como recepcionista da Brisa Técnica Climatização e solicitou o assunto da abordagem.",
+      "unknowns": [
+        "Processo atual de recebimento de chamados",
+        "Responsável pela área operacional"
+      ],
+      "nextStep": "Aguardar reação espontânea ou indicação de contato da interlocutora."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "não aprovado comercialmente",
+    "strengths": [
+      "um tópico",
+      "identidade preservada",
+      "sem pergunta composta na saída final",
+      "sem lista de serviços"
+    ],
+    "issues": [
+      "Solicitações de assistência técnica que chegam à empresa são hipótese, mas aparecem como fato.",
+      "Relevância ainda depende de confirmar o processo existente."
+    ],
+    "note": "pass=true preserva o resultado automático; não é aprovação comercial nem do operador."
+  }
+}
