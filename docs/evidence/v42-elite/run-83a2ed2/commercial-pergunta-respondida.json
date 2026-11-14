@@ -1,0 +1,50 @@
+{
+  "id": "pergunta-respondida",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Como vocês registram os pedidos?"
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Usamos planilha. Quero acompanhar pedidos atrasados."
+    }
+  ],
+  "expected": "Não perguntar como registram novamente",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Entendi. Para que possamos verificar se um painel administrativo seria o caminho mais eficiente para centralizar esse acompanhamento, como é hoje o seu processo para identificar quais pedidos estão atrasados na planilha?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2004,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead utiliza planilhas e deseja monitorar pedidos atrasados.",
+      "unknowns": [
+        "segmento de atuação",
+        "volume de pedidos",
+        "processo atual de identificação de atrasos"
+      ],
+      "nextStep": "Entender o processo atual de identificação de atrasos para avaliar a viabilidade de um painel administrativo."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado com ressalvas",
+    "note": "Resposta contextual, sem dado inventado, uma solicitação; estilo ainda pode ser mais direto.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

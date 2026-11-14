@@ -1,0 +1,45 @@
+{
+  "id": "interesse",
+  "context": {
+    "sector": "Marcenaria"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Um painel pode ajudar a acompanhar nossos orçamentos?"
+    }
+  ],
+  "expected": "Explicar aplicação concreta sem garantia",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Um painel administrativo personalizado pode centralizar o status dos orçamentos e facilitar o acompanhamento da sua marcenaria, conectando os dados ao seu fluxo real de trabalho. Como vocês organizam e registram esses orçamentos hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead perguntou sobre a utilidade de um painel para acompanhar orçamentos em uma marcenaria.",
+      "unknowns": [
+        "Como é feito o controle de orçamentos atualmente",
+        "Qual o volume ou complexidade dessa operação"
+      ],
+      "nextStep": "Entender o processo atual de gestão de orçamentos para verificar a viabilidade de um painel."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Aplicação ou pergunta contextual, sem promessa de resultado; aprovação restrita ao cenário.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

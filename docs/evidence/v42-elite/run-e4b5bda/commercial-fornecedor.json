@@ -1,0 +1,41 @@
+{
+  "id": "fornecedor",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Já temos uma agência e estamos satisfeitos. O que seria diferente?"
+    }
+  ],
+  "expected": "Não depreciar fornecedor nem presumir troca",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Compreendo. Manter uma parceria que funciona é fundamental. Na GSW, nosso foco é conectar soluções digitais diretamente aos seus processos operacionais, como a integração de sistemas ou a organização da comunicação. Caso surja algum projeto ou necessidade específica que sua agência atual não cubra, podemos conversar sobre como apoiar sua operação.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead afirmou ter uma agência atual e estar satisfeito, questionando o diferencial da GSW.",
+      "unknowns": [
+        "empresa",
+        "segmento",
+        "necessidade específica"
+      ],
+      "nextStep": "Aguardar retorno sobre alguma lacuna ou interesse em explorar um ponto específico."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Não depreciou fornecedor nem presumiu troca; ofereceu conversa apenas se surgir lacuna.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "ambiguidade-inedita",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou responsável pelo estoque, mas a compra de sistemas depende de outra pessoa. Nosso sistema funciona; falta ver itens separados para retirada."
+    }
+  ],
+  "expected": "Não assumir autoridade de compra ou trocar sistema",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

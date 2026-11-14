@@ -1,0 +1,44 @@
+{
+  "id": "sem-nicho",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Como posso ajudar?"
+    }
+  ],
+  "expected": "Não inventar segmento",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá, sou Pedro, da GSW. Entro em contato para entender se podemos apoiar em alguma frente de tecnologia ou operação digital na sua empresa. Atuamos conectando soluções, como sites ou sistemas sob medida, a processos reais. Qual é o seu segmento de atuação hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "interlocutor": "interlocutor não identificado",
+      "evidence": "Lead respondeu com um questionamento sobre o motivo do contato.",
+      "unknowns": [
+        "empresa",
+        "segmento",
+        "necessidade"
+      ],
+      "nextStep": "Qualificação inicial"
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Portfólio ou diagnóstico amplo/genérico apesar da revisão semântica.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

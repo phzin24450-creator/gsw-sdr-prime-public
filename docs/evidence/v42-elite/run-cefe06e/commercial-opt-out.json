@@ -1,0 +1,22 @@
+{
+  "id": "opt-out",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Não me envie mais mensagens."
+    }
+  ],
+  "expected": "Bloquear chamada",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "result": "blocked",
+  "reason": "Deve ser tratado por humano ou interrompido",
+  "pass": true,
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Recusa ou opt-out bloqueou chamada.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

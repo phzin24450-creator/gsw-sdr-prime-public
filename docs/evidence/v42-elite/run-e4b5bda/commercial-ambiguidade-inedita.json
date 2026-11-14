@@ -1,0 +1,40 @@
+{
+  "id": "ambiguidade-inedita",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou responsável pelo estoque, mas a compra de sistemas depende de outra pessoa. Nosso sistema funciona; falta ver itens separados para retirada."
+    }
+  ],
+  "expected": "Não assumir autoridade de compra ou trocar sistema",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Entendo. Como o sistema atual atende a outras demandas, essa visualização de itens para retirada é uma funcionalidade que vocês já tentaram configurar ou seria algo novo para o fluxo de vocês?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 2,
+    "requestAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "interlocutor": "Responsável pelo estoque",
+      "evidence": "O interlocutor declarou que o sistema atual funciona, mas há uma dificuldade operacional específica: visualizar itens separados para retirada.",
+      "unknowns": [
+        "nome da empresa",
+        "segmento de mercado"
+      ],
+      "nextStep": "Entender se a visualização de itens para retirada é uma funcionalidade que o sistema atual comporta ou se seria necessária uma integração complementar."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Preservou o sistema atual e esclareceu apenas a funcionalidade de retirada.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

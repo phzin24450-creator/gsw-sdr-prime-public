@@ -1,0 +1,40 @@
+{
+  "id": "retomada-contextual",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Retomando nossa conversa: agora anotamos os pedidos por etapa e queremos enxergar atrasos."
+    }
+  ],
+  "expected": "Usar novidade declarada",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Sou o Pedro, da GSW. Para entender melhor como podemos apoiar essa visualização de atrasos, hoje vocês utilizam algum sistema ou planilha para consolidar essas etapas dos pedidos?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead mencionou que anota pedidos por etapa e deseja visibilidade sobre atrasos.",
+      "unknowns": [
+        "segmento da empresa",
+        "ferramenta atual de anotação"
+      ],
+      "nextStep": "Entender o processo atual de registro para avaliar a viabilidade de um painel administrativo."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Usou o objetivo de enxergar atrasos e perguntou a ferramenta atual.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

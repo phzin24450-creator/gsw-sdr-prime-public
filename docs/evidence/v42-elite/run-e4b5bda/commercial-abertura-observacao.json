@@ -1,0 +1,40 @@
+{
+  "id": "abertura-observacao",
+  "context": {
+    "company": "Brisa Fictícia",
+    "sector": "Climatização",
+    "observation": "Página fictícia informa instalação de climatizadores",
+    "sourceUrl": "https://brisa.example.invalid",
+    "verifiedOn": "2026-11-14"
+  },
+  "conversation": [],
+  "expected": "Usar somente observação fornecida como fixture verificada, sem pesquisa real",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Notei que a Brisa Fictícia atua com instalação de climatizadores. Sou o Pedro, da GSW, e trabalho conectando tecnologia a processos operacionais. Gostaria de saber se hoje o fluxo de agendamentos ou o atendimento aos clientes por aqui atende bem às demandas de vocês ou se há algum ponto que buscam organizar melhor?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "interlocutor": "responsável pela Brisa Fictícia",
+      "evidence": "Página da empresa menciona instalação de climatizadores.",
+      "unknowns": [
+        "necessidade atual de suporte digital",
+        "processos de atendimento ou agendamento"
+      ],
+      "nextStep": "qualificar a necessidade de suporte digital"
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Atribuiu cargo de responsável sem evidência e acumulou áreas de investigação.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

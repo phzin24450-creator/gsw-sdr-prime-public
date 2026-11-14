@@ -1,0 +1,42 @@
+{
+  "id": "decisor",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou eu o responsável."
+    }
+  ],
+  "expected": "Não perguntar novamente quem decide",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Sou o Pedro, da GSW. Como a Brisa Técnica está estruturando hoje a parte de atendimento ou a presença digital da empresa? Pergunto para entender se há algum processo operacional ou de comunicação que vocês buscam otimizar.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Responsável pela Brisa Técnica Climatização",
+      "evidence": "O interlocutor confirmou ser o responsável pela empresa.",
+      "unknowns": [
+        "necessidade atual de melhoria nos processos ou presença digital"
+      ],
+      "nextStep": "Identificar se há algum ponto específico na operação ou nos canais digitais da empresa que merece atenção no momento."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "ressalva",
+    "note": "Não repetiu responsável; abordagem ainda reúne atendimento e presença digital.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

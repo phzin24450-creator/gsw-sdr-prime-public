@@ -1,0 +1,25 @@
+{
+  "text": "Um painel pode centralizar o status desses orçamentos, permitindo visualizar quais aguardam retorno e quais foram aprovados. Na GSW, trabalhamos com painéis personalizados para que essas informações de sua marcenaria fiquem organizadas e acessíveis. Como vocês registram hoje o retorno ou a negativa de cada cliente?",
+  "provider": "gemini",
+  "generationMeta": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2394,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "interlocutor": "interlocutor",
+      "evidence": "O cliente utiliza planilhas para orçamentos de marcenaria e questionou sobre o uso de um painel para acompanhamento.",
+      "unknowns": [
+        "volume de orçamentos mensais",
+        "frequência de retorno dos clientes"
+      ],
+      "nextStep": "Validar se a centralização das informações em um painel atende à necessidade de visibilidade do status dos orçamentos."
+    }
+  }
+}

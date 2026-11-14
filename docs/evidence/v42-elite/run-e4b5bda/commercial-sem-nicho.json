@@ -1,0 +1,41 @@
+{
+  "id": "sem-nicho",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Como posso ajudar?"
+    }
+  ],
+  "expected": "Não inventar segmento",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá, sou o Pedro, da GSW. Entro em contato pois auxiliamos empresas a estruturar suas operações digitais e sistemas internos conforme a necessidade de cada negócio. Gostaria de entender melhor qual é o seu principal foco hoje para sabermos se podemos contribuir com o seu processo.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 2,
+    "requestAttempts": 2,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "interlocutor": "interlocutor",
+      "evidence": "O lead iniciou a conversa com uma saudação genérica sem contexto comercial.",
+      "unknowns": [
+        "nome da empresa",
+        "segmento de atuação",
+        "necessidade atual"
+      ],
+      "nextStep": "Qualificar o interesse ou necessidade do lead após a apresentação."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "ressalva",
+    "note": "Não inventou segmento, mas o motivo continua genérico.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

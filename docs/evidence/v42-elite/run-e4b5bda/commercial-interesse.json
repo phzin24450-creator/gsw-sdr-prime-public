@@ -1,0 +1,42 @@
+{
+  "id": "interesse",
+  "context": {
+    "sector": "Marcenaria"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Um painel pode ajudar a acompanhar nossos orçamentos?"
+    }
+  ],
+  "expected": "Explicar aplicação concreta sem garantia",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Na GSW, desenvolvemos painéis administrativos personalizados para conectar a gestão aos processos reais da marcenaria. Um painel pode centralizar o status dos seus orçamentos, facilitando a visualização do que está pendente ou aprovado. Como vocês organizam e acompanham esses orçamentos hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "interlocutor",
+      "evidence": "O lead questionou a utilidade de um painel administrativo para o acompanhamento de orçamentos em uma marcenaria.",
+      "unknowns": [
+        "Como é feito o controle de orçamentos atualmente",
+        "Quais informações são críticas para o acompanhamento"
+      ],
+      "nextStep": "Entender o processo atual de gestão de orçamentos para verificar a viabilidade de um painel."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Aplicação de painel ligada ao orçamento, uma informação operacional solicitada.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

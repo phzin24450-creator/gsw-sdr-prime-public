@@ -1,0 +1,43 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá, Marina. Tudo bem por aqui também! Entro em contato pois na GSW desenvolvemos soluções digitais e operações inteligentes para empresas como a Brisa Técnica. Como vocês têm lidado com a gestão de processos ou a presença digital da empresa atualmente?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "interlocutor": "Marina",
+      "evidence": "Marina respondeu ao primeiro contato se apresentando e perguntando como pode ajudar.",
+      "unknowns": [
+        "necessidade comercial",
+        "foco atual da Brisa Técnica"
+      ],
+      "nextStep": "Qualificar a demanda ou interesse da empresa em soluções digitais."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "ressalva",
+    "note": "Usou Marina corretamente, sem chamar de robô; motivo ainda amplo, duas áreas sugeridas.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

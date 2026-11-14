@@ -1,0 +1,27 @@
+{
+  "id": "aceite-explicacao",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Posso explicar a possibilidade?"
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Sim."
+    }
+  ],
+  "expected": "Explicação não autoriza reunião",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "quality_block",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "quality_block",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

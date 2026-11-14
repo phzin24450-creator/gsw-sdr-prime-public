@@ -1,0 +1,42 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "messages": [
+    {
+      "direction": "inbound",
+      "time": "12:00",
+      "text": "Não me envie mais mensagens, por favor.",
+      "source": 1,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "12:01",
+      "text": "O e-mail fictício é [dado oculto].",
+      "source": 1,
+      "cropped": false
+    }
+  ],
+  "company": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "sector": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "intent": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "opportunity": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "uncertainOrder": false,
+  "blocked": true
+}

@@ -1,0 +1,42 @@
+{
+  "id": "possivel-chatbot",
+  "context": {
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou uma assistente virtual. Escolha o assunto."
+    }
+  ],
+  "expected": "Pedir encaminhamento adequado sem vender automação",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Sou o Pedro, da GSW. Gostaria de conversar com o responsável pela empresa sobre como nossas soluções em tecnologia e operações inteligentes podem apoiar os processos de climatização de vocês. Com quem posso falar sobre isso?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "assistente virtual",
+      "evidence": "O interlocutor se identificou como assistente virtual e solicitou o assunto do contato.",
+      "unknowns": [
+        "nome da empresa",
+        "necessidade específica da área de climatização"
+      ],
+      "nextStep": "Identificar a empresa e a necessidade comercial"
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Respeitou identificação explícita de assistente e pediu acesso ao responsável.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

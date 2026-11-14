@@ -1,0 +1,45 @@
+{
+  "id": "orcamento",
+  "context": {
+    "sector": "Oficina"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Tenho interesse no painel, mas este mês estamos sem orçamento."
+    }
+  ],
+  "expected": "Respeitar restrição sem desconto inventado",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Agradeço a transparência sobre o momento financeiro. Como o painel é desenvolvido sob medida para as necessidades da oficina, não há um valor fixo. Quando tiverem disponibilidade para planejar essa organização de dados e processos, conte comigo para discutirmos o escopo ideal.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 0,
+    "qualityAttempts": 2,
+    "requestAttempts": 3,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "objecao",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead demonstrou interesse no painel, mas citou restrição orçamentária atual.",
+      "unknowns": [
+        "necessidade específica",
+        "processos atuais da oficina"
+      ],
+      "nextStep": "Aguardar retorno ou encerrar o contato conforme disponibilidade do lead."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado com ressalvas",
+    "note": "Resposta real preservada; avaliação automática não equivale à aprovação comercial.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

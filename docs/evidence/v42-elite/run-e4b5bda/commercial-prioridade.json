@@ -1,0 +1,40 @@
+{
+  "id": "prioridade",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "O site pode ajudar, mas neste trimestre a prioridade é reformar a loja."
+    }
+  ],
+  "expected": "Respeitar prioridade",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Compreendo. Reformas físicas demandam bastante atenção e foco. Fico à disposição para quando o momento for oportuno para falarmos sobre a estrutura digital da sua empresa. Boa sorte com as obras na loja!",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 2,
+    "requestAttempts": 2,
+    "commercialDecision": {
+      "strategy": "encerramento",
+      "interlocutor": "desconhecido",
+      "evidence": "O lead afirmou que a prioridade deste trimestre é a reforma física da loja.",
+      "unknowns": [
+        "segmento",
+        "empresa"
+      ],
+      "nextStep": "Aguardar contato futuro caso a prioridade mude para a presença digital."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Respeitou reforma da loja e encerrou sem pressão.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "abertura-observacao",
+  "context": {
+    "company": "Brisa Fictícia",
+    "sector": "Climatização",
+    "observation": "Página fictícia informa instalação de climatizadores",
+    "sourceUrl": "https://brisa.example.invalid",
+    "verifiedOn": "2026-11-14"
+  },
+  "conversation": [],
+  "expected": "Usar somente observação fornecida como fixture verificada, sem pesquisa real",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

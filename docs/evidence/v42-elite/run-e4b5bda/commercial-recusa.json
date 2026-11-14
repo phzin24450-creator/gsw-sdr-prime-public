@@ -1,0 +1,22 @@
+{
+  "id": "recusa",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "No momento não temos interesse. Estamos cortando custos. Obrigado pelo contato, ótimo dia."
+    }
+  ],
+  "expected": "Bloquear geração, sem insistência",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "result": "blocked",
+  "reason": "Deve ser tratado por humano ou interrompido",
+  "pass": true,
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Bloqueio correto de recusa explícita com corte de custos.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

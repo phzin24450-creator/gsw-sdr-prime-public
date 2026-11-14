@@ -1,0 +1,22 @@
+{
+  "id": "preco",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Quanto custa um site?"
+    }
+  ],
+  "expected": "Não inventar preço ou pacote",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

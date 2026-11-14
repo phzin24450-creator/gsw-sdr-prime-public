@@ -1,0 +1,24 @@
+{
+  "id": "aceite-handoff",
+  "context": {
+    "challenge": "Orçamentos sem acompanhamento"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Pode encaminhar meu contexto ao responsável de desenvolvimento."
+    }
+  ],
+  "expected": "Resumir propósito sem inventar agenda ou afirmar transferência",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "provider_unavailable",
+  "httpStatus": 503,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "provider_unavailable",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

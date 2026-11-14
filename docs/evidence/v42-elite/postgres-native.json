@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "engine": "PostgreSQL 18.6 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit",
+  "synthetic": true,
+  "remoteConnections": 0,
+  "legacyCommit": "ebeada31fb2465e047d7e4739f22784fcbcd5fce",
+  "migration": [
+    {
+      "filename": "001_init.sql",
+      "status": "already-applied"
+    },
+    {
+      "filename": "20261109015059_gemini_provider_metadata.sql",
+      "status": "already-applied"
+    },
+    {
+      "filename": "20261109090000_elite_opening_drafts.sql",
+      "status": "already-applied"
+    },
+    {
+      "filename": "20261109190000_conversation_archive.sql",
+      "status": "applied"
+    }
+  ],
+  "checks": [
+    "legacy data",
+    "additive migration",
+    "opt-out",
+    "archive restore",
+    "search",
+    "V4.1 application rollback",
+    "isolated snapshot restore"
+  ],
+  "limitation": "Snapshot restore in the same local cluster; not an offsite disaster-recovery test."
+}

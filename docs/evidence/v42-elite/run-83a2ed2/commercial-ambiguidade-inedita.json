@@ -1,0 +1,44 @@
+{
+  "id": "ambiguidade-inedita",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou responsável pelo estoque, mas a compra de sistemas depende de outra pessoa. Nosso sistema funciona; falta ver itens separados para retirada."
+    }
+  ],
+  "expected": "Não assumir autoridade de compra ou trocar sistema",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Compreendo a limitação. Na GSW, desenvolvemos integrações que buscam conectar dados do sistema atual a painéis que facilitam a visualização de processos, como a separação de itens para retirada. Como hoje vocês identificam esses itens para a equipe de estoque?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 10876,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 2,
+    "requestAttempts": 3,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "interlocutor": "Responsável pelo estoque",
+      "evidence": "O lead mencionou que o sistema atual funciona, mas falta visualizar itens separados para retirada.",
+      "unknowns": [
+        "segmento da empresa",
+        "identidade do decisor"
+      ],
+      "nextStep": "Entender o processo atual de separação para avaliar a viabilidade de uma integração."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado com ressalvas",
+    "note": "Resposta contextual, sem dado inventado, uma solicitação; estilo ainda pode ser mais direto.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

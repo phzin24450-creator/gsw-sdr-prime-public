@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-14",
+  "checkpoint": "e4b5bda61ba3449dc0bb3ecd45dd39db320f7dd8",
+  "node": {
+    "tests": 113,
+    "pass": 113,
+    "fail": 0,
+    "skipped": 0
+  },
+  "ui": {
+    "widths": [
+      360,
+      1440
+    ],
+    "providers": [
+      "simulated Gemini",
+      "local rules"
+    ],
+    "physicalAndroid": false,
+    "whatsapp": {
+      "intercepted": true,
+      "actualSend": false
+    }
+  },
+  "remoteDatabaseReadOnly": {
+    "conversations": 25,
+    "optedOut": 4,
+    "messages": 28,
+    "drafts": 25,
+    "originalMessagesLostOrChanged": 0,
+    "originalOptoutsLost": 0,
+    "rlsApplicationAndBackupTables": true,
+    "backupAccessForPublicAppRoles": false
+  },
+  "render": {
+    "service": "gsw-sdr-prime-dev",
+    "deployedCommit": "982635094132de6fe6409210e97619633ab995b2",
+    "trackedBranch": "work/v0.3-infra-tests",
+    "autoDeploy": false,
+    "newDeploy": false
+  },
+  "restrictions": {
+    "remoteMigration": false,
+    "productionChange": false,
+    "billingActivated": false,
+    "prospectaModified": false
+  },
+  "limitations": [
+    "No physical Android test",
+    "No automatic Prospecta API synchronization exists in current repository",
+    "Visual session remains ephemeral",
+    "Existing backup is an earlier in-database snapshot, not current offsite disaster recovery"
+  ],
+  "implementationCommit": "8e337149590f2d7a7844d85ab9344917678efe13",
+  "ciRun": 43622045798,
+  "priorCiRun": 43621707131,
+  "latestReadOnlyDatabaseDate": "2026-11-14"
+}
