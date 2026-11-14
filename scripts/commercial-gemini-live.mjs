@@ -50,7 +50,7 @@ for(const [id,turns,context,expected] of scenarios){
    if(id==='pergunta-respondida'&&/como.{0,30}registr/.test(s))failures.push('Repeated answered question');
    if(id==='aceite-explicacao'&&/encaminhar|transferir|agend/.test(s))failures.push('Unjustified handoff');
    evidence.failures=failures;evidence.pass=failures.length===0;evidence.semanticReview='Human semantic assessment required in homologation report';
-  }catch(error){evidence.pass=false;evidence.errorCode=error.code||'unknown';evidence.httpStatus=error.httpStatus||null;}
+  }catch(error){evidence.pass=false;evidence.errorCode=error.code||'unknown';evidence.httpStatus=error.httpStatus||null;evidence.qualityIssues=error.qualityIssues||[];}
   await new Promise(r=>setTimeout(r,7000));
  }
  if(!evidence.pass)failed++;

@@ -137,11 +137,13 @@ export async function analyzeVisual(data, config = {}, fetcher = fetch) {
     if (!response.ok) throw visualError(502, `Gemini recusou a análise (HTTP ${response.status}).`);
     const payload = await response.json();
     const candidate = payload.candidates?.[0];
-    if (payload.promptFeedback?.blockReason || candidate?.finishReason !== 'STOP') throw new Error();
+    if (payload.promptFeedback?.blockReason) throw visualError(502, 'Gemini bloqueou a leitura por segurança.');
+    if (candidate?.finishReason !== 'STOP') throw visualError(502, candidate?.finishReason === 'MAX_TOKENS' ? 'Gemini atingiu o limite de saída da análise.' : 'Gemini não concluiu a leitura da imagem.');
     result = JSON.parse(candidate.content.parts.filter(part => !part.thought).map(part => part.text).join(''));
     if (!Array.isArray(result?.messages) || result.messages.length > MAX_MESSAGES) throw new Error();
   } catch (error) {
     if (error.visual) throw error;
+    if (['AbortError','TimeoutError'].includes(error.name)) throw visualError(504, 'Gemini excedeu o prazo de 30 segundos para analisar imagens.');
     throw visualError(502, 'Gemini não retornou uma leitura completa. Tente novamente com menos prints.');
   }
   const messages = normalizeMessages(result.messages, parts.length);

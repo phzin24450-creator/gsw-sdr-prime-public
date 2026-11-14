@@ -154,7 +154,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     const issue=localIssue||semantic?.issues.join(',');
     if(issue) {
       if (!config.qualityRetry && !config.transientRetry) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue,qualityDraft:text,callsBefore:apiRequests},fetcher);
-      throw new GenerationError('quality_block');
+      const failure=new GenerationError('quality_block'); failure.qualityIssues=issue.split(','); throw failure;
     }
     return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',durationMs:Date.now()-started,qualityReview:semantic?'gemini_semantic_and_local':'legacy_local_rules',semanticQuestionCount:semantic?.questionCount??null,qualityAttempts:config.qualityRetry?2:1,requestAttempts:apiRequests,generationAttempts:config.qualityRetry||config.transientRetry?2:1,commercialDecision:commercialDecision?JSON.parse(JSON.stringify(commercialDecision,(key,value)=>typeof value==='string'?minimize(value):value)):null}};
   }catch(error){if(error instanceof GenerationError)throw error;throw new GenerationError(error.name==='AbortError'?'timeout':'network_error')}
