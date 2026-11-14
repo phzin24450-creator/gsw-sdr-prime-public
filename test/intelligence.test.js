@@ -31,7 +31,7 @@ test('Quality failure is repaired once using Gemini, with original context',asyn
  const c=conversation('Como posso ajudar?');let calls=0;
  const r=await requestModelDraft(c,decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
   calls++;const body=JSON.parse(o.body);if(calls===2)assert.match(body.systemInstruction.parts[0].text,/multiple_questions/);
-  return response(calls===1?'Quem decide? Qual o orçamento?':'Aqui é o Pedro, da GSW. Podemos avaliar uma página que reúna os serviços de climatização e facilite pedidos de orçamento. Vocês já usam algum canal para apresentar esses serviços?');
+  return response(calls===1?'Quem decide? Qual o orçamento?':'Aqui é o Pedro, da GSW. Podemos avaliar uma página que reúna os serviços de climatização e facilite pedidos de orçamento. Essa possibilidade depende de avaliar o contexto da empresa.');
  });assert.equal(calls,2);assert.equal(r.generationMeta.qualityAttempts,2);
 });
 test('Persistent quality failure never becomes sendable fallback',async()=>{
@@ -80,7 +80,7 @@ test('Semantic review catches a compound question with one question mark and rep
  const r=await requestModelDraft(conversation('Quanto custa um site?'),decision('Quanto custa um site?'),{geminiApiKey:'fake'},async(u,o)=>{
   const schema=JSON.parse(o.body).generationConfig.responseSchema;
   if(schema.properties.questionCount){reviewed++;return response(JSON.stringify({questionCount:reviewed===1?2:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));}
-  generated++;return response(JSON.stringify({strategy:'esclarecimento',interlocutor:'Desconhecido',evidence:'Pedido de preço',unknowns:['objetivo'],nextStep:'Entender objetivo',text:generated===1?'O valor depende do escopo. Você quer catálogo e também precisa de pagamento online?':'O valor depende do escopo. Qual objetivo você tem para o site?'}));
+  generated++;return response(JSON.stringify({strategy:'esclarecimento',interlocutor:'Desconhecido',evidence:'Pedido de preço',unknowns:['objetivo'],nextStep:'Entender objetivo',text:generated===1?'O valor depende do escopo. Você quer catálogo e também precisa de pagamento online?':'O valor depende do escopo e será definido após uma avaliação da necessidade.'}));
  });assert.equal(generated,2);assert.equal(reviewed,2);assert.equal(r.generationMeta.qualityReview,'gemini_semantic_and_local');
 });
 test('Semantic review failures block instead of exposing an unreviewed draft',async()=>{
@@ -107,7 +107,7 @@ test('Compound-question repair removes secondary requests without using a canned
  const result=await requestModelDraft(conversation('Me chamo Marina. Como posso ajudar?'),decision('Me chamo Marina. Como posso ajudar?'),{geminiApiKey:'fake',onQualityRejection:item=>rejected.push(item)},async(u,o)=>{
   const b=JSON.parse(o.body);if(b.generationConfig.responseSchema.properties.questionCount)return acceptedReview();
   generations++;
-  if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Elimine todas as solicitações secundárias/);
+  if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Não faça NENHUMA pergunta/);
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Marina',evidence:'Saudação',unknowns:['processo'],nextStep:'Explicar contato',text:generations===1?'Marina, quem decide? Como recebem os pedidos?':'Marina, o contato é sobre a apresentação dos serviços de climatização para quem solicita orçamento.'}));
  });assert.equal(generations,2);assert.equal(rejected[0].issues[0],'multiple_questions');assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');
 });

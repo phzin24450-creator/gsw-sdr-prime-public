@@ -125,14 +125,15 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   if (model!==GEMINI_MODEL) throw new GenerationError('invalid_model');
   const prompt=generationPrompt(conversation,decision,config);
   if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
-  if(config.qualityRetry?.split(',').includes('multiple_questions')) prompt.system += '\nReparo de foco: escolha UMA informação ou decisão útil. Elimine todas as solicitações secundárias, inclusive pedidos implícitos e alternativas sobre processos diferentes. Se não conseguir manter uma única pergunta contextual, gere somente uma explicação curta e relevante do motivo do contato, sem perguntas nem pedidos de dados. Não transforme a ausência de pergunta em lista de serviços.';
+  const explanationRepair=config.qualityRetry?.split(',').includes('multiple_questions');
+  if(explanationRepair) prompt.system += '\nRESTRIÇÃO DESTE REPARO: gere somente uma explicação declarativa curta e contextual do motivo ou valor da conversa. Não faça NENHUMA pergunta, pedido de informação ou convite que exija resposta. Não use ponto de interrogação. Escolha um único assunto concreto; nenhuma enumeração de serviços. O próximo passo interno é aguardar a reação espontânea do interlocutor. Não prometa benefícios ou atribua problemas. Essa restrição substitui orientações anteriores para investigar por pergunta neste turno.';
   if(config.qualityDraft) { const input=JSON.parse(prompt.input);input.rejectedDraft=minimize(config.qualityDraft);prompt.input=JSON.stringify(input); }
   const controller=new AbortController(); let timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
   const started=Date.now();
   try {
     const response=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
       method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
-      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:2048,responseMimeType:'application/json',responseSchema:COMMERCIAL_SCHEMA}}),signal:controller.signal
+      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:2048,responseMimeType:'application/json',responseSchema:explanationRepair?{...COMMERCIAL_SCHEMA,properties:{...COMMERCIAL_SCHEMA.properties,text:{type:'STRING',description:'Explicação declarativa contextual; zero perguntas ou pedidos. Um assunto, sem portfólio.'}}}:COMMERCIAL_SCHEMA}}),signal:controller.signal
     });
     if(!response.ok && [500,502,503,504].includes(response.status) && !config.transientRetry && !config.qualityRetry) {
       return requestModelDraft(conversation,decision,{...config,transientRetry:true,callsBefore:(config.callsBefore??0)+1},fetcher);
@@ -148,7 +149,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     const text=polishCopy(assessment?assessment.text:raw);
     const commercialDecision=assessment?{strategy:assessment.strategy,interlocutor:String(assessment.interlocutor||'Desconhecido').slice(0,200),evidence:String(assessment.evidence||'').slice(0,300),unknowns:Array.isArray(assessment.unknowns)?assessment.unknowns.slice(0,8).map(x=>String(x).slice(0,150)):[],nextStep:String(assessment.nextStep||'').slice(0,200)}:null;
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
-    const localIssue=reviewCopy(text,conversation,decision,config.now);
+    const localIssue=explanationRepair&&text.includes('?')?'multiple_questions':reviewCopy(text,conversation,decision,config.now);
     clearTimeout(timer); timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
     const semantic=assessment&&!localIssue?await semanticReview({assessment:{...commercialDecision,text},prompt,apiKey,model,signal:controller.signal,fetcher}):null;
     const apiRequests=(config.callsBefore??0)+1+(semantic?1:0);
