@@ -40,6 +40,7 @@ for(const [id,turns,context,expected] of scenarios){
   try{
    const result=await requestModelDraft(c,d);evidence.response=result.text;evidence.metadata=result.generationMeta;
    const s=fold(result.text);const failures=[];
+   if(result.generationMeta.qualityReview!=='gemini_semantic_and_local')failures.push('Missing independent semantic review');
    if(!result.generationMeta.commercialDecision)failures.push('Missing structured commercial decision');
    const issue=reviewCopy(result.text,c,d);if(issue)failures.push(issue);
    if(id==='atendente'&&/chatbot|robo|automatizad/.test(s))failures.push('Unfounded bot assumption');
