@@ -109,6 +109,7 @@ export function reviewCopy(text, conversation, decision, now = Date.now()) {
   if(serviceFamilies>1 && !/quais.{0,20}servicos|portfolio|todos os servicos/.test(fold(decision.latest.text))) return 'portfolio_pitch';
   if (/entendo perfeitamente|compreendo perfeitamente/.test(clean)) return 'canned_empathy';
   if (/qual.{0,70}(?:segmento|setor).{0,35}e (?:qual|se)|como.{0,80}ou (?:o |a )?(?:controle|atendimento)/.test(clean)) return 'multiple_questions';
+  if (/(?:como|gostaria de (?:saber|entender)).{0,200}\bou (?:o |a )?(?:fluxo|organizacao|gestao|controle|atendimento|recebimento|presenca)\b/.test(clean)) return 'multiple_questions';
   if (/empresas (?:do|desse|deste) setor|acompanhamos empresas|parceiro estrategico/.test(clean)) return 'unsupported_experience';
   if (/estimativa mais realista|em tempo real/.test(clean)) return 'unsupported_capability';
   if (signals.refusal && (/\?|\b(?:retomar|desconto|orcamento|agendar|reuniao|volto a|posso explicar)\b/.test(clean))) return 'pressure_after_refusal';

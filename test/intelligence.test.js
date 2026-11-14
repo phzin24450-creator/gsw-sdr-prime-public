@@ -111,3 +111,9 @@ test('Compound-question repair removes secondary requests without using a canned
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Marina',evidence:'Saudação',unknowns:['processo'],nextStep:'Explicar contato',text:generations===1?'Marina, quem decide? Como recebem os pedidos?':'Marina, o contato é sobre a apresentação dos serviços de climatização para quem solicita orçamento.'}));
  });assert.equal(generations,2);assert.equal(rejected[0].issues[0],'multiple_questions');assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');
 });
+test('Implicit compound requests are rejected even without question marks or with reversed topics',()=>{
+ const c=conversation('Me chamo Marina. Como posso ajudar?'),d=decision('Me chamo Marina. Como posso ajudar?');
+ assert.equal(reviewCopy('Gostaria de saber como a Brisa lida com a organização do atendimento ou o fluxo de solicitações de orçamento.',c,d),'multiple_questions');
+ assert.equal(reviewCopy('Como organizam os orçamentos ou a presença digital?',c,d),'multiple_questions');
+ assert.equal(reviewCopy('Como registram os orçamentos: em planilha ou sistema?',c,d),null);
+});
