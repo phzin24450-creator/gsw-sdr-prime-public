@@ -1,0 +1,30 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina. Sou o Pedro, da GSW. Entro em contato pois trabalhamos com soluções digitais, como sites e sistemas, para empresas de climatização. Poderia me indicar quem cuida da área de tecnologia ou gestão da Brisa Técnica para que eu possa apresentar nosso trabalho?",
+      "issues": [
+        "portfolio_pitch"
+      ],
+      "stage": "local"
+    }
+  ],
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "qualityIssues": []
+}

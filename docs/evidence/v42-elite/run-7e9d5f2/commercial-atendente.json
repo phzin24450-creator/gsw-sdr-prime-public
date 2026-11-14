@@ -1,0 +1,43 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina! Tudo ótimo por aqui. Sou o Pedro, da GSW. Entro em contato pois trabalhamos com soluções digitais e operações inteligentes para empresas como a Brisa Técnica. Gostaria de entender se vocês possuem algum projeto atual, como a estruturação de um site ou a organização de processos operacionais, que possamos apoiar?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "local"
+    },
+    {
+      "text": "Olá, Marina. Sou o Pedro, da GSW. Entro em contato pois auxiliamos empresas do setor de climatização na estruturação de presenças digitais e na organização de processos operacionais, buscando conectar soluções tecnológicas à realidade do dia a dia do seu negócio.",
+      "issues": [
+        "unsupported_experience"
+      ],
+      "stage": "local"
+    }
+  ],
+  "pass": false,
+  "errorCode": "quality_block",
+  "httpStatus": null,
+  "qualityIssues": [
+    "unsupported_experience"
+  ],
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "reason": "Pergunta composta bloqueada; reparo sem pergunta alegou experiência setorial não fornecida, também bloqueado. Nenhum rascunho aprovado."
+  }
+}

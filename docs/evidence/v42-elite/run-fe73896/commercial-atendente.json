@@ -1,0 +1,40 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina! Tudo bem por aqui também. Faço parte da GSW, empresa focada em soluções digitais e operações inteligentes. Entrei em contato para entender como a Brisa Técnica organiza hoje a gestão de atendimentos ou a presença da marca na internet, para saber se faz sentido explorarmos alguma melhoria nesses pontos. Como vocês lidam com isso atualmente?",
+      "issues": [
+        "multiple_questions",
+        "generic_approach"
+      ],
+      "stage": "semantic"
+    },
+    {
+      "text": "Olá, Marina. Sou o Pedro, da GSW. Entro em contato pois trabalhamos conectando soluções digitais a processos reais de empresas como a Brisa Técnica. Como vocês organizam hoje o recebimento de solicitações de orçamento ou o atendimento aos clientes?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "local"
+    }
+  ],
+  "pass": false,
+  "errorCode": "quality_block",
+  "httpStatus": null,
+  "qualityIssues": [
+    "multiple_questions"
+  ]
+}

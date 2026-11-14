@@ -1,0 +1,26 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [],
+  "pass": false,
+  "errorCode": "provider_unavailable",
+  "httpStatus": 503,
+  "qualityIssues": [],
+  "assistantSemanticReview": {
+    "status": "não avaliável — falha técnica",
+    "reason": "HTTP 503, sem resposta comercial recuperável. Não comprova erro de autenticação nem quota."
+  }
+}
