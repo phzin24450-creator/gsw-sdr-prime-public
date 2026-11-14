@@ -144,3 +144,14 @@ test('rotas exigem autorização e revisão, preservam correções e não criam 
   assert.equal((await post('opening', { reviewed: true })).status, 200);
   assert.deepEqual(store.list(), []);
 });
+
+test('visual generation rejects concurrent submissions and releases lock afterward',async()=>{
+ let release,started;
+ const begin=new Promise(r=>started=r);
+ const app=createApp({store:createStore(),adminKey:'visual-test-admin-key-123',metaSecret:'test-meta',verifyToken:'test-verify',aiConfig:config,fetcher:async()=>{started();await new Promise(r=>release=r);return complete('Aqui é o Pedro, da GSW. Posso explicar o motivo do contato?');}});
+ await new Promise(r=>app.listen(0,'127.0.0.1',r));
+ const url='http://127.0.0.1:'+app.address().port+'/api/visual/opening';
+ const options={method:'POST',headers:{authorization:'Bearer visual-test-admin-key-123','content-type':'application/json'},body:JSON.stringify({reviewed:true})};
+ try{const first=fetch(url,options);await begin;const second=await fetch(url,options);assert.equal(second.status,409);release();assert.equal((await first).status,200);}
+ finally{release?.();await new Promise(r=>app.close(r));}
+});

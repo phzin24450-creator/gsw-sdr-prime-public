@@ -53,6 +53,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
   const attempts = new Map();
   const visualReview = createVisualReview();
   let visualInFlight = 0;
+  const visualDraftsInFlight = new Set();
   function adminRateLimit(req) {
     const address = req.socket.remoteAddress || 'unknown';
     const now = Date.now();
@@ -135,7 +136,11 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
           if (data?.tone && !TONES.includes(data.tone)) return json(res, 400, { error: 'Estilo inválido' });
           const opening = url.pathname.endsWith('/opening');
           const blocked = !opening && visualReview.verify(data?.reviewToken, admin ? 'admin' : 'operator:' + operator.username);
-          return json(res, 200, await draftVisual(data, { blocked, opening, config: { ...aiConfig, tone: data?.tone }, fetcher }));
+          const actor = admin ? 'admin' : 'operator:' + operator.username;
+          if (visualDraftsInFlight.has(actor)) return json(res,409,{error:'Já existe uma geração visual em andamento.'});
+          visualDraftsInFlight.add(actor);
+          try { return json(res, 200, await draftVisual(data, { blocked, opening, config: { ...aiConfig, tone: data?.tone }, fetcher })); }
+          finally { visualDraftsInFlight.delete(actor); }
         }
         if (req.method === 'GET' && url.pathname === '/api/conversations') {
           const archived = url.searchParams.get('archived') === '1';

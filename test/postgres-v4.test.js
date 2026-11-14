@@ -55,6 +55,7 @@ test('V4 PostgreSQL engine: draft/edit/regenerate/reconnect/history/duplicate/op
  await s.recordFeedback(openingPhone,initial.draft.id,'boa');
  assert.equal((await db.query("SELECT count(*)::int AS n FROM audit_events WHERE event_type='DRAFT_FEEDBACK'")).rows[0].n,1);
  assert.equal((await s.get(openingPhone)).drafts.length,2);
+ assert.equal((await restarted.get(openingPhone)).feedback[0].category,'boa');
  await s.erase(openingPhone);
  await s.erase(phone);assert.equal((await s.list()).length,0);
  }finally{await db.close()}

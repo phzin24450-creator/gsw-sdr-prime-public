@@ -37,6 +37,10 @@ try{
  await page.reload();await page.locator('#conversation').selectOption(phone);await page.waitForFunction(()=>document.getElementById('active-label').textContent.includes('Conversa ativa'));
  assert.ok(await page.locator('#answer').inputValue());
  await page.locator('#lead').fill('Não me envie mais mensagens');await page.locator('#generate').click();await page.waitForFunction(()=>!document.getElementById('generate').disabled);assert.equal(store.get(phone).optedOut,true);assert.equal(await page.locator('#copy').isDisabled(),true);
+ await page.locator('#conversation-status').selectOption('optout');
+ await page.waitForFunction(()=>document.querySelectorAll('#conversation option').length>1);
+ assert.ok((await page.locator('#conversation').innerText()).includes('Recusa / opt-out'));
+ await page.locator('#conversation-status').selectOption('all');
  await page.locator('#phone').fill('00000005'+width);await page.locator('#open').click();await page.locator('#active-label').filter({hasText:'00000005'+width}).waitFor();await page.locator('#opening').click();await page.waitForFunction(()=>!document.getElementById('copy').disabled);assert.equal(store.get('00000005'+width).messages.length,0);assert.equal(store.get('00000005'+width).drafts[0].intent,'OPENING');
  const countBeforeVisual=store.list().length;
  await page.locator('#standalone-opening summary').click();
@@ -63,6 +67,16 @@ try{
   await page.locator('#visual-copy').click();
   await page.locator('#visual-status').filter({hasText:'copiada'}).waitFor();
   assert.match(await page.evaluate(()=>navigator.clipboard.readText()),/parte do seu site/);
+  let whatsappRequest;
+  await context.route('https://wa.me/**',async route=>{whatsappRequest={url:route.request().url(),method:route.request().method()};await route.fulfill({status:200,contentType:'text/html',body:'<p>WhatsApp fictício interceptado. Nenhuma rede externa.</p>'});});
+  const beforeManual=JSON.stringify(store.list().map(c=>store.get(c.id).messages));
+  const popupPromise=context.waitForEvent('page');
+  await page.locator('#visual-whatsapp').click();
+  const popup=await popupPromise;await popup.waitForLoadState();await popup.close();
+  await page.waitForFunction(()=>document.getElementById('visual-status').textContent.includes('Nenhum envio'));
+  assert.equal(whatsappRequest?.method,'GET');
+  assert.equal(new URL(whatsappRequest.url).searchParams.get('text'),'Qual parte do seu site vocês gostariam de melhorar?');
+  assert.equal(JSON.stringify(store.list().map(c=>store.get(c.id).messages)),beforeManual);
   await page.screenshot({path:'test-results/v4-visual-'+width+'.png',fullPage:true});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Visual sem rolagem horizontal '+width);
  }

@@ -142,7 +142,8 @@ export function createStore() {
     return [...conversations.values()]
       .filter(c => Boolean(c.archivedAt) === archived &&
         (c.id.includes(search) || (c.context.company ?? '').toLowerCase().includes(needle)))
-      .map(c => ({ id: c.id, company: c.context.company, mode: c.mode, version: c.version,
+      .sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt))
+      .map(c => ({ id: c.id, company: c.context.company, sector:c.context.sector, interlocutor:c.context.interlocutor, mode: c.mode, version: c.version,
         optedOut: c.optedOut, archivedAt: c.archivedAt ?? null, messageCount: c.messages.length, updatedAt: c.updatedAt }));
   }
   return { get: phone => { const c=structuredClone(getInternal(phone)); c.feedback=[...(feedback.get(c.id)||[])].map(value=>({draftId:value.slice(0,value.indexOf(':')),category:value.slice(value.indexOf(':')+1)})); return c; }, ingest, setMode, setContext, saveDraft, editDraft, reviewDraft, recordFeedback, erase, list, setArchived };

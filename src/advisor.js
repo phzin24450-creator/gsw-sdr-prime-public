@@ -1,7 +1,7 @@
 import { classify, fold, INTENTS } from './intent.js';
 import { MODES } from './core.js';
 
-import { commercialPrompt, reviewCopy, polishCopy } from './commercial.js';
+import { commercialPrompt, reviewCopy, polishCopy, minimize } from './commercial.js';
 
 function serviceFromHistory(messages = []) {
   const history = [...messages].reverse().map(m => fold(m.text || '')).slice(0, 8);
@@ -82,6 +82,13 @@ export function generationFailure(error) {
   return {provider:'gemini',status:'fallback',errorCode:code,message:GENERATION_ERRORS[code],...(error.httpStatus?{httpStatus:error.httpStatus}:{})};
 }
 export const generationPrompt = commercialPrompt;
+const COMMERCIAL_SCHEMA={type:'OBJECT',properties:{
+ strategy:{type:'STRING',enum:['interesse','motivo','esclarecimento','descoberta','valor','objecao','qualificacao','autorizacao','retomada','encerramento']},
+ interlocutor:{type:'STRING'},
+ evidence:{type:'STRING'},
+ unknowns:{type:'ARRAY',items:{type:'STRING'}},
+ nextStep:{type:'STRING'},
+ text:{type:'STRING'}},required:['strategy','interlocutor','evidence','unknowns','nextStep','text']};
 // API oficial do Google; chave somente em cabeçalho servidor-servidor.
 export async function requestModelDraft(conversation, decision, config = {}, fetcher = fetch) {
   const apiKey=config.geminiApiKey??process.env.GEMINI_API_KEY;
@@ -95,20 +102,28 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   try {
     const response=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
       method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
-      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.7,maxOutputTokens:2048}}),signal:controller.signal
+      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:2048,responseMimeType:'application/json',responseSchema:COMMERCIAL_SCHEMA}}),signal:controller.signal
     });
+    if(!response.ok && [500,502,503,504].includes(response.status) && !config.transientRetry && !config.qualityRetry) {
+      return requestModelDraft(conversation,decision,{...config,transientRetry:true},fetcher);
+    }
     if(!response.ok) throw new GenerationError(({400:'invalid_request',401:'invalid_key',403:'permission_denied',404:'model_unavailable',429:'quota_exceeded'})[response.status]||'provider_unavailable',response.status);
     let data;try{data=await response.json()}catch{throw new GenerationError('invalid_response')}
     const candidate=data.candidates?.[0];
     if(data.promptFeedback?.blockReason || ['SAFETY','RECITATION','BLOCKLIST','PROHIBITED_CONTENT','SPII'].includes(candidate?.finishReason)) throw new GenerationError('safety_block');
-    const text=polishCopy((candidate?.content?.parts||[]).filter(p=>!p.thought&&typeof p.text==='string').map(p=>p.text).join('').trim());
+    const raw=(candidate?.content?.parts||[]).filter(p=>!p.thought&&typeof p.text==='string').map(p=>p.text).join('').trim();
+    let assessment=null;
+    if(raw.startsWith('{')) {try {assessment=JSON.parse(raw);}catch{throw new GenerationError('invalid_response')}}
+    if(assessment && (typeof assessment.text!=='string'||!COMMERCIAL_SCHEMA.properties.strategy.enum.includes(assessment.strategy)))throw new GenerationError('invalid_response');
+    const text=polishCopy(assessment?assessment.text:raw);
+    const commercialDecision=assessment?{strategy:assessment.strategy,interlocutor:String(assessment.interlocutor||'Desconhecido').slice(0,200),evidence:String(assessment.evidence||'').slice(0,300),unknowns:Array.isArray(assessment.unknowns)?assessment.unknowns.slice(0,8).map(x=>String(x).slice(0,150)):[],nextStep:String(assessment.nextStep||'').slice(0,200)}:null;
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
     const issue=reviewCopy(text,conversation,decision,config.now);
     if(issue) {
-      if (!config.qualityRetry) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue},fetcher);
+      if (!config.qualityRetry && !config.transientRetry) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue},fetcher);
       throw new GenerationError('quality_block');
     }
-    return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',qualityAttempts:config.qualityRetry?2:1}};
+    return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',qualityAttempts:config.qualityRetry?2:1,requestAttempts:config.qualityRetry||config.transientRetry?2:1,commercialDecision:commercialDecision?JSON.parse(JSON.stringify(commercialDecision,(key,value)=>typeof value==='string'?minimize(value):value)):null}};
   }catch(error){if(error instanceof GenerationError)throw error;throw new GenerationError(error.name==='AbortError'?'timeout':'network_error')}
   finally{clearTimeout(timer)}
 }

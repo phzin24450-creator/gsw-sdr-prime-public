@@ -63,7 +63,7 @@ export async function createPostgresStore(url, { pool: suppliedPool } = {}) {
     return result.rows[0] ?? null;
   }
   async function list({ archived = false, search = '' } = {}) {
-    const result = await pool.query(`SELECT c.phone AS id,c.context->>'company' AS company,c.mode,
+    const result = await pool.query(`SELECT c.phone AS id,c.context->>'company' AS company,c.context->>'sector' AS sector,c.context->>'interlocutor' AS interlocutor,c.mode,
       c.opted_out AS "optedOut",c.version,c.updated_at AS "updatedAt",c.archived_at AS "archivedAt",
       (SELECT count(*)::integer FROM messages m WHERE m.conversation_phone=c.phone) AS "messageCount"
       FROM conversations c WHERE (c.archived_at IS NOT NULL)=$1

@@ -51,3 +51,25 @@ test('Functional responsibility does not prove purchase authority',()=>{
  const text='Sou responsável pelo estoque, mas a compra de sistemas depende de outra pessoa.';
  assert.equal(commercialSignals(conversation(text),decision(text)).interlocutor.role,'desconhecido');
 });
+test('Transient server error retries once, quota and credentials never retry',async()=>{
+ for(const status of [503,429,401]){
+  let calls=0;
+  await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async()=>{calls++;return {ok:false,status};}));
+  assert.equal(calls,status===503?2:1);
+ }
+ let calls=0;
+ const result=await requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async()=>++calls===1?{ok:false,status:503}:response('Aqui é o Pedro, da GSW. Posso explicar o motivo do contato?'));
+ assert.equal(result.provider,'gemini');assert.equal(result.generationMeta.requestAttempts,2);
+});
+test('Review distinguishes SDR identity from invented customer identity',()=>{
+ const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
+ assert.equal(reviewCopy('Entendo, Pedro. Vamos conversar?',c,d),'wrong_interlocutor_name');
+ assert.equal(reviewCopy('Sou o Pedro, da GSW. Posso explicar o contato?',c,d),null);
+});
+test('Gemini structured strategy is retained with evidence and unknowns',async()=>{
+ const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
+ const r=await requestModelDraft(c,d,{geminiApiKey:'fake'},async(u,o)=>{
+  assert.equal(JSON.parse(o.body).generationConfig.responseMimeType,'application/json');
+  return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação não define cargo',unknowns:['responsabilidade'],nextStep:'Explicar contato',text:'Sou o Pedro, da GSW. Posso explicar o contato?'}));
+ });assert.equal(r.generationMeta.commercialDecision.strategy,'motivo');assert.deepEqual(r.generationMeta.commercialDecision.unknowns,['responsabilidade']);
+});
