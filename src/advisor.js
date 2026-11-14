@@ -85,10 +85,10 @@ export const generationPrompt = commercialPrompt;
 const COMMERCIAL_SCHEMA={type:'OBJECT',properties:{
  strategy:{type:'STRING',enum:['interesse','motivo','esclarecimento','descoberta','valor','objecao','qualificacao','autorizacao','retomada','encerramento']},
  interlocutor:{type:'STRING'},
- evidence:{type:'STRING'},
+ evidence:{type:'STRING',description:'Somente fatos fornecidos sobre esta conversa. O nicho do lead não comprova clientes, experiência ou resultados anteriores da GSW.'},
  unknowns:{type:'ARRAY',items:{type:'STRING'}},
- nextStep:{type:'STRING'},
- text:{type:'STRING'}},required:['strategy','interlocutor','evidence','unknowns','nextStep','text']};
+ nextStep:{type:'STRING',description:'Uma única ação pertinente, sem combinar diagnóstico de áreas distintas.'},
+ text:{type:'STRING',description:'Mensagem original em português, curta e centrada em UM assunto concreto. Não afirmar que a GSW atende empresas desse setor ou empresas como o lead. Uma saudação permite explicar uma possibilidade pertinente, não listar portfólio nem pedir diagnóstico amplo. No máximo UMA informação solicitada, inclusive pedidos implícitos; não unir atendimento, site, presença digital e orçamento como opções.'}},required:['strategy','interlocutor','evidence','unknowns','nextStep','text']};
 const REVIEW_SCHEMA={type:'OBJECT',properties:{
  questionCount:{type:'INTEGER'},unsupportedClaims:{type:'ARRAY',items:{type:'STRING'}},
  wrongIdentity:{type:'BOOLEAN'},repeatedQuestion:{type:'BOOLEAN'},pressureAfterRefusal:{type:'BOOLEAN'},
