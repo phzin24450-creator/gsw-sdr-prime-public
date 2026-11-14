@@ -48,6 +48,7 @@ for(const [id,turns,context,expected] of scenarios){
    if(result.generationMeta.qualityReview!=='gemini_semantic_and_local')failures.push('Missing independent semantic review');
    if(!result.generationMeta.commercialDecision)failures.push('Missing structured commercial decision');
    if(['atendente','marina-recepcao'].includes(id)&&!result.generationMeta.commercialDecision?.focus)failures.push('Missing grounded commercial focus');
+   if(['atendente','marina-recepcao'].includes(id)&&/alto volume|trabalho manual/.test(fold(result.generationMeta.commercialDecision?.focus?.relevance||'')))failures.push('Unsupported sector assumption in commercial focus');
    const issue=reviewCopy(result.text,c,d);if(issue)failures.push(issue);
    if(id==='atendente'&&/chatbot|robo|automatizad/.test(s))failures.push('Unfounded bot assumption');
    if(id==='decisor'&&/quem.{0,25}responsavel/.test(s))failures.push('Repeated identity');

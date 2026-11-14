@@ -125,3 +125,8 @@ test('Neutral first reply uses a focused decision brief, without leaking it into
  neutral.context.challenge='Acompanhar orçamentos atrasados';
  assert.doesNotMatch(commercialPrompt(neutral,decision(neutral.messages[0].text)).system,/cliente perguntou o assunto/);
 });
+test('A conditional integration into one process is not mistaken for a portfolio list',()=>{
+ const c=conversation('Quero integrar o agendamento ao sistema.'),d=decision(c.messages[0].text);
+ assert.equal(reviewCopy('Uma integração poderia conectar a automação do agendamento ao sistema, dependendo da viabilidade técnica.',c,d),null);
+ assert.equal(reviewCopy('Oferecemos sites, automações e painéis de gestão. Qual o desafio?',c,d),'portfolio_pitch');
+});

@@ -106,7 +106,7 @@ export function reviewCopy(text, conversation, decision, now = Date.now()) {
   const leadEvidence=fold((conversation.messages||[]).filter(m=>m.direction==='inbound').map(m=>m.text).join(' ')+' '+(conversation.context?.interlocutor||''));
   if (/\bpedro\b/.test(clean) && !/\bpedro\b/.test(leadEvidence) && !/(?:sou (?:o )?|e o |me chamo |aqui e (?:o )?|aqui quem fala e (?:o )?)pedro|pedro (?:aqui|da gsw)/.test(clean)) return 'wrong_interlocutor_name';
   const serviceFamilies=[/sites?|landing page/,/automac|atendimento/,/paineis|painel|sistemas?/].filter(re=>re.test(clean)).length;
-  if(serviceFamilies>1 && !/quais.{0,20}servicos|portfolio|todos os servicos/.test(fold(decision.latest.text))) return 'portfolio_pitch';
+  if(serviceFamilies>1 && /(?:oferecemos|servicos|solucoes.{0,30}como|sites?.{0,30}(?:,| e | ou ).{0,20}(?:sistemas?|automac|paineis))/.test(clean) && !/quais.{0,20}servicos|portfolio|todos os servicos/.test(fold(decision.latest.text))) return 'portfolio_pitch';
   if (/entendo perfeitamente|compreendo perfeitamente/.test(clean)) return 'canned_empathy';
   if (/qual.{0,70}(?:segmento|setor).{0,35}e (?:qual|se)|como.{0,80}ou (?:o |a )?(?:controle|atendimento)/.test(clean)) return 'multiple_questions';
   if (/(?:como|gostaria de (?:saber|entender)).{0,200}\bou (?:o |a )?(?:fluxo|organizacao|gestao|controle|atendimento|recebimento|presenca)\b/.test(clean)) return 'multiple_questions';
