@@ -38,6 +38,7 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
       - name: Executar cenários fictícios com Gemini
+        if: github.event_name == 'workflow_dispatch'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
         run: node scripts/visual-gemini-live.mjs
@@ -45,7 +46,7 @@ jobs:
         if: always()
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
-          GSW_LIVE_CASES: atendente,decisor
+          GSW_LIVE_CASES: atendente,marina-recepcao,marina-sem-pergunta,recusa,opt-out
         run: node scripts/commercial-gemini-live.mjs
         # Targeted regression after semantic-review latency and portfolio fixes.
         # Clear this selection only for an explicitly needed full live suite.

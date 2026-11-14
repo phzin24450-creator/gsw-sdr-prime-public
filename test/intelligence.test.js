@@ -102,3 +102,12 @@ test('Generation and semantic review receive separate bounded deadlines',async()
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação',unknowns:['empresa'],nextStep:'Conhecer segmento',text:'Sou Pedro, da GSW. Qual é a área de atuação da empresa?'}));
  });assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');assert.equal(result.generationMeta.requestAttempts,2);
 });
+test('Compound-question repair removes secondary requests without using a canned reply',async()=>{
+ const rejected=[];let generations=0;
+ const result=await requestModelDraft(conversation('Me chamo Marina. Como posso ajudar?'),decision('Me chamo Marina. Como posso ajudar?'),{geminiApiKey:'fake',onQualityRejection:item=>rejected.push(item)},async(u,o)=>{
+  const b=JSON.parse(o.body);if(b.generationConfig.responseSchema.properties.questionCount)return acceptedReview();
+  generations++;
+  if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Elimine todas as solicitações secundárias/);
+  return response(JSON.stringify({strategy:'motivo',interlocutor:'Marina',evidence:'Saudação',unknowns:['processo'],nextStep:'Explicar contato',text:generations===1?'Marina, quem decide? Como recebem os pedidos?':'Marina, o contato é sobre a apresentação dos serviços de climatização para quem solicita orçamento.'}));
+ });assert.equal(generations,2);assert.equal(rejected[0].issues[0],'multiple_questions');assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');
+});

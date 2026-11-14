@@ -9,6 +9,8 @@ const scenarios=[
  ['abertura-sem-pesquisa',[],{},'Explicar motivo sem alegar pesquisa'],
  ['abertura-observacao',[],{company:'Brisa Fictícia',sector:'Climatização',observation:'Página fictícia informa instalação de climatizadores',sourceUrl:'https://brisa.example.invalid',verifiedOn:new Date().toISOString().slice(0,10)},'Usar somente observação fornecida como fixture verificada, sem pesquisa real'],
  ['atendente',['Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?'],{company:'Brisa Técnica Climatização',sector:'Climatização'},'Explicar motivo, não presumir chatbot ou dor'],
+ ['marina-recepcao',['Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?'],{company:'Brisa Técnica Climatização',sector:'Climatização'},'Não atribuir decisão, uma finalidade relevante sem perguntas duplas'],
+ ['marina-sem-pergunta',['Sou Marina. Pode dizer o motivo do contato, mas não tenho tempo para responder perguntas agora.'],{company:'Brisa Técnica Climatização',sector:'Climatização'},'Explicar motivo contextual sem pergunta, oferta múltipla ou pressão'],
  ['decisor',['Sou eu o responsável.'],{company:'Brisa Técnica Climatização',sector:'Climatização'},'Não perguntar novamente quem decide'],
  ['possivel-chatbot',['Sou uma assistente virtual. Escolha o assunto.'],{sector:'Climatização'},'Pedir encaminhamento adequado sem vender automação'],
  ['interesse',['Um painel pode ajudar a acompanhar nossos orçamentos?'],{sector:'Marcenaria'},'Explicar aplicação concreta sem garantia'],
@@ -40,7 +42,8 @@ for(const [id,turns,context,expected] of scenarios){
  if(!d.canDraft){evidence.result='blocked';evidence.reason=d.reason;evidence.pass=['recusa','opt-out'].includes(id);}
  else {
   try{
-   const result=await requestModelDraft(c,d);evidence.response=result.text;evidence.metadata=result.generationMeta;
+   evidence.rejectedDrafts=[];
+   const result=await requestModelDraft(c,d,{onQualityRejection:item=>evidence.rejectedDrafts.push(item)});evidence.response=result.text;evidence.metadata=result.generationMeta;
    const s=fold(result.text);const failures=[];
    if(result.generationMeta.qualityReview!=='gemini_semantic_and_local')failures.push('Missing independent semantic review');
    if(!result.generationMeta.commercialDecision)failures.push('Missing structured commercial decision');

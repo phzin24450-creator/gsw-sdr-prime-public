@@ -125,6 +125,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   if (model!==GEMINI_MODEL) throw new GenerationError('invalid_model');
   const prompt=generationPrompt(conversation,decision,config);
   if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
+  if(config.qualityRetry?.split(',').includes('multiple_questions')) prompt.system += '\nReparo de foco: escolha UMA informação ou decisão útil. Elimine todas as solicitações secundárias, inclusive pedidos implícitos e alternativas sobre processos diferentes. Se não conseguir manter uma única pergunta contextual, gere somente uma explicação curta e relevante do motivo do contato, sem perguntas nem pedidos de dados. Não transforme a ausência de pergunta em lista de serviços.';
   if(config.qualityDraft) { const input=JSON.parse(prompt.input);input.rejectedDraft=minimize(config.qualityDraft);prompt.input=JSON.stringify(input); }
   const controller=new AbortController(); let timer=setTimeout(()=>controller.abort(),config.timeoutMs??25000);
   const started=Date.now();
@@ -153,6 +154,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     const apiRequests=(config.callsBefore??0)+1+(semantic?1:0);
     const issue=localIssue||semantic?.issues.join(',');
     if(issue) {
+      if(config.onQualityRejection) config.onQualityRejection({text:minimize(text),issues:issue.split(','),stage:localIssue?'local':'semantic'});
       if (!config.qualityRetry && !config.transientRetry) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue,qualityDraft:text,callsBefore:apiRequests},fetcher);
       const failure=new GenerationError('quality_block'); failure.qualityIssues=issue.split(','); throw failure;
     }
