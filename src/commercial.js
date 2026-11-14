@@ -1,5 +1,5 @@
 import { fold } from './intent.js';
-import { commercialSignals, ADAPTIVE_POLICY } from './intelligence.js';
+import { commercialSignals, ADAPTIVE_POLICY, isOrientationTurn, ORIENTATION_POLICY } from './intelligence.js';
 
 export const CONTEXT_FIELDS = ['company', 'sector', 'challenge', 'goal', 'offer', 'observation', 'sourceUrl', 'verifiedOn', 'interlocutor'];
 export const TONES = ['consultivo', 'objetivo', 'estrategico', 'acolhedor'];
@@ -67,7 +67,7 @@ export function commercialPrompt(conversation, decision, config = {}) {
     .map(m=>({direction:m.direction,text:minimize(m.text)}));
   const drafts = (conversation.drafts ?? []).slice(-3).map(d=>({text:minimize(d.text),note:'Rascunho: NÃO comprova envio nem aceite do lead'}));
   return {
-    system: PLAYBOOK + ADAPTIVE_POLICY + (strategy ? '\nPrimeiro contato sem mensagem do lead. ' + OPENINGS[strategy] : ''),
+    system: (isOrientationTurn(conversation,decision) ? ORIENTATION_POLICY : PLAYBOOK + ADAPTIVE_POLICY) + (strategy ? '\nPrimeiro contato sem mensagem do lead. ' + OPENINGS[strategy] : ''),
     input: JSON.stringify({tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
       commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(commercialSignals(conversation, decision), (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,
       verifiedObservation:observation||null, handoffAccepted:handoffAccepted(decision.latest.text),

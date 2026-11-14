@@ -72,8 +72,8 @@ test('Gemini structured strategy is retained with evidence and unknowns',async()
  const r=await requestModelDraft(c,d,{geminiApiKey:'fake'},async(u,o)=>{
   if(JSON.parse(o.body).generationConfig.responseSchema.properties.questionCount)return acceptedReview();
   assert.equal(JSON.parse(o.body).generationConfig.responseMimeType,'application/json');
-  return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação não define cargo',unknowns:['responsabilidade'],nextStep:'Explicar contato',text:'Sou o Pedro, da GSW. Posso explicar o contato?'}));
- });assert.equal(r.generationMeta.commercialDecision.strategy,'motivo');assert.deepEqual(r.generationMeta.commercialDecision.unknowns,['responsabilidade']);
+  return response(JSON.stringify({strategy:'motivo',focus:{topic:'Apresentação dos serviços',basis:'hypothesis',relevance:'Facilitar consulta antes de pedir orçamento'},interlocutor:'Desconhecido',evidence:'Saudação não define cargo',unknowns:['responsabilidade'],nextStep:'Explicar contato',text:'Sou o Pedro, da GSW. Posso explicar o contato?'}));
+ });assert.equal(r.generationMeta.commercialDecision.strategy,'motivo');assert.equal(r.generationMeta.commercialDecision.focus.basis,'hypothesis');assert.deepEqual(r.generationMeta.commercialDecision.unknowns,['responsabilidade']);
 });
 test('Semantic review catches a compound question with one question mark and repairs once',async()=>{
  let generated=0,reviewed=0;
@@ -116,4 +116,12 @@ test('Implicit compound requests are rejected even without question marks or wit
  assert.equal(reviewCopy('Gostaria de saber como a Brisa lida com a organização do atendimento ou o fluxo de solicitações de orçamento.',c,d),'multiple_questions');
  assert.equal(reviewCopy('Como organizam os orçamentos ou a presença digital?',c,d),'multiple_questions');
  assert.equal(reviewCopy('Como registram os orçamentos: em planilha ou sistema?',c,d),null);
+});
+test('Neutral first reply uses a focused decision brief, without leaking it into price or established discovery',()=>{
+ const neutral=conversation('Me chamo Marina. Como posso ajudar?');
+ assert.match(commercialPrompt(neutral,decision(neutral.messages[0].text)).system,/cliente perguntou o assunto/);
+ const price=conversation('Quanto custa um site?');
+ assert.doesNotMatch(commercialPrompt(price,decision(price.messages[0].text)).system,/cliente perguntou o assunto/);
+ neutral.context.challenge='Acompanhar orçamentos atrasados';
+ assert.doesNotMatch(commercialPrompt(neutral,decision(neutral.messages[0].text)).system,/cliente perguntou o assunto/);
 });
