@@ -112,7 +112,7 @@ test('cliques concorrentes chamam Gemini uma vez e cópia não cria revisão',as
 });
 
 test('HTTP: primeira abordagem, três estilos, edição idempotente e feedback autenticado',async()=>{
-  const store=createStore();
+  const store=createStore();store.setContext(phone,{observation:'Perfil fictício mostra um portfólio de móveis e link para contato.',sourceUrl:'https://atelier.example.invalid',verifiedOn:new Date().toISOString().slice(0,10)});
   const key='fictional-admin-key-for-local-tests';
   const app=createApp({store,adminKey:key,metaSecret:'test',verifyToken:'test',aiConfig:{geminiApiKey:'fake'},fetcher:async(_,r)=>{
     const input=JSON.parse(JSON.parse(r.body).contents[0].parts[0].text);
@@ -153,7 +153,7 @@ test('HTTP: primeira abordagem, três estilos, edição idempotente e feedback a
 });
 
 test('fallback que repete versão arquivada mantém a edição atual e a explicação da falha',async()=>{
-  const store=createStore();
+  const store=createStore();store.setContext(phone,{observation:'Perfil fictício apresenta móveis e link de contato.',sourceUrl:'https://atelier.example.invalid',verifiedOn:new Date().toISOString().slice(0,10)});
   const options={...config,opening:true};
   const unavailable=async()=>({ok:false,status:503});
   const original=await createReviewedDraft(store,phone,options,unavailable);

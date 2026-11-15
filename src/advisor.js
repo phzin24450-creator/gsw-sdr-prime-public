@@ -45,6 +45,8 @@ const GENERATION_ERRORS = Object.freeze({
   safety_block:'O Gemini bloqueou a resposta por segurança. Revise a mensagem e o contexto.',
   invalid_response:'O Gemini não retornou uma resposta completa utilizável.',
   quality_block:'A resposta do Gemini não passou pela revisão de qualidade. Gere outra versão ou altere o estilo.',
+  research_required:'Antes de abordar, pesquise e registre um gancho específico com fonte e data. Nome, nicho e intenção de vender não bastam.',
+  no_opportunity:'Não abordar agora: não há oportunidade fundamentada para esta conversa.',
   invalid_model:'O modelo configurado não é o modelo gratuito aprovado para esta integração.'
 });
 class GenerationError extends Error { constructor(code, status) {super(GENERATION_ERRORS[code]);this.code=code;if(Number.isInteger(status))this.httpStatus=status;} }
@@ -54,6 +56,7 @@ export function generationFailure(error) {
 }
 export const generationPrompt = commercialPrompt;
 const COMMERCIAL_SCHEMA={type:'OBJECT',properties:{
+ contactPlan:{type:'OBJECT',properties:{action:{type:'STRING',enum:['draft','research','do_not_approach']},strength:{type:'STRING',enum:['strong','plausible','insufficient']},service:{type:'STRING',enum:['site','landing_page','none']},evidenceRefs:{type:'ARRAY',items:{type:'STRING'}},buyerTask:{type:'STRING'},contactReason:{type:'STRING'},pageRole:{type:'STRING'},nextMove:{type:'STRING'},researchNeeded:{type:'STRING'}},required:['action','strength','service','evidenceRefs','buyerTask','contactReason','pageRole','nextMove','researchNeeded']},
  strategy:{type:'STRING',enum:['interesse','motivo','esclarecimento','descoberta','valor','objecao','qualificacao','autorizacao','retomada','encerramento']},
  knowledge:{type:'OBJECT',properties:{facts:{type:'ARRAY',items:{type:'STRING'}},indications:{type:'ARRAY',items:{type:'STRING'}},hypotheses:{type:'ARRAY',items:{type:'STRING'}},unknowns:{type:'ARRAY',items:{type:'STRING'}}},required:['facts','indications','hypotheses','unknowns']},
  focus:{type:'OBJECT',properties:{topic:{type:'STRING'},basis:{type:'STRING',enum:['confirmed','hypothesis','unknown']},relevance:{type:'STRING'}},required:['topic','basis','relevance']},
@@ -62,7 +65,7 @@ const COMMERCIAL_SCHEMA={type:'OBJECT',properties:{
  evidence:{type:'STRING',description:'Somente fatos fornecidos sobre esta conversa. O nicho do lead não comprova clientes, experiência ou resultados anteriores da PRIME.'},
  unknowns:{type:'ARRAY',items:{type:'STRING'}},
  nextStep:{type:'STRING',description:'Uma única ação pertinente, sem combinar diagnóstico de áreas distintas.'},
- text:{type:'STRING',description:'Mensagem original em português, curta e centrada em UM assunto concreto. Não afirmar que a PRIME atende empresas desse setor ou empresas como o lead. Uma saudação permite explicar uma possibilidade pertinente, não listar portfólio nem pedir diagnóstico amplo. No máximo UMA informação solicitada, inclusive pedidos implícitos; não unir atendimento, site, presença digital e orçamento como opções.'}},required:['strategy','knowledge','focus','opportunity','interlocutor','evidence','unknowns','nextStep','text']};
+ text:{type:'STRING',description:'Mensagem original em português, curta e centrada em UM assunto concreto. Não afirmar que a PRIME atende empresas desse setor ou empresas como o lead. Uma saudação permite explicar uma possibilidade pertinente, não listar portfólio nem pedir diagnóstico amplo. No máximo UMA informação solicitada, inclusive pedidos implícitos; não unir atendimento, site, presença digital e orçamento como opções.'}},required:['contactPlan','strategy','knowledge','focus','opportunity','interlocutor','evidence','unknowns','nextStep','text']};
 const REVIEW_SCHEMA={type:'OBJECT',properties:{
  messageSegments:{type:'ARRAY',description:'Copie TODA a mensagem em trechos consecutivos sem omitir nenhuma frase, mantendo o texto literal.',items:{type:'OBJECT',properties:{text:{type:'STRING'},assessment:{type:'STRING'},acceptable:{type:'BOOLEAN'}},required:['text','assessment','acceptable']}},
  factChecks:{type:'ARRAY',items:{type:'OBJECT',properties:{claim:{type:'STRING'},sourceId:{type:'STRING'},sourceQuote:{type:'STRING'},verdict:{type:'STRING',enum:['supported','conditional','unsupported']}},required:['claim','sourceId','sourceQuote','verdict']}},
@@ -79,7 +82,7 @@ questionCount conta informações solicitadas distintas, inclusive pedidos impl�
 repeatedQuestion: confronte a pergunta com declarações já fornecidas, não só com perguntas anteriores. Se disse registrar em papel, perguntar como registra ou o que usa além do papel sem motivo explícito repete ou inventa uma premissa. Pergunte outra lacuna decisiva, se necessária.
 wrongIdentity: Pedro é remetente, nunca cliente sem declaração. Saudação não comprova chatbot, cargo ou autoridade. Recepcionista pode indicar o contato, mas não deve receber diagnóstico técnico que declarou não poder responder.
 pressureAfterRefusal: recusa e opt-out encerram, sem novo diagnóstico, retomada ou negociação. Aceite de explicações não autoriza handoff.
-genericApproach: mensagem inteira precisa responder ao assunto e dar motivo concreto para explorar o tema, sem lista de serviços, benefício abstrato ou busca de dor a qualquer custo. Contexto escasso pede descoberta honesta e breve; não penalize falta de pesquisa/case que não existe. A aplicação já informa que é um contato comercial; chamá-lo de empresa não é uma afirmação de serviços ou necessidades. Explicar o propósito exploratório da PRIME e perguntar uma informação básica é legítimo quando não há base para propor uma oportunidade. Não exija um tema operacional concreto nesse caso. Se há necessidade explícita, reconheça-a e avance, não volte à descoberta básica.
+genericApproach: avalie o ARGUMENTO, não a presença de nome/nicho. Se há observação concreta fornecida e a mensagem serviria igualmente para outra empresa trocando o nome, marque falha e indique qual detalhe foi ignorado. Se o lead pediu explicação, uma pergunta técnica no lugar da explicação não faz a conversa avançar. Não exigir diagnóstico de dor quando o objetivo já foi declarado. Motivo, papel da página e próxima ação devem corresponder a contactPlan. Não penalize uma explicação funcional condicional como se fosse promessa de resultado. Mensagem inteira precisa responder ao assunto e dar motivo concreto para explorar o tema, sem lista de serviços, benefício abstrato ou busca de dor a qualquer custo. Contexto escasso pede descoberta honesta e breve; não penalize falta de pesquisa/case que não existe. A aplicação já informa que é um contato comercial; chamá-lo de empresa não é uma afirmação de serviços ou necessidades. Explicar o propósito exploratório da PRIME e perguntar uma informação básica é legítimo quando não há base para propor uma oportunidade. Não exija um tema operacional concreto nesse caso. Se há necessidade explícita, reconheça-a e avance, não volte à descoberta básica.
 strategyConsistent: estratégia, evidência, alvo da descoberta e texto devem concordar. Se seu próprio feedback identifica premissa sem apoio, pergunta repetida ou outro problema, o campo correspondente deve reprovar. Feedback deve explicar a falha concreta, sem escrever uma frase comercial substituta. Apenas não gostar do estilo não torna um fato falso.`;
  const r=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
   method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},signal,
@@ -115,6 +118,8 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   // Não troca silenciosamente para modelos/provedores potencialmente pagos.
   if (model!==GEMINI_MODEL) throw new GenerationError('invalid_model');
   const prompt=generationPrompt(conversation,decision,config);
+  const input=JSON.parse(prompt.input);
+  if(decision.opening&&!input.verifiedObservation&&!conversation.context?.challenge){const failure=new GenerationError('research_required');failure.planningProvider='rules';throw failure;}
   if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
   const explanationRepair=config.qualityRetry?.split(',').includes('multiple_questions');
   if(explanationRepair) prompt.system += '\nREPARO: volte à decisão comercial. Escolha uma única informação que realmente mudaria o próximo passo. Pode fazer uma pergunta sobre ela, OU apenas explicar o assunto se o cliente não puder responder. Não acumule diagnóstico e encaminhamento. Alternativas sobre a mesma informação são válidas. Não transforme a mensagem em monólogo genérico para escapar da revisão.';
@@ -138,8 +143,20 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     let assessment=null;
     if(raw.startsWith('{')) {try {assessment=JSON.parse(raw);}catch{throw new GenerationError('invalid_response')}}
     if(assessment && (typeof assessment.text!=='string'||!COMMERCIAL_SCHEMA.properties.strategy.enum.includes(assessment.strategy)))throw new GenerationError('invalid_response');
+    if(assessment?.contactPlan){
+      const plan=assessment.contactPlan;
+      if(!['draft','research','do_not_approach'].includes(plan.action)||!['strong','plausible','insufficient'].includes(plan.strength)||!['site','landing_page','none'].includes(plan.service)||!Array.isArray(plan.evidenceRefs)||plan.evidenceRefs.some(id=>!input.evidenceRegister.some(item=>item.id===id)))throw new GenerationError('invalid_response');
+      const unsupportedOpening=decision.opening&&plan.action==='draft'&&(plan.strength==='insufficient'||!plan.evidenceRefs.some(id=>id==='public:observation'||id==='context:challenge'||id.startsWith('inbound:')));
+      if(plan.action!=='draft'||unsupportedOpening){
+        const failure=new GenerationError(plan.action==='research'||unsupportedOpening?'research_required':'no_opportunity');
+        const advice=plan.action==='do_not_approach'?plan.contactReason:plan.researchNeeded;
+        if(typeof advice==='string'&&advice.trim())failure.message+=' '+minimize(advice,350);
+        failure.contactPlan=JSON.parse(JSON.stringify(unsupportedOpening?{...plan,action:'research'}:plan,(k,v)=>typeof v==='string'?minimize(v,400):v));
+        throw failure;
+      }
+    }
     const text=polishCopy(assessment?assessment.text:raw);
-    const commercialDecision=assessment?{strategy:assessment.strategy,knowledge:assessment.knowledge||null,opportunity:assessment.opportunity||null,focus:assessment.focus?{topic:String(assessment.focus.topic||'').slice(0,180),basis:['confirmed','hypothesis','unknown'].includes(assessment.focus.basis)?assessment.focus.basis:'unknown',relevance:String(assessment.focus.relevance||'').slice(0,300)}:null,interlocutor:String(assessment.interlocutor||'Desconhecido').slice(0,200),evidence:String(assessment.evidence||'').slice(0,300),unknowns:Array.isArray(assessment.unknowns)?assessment.unknowns.slice(0,8).map(x=>String(x).slice(0,150)):[],nextStep:String(assessment.nextStep||'').slice(0,200)}:null;
+    const commercialDecision=assessment?{strategy:assessment.strategy,contactPlan:assessment.contactPlan||null,knowledge:assessment.knowledge||null,opportunity:assessment.opportunity||null,focus:assessment.focus?{topic:String(assessment.focus.topic||'').slice(0,180),basis:['confirmed','hypothesis','unknown'].includes(assessment.focus.basis)?assessment.focus.basis:'unknown',relevance:String(assessment.focus.relevance||'').slice(0,300)}:null,interlocutor:String(assessment.interlocutor||'Desconhecido').slice(0,200),evidence:String(assessment.evidence||'').slice(0,300),unknowns:Array.isArray(assessment.unknowns)?assessment.unknowns.slice(0,8).map(x=>String(x).slice(0,150)):[],nextStep:String(assessment.nextStep||'').slice(0,200)}:null;
     if(candidate?.finishReason!=='STOP'||!text||text.length>1000)throw new GenerationError('invalid_response');
     if(config.onGeneratedCandidate)config.onGeneratedCandidate({text:minimize(text),decision:commercialDecision});
     const register=JSON.parse(prompt.input).evidenceRegister;
@@ -181,6 +198,7 @@ async function generate(store, phone, config, fetcher) {
   let generated;
   try { generated = await requestModelDraft(conversation, decision, config, fetcher); }
   catch(error) {
+    if(['research_required','no_opportunity'].includes(error.code))return {created:false,reason:error.message,generationMeta:{provider:error.planningProvider||'gemini',model:error.planningProvider==='rules'?null:config.geminiModel??GEMINI_MODEL,status:'needs_context',errorCode:error.code,commercialDecision:error.contactPlan?{contactPlan:error.contactPlan}:null}};
     const code=error instanceof GenerationError?error.code:'provider_unavailable';
     const generationMeta={...generationFailure(error),model:config.geminiModel??process.env.GEMINI_MODEL??GEMINI_MODEL};
     if(['safety_block','quality_block'].includes(code))return {created:false,reason:generationMeta.message,generationMeta:{...generationMeta,status:'error'}};

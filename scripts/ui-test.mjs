@@ -42,14 +42,19 @@ try{
  await page.waitForFunction(()=>document.querySelectorAll('#conversation option').length>1);
  assert.ok((await page.locator('#conversation').innerText()).includes('Recusa / opt-out'));
  await page.locator('#conversation-status').selectOption('all');
- await page.locator('#phone').fill('00000005'+width);await page.locator('#open').click();await page.locator('#active-label').filter({hasText:'00000005'+width}).waitFor();await page.locator('#opening').click();await page.waitForFunction(()=>!document.getElementById('copy').disabled);assert.equal(store.get('00000005'+width).messages.length,0);assert.equal(store.get('00000005'+width).drafts[0].intent,'OPENING');
+ store.setContext('00000005'+width,{observation:'Perfil fictício mostra serviços e link de contato.',sourceUrl:'https://fixture.example.invalid',verifiedOn:new Date().toISOString().slice(0,10)});await page.locator('#phone').fill('00000005'+width);await page.locator('#open').click();await page.locator('#active-label').filter({hasText:'00000005'+width}).waitFor();await page.locator('#opening').click();await page.waitForFunction(()=>!document.getElementById('copy').disabled);assert.equal(store.get('00000005'+width).messages.length,0);assert.equal(store.get('00000005'+width).drafts[0].intent,'OPENING');
  const countBeforeVisual=store.list().length;
  await page.locator('#standalone-opening summary').click();
  await page.locator('#standalone-generate').click();
- await page.waitForFunction(()=>!document.getElementById('standalone-copy').disabled);
- await page.locator('#standalone-copy').click();
- await page.locator('#standalone-status').filter({hasText:'copiada'}).waitFor();
- assert.ok(await page.evaluate(()=>navigator.clipboard.readText()));
+ if(simulatedGemini){
+  await page.locator('#standalone-status').filter({hasText:'pesquise'}).waitFor();
+  assert.equal(await page.locator('#standalone-copy').isDisabled(),true);
+ }else{
+  await page.waitForFunction(()=>!document.getElementById('standalone-copy').disabled);
+  await page.locator('#standalone-copy').click();
+  await page.locator('#standalone-status').filter({hasText:'copiada'}).waitFor();
+  assert.ok(await page.evaluate(()=>navigator.clipboard.readText()));
+ }
  await page.locator('#standalone-opening summary').click();
  if(simulatedGemini){
   await page.locator('#visual-copilot summary').click();

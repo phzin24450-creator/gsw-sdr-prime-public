@@ -7,13 +7,6 @@ export const TONES = ['consultivo', 'objetivo', 'estrategico', 'acolhedor'];
 
 const PLAYBOOK = PRIME_POLICY;
 
-const OPENINGS = {
-  observacao: 'Use somente a observação pública fornecida, sem alegar visita ou pesquisa própria. Conecte-a a uma pergunta natural.',
-  oportunidade: 'Conecte a observação pública ao objetivo como hipótese. Não atribua problema, perda ou impacto ao lead.',
-  pergunta: 'Abra com pergunta simples e específica sobre a dificuldade informada como hipótese; não a apresente como fato do lead.',
-  segmento: 'Conecte ao segmento sem atribuir dificuldades particulares. Explore uma necessidade plausível.',
-  direta: 'Apresente Pedro e a PRIME, explique brevemente o motivo e peça permissão para continuar. Sem pesquisa, diagnóstico ou pitch inventado. Sem setor informado, não fale em “seu segmento” nem sugira experiência prévia naquele mercado. Use uma possibilidade para a operação, sem insinuar trabalhos anteriores.'
-};
 
 export function minimize(text, limit = 1000) {
   return String(text ?? '').slice(0, limit)
@@ -48,11 +41,14 @@ export function commercialPrompt(conversation, decision, config = {}) {
     raw.challenge ? 'pergunta' : raw.sector ? 'segmento' : 'direta';
   const history = (conversation.messages ?? []).filter(m=>['inbound','outbound'].includes(m.direction)).slice(-12)
     .map(m=>({direction:m.direction,text:minimize(m.text)}));
+  const signals=commercialSignals(conversation,decision);
+  // Inbound declarations already live in evidenceRegister; avoid sending them twice.
+  const {declaredEvidence,...signalSummary}=signals;
   const drafts = (conversation.drafts ?? []).slice(-3).map(d=>({text:minimize(d.text),note:'Rascunho: NÃO comprova envio nem aceite do lead'}));
   return {
-    system: PLAYBOOK + '\nVincule opportunity aos IDs de evidenceRegister. Setor, metas do operador e oferta desejada não provam necessidade. Use exploratory para assunto ainda a verificar e grounded somente para oportunidade apoiada por necessidade ou objetivo confirmado do cliente. Sem base, use unknown e escolha uma lacuna útil para descoberta.' + (strategy ? '\nPrimeiro contato sem mensagem do lead. ' + OPENINGS[strategy] : ''),
-    input: JSON.stringify({senderIdentity:{name:'Pedro',company:'PRIME',role:'proprietário que conduz a negociação'},tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
-      commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(commercialSignals(conversation, decision), (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,
+    system: PLAYBOOK,
+    input: JSON.stringify({turnPurpose:decision.opening?'cold_outreach':'reply',researchAvailable:!!observation,sourceProvenance:observation?{kind:'operator_provided_observation',host:new URL(raw.sourceUrl).hostname,verifiedOn:raw.verifiedOn}:null,senderIdentity:{name:'Pedro',company:'PRIME',role:'proprietário que conduz a negociação'},tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
+      commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(signalSummary, (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,strategyHintOnly:true,
       evidenceRegister: [
         {id:'policy:portfolio',kind:'current_brand_policy',text:'A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.'},
         {id:'policy:sender',kind:'current_brand_policy',text:'Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.'},

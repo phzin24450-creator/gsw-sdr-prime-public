@@ -1,0 +1,604 @@
+{
+  "status": "prepared_only",
+  "realApiCalls": 0,
+  "reason": "No credential in workspace; environment permits only work/v4.2-visual-copilot, modification prohibited in current scope",
+  "cases": [
+    {
+      "id": "ipe-madeira",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Relacionar projetos de cozinhas e destino observado sem afirmar inexistência de site.",
+      "context": {
+        "company": "Ipê Madeira Fictícia",
+        "sector": "Marcenaria",
+        "observation": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+        "sourceUrl": "https://ipe.example.invalid/perfil",
+        "verifiedOn": "2026-11-15"
+      },
+      "messages": [],
+      "preparedModelInput": {
+        "turnPurpose": "cold_outreach",
+        "researchAvailable": true,
+        "sourceProvenance": {
+          "kind": "operator_provided_observation",
+          "host": "ipe.example.invalid",
+          "verifiedOn": "2026-11-15"
+        },
+        "senderIdentity": {
+          "name": "Pedro",
+          "company": "PRIME",
+          "role": "proprietário que conduz a negociação"
+        },
+        "tone": "consultivo",
+        "intent": "OPENING",
+        "latestMessage": "",
+        "commercialContext": {
+          "company": "Ipê Madeira Fictícia",
+          "sector": "Marcenaria"
+        },
+        "interlocutorDeclared": null,
+        "history": [],
+        "previousDrafts": [],
+        "commercialSignals": {
+          "interlocutor": {
+            "role": "desconhecido",
+            "confidence": "baixa",
+            "evidence": null
+          },
+          "refusal": false,
+          "objectionCues": [],
+          "strategyConstraint": "motivo relevante sem inventar pesquisa",
+          "answeredQuestionPairs": [],
+          "missingInformation": [
+            "necessidade"
+          ],
+          "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+        },
+        "operatorFeedback": [],
+        "channel": "WhatsApp manual",
+        "strategy": "observacao",
+        "strategyHintOnly": true,
+        "evidenceRegister": [
+          {
+            "id": "policy:portfolio",
+            "kind": "current_brand_policy",
+            "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+          },
+          {
+            "id": "policy:sender",
+            "kind": "current_brand_policy",
+            "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+          },
+          {
+            "id": "context:company",
+            "kind": "operator_record",
+            "text": "Ipê Madeira Fictícia"
+          },
+          {
+            "id": "context:sector",
+            "kind": "operator_record",
+            "text": "Marcenaria"
+          },
+          {
+            "id": "public:observation",
+            "kind": "provided_verified_observation",
+            "text": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço."
+          }
+        ],
+        "verifiedObservation": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+        "handoffAccepted": false,
+        "regenerate": false
+      },
+      "locallyBlocked": false
+    },
+    {
+      "id": "bruma-social",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Usar coleção e trabalhos publicados; não converter Instagram forte em necessidade comprovada de landing page.",
+      "context": {
+        "company": "Bruma Cerâmica Fictícia",
+        "sector": "Cerâmica autoral",
+        "observation": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+        "sourceUrl": "https://bruma.example.invalid/colecao",
+        "verifiedOn": "2026-11-15"
+      },
+      "messages": [],
+      "preparedModelInput": {
+        "turnPurpose": "cold_outreach",
+        "researchAvailable": true,
+        "sourceProvenance": {
+          "kind": "operator_provided_observation",
+          "host": "bruma.example.invalid",
+          "verifiedOn": "2026-11-15"
+        },
+        "senderIdentity": {
+          "name": "Pedro",
+          "company": "PRIME",
+          "role": "proprietário que conduz a negociação"
+        },
+        "tone": "consultivo",
+        "intent": "OPENING",
+        "latestMessage": "",
+        "commercialContext": {
+          "company": "Bruma Cerâmica Fictícia",
+          "sector": "Cerâmica autoral"
+        },
+        "interlocutorDeclared": null,
+        "history": [],
+        "previousDrafts": [],
+        "commercialSignals": {
+          "interlocutor": {
+            "role": "desconhecido",
+            "confidence": "baixa",
+            "evidence": null
+          },
+          "refusal": false,
+          "objectionCues": [],
+          "strategyConstraint": "motivo relevante sem inventar pesquisa",
+          "answeredQuestionPairs": [],
+          "missingInformation": [
+            "necessidade"
+          ],
+          "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+        },
+        "operatorFeedback": [],
+        "channel": "WhatsApp manual",
+        "strategy": "observacao",
+        "strategyHintOnly": true,
+        "evidenceRegister": [
+          {
+            "id": "policy:portfolio",
+            "kind": "current_brand_policy",
+            "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+          },
+          {
+            "id": "policy:sender",
+            "kind": "current_brand_policy",
+            "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+          },
+          {
+            "id": "context:company",
+            "kind": "operator_record",
+            "text": "Bruma Cerâmica Fictícia"
+          },
+          {
+            "id": "context:sector",
+            "kind": "operator_record",
+            "text": "Cerâmica autoral"
+          },
+          {
+            "id": "public:observation",
+            "kind": "provided_verified_observation",
+            "text": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida."
+          }
+        ],
+        "verifiedObservation": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+        "handoffAccepted": false,
+        "regenerate": false
+      },
+      "locallyBlocked": false
+    },
+    {
+      "id": "vertice-turma",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Investigar página específica para a turma antes de ofertar outra página.",
+      "context": {
+        "company": "Vértice Escola Fictícia",
+        "sector": "Cursos livres",
+        "observation": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+        "sourceUrl": "https://vertice.example.invalid/turma",
+        "verifiedOn": "2026-11-15"
+      },
+      "messages": [],
+      "preparedModelInput": {
+        "turnPurpose": "cold_outreach",
+        "researchAvailable": true,
+        "sourceProvenance": {
+          "kind": "operator_provided_observation",
+          "host": "vertice.example.invalid",
+          "verifiedOn": "2026-11-15"
+        },
+        "senderIdentity": {
+          "name": "Pedro",
+          "company": "PRIME",
+          "role": "proprietário que conduz a negociação"
+        },
+        "tone": "consultivo",
+        "intent": "OPENING",
+        "latestMessage": "",
+        "commercialContext": {
+          "company": "Vértice Escola Fictícia",
+          "sector": "Cursos livres"
+        },
+        "interlocutorDeclared": null,
+        "history": [],
+        "previousDrafts": [],
+        "commercialSignals": {
+          "interlocutor": {
+            "role": "desconhecido",
+            "confidence": "baixa",
+            "evidence": null
+          },
+          "refusal": false,
+          "objectionCues": [],
+          "strategyConstraint": "motivo relevante sem inventar pesquisa",
+          "answeredQuestionPairs": [],
+          "missingInformation": [
+            "necessidade"
+          ],
+          "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+        },
+        "operatorFeedback": [],
+        "channel": "WhatsApp manual",
+        "strategy": "observacao",
+        "strategyHintOnly": true,
+        "evidenceRegister": [
+          {
+            "id": "policy:portfolio",
+            "kind": "current_brand_policy",
+            "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+          },
+          {
+            "id": "policy:sender",
+            "kind": "current_brand_policy",
+            "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+          },
+          {
+            "id": "context:company",
+            "kind": "operator_record",
+            "text": "Vértice Escola Fictícia"
+          },
+          {
+            "id": "context:sector",
+            "kind": "operator_record",
+            "text": "Cursos livres"
+          },
+          {
+            "id": "public:observation",
+            "kind": "provided_verified_observation",
+            "text": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir."
+          }
+        ],
+        "verifiedObservation": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+        "handoffAccepted": false,
+        "regenerate": false
+      },
+      "locallyBlocked": false
+    },
+    {
+      "id": "interesse-explicacao",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Entregar a explicação pedida antes de qualquer pergunta técnica, usando programa e link existentes.",
+      "context": {
+        "company": "Rumo Idiomas Fictício",
+        "sector": "Idiomas"
+      },
+      "messages": [
+        {
+          "id": "0",
+          "direction": "outbound",
+          "text": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?"
+        },
+        {
+          "id": "1",
+          "direction": "inbound",
+          "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+        }
+      ],
+      "preparedModelInput": {
+        "turnPurpose": "reply",
+        "researchAvailable": false,
+        "sourceProvenance": null,
+        "senderIdentity": {
+          "name": "Pedro",
+          "company": "PRIME",
+          "role": "proprietário que conduz a negociação"
+        },
+        "tone": "consultivo",
+        "intent": "OTHER",
+        "latestMessage": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?",
+        "commercialContext": {
+          "company": "Rumo Idiomas Fictício",
+          "sector": "Idiomas"
+        },
+        "interlocutorDeclared": null,
+        "history": [
+          {
+            "direction": "outbound",
+            "text": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?"
+          },
+          {
+            "direction": "inbound",
+            "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+          }
+        ],
+        "previousDrafts": [],
+        "commercialSignals": {
+          "interlocutor": {
+            "role": "desconhecido",
+            "confidence": "baixa",
+            "evidence": null
+          },
+          "refusal": false,
+          "objectionCues": [],
+          "strategyConstraint": "decidir pelo contexto",
+          "answeredQuestionPairs": [
+            {
+              "question": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?",
+              "answer": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+            }
+          ],
+          "missingInformation": [
+            "necessidade"
+          ],
+          "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+        },
+        "operatorFeedback": [],
+        "channel": "WhatsApp manual",
+        "strategy": null,
+        "strategyHintOnly": true,
+        "evidenceRegister": [
+          {
+            "id": "policy:portfolio",
+            "kind": "current_brand_policy",
+            "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+          },
+          {
+            "id": "policy:sender",
+            "kind": "current_brand_policy",
+            "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+          },
+          {
+            "id": "context:company",
+            "kind": "operator_record",
+            "text": "Rumo Idiomas Fictício"
+          },
+          {
+            "id": "context:sector",
+            "kind": "operator_record",
+            "text": "Idiomas"
+          },
+          {
+            "id": "inbound:0",
+            "kind": "client_statement",
+            "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+          }
+        ],
+        "verifiedObservation": null,
+        "handoffAccepted": false,
+        "regenerate": false
+      },
+      "locallyBlocked": false
+    },
+    {
+      "id": "objecao-fornecedor",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+      "context": {
+        "company": "Trilha Viva Fictícia",
+        "sector": "Passeios guiados"
+      },
+      "messages": [
+        {
+          "id": "0",
+          "direction": "inbound",
+          "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+        },
+        {
+          "id": "1",
+          "direction": "outbound",
+          "text": "Podemos avaliar uma página dedicada à expedição."
+        },
+        {
+          "id": "2",
+          "direction": "inbound",
+          "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+        }
+      ],
+      "preparedModelInput": {
+        "turnPurpose": "reply",
+        "researchAvailable": false,
+        "sourceProvenance": null,
+        "senderIdentity": {
+          "name": "Pedro",
+          "company": "PRIME",
+          "role": "proprietário que conduz a negociação"
+        },
+        "tone": "consultivo",
+        "intent": "SERVICES",
+        "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+        "commercialContext": {
+          "company": "Trilha Viva Fictícia",
+          "sector": "Passeios guiados"
+        },
+        "interlocutorDeclared": null,
+        "history": [
+          {
+            "direction": "inbound",
+            "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+          },
+          {
+            "direction": "outbound",
+            "text": "Podemos avaliar uma página dedicada à expedição."
+          },
+          {
+            "direction": "inbound",
+            "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+          }
+        ],
+        "previousDrafts": [],
+        "commercialSignals": {
+          "interlocutor": {
+            "role": "desconhecido",
+            "confidence": "baixa",
+            "evidence": null
+          },
+          "refusal": false,
+          "objectionCues": [],
+          "strategyConstraint": "decidir pelo contexto",
+          "answeredQuestionPairs": [],
+          "missingInformation": [
+            "necessidade"
+          ],
+          "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+        },
+        "operatorFeedback": [],
+        "channel": "WhatsApp manual",
+        "strategy": null,
+        "strategyHintOnly": true,
+        "evidenceRegister": [
+          {
+            "id": "policy:portfolio",
+            "kind": "current_brand_policy",
+            "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+          },
+          {
+            "id": "policy:sender",
+            "kind": "current_brand_policy",
+            "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+          },
+          {
+            "id": "context:company",
+            "kind": "operator_record",
+            "text": "Trilha Viva Fictícia"
+          },
+          {
+            "id": "context:sector",
+            "kind": "operator_record",
+            "text": "Passeios guiados"
+          },
+          {
+            "id": "inbound:0",
+            "kind": "client_statement",
+            "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+          },
+          {
+            "id": "inbound:1",
+            "kind": "client_statement",
+            "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+          }
+        ],
+        "verifiedObservation": null,
+        "handoffAccepted": false,
+        "regenerate": false
+      },
+      "locallyBlocked": false
+    },
+    {
+      "id": "pesquisa-insuficiente",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Pedir pesquisa ao proprietário sem mensagem pronta ou chamada Gemini.",
+      "context": {
+        "company": "Núcleo Delta Fictício",
+        "sector": "Serviços"
+      },
+      "messages": [],
+      "preparedModelInput": {
+        "turnPurpose": "cold_outreach",
+        "researchAvailable": false,
+        "sourceProvenance": null,
+        "senderIdentity": {
+          "name": "Pedro",
+          "company": "PRIME",
+          "role": "proprietário que conduz a negociação"
+        },
+        "tone": "consultivo",
+        "intent": "OPENING",
+        "latestMessage": "",
+        "commercialContext": {
+          "company": "Núcleo Delta Fictício",
+          "sector": "Serviços"
+        },
+        "interlocutorDeclared": null,
+        "history": [],
+        "previousDrafts": [],
+        "commercialSignals": {
+          "interlocutor": {
+            "role": "desconhecido",
+            "confidence": "baixa",
+            "evidence": null
+          },
+          "refusal": false,
+          "objectionCues": [],
+          "strategyConstraint": "motivo relevante sem inventar pesquisa",
+          "answeredQuestionPairs": [],
+          "missingInformation": [
+            "necessidade"
+          ],
+          "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+        },
+        "operatorFeedback": [],
+        "channel": "WhatsApp manual",
+        "strategy": "segmento",
+        "strategyHintOnly": true,
+        "evidenceRegister": [
+          {
+            "id": "policy:portfolio",
+            "kind": "current_brand_policy",
+            "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+          },
+          {
+            "id": "policy:sender",
+            "kind": "current_brand_policy",
+            "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+          },
+          {
+            "id": "context:company",
+            "kind": "operator_record",
+            "text": "Núcleo Delta Fictício"
+          },
+          {
+            "id": "context:sector",
+            "kind": "operator_record",
+            "text": "Serviços"
+          }
+        ],
+        "verifiedObservation": null,
+        "handoffAccepted": false,
+        "regenerate": false
+      },
+      "locallyBlocked": false
+    },
+    {
+      "id": "recusa",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Encerrar sem chamada Gemini ou nova abordagem.",
+      "context": {
+        "company": "Recusa Fictícia"
+      },
+      "messages": [
+        {
+          "id": "0",
+          "direction": "inbound",
+          "text": "Não temos interesse. Obrigado."
+        }
+      ],
+      "preparedModelInput": null,
+      "locallyBlocked": true
+    },
+    {
+      "id": "optout",
+      "status": "not_executed_with_real_Gemini",
+      "synthetic": true,
+      "expected": "Bloquear contato e não chamar Gemini.",
+      "context": {
+        "company": "Opt-out Fictício"
+      },
+      "messages": [
+        {
+          "id": "0",
+          "direction": "inbound",
+          "text": "Não me mande mais mensagens."
+        }
+      ],
+      "preparedModelInput": null,
+      "locallyBlocked": true
+    }
+  ]
+}

@@ -205,6 +205,11 @@ export async function draftVisual(data, { blocked = false, opening = false, conf
   const context = {};
   if (company && fold(company) !== fold(UNKNOWN)) context.company = company;
   if (sector && fold(sector) !== fold(UNKNOWN)) context.sector = sector;
+  // Optional operator research keeps phone-free cold outreach available through the existing API.
+  // This is not inferred from the screenshot and cannot override system rules.
+  if(data.research&&typeof data.research==='object'){
+    for(const field of ['observation','sourceUrl','verifiedOn'])if(typeof data.research[field]==='string')context[field]=data.research[field].slice(0,1000);
+  }
   const conversation = { mode: MODES.HUMAN, context, messages };
   const decision = prepareDecision(conversation, { manual: true, opening });
   if (!decision.canDraft) throw visualError(400, decision.reason);
@@ -215,7 +220,7 @@ export async function draftVisual(data, { blocked = false, opening = false, conf
     const result = await requestModelDraft(conversation, decision, config, fetcher);
     return { text: redactVisualText(result.text, 1000), provider: result.provider, generationMeta: result.generationMeta };
   } catch (error) {
-    if (['safety_block', 'quality_block'].includes(error.code)) throw visualError(409, error.message);
+    if (['safety_block', 'quality_block','research_required','no_opportunity'].includes(error.code)) throw visualError(409, error.message);
     return { text: decision.fallback, provider: error.code === 'missing_key' ? 'rules' : 'rules_fallback', generationMeta: generationFailure(error) };
   }
 }
