@@ -128,11 +128,11 @@ export async function analyzeVisual(data, config = {}, fetcher = fetch) {
   try {
     const response = await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': apiKey },
-      signal: AbortSignal.timeout(config.timeoutMs ?? 30000),
+      signal: AbortSignal.timeout(config.timeoutMs ?? 45000),
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: INSTRUCTIONS }] },
         contents: [{ role: 'user', parts }],
-        generationConfig: { responseMimeType: 'application/json', responseSchema, temperature: 0, maxOutputTokens: 8192 }
+        generationConfig: { responseMimeType: 'application/json', responseSchema, temperature: 0, maxOutputTokens: 8192, thinkingConfig:{thinkingLevel:'MINIMAL'} }
       })
     });
     if (!response.ok) throw visualError(502, `Gemini recusou a análise (HTTP ${response.status}).`);
@@ -144,7 +144,7 @@ export async function analyzeVisual(data, config = {}, fetcher = fetch) {
     if (!Array.isArray(result?.messages) || result.messages.length > MAX_MESSAGES) throw new Error();
   } catch (error) {
     if (error.visual) throw error;
-    if (['AbortError','TimeoutError'].includes(error.name)) throw visualError(504, 'Gemini excedeu o prazo de 30 segundos para analisar imagens.');
+    if (['AbortError','TimeoutError'].includes(error.name)) throw visualError(504, 'Gemini excedeu o prazo de 45 segundos para analisar imagens.');
     throw visualError(502, 'Gemini não retornou uma leitura completa. Tente novamente com menos prints.');
   }
   const messages = normalizeMessages(result.messages, parts.length);
