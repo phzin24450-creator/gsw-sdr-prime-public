@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 60b051501a0490dfb99815d9eb61fe42ae02e7a0
+          ref: 4554738d9e366af15901beab2a79649b65162965
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
@@ -25,7 +25,7 @@ jobs:
       - name: PRIME candidate synthetic Gemini calls
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
-          PRIME_LIVE_CASES: marina,recepcionista,site-confirmado,landing-page
+          PRIME_LIVE_CASES: marina,recepcionista,site-confirmado,site-adequado,landing-page,fora-escopo,preco,recusa,optout
         run: node scripts/prime-gemini-live.mjs
       - uses: actions/upload-artifact@v4
         if: always()
