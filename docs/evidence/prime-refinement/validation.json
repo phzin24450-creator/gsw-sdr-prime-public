@@ -1,0 +1,37 @@
+{
+  "baselineCommit": "21e5b0dad3739d6ea9479bba7d2e9f83986d5ac6",
+  "baselineLocalTests": {
+    "total": 130,
+    "passed": 130,
+    "failed": 0,
+    "skipped": 0
+  },
+  "codeCommit": "e20e4bf2938c04c341814f32eca31b413650189a",
+  "branch": "work/prime-commercial-reasoning-fix",
+  "localTests": {
+    "total": 141,
+    "passed": 141,
+    "failed": 0,
+    "skipped": 0
+  },
+  "ciRun": 43758179991,
+  "ciConclusion": "success",
+  "browserWidths": [
+    360,
+    1440
+  ],
+  "browserProviders": [
+    "local rules",
+    "simulated Gemini"
+  ],
+  "physicalAndroidTested": false,
+  "realGeminiCallsThisRevision": 0,
+  "realCommercialApproval": "pending",
+  "credentialPolicyBranch": "work/v4.2-visual-copilot",
+  "credentialValueAccessed": false,
+  "otherBranchesModified": false,
+  "infrastructureModified": false,
+  "deployed": false,
+  "remoteMigrations": false,
+  "realWhatsAppMessages": 0
+}

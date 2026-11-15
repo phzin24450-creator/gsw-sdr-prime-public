@@ -36,7 +36,7 @@ Não há nova coleção de frases comerciais nem aumento de listas de palavras p
 
 Suíte atual: 141 testes, 141 aprovados, zero falhas/skips. Onze testes adicionados verificam pesquisa prévia, fonte antiga/incompleta, avanço em conversa ativa, persistência do plano, decisão de não abordar, impossibilidade de fundamentar contato só no catálogo, ausência de rascunho/fallback em recomendações, provedores corretos, memória sem duplicação e geração pesquisada sem telefone.
 
-Os testes antigos de primeira abordagem foram ajustados para fornecer pesquisa fictícia quando precisam alcançar geração/regeneração/edição/concorrência; o caso vazio agora verifica pedido de pesquisa. O teste visual de concorrência passou a obter token de revisão e usar uma conversa ativa. Nenhuma funcionalidade foi removida para fazer testes passarem. Scripts de UI foram atualizados para esses estados, sem mudança no HTML/CSS. A validação desktop/mobile ocorrerá pelo CI da branch isolada. Não confundir provedor simulado no navegador com chamada real.
+Os testes antigos de primeira abordagem foram ajustados para fornecer pesquisa fictícia quando precisam alcançar geração/regeneração/edição/concorrência; o caso vazio agora verifica pedido de pesquisa. O teste visual de concorrência passou a obter token de revisão e usar uma conversa ativa. Nenhuma funcionalidade foi removida para fazer testes passarem. Scripts de UI foram atualizados para esses estados, sem mudança de layout ou CSS. A validação desktop/mobile ocorrerá pelo CI da branch isolada. Não confundir provedor simulado no navegador com chamada real.
 
 O script de chamada real foi executado somente até a verificação de disponibilidade: saiu com código 2 e mensagem de credencial dedicada ausente. Zero chamadas reais nesta rodada. O valor de chave não foi acessado, copiado ou mostrado.
 
@@ -66,10 +66,28 @@ Não existem cinco respostas novas do Gemini para esta correção. Não substitu
 
 ## Preservação e pendências
 
-21e5b0d e a branch anterior permanecem intactos. Não há alteração em design, web/index.html, autenticação, schema/migrações, banco remoto, Prospecta, credenciais, Render ou envios de WhatsApp. Histórico/revisões, busca/arquivo, Modo Humano, análise e correção visual continuam sob os testes de regressão.
+21e5b0d e a branch anterior permanecem intactos. Não há alteração em design, autenticação, schema/migrações, banco remoto, Prospecta, credenciais, Render ou envios de WhatsApp. Histórico/revisões, busca/arquivo, Modo Humano, análise e correção visual continuam sob os testes de regressão.
 
 Limitação visível: a primeira abordagem independente na interface atual só coleta nome/nicho. Com Gemini configurado, esses dados sozinhos agora resultam em pesquisa necessária, em vez de texto genérico. A API pode receber pesquisa sem telefone; adicionar controles de pesquisa ao formulário não foi feito porque a interface/design não estão no escopo. Conversas visuais ativas sem telefone continuam funcionando. O proprietário pode manter e editar trabalho anterior; recomendações não apagam históricos nem rascunhos existentes.
 
 Estado: correção implementada para validação, NÃO aprovada comercialmente. Falta executar os cinco cenários reais no commit candidato e avaliar integralmente as respostas, corrigindo eventual regressão antes de qualquer liberação.
 
 Para desbloquear sem copiar credencial nem mudar infraestrutura: é necessária autorização específica para atualizar somente o workflow de testes em work/v4.2-visual-copilot, com checkout de um SHA imutável desta correção, mantendo o código daquela branch e o secret existentes. A alternativa é autorizar uma política adicional de branch no ambiente; não fizemos nenhuma das duas. A primeira opção é mais restrita e repete o mecanismo de testes já usado anteriormente.
+
+## Procedimento concreto de teste aguardando autorização
+
+Código candidato imutável: e20e4bf2938c04c341814f32eca31b413650189a. A proposta de workflow está em test-plans/prime-refinement-real.yml, fora de .github/workflows: não é executável pelo Actions nesta localização. Ela adicionaria somente .github/workflows/prime-refinement-approved-test.yml à branch work/v4.2-visual-copilot, com checkout desse SHA, secret dedicado existente, dados fictícios, permissões de leitura e nenhum deploy. Não muda código da aplicação naquela branch, ambiente, policy ou credencial. Esse arquivo ainda NÃO foi criado na branch autorizada.
+
+Aguardar autorização expressa para essa exceção limitada. Não interpretar o pedido genérico de continuidade como revogação da proibição de alterar outras branches. Não pedir senha ou chave ao usuário.
+
+## Ajuste de estado após CI
+
+CI 43757699576 aprovou os 141 testes Node e navegador com regras locais, mas reprovou o navegador com Gemini simulado: pesquisa necessária era HTTP409 e gerava erro de rede no console. Corrigido para resposta normal HTTP200, ready=false, sem texto/cópia/abertura WhatsApp; o JavaScript existente apenas exibe a recomendação e mantém controles desabilitados. Nenhum layout, elemento visual ou CSS foi modificado. A mesma estrutura de recomendação é compartilhada entre conversa e fluxo visual, com provider correto e status needs_context/not_recommended. Isso corrige um estado funcional, sem redesenhar a interface.
+
+## Resultado final técnico
+
+CI 43758179991 aprovado no código e20e4bf2938c04c341814f32eca31b413650189a: suíte Node (141 testes), navegador com regras locais e navegador com Gemini simulado, em 360 e 1440px. A primeira falha de CI por HTTP409 foi corrigida, não ocultada por um filtro de erros no teste. Login, histórico, Modo Humano, edição/cópia, opt-out, busca/filtros, arquivo/restauração, revisão visual e WhatsApp manual interceptado continuam cobertos. Android físico não foi testado.
+
+https://github.com/phzin24450-creator/gsw-sdr-prime-public/actions/runs/43758179991
+
+Resultado comercial: pendente. Zero chamadas reais novas; cinco cenários novos preparados, sem respostas simuladas apresentadas como Gemini. Recomendação: manter a correção isolada até executar o workflow proposto sob autorização, avaliar as mensagens completas e corrigir o que o teste real revelar. Não publicar nem integrar ao futuro PRIME V1 com base apenas no CI verde.
