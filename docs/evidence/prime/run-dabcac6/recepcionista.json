@@ -1,0 +1,88 @@
+{
+  "id": "recepcionista",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá, Marina. A PRIME trabalha exclusivamente com o desenvolvimento de sites e landing pages profissionais para empresas. Como o foco é a presença digital da Brisa Técnica, você poderia me indicar quem é a pessoa responsável por essa área para que eu possa apresentar nossa proposta?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 8892,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está adequada ao contexto. O texto é direto, respeita a limitação da interlocutora e justifica o motivo do contato sem forçar uma venda ou diagnóstico técnico.",
+    "semanticFactChecks": [
+      {
+        "claim": "Marina atua na recepção da Brisa Técnica Climatização",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Sou a Marina da recepção.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Marina não decide sobre tecnologia",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Não decido sobre tecnologia.",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "Marina atua na recepção da Brisa Técnica Climatização",
+          "Marina declarou não decidir sobre tecnologia"
+        ],
+        "indications": [
+          "O contato inicial foi feito por uma recepcionista",
+          "O lead é uma empresa de climatização"
+        ],
+        "hypotheses": [
+          "A empresa pode estar buscando atualizar sua presença digital ou criar um canal de contato mais estruturado"
+        ],
+        "unknowns": [
+          "Quem é o responsável pelas decisões estratégicas ou de marketing na Brisa Técnica",
+          "Qual é a necessidade atual da empresa em relação a sites ou landing pages"
+        ]
+      },
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "context:company",
+          "context:sector",
+          "inbound:0"
+        ],
+        "missingEvidence": "identificação do decisor e necessidade da empresa",
+        "discoveryTarget": "identificar quem cuida da imagem institucional da Brisa Técnica"
+      },
+      "focus": {
+        "topic": "apresentação da PRIME e alinhamento de interesse",
+        "basis": "unknown",
+        "relevance": "esclarecer o motivo do contato para que a Marina possa encaminhar ao responsável correto"
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina confirmou que trabalha na recepção e não decide sobre tecnologia.",
+      "unknowns": [
+        "Identidade do proprietário ou gerente responsável pela Brisa Técnica",
+        "Interesse real da empresa em serviços de presença digital"
+      ],
+      "nextStep": "Obter o contato do responsável pela tomada de decisão na empresa."
+    }
+  },
+  "pass": true
+}

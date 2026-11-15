@@ -1,0 +1,148 @@
+{
+  "id": "fora-escopo",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Oficina Vale Fictícia"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Vocês fazem automação de WhatsApp e sistemas? Não estou procurando site."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Compreendo. Na PRIME, nosso foco é exclusivamente o desenvolvimento de sites profissionais e landing pages para apresentação de empresas. Não atuamos com automação de WhatsApp ou sistemas de gestão. Como você não busca um site, entendo que não somos a solução para sua necessidade atual.",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "O lead questionou sobre automação de WhatsApp e sistemas",
+            "O lead declarou explicitamente que não está procurando site"
+          ],
+          "indications": [
+            "O lead possui uma demanda operacional ou de gestão, não de presença digital institucional"
+          ],
+          "hypotheses": [
+            "O lead busca otimização de processos internos ou atendimento"
+          ],
+          "unknowns": [
+            "Qual a necessidade específica que levou o lead a buscar essas soluções"
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "policy:portfolio",
+            "inbound:0"
+          ],
+          "missingEvidence": "Não há necessidade de site ou landing page declarada pelo lead",
+          "discoveryTarget": "Nenhuma oportunidade de site identificada"
+        },
+        "focus": {
+          "topic": "Escopo de atuação da PRIME",
+          "basis": "confirmed",
+          "relevance": "Esclarecer o limite da oferta para alinhar expectativas"
+        },
+        "interlocutor": "Representante da Oficina Vale Fictícia",
+        "evidence": "O lead solicitou automação e sistemas e negou interesse em site.",
+        "unknowns": [
+          "necessidade real por trás do pedido de automação"
+        ],
+        "nextStep": "Esclarecer o limite da atuação e encerrar a abordagem se não houver interesse em site."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Compreendo. Na PRIME, nosso foco é exclusivamente o desenvolvimento de sites profissionais e landing pages para apresentação de empresas. Não atuamos com automação de WhatsApp ou sistemas de gestão. Como você não busca um site, entendo que não somos a solução para sua necessidade atual.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 3648,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 0,
+    "semanticFeedback": "A mensagem está correta, alinhada com a política da marca e respeita a recusa do lead em relação a sites.",
+    "semanticFactChecks": [
+      {
+        "claim": "A PRIME foca exclusivamente em sites profissionais e landing pages.",
+        "sourceId": "policy:portfolio",
+        "sourceQuote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "A PRIME não atua com automação de WhatsApp ou sistemas de gestão.",
+        "sourceId": "policy:portfolio",
+        "sourceQuote": "Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Compreendo.",
+        "assessment": "Empatia adequada ao reconhecer a mensagem do lead.",
+        "acceptable": true
+      },
+      {
+        "text": "Na PRIME, nosso foco é exclusivamente o desenvolvimento de sites profissionais e landing pages para apresentação de empresas.",
+        "assessment": "Alinhado com a política de portfólio da marca.",
+        "acceptable": true
+      },
+      {
+        "text": "Não atuamos com automação de WhatsApp ou sistemas de gestão.",
+        "assessment": "Esclarecimento direto e honesto sobre as limitações da marca.",
+        "acceptable": true
+      },
+      {
+        "text": "Como você não busca um site, entendo que não somos a solução para sua necessidade atual.",
+        "assessment": "Conclusão lógica baseada na declaração do lead e no escopo da marca.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "O lead questionou sobre automação de WhatsApp e sistemas",
+          "O lead declarou explicitamente que não está procurando site"
+        ],
+        "indications": [
+          "O lead possui uma demanda operacional ou de gestão, não de presença digital institucional"
+        ],
+        "hypotheses": [
+          "O lead busca otimização de processos internos ou atendimento"
+        ],
+        "unknowns": [
+          "Qual a necessidade específica que levou o lead a buscar essas soluções"
+        ]
+      },
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "policy:portfolio",
+          "inbound:0"
+        ],
+        "missingEvidence": "Não há necessidade de site ou landing page declarada pelo lead",
+        "discoveryTarget": "Nenhuma oportunidade de site identificada"
+      },
+      "focus": {
+        "topic": "Escopo de atuação da PRIME",
+        "basis": "confirmed",
+        "relevance": "Esclarecer o limite da oferta para alinhar expectativas"
+      },
+      "interlocutor": "Representante da Oficina Vale Fictícia",
+      "evidence": "O lead solicitou automação e sistemas e negou interesse em site.",
+      "unknowns": [
+        "necessidade real por trás do pedido de automação"
+      ],
+      "nextStep": "Esclarecer o limite da atuação e encerrar a abordagem se não houver interesse em site."
+    }
+  },
+  "pass": true
+}

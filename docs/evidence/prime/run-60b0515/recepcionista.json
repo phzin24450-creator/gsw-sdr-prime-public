@@ -1,0 +1,180 @@
+{
+  "id": "recepcionista",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina. O motivo do contato é verificar se a Brisa Técnica Climatização possui interesse em avaliar a atualização ou criação de seu site institucional. Para que eu possa fornecer as informações corretas, você poderia me indicar quem seria a pessoa responsável por essa área ou o proprietário da empresa?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "semantic",
+      "feedback": "A mensagem está adequada ao contexto de triagem. O texto solicita a identificação do decisor de forma clara, respeitando a limitação da interlocutora."
+    }
+  ],
+  "generatedCandidates": [
+    {
+      "text": "Olá, Marina. O motivo do contato é verificar se a Brisa Técnica Climatização possui interesse em avaliar a atualização ou criação de seu site institucional. Para que eu possa fornecer as informações corretas, você poderia me indicar quem seria a pessoa responsável por essa área ou o proprietário da empresa?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "A interlocutora identificou-se como Marina, recepcionista da Brisa Técnica Climatização.",
+            "Marina declarou não ser a decisora sobre tecnologia."
+          ],
+          "indications": [
+            "O contato é uma triagem inicial em uma empresa do setor de climatização."
+          ],
+          "hypotheses": [],
+          "unknowns": [
+            "Quem é o responsável pela tomada de decisão técnica ou comercial na empresa.",
+            "Se a empresa possui algum objetivo atual relacionado à sua presença digital."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Necessidade declarada pelo decisor.",
+          "discoveryTarget": "Identificar o proprietário ou gestor responsável."
+        },
+        "focus": {
+          "topic": "Identificação do decisor",
+          "basis": "unknown",
+          "relevance": "Necessário para direcionar a conversa ao responsável pela gestão da empresa."
+        },
+        "interlocutor": "Marina (Recepção)",
+        "evidence": "A interlocutora afirmou ser a recepção e não tomar decisões tecnológicas.",
+        "unknowns": [
+          "Identidade do decisor",
+          "Necessidade atual da empresa"
+        ],
+        "nextStep": "Solicitar a indicação do responsável pela gestão ou proprietário da Brisa Técnica Climatização."
+      }
+    },
+    {
+      "text": "Olá, Marina. O motivo do meu contato é verificar se a Brisa Técnica Climatização tem interesse em um site profissional para apresentar seus serviços de climatização. Você poderia me indicar quem seria a pessoa responsável por essa área para que eu possa conversar com ela?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "Interlocutora se identificou como Marina, da recepção.",
+            "A empresa é Brisa Técnica Climatização.",
+            "Marina declarou não decidir sobre tecnologia."
+          ],
+          "indications": [
+            "A empresa pode estar avaliando sua presença digital."
+          ],
+          "hypotheses": [
+            "A empresa pode ter interesse em um site institucional para apresentar seus serviços de climatização."
+          ],
+          "unknowns": [
+            "Quem é o responsável pela tomada de decisão na empresa.",
+            "Qual a real necessidade ou objetivo da empresa quanto a um site."
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "context:company",
+            "context:sector"
+          ],
+          "missingEvidence": "identidade do decisor",
+          "discoveryTarget": "proprietário ou gestor"
+        },
+        "focus": {
+          "topic": "finalidade do contato",
+          "basis": "confirmed",
+          "relevance": "Esclarecer o motivo do contato para que a recepção possa direcionar ao decisor correto."
+        },
+        "interlocutor": "Marina",
+        "evidence": "Marina, da recepção da Brisa Técnica Climatização, afirmou não decidir sobre tecnologia.",
+        "unknowns": [
+          "nome do decisor"
+        ],
+        "nextStep": "Obter o contato do decisor."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá, Marina. O motivo do meu contato é verificar se a Brisa Técnica Climatização tem interesse em um site profissional para apresentar seus serviços de climatização. Você poderia me indicar quem seria a pessoa responsável por essa área para que eu possa conversar com ela?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 42374,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem é adequada ao contexto de recepção, mas a pergunta sobre interesse em site profissional pressupõe uma necessidade que não foi declarada. O foco deve ser apenas o direcionamento ao decisor.",
+    "semanticFactChecks": [
+      {
+        "claim": "Marina é da recepção da Brisa Técnica Climatização.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Sou a Marina da recepção.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Marina não decide sobre tecnologia.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Não decido sobre tecnologia.",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "Interlocutora se identificou como Marina, da recepção.",
+          "A empresa é Brisa Técnica Climatização.",
+          "Marina declarou não decidir sobre tecnologia."
+        ],
+        "indications": [
+          "A empresa pode estar avaliando sua presença digital."
+        ],
+        "hypotheses": [
+          "A empresa pode ter interesse em um site institucional para apresentar seus serviços de climatização."
+        ],
+        "unknowns": [
+          "Quem é o responsável pela tomada de decisão na empresa.",
+          "Qual a real necessidade ou objetivo da empresa quanto a um site."
+        ]
+      },
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "context:company",
+          "context:sector"
+        ],
+        "missingEvidence": "identidade do decisor",
+        "discoveryTarget": "proprietário ou gestor"
+      },
+      "focus": {
+        "topic": "finalidade do contato",
+        "basis": "confirmed",
+        "relevance": "Esclarecer o motivo do contato para que a recepção possa direcionar ao decisor correto."
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina, da recepção da Brisa Técnica Climatização, afirmou não decidir sobre tecnologia.",
+      "unknowns": [
+        "nome do decisor"
+      ],
+      "nextStep": "Obter o contato do decisor."
+    }
+  },
+  "pass": true
+}

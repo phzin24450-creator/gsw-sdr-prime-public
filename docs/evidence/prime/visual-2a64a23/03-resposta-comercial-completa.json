@@ -1,0 +1,83 @@
+{
+  "text": "Entendido. Para que o site seja um canal eficiente para a Marcenaria Pinhal Azul, além das fotos dos seus projetos, como você costuma receber o primeiro contato de quem tem interesse em um móvel sob medida hoje?",
+  "provider": "gemini",
+  "generationMeta": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 6869,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de descoberta, focando na necessidade declarada sem extrapolar o escopo da PRIME.",
+    "semanticFactChecks": [
+      {
+        "claim": "O cliente atua no setor de marcenaria sob medida.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Fabricamos móveis sob medida",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O cliente deseja um site para fotos e contatos.",
+        "sourceId": "inbound:1",
+        "sourceQuote": "Quero um site para apresentar nossos móveis sob medida, fotos dos projetos e contatos.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Entendido.",
+        "assessment": "Reconhecimento da necessidade declarada pelo cliente.",
+        "acceptable": true
+      },
+      {
+        "text": "Para que o site seja um canal eficiente para a Marcenaria Pinhal Azul, além das fotos dos seus projetos, como você costuma receber o primeiro contato de quem tem interesse em um móvel sob medida hoje?",
+        "assessment": "Pergunta focada em entender o fluxo atual para estruturar o site, sem assumir processos ou oferecer serviços fora do escopo.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "knowledge": {
+        "facts": [
+          "O cliente atua no setor de marcenaria sob medida.",
+          "O cliente declarou não possuir um site.",
+          "O objetivo é apresentar móveis, fotos de projetos e meios de contato."
+        ],
+        "indications": [
+          "O cliente deseja um espaço centralizado para exibir o portfólio visual da marcenaria."
+        ],
+        "hypotheses": [
+          "O cliente busca organizar a apresentação da empresa para facilitar o atendimento de novos interessados."
+        ],
+        "unknowns": [
+          "Como o cliente recebe pedidos atualmente.",
+          "Se há algum fluxo específico de atendimento que o site deveria suportar."
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0",
+          "inbound:1"
+        ],
+        "missingEvidence": "Fluxo atual de recebimento de demandas dos clientes.",
+        "discoveryTarget": "Entender como o site pode facilitar o primeiro contato com quem busca móveis sob medida."
+      },
+      "focus": {
+        "topic": "Estrutura de apresentação da marcenaria",
+        "basis": "confirmed",
+        "relevance": "O cliente confirmou o desejo de exibir portfólio e contatos, o que alinha com a proposta de um site profissional."
+      },
+      "interlocutor": "Responsável pela Marcenaria Fictícia Pinhal Azul",
+      "evidence": "O cliente declarou fabricar móveis sob medida e expressou necessidade de um site para fotos e contatos.",
+      "unknowns": [
+        "fluxo de atendimento atual",
+        "preferência de formato de contato"
+      ],
+      "nextStep": "Compreender como o cliente hoje organiza o atendimento aos interessados para sugerir uma estrutura de site que facilite esse processo."
+    }
+  }
+}

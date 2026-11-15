@@ -1,0 +1,144 @@
+{
+  "id": "site-confirmado",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Ateliê Aurora Fictício",
+    "sector": "Marcenaria"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a dona. Não temos site; só enviamos fotos pelo WhatsApp. Quero uma página para apresentar nossos móveis sob medida e os contatos."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Olá. Entendido, o site pode ser um caminho para centralizar essas informações. Para que eu possa entender melhor como estruturar, você imagina essa página mais como um catálogo dos seus móveis sob medida ou prefere algo focado em apresentar como o ateliê funciona?",
+      "decision": {
+        "strategy": "qualificacao",
+        "knowledge": {
+          "facts": [
+            "A interlocutora declarou ser a dona do Ateliê Aurora.",
+            "A empresa atua no setor de marcenaria.",
+            "Atualmente, a empresa não possui site e utiliza o WhatsApp para enviar fotos de móveis sob medida."
+          ],
+          "indications": [
+            "Existe o desejo de ter uma página para apresentar os móveis e facilitar o contato."
+          ],
+          "hypotheses": [
+            "A cliente busca uma forma de organizar a apresentação dos produtos para clientes em potencial."
+          ],
+          "unknowns": [
+            "Quais informações específicas, além dos contatos, ela considera essenciais para essa apresentação inicial."
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Detalhes sobre o volume de produtos ou se há um catálogo fixo para organizar na página.",
+          "discoveryTarget": "Entender a expectativa de organização do conteúdo na página."
+        },
+        "focus": {
+          "topic": "Estruturação de página de apresentação para marcenaria",
+          "basis": "confirmed",
+          "relevance": "Atende diretamente à demanda declarada de apresentar móveis e contatos."
+        },
+        "interlocutor": "Dona do Ateliê Aurora",
+        "evidence": "A cliente confirmou que é a proprietária e que não possui site, utilizando apenas WhatsApp para o envio de fotos de marcenaria.",
+        "unknowns": [
+          "Preferência por um formato de site institucional ou algo mais focado em catálogo de produtos."
+        ],
+        "nextStep": "Validar o formato de apresentação dos móveis para o site."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá. Entendido, o site pode ser um caminho para centralizar essas informações. Para que eu possa entender melhor como estruturar, você imagina essa página mais como um catálogo dos seus móveis sob medida ou prefere algo focado em apresentar como o ateliê funciona?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 10912,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de qualificação, focando na necessidade declarada de estruturação da página sem oferecer serviços fora do escopo da PRIME.",
+    "semanticFactChecks": [
+      {
+        "claim": "A cliente deseja uma página para apresentar móveis e contatos.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Quero uma página para apresentar nossos móveis sob medida e os contatos.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "A empresa utiliza WhatsApp para enviar fotos.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "só enviamos fotos pelo WhatsApp",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Olá.",
+        "assessment": "Saudação padrão, neutra.",
+        "acceptable": true
+      },
+      {
+        "text": "Entendido, o site pode ser um caminho para centralizar essas informações.",
+        "assessment": "Reconhecimento da demanda declarada sem promessas de resultado.",
+        "acceptable": true
+      },
+      {
+        "text": "Para que eu possa entender melhor como estruturar, você imagina essa página mais como um catálogo dos seus móveis sob medida ou prefere algo focado em apresentar como o ateliê funciona?",
+        "assessment": "Pergunta de qualificação focada na necessidade declarada, sem pressupor serviços extras.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "qualificacao",
+      "knowledge": {
+        "facts": [
+          "A interlocutora declarou ser a dona do Ateliê Aurora.",
+          "A empresa atua no setor de marcenaria.",
+          "Atualmente, a empresa não possui site e utiliza o WhatsApp para enviar fotos de móveis sob medida."
+        ],
+        "indications": [
+          "Existe o desejo de ter uma página para apresentar os móveis e facilitar o contato."
+        ],
+        "hypotheses": [
+          "A cliente busca uma forma de organizar a apresentação dos produtos para clientes em potencial."
+        ],
+        "unknowns": [
+          "Quais informações específicas, além dos contatos, ela considera essenciais para essa apresentação inicial."
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Detalhes sobre o volume de produtos ou se há um catálogo fixo para organizar na página.",
+        "discoveryTarget": "Entender a expectativa de organização do conteúdo na página."
+      },
+      "focus": {
+        "topic": "Estruturação de página de apresentação para marcenaria",
+        "basis": "confirmed",
+        "relevance": "Atende diretamente à demanda declarada de apresentar móveis e contatos."
+      },
+      "interlocutor": "Dona do Ateliê Aurora",
+      "evidence": "A cliente confirmou que é a proprietária e que não possui site, utilizando apenas WhatsApp para o envio de fotos de marcenaria.",
+      "unknowns": [
+        "Preferência por um formato de site institucional ou algo mais focado em catálogo de produtos."
+      ],
+      "nextStep": "Validar o formato de apresentação dos móveis para o site."
+    }
+  },
+  "pass": true
+}

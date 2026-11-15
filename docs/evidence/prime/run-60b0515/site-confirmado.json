@@ -1,0 +1,139 @@
+{
+  "id": "site-confirmado",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Ateliê Aurora Fictício",
+    "sector": "Marcenaria"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a dona. Não temos site; só enviamos fotos pelo WhatsApp. Quero uma página para apresentar nossos móveis sob medida e os contatos."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Olá. Compreendo que o envio manual de fotos pelo WhatsApp pode tomar bastante tempo do seu dia. Para o Ateliê Aurora, um site focado em expor os seus móveis sob medida pode organizar melhor essas informações para quem chega até você. Para eu entender melhor o que seria ideal, você já tem alguma ideia de como gostaria de organizar a apresentação desses projetos no site?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "A interlocutora declarou ser a proprietária do Ateliê Aurora Fictício",
+            "A empresa não possui um site atualmente",
+            "A empresa utiliza o WhatsApp para enviar fotos de móveis sob medida aos clientes",
+            "A cliente deseja uma página para apresentar móveis e contatos"
+          ],
+          "indications": [
+            "A necessidade de apresentar o portfólio de móveis sob medida e facilitar o contato direto sugere a viabilidade de um site institucional"
+          ],
+          "hypotheses": [
+            "A cliente busca organizar a exibição dos seus trabalhos para otimizar o atendimento inicial"
+          ],
+          "unknowns": [
+            "Volume de demanda atual",
+            "Se há algum material visual ou descritivo já organizado para o site"
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "detalhes sobre a preferência de organização do portfólio",
+          "discoveryTarget": "entender como ela deseja estruturar a apresentação visual dos móveis"
+        },
+        "focus": {
+          "topic": "desenvolvimento de site para apresentação de móveis",
+          "basis": "confirmed",
+          "relevance": "atende diretamente ao objetivo declarado de exibir produtos e contatos"
+        },
+        "interlocutor": "Proprietária",
+        "evidence": "A cliente declarou ser a dona e manifestou interesse em ter um site para apresentar móveis sob medida e contatos, visto que hoje depende do envio manual de fotos.",
+        "unknowns": [
+          "Volume de demanda atual",
+          "Se há algum material visual ou descritivo já organizado para o site"
+        ],
+        "nextStep": "Validar a expectativa da cliente sobre a estrutura do site"
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá. Compreendo que o envio manual de fotos pelo WhatsApp pode tomar bastante tempo do seu dia. Para o Ateliê Aurora, um site focado em expor os seus móveis sob medida pode organizar melhor essas informações para quem chega até você. Para eu entender melhor o que seria ideal, você já tem alguma ideia de como gostaria de organizar a apresentação desses projetos no site?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 7153,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A abordagem está correta e alinhada com a necessidade declarada. Não há falhas de estratégia ou premissas sem suporte.",
+    "semanticFactChecks": [
+      {
+        "claim": "A interlocutora é a proprietária do Ateliê Aurora Fictício.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Sou a dona.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "A empresa não possui site e utiliza WhatsApp para enviar fotos.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Não temos site; só enviamos fotos pelo WhatsApp.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "A cliente deseja uma página para apresentar móveis e contatos.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Quero uma página para apresentar nossos móveis sob medida e os contatos.",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "A interlocutora declarou ser a proprietária do Ateliê Aurora Fictício",
+          "A empresa não possui um site atualmente",
+          "A empresa utiliza o WhatsApp para enviar fotos de móveis sob medida aos clientes",
+          "A cliente deseja uma página para apresentar móveis e contatos"
+        ],
+        "indications": [
+          "A necessidade de apresentar o portfólio de móveis sob medida e facilitar o contato direto sugere a viabilidade de um site institucional"
+        ],
+        "hypotheses": [
+          "A cliente busca organizar a exibição dos seus trabalhos para otimizar o atendimento inicial"
+        ],
+        "unknowns": [
+          "Volume de demanda atual",
+          "Se há algum material visual ou descritivo já organizado para o site"
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "detalhes sobre a preferência de organização do portfólio",
+        "discoveryTarget": "entender como ela deseja estruturar a apresentação visual dos móveis"
+      },
+      "focus": {
+        "topic": "desenvolvimento de site para apresentação de móveis",
+        "basis": "confirmed",
+        "relevance": "atende diretamente ao objetivo declarado de exibir produtos e contatos"
+      },
+      "interlocutor": "Proprietária",
+      "evidence": "A cliente declarou ser a dona e manifestou interesse em ter um site para apresentar móveis sob medida e contatos, visto que hoje depende do envio manual de fotos.",
+      "unknowns": [
+        "Volume de demanda atual",
+        "Se há algum material visual ou descritivo já organizado para o site"
+      ],
+      "nextStep": "Validar a expectativa da cliente sobre a estrutura do site"
+    }
+  },
+  "pass": true
+}

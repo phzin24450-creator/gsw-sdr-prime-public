@@ -1,0 +1,49 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "messages": [
+    {
+      "direction": "outbound",
+      "time": "10:02",
+      "text": "Que informações vocês querem apresentar na página?",
+      "source": 2,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "10:03",
+      "text": "Fabricamos móveis sob medida e não temos site.",
+      "source": 2,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "10:04",
+      "text": "Quero um site para apresentar nossos móveis e contatos.",
+      "source": 1,
+      "cropped": false
+    }
+  ],
+  "company": {
+    "value": "Oficina Fictícia Pinhal Azul",
+    "status": "visible",
+    "evidence": "Oficina Fictícia Pinhal Azul"
+  },
+  "sector": {
+    "value": "Móveis sob medida",
+    "status": "hypothesis",
+    "evidence": "Fabricamos móveis sob medida"
+  },
+  "intent": {
+    "value": "Criação de site",
+    "status": "hypothesis",
+    "evidence": "Quero um site para apresentar nossos móveis e contatos."
+  },
+  "opportunity": {
+    "value": "Desenvolvimento de site profissional",
+    "status": "hypothesis",
+    "evidence": "Quero um site para apresentar nossos móveis e contatos."
+  },
+  "uncertainOrder": false,
+  "blocked": false
+}

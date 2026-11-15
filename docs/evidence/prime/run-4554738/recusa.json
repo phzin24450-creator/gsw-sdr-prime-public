@@ -1,0 +1,18 @@
+{
+  "id": "recusa",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {},
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Não temos interesse, obrigado."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "blocked": true,
+  "pass": true
+}

@@ -1,0 +1,66 @@
+{
+  "id": "site-adequado",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Clínica Cedro Fictícia"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Temos um site atualizado que apresenta nossos serviços e recebe contatos normalmente. Estamos satisfeitos com a agência atual."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Fico satisfeito em saber que a presença digital da Clínica Cedro está bem estruturada e atendendo às suas expectativas. Como o momento é de parceria consolidada, não há motivo para interrompê-los. Deixarei meu contato à disposição caso surja alguma necessidade futura ou projeto específico onde eu possa ser útil.",
+      "decision": {
+        "strategy": "encerramento",
+        "knowledge": {
+          "facts": [
+            "O cliente possui um site atualizado.",
+            "O site cumpre a função de apresentar serviços e receber contatos.",
+            "O cliente declara satisfação com o fornecedor atual."
+          ],
+          "indications": [
+            "Não há uma lacuna de serviço ou insatisfação declarada."
+          ],
+          "hypotheses": [],
+          "unknowns": [
+            "Segmento específico da clínica.",
+            "Necessidade de expansão ou mudança futura."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Nenhuma necessidade ou dor latente identificada.",
+          "discoveryTarget": "Nenhum, o lead não apresenta oportunidade de venda."
+        },
+        "focus": {
+          "topic": "Satisfação com fornecedor atual",
+          "basis": "confirmed",
+          "relevance": "O cliente confirmou que sua necessidade de presença digital está suprida e atendida por um parceiro de confiança."
+        },
+        "interlocutor": "desconhecido",
+        "evidence": "O cliente afirmou explicitamente estar satisfeito com o site e a agência atual, não havendo espaço para oferta de serviços da PRIME no momento.",
+        "unknowns": [
+          "Necessidades futuras da Clínica Cedro Fictícia"
+        ],
+        "nextStep": "Encerrar o contato de forma cordial e manter as portas abertas para futuras necessidades."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "pass": false,
+  "error": {
+    "code": "provider_unavailable",
+    "stage": null,
+    "httpStatus": 503,
+    "qualityIssues": []
+  }
+}

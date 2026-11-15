@@ -1,0 +1,189 @@
+{
+  "id": "preco",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Flor Bela Fictícia"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Quanto custa uma landing page para apresentar uma oferta?"
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "Para eu te passar uma estimativa que faça sentido para a Flor Bela Fictícia, preciso entender um pouco melhor o que você pretende oferecer. Qual é o objetivo principal dessa landing page e o que exatamente você deseja apresentar nela?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "semantic",
+      "feedback": "A mensagem está alinhada com a estratégia de descoberta, solicitando informações necessárias para a precificação sem oferecer serviços fora do escopo ou assumir premissas."
+    }
+  ],
+  "generatedCandidates": [
+    {
+      "text": "Para eu te passar uma estimativa que faça sentido para a Flor Bela Fictícia, preciso entender um pouco melhor o que você pretende oferecer. Qual é o objetivo principal dessa landing page e o que exatamente você deseja apresentar nela?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "O lead solicitou o preço de uma landing page para uma oferta específica",
+            "A empresa se chama Flor Bela Fictícia"
+          ],
+          "indications": [
+            "Existe um interesse em apresentar uma oferta específica via landing page"
+          ],
+          "hypotheses": [
+            "O lead pode estar no estágio inicial de planejamento de marketing"
+          ],
+          "unknowns": [
+            "Qual é o nicho de atuação da Flor Bela Fictícia",
+            "Qual é a natureza da oferta que o lead pretende apresentar"
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Detalhamento da oferta e do objetivo da página",
+          "discoveryTarget": "Entender o que será ofertado para avaliar a viabilidade de uma landing page"
+        },
+        "focus": {
+          "topic": "Estrutura da landing page",
+          "basis": "hypothesis",
+          "relevance": "O valor de uma landing page depende do nível de complexidade e do conteúdo necessário para comunicar a oferta com clareza."
+        },
+        "interlocutor": "desconhecido",
+        "evidence": "O lead perguntou diretamente sobre o custo de uma landing page, sem fornecer contexto sobre o negócio ou sobre o que pretende ofertar.",
+        "unknowns": [
+          "segmento",
+          "natureza da oferta"
+        ],
+        "nextStep": "Solicitar informações sobre a oferta para compreender o escopo necessário."
+      }
+    },
+    {
+      "text": "Para eu conseguir te passar uma estimativa que faça sentido para a Flor Bela Fictícia, preciso entender melhor o que você pretende oferecer nessa página. O que exatamente você deseja apresentar na landing page?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "O cliente é da Flor Bela Fictícia",
+            "O cliente solicitou o custo de uma landing page para uma oferta"
+          ],
+          "indications": [
+            "O cliente tem interesse em uma landing page para uma finalidade específica"
+          ],
+          "hypotheses": [
+            "A empresa pode estar buscando converter um produto ou serviço específico"
+          ],
+          "unknowns": [
+            "Qual é a natureza da oferta que o cliente deseja apresentar"
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "detalhes sobre a oferta ou o objetivo da página",
+          "discoveryTarget": "entender o que o cliente pretende oferecer"
+        },
+        "focus": {
+          "topic": "natureza da oferta",
+          "basis": "unknown",
+          "relevance": "necessário para compreender a estrutura da página e definir a viabilidade"
+        },
+        "interlocutor": "desconhecido",
+        "evidence": "O cliente solicitou o custo de uma landing page para uma oferta da Flor Bela Fictícia.",
+        "unknowns": [
+          "natureza da oferta",
+          "objetivo da página"
+        ],
+        "nextStep": "Aguardar a descrição da oferta para entender o contexto da necessidade."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Para eu conseguir te passar uma estimativa que faça sentido para a Flor Bela Fictícia, preciso entender melhor o que você pretende oferecer nessa página. O que exatamente você deseja apresentar na landing page?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 29885,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de descoberta, solicitando informações necessárias para a precificação sem assumir viabilidade ou oferecer serviços fora do escopo da PRIME.",
+    "semanticFactChecks": [
+      {
+        "claim": "O cliente é da Flor Bela Fictícia",
+        "sourceId": "context:company",
+        "sourceQuote": "Flor Bela Fictícia",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O cliente solicitou o custo de uma landing page",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Quanto custa uma landing page para apresentar uma oferta?",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Para eu conseguir te passar uma estimativa que faça sentido para a Flor Bela Fictícia, preciso entender melhor o que você pretende oferecer nessa página.",
+        "assessment": "O trecho justifica a necessidade de informação para precificação, mantendo o foco na marca e no pedido do cliente.",
+        "acceptable": true
+      },
+      {
+        "text": "O que exatamente você deseja apresentar na landing page?",
+        "assessment": "Pergunta direta para qualificar a necessidade, sem pressupor processos ou soluções ideais.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "O cliente é da Flor Bela Fictícia",
+          "O cliente solicitou o custo de uma landing page para uma oferta"
+        ],
+        "indications": [
+          "O cliente tem interesse em uma landing page para uma finalidade específica"
+        ],
+        "hypotheses": [
+          "A empresa pode estar buscando converter um produto ou serviço específico"
+        ],
+        "unknowns": [
+          "Qual é a natureza da oferta que o cliente deseja apresentar"
+        ]
+      },
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "detalhes sobre a oferta ou o objetivo da página",
+        "discoveryTarget": "entender o que o cliente pretende oferecer"
+      },
+      "focus": {
+        "topic": "natureza da oferta",
+        "basis": "unknown",
+        "relevance": "necessário para compreender a estrutura da página e definir a viabilidade"
+      },
+      "interlocutor": "desconhecido",
+      "evidence": "O cliente solicitou o custo de uma landing page para uma oferta da Flor Bela Fictícia.",
+      "unknowns": [
+        "natureza da oferta",
+        "objetivo da página"
+      ],
+      "nextStep": "Aguardar a descrição da oferta para entender o contexto da necessidade."
+    }
+  },
+  "pass": true
+}

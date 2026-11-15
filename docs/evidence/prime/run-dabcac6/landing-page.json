@@ -1,0 +1,24 @@
+{
+  "id": "landing-page",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Estúdio Lume Fictício"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Já temos um bom site institucional. Queremos apresentar só o workshop fictício de fotografia, com programa, data e link de inscrição que já existe."
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "pass": false,
+  "error": {
+    "code": "timeout",
+    "stage": "generation",
+    "httpStatus": null,
+    "qualityIssues": []
+  }
+}

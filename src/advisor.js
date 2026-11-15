@@ -33,7 +33,7 @@ function rulesVariant() { return localDraft(); }
 
 export const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 const GENERATION_ERRORS = Object.freeze({
-  missing_key:'GEMINI_API_KEY não está configurada no Render.',
+  missing_key:'A geração Gemini não está configurada nesta instalação. Você pode editar a resposta manualmente.',
   invalid_key:'O Gemini recusou a chave de API (HTTP 401). Confira a credencial.',
   invalid_request:'O Gemini recusou a configuração da requisição ou da chave (HTTP 400).',
   permission_denied:'O projeto ou a chave não tem acesso ao Gemini (HTTP 403).',
