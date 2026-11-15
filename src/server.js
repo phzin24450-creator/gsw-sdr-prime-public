@@ -228,7 +228,7 @@ if (launchedDirectly) {
     const app = createApp({ operatorAuth, integrationStatus:{ai:process.env.GEMINI_API_KEY?'Gemini configurado · confira o provedor em cada resposta':'Gemini sem chave · regras locais',whatsapp:process.env.META_CONFIGURED==='true'?'configurado; teste real pendente':'nao configurado'}, adminKey: process.env.ADMIN_API_KEY, metaSecret: process.env.META_APP_SECRET, verifyToken: process.env.META_VERIFY_TOKEN,
       demo: process.env.ENABLE_DEMO === 'true', autoDrafts: process.env.AUTO_DRAFTS === 'true', store });
     const port = Number(process.env.PORT || 3000), host = process.env.HOST || '127.0.0.1';
-    app.listen(port, host, () => console.log(`GSW SDR PRIME V4 em http://${host}:${port} (${process.env.DATABASE_URL ? 'PostgreSQL' : 'memoria de testes'})`));
+    app.listen(port, host, () => console.log(`PRIME em http://${host}:${port} (${process.env.DATABASE_URL ? 'PostgreSQL' : 'memoria de testes'})`));
     for (const sig of ['SIGINT','SIGTERM']) process.on(sig, () => app.close(async () => { if (store.close) await store.close(); process.exit(0); }));
   };
   main().catch(e => { console.error('Nao foi possivel iniciar:', e.message); process.exitCode = 1; });

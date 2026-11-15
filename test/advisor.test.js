@@ -11,10 +11,10 @@ test('classifica contextos em português', () => {
   assert.equal(classify('Já tenho fornecedor'),INTENTS.OBJECTION);
   assert.equal(classify('Bom dia!'),INTENTS.GREETING);
 });
-test('respostas locais se adaptam ao serviço mencionado', () => {
-  assert.match(localDraft(INTENTS.SERVICES, 'Preciso de um site'), /site que precisa melhorar|primeiro/);
-  assert.match(localDraft(INTENTS.SERVICES, 'Quero automatizar WhatsApp'), /WhatsApp/);
-  assert.match(localDraft(INTENTS.SERVICES, 'Quero melhorar SEO no Google'), /Google/);
+test('fallback identifica indisponibilidade sem oferecer catálogo antigo', () => {
+  assert.match(localDraft(INTENTS.SERVICES, 'Preciso de um site'), /IA está indisponível/);
+  assert.match(localDraft(INTENTS.SERVICES, 'Quero automatizar WhatsApp'), /resposta manualmente/);
+  assert.match(localDraft(INTENTS.SERVICES, 'Quero melhorar SEO no Google'), /revise o contexto/);
 });
 test('pedidos de humano e opt-out são prioritários', () => {
   assert.equal(classify('Quero falar com atendente sobre preço'),INTENTS.HUMAN_REQUEST);
@@ -33,7 +33,7 @@ test('rascunho contextual é gerado e nunca enviado; preço não é inventado',a
   assert.equal(r.created,true);
   assert.equal(r.draft.provider,'rules');
   assert.equal(r.draft.intent,INTENTS.PRICING);
-  assert.match(r.draft.text,/valores|opções/);
+  assert.match(r.draft.text,/IA está indisponível/);
   assert.doesNotMatch(r.draft.text,/R\$\s*[0-9]/);
   assert.equal(store.get(phone).drafts.length,1);
   assert.equal((await createReviewedDraft(store,phone,{geminiApiKey:''})).created,false);
@@ -72,6 +72,6 @@ test('pedidos de humano não geram novo rascunho',async()=>{
 
 test('fallback de endereço no Google preserva o objetivo quando o lead já tem site', () => {
   const text = localDraft(INTENTS.SERVICES, 'Já temos site. Queremos atualizar o endereço no Google.');
-  assert.match(text, /Perfil da Empresa no Google/);
+  assert.match(text, /IA está indisponível/);
   assert.doesNotMatch(text, /site/);
 });

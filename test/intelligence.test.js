@@ -117,13 +117,12 @@ test('Implicit compound requests are rejected even without question marks or wit
  assert.equal(reviewCopy('Como organizam os orçamentos ou a presença digital?',c,d),'multiple_questions');
  assert.equal(reviewCopy('Como registram os orçamentos: em planilha ou sistema?',c,d),null);
 });
-test('Neutral first reply uses a focused decision brief, without leaking it into price or established discovery',()=>{
- const neutral=conversation('Me chamo Marina. Como posso ajudar?');
- assert.match(commercialPrompt(neutral,decision(neutral.messages[0].text)).system,/cliente perguntou o assunto/);
- const price=conversation('Quanto custa um site?');
- assert.doesNotMatch(commercialPrompt(price,decision(price.messages[0].text)).system,/cliente perguntou o assunto/);
- neutral.context.challenge='Acompanhar orçamentos atrasados';
- assert.doesNotMatch(commercialPrompt(neutral,decision(neutral.messages[0].text)).system,/cliente perguntou o assunto/);
+test('Current PRIME policy governs neutral replies, pricing and established discovery',()=>{
+ for(const text of ['Me chamo Marina. Como posso ajudar?','Quanto custa um site?']){
+  const c=conversation(text);const policy=commercialPrompt(c,decision(text)).system;
+  assert.match(policy,/PRIME/);assert.match(policy,/EXCLUSIVAMENTE sites profissionais e landing pages/);
+  assert.doesNotMatch(policy,/A GSW|O responsável de desenvolvimento aprofunda/);
+ }
 });
 test('A conditional integration into one process is not mistaken for a portfolio list',()=>{
  const c=conversation('Quero integrar o agendamento ao sistema.'),d=decision(c.messages[0].text);

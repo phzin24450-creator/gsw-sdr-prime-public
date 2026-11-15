@@ -32,3 +32,7 @@ Há divergência no nome do bucket: observado na preparação `gsw-sdr-prime-v42
 ## Estado
 
 Transformação PRIME ainda não implementada: confirmação de direito sobre o código necessária. Sem nova chamada Gemini, exportação, alteração de secret, deploy ou migração. Android físico indisponível; não alegar teste real de dispositivo. CI anterior não é homologação PRIME.
+
+## Confirmação posterior do titular
+
+Pedro confirmou expressamente nesta conversa que criou o código com o assistente e tem direito de reutilização; confirmou a pergunta conjunta sobre código/credencial. Transformação autorizada na branch PRIME. Isso não autoriza exportação de dados reais, publicação, migração ou geração de novas credenciais. Registro anterior permanece como histórico da verificação.

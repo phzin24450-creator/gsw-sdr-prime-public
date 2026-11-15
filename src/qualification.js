@@ -1,16 +1,7 @@
 import { fold, classify, INTENTS } from './intent.js';
 import { MODES } from './core.js';
 
-const SERVICE_PATTERNS = [
-  ['WhatsApp / automações', /whatsapp|automacao|chatbot/],
-  ['Sites', /\bsites?\b|loja virtual/],
-  ['Landing pages', /landing page/],
-  ['Sistemas sob medida', /sistema|software|aplicativo/],
-  ['Painéis administrativos', /painel|paineis|dashboard/],
-  ['Integrações', /integracao|integracoes/],
-  ['Google / SEO', /\bseo\b|google/],
-  ['Tráfego pago', /trafego|anuncios|campanhas pagas/]
-];
+const SERVICE_PATTERNS = [['Sites profissionais', /\bsites?\b/], ['Landing pages', /landing page/]];
 
 // Extrai só sinais explicitamente mencionados; não inventa orçamento, decisão ou intenção de compra.
 export function summarizeQualification(conversation) {

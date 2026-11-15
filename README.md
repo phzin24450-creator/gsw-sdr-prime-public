@@ -1,3 +1,11 @@
+# PRIME
+
+Aplicativo existente em transformação para a operação PRIME: somente sites profissionais e landing pages. O proprietário conduz as negociações diretamente.
+
+Guia atual: [PRIME](docs/PRIME-GUIA.md). Política comercial central: `src/brand.js`. Histórico técnico anterior abaixo, preservado para auditoria; não representa o portfólio atual.
+
+<details><summary>Registro técnico histórico</summary>
+
 # GSW SDR PRIME Híbrido — versão 0.3 (MVP de testes)
 
 Backend Node.js para assistência comercial da GSW em português brasileiro. Baseado em fatos conhecidos da empresa, usa regras locais ou a API de IA configurada para produzir **rascunhos** a partir de mensagens recebidas do WhatsApp Business Platform. A revisão e o controle humano têm prioridade. **Ainda não envia mensagens automaticamente e não está em produção.**
@@ -76,3 +84,5 @@ Consulte `docs/SEGURANCA-E-PENDENCIAS.md`, `docs/RELATORIO-TESTES.md` e `docs/WO
 ## Atualização de acesso e operação assistida
 
 O painel publicado tem login de operador, logout, sessão segura com expiração e registro manual de mensagens recebidas. `/ready` consulta a disponibilidade do banco; `/api/status` mostra a configuração sem segredos. A entrada manual permite testar o copiloto sem integrar o número comercial. Consulte `docs/OPERATION.md` e `docs/WORK-STATUS.md`. IA OpenAI real e WhatsApp oficial permanecem pendentes de configuração e validação.
+
+</details>

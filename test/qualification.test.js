@@ -4,9 +4,9 @@ import { createStore, MODES } from '../src/core.js';
 import { summarizeQualification } from '../src/qualification.js';
 const phone='5511999999999';
 test('qualificacao nao inventa valor ou decisor',()=>{
- const s=createStore();s.ingest({phone,id:'q1',text:'Quero um sistema para minha loja'});
+ const s=createStore();s.ingest({phone,id:'q1',text:'Quero um site para minha loja'});
  const q=summarizeQualification(s.get(phone));
- assert.ok(q.services.includes('Sistemas sob medida'));
+ assert.ok(q.services.includes('Sites profissionais'));
  assert.equal(q.budget,null);assert.equal(q.decisionMaker,null);
  assert.equal(q.urgentSignal,false);
 });
@@ -28,6 +28,6 @@ test('separa landing pages, paineis e trafego sem afirmar interesse', () => {
   const store = createStore();
   store.ingest({ phone, id: 'services', text: 'Já tenho landing page, painel e tráfego pago.' });
   const result = summarizeQualification(store.get(phone));
-  assert.deepEqual(result.services, ['Landing pages', 'Painéis administrativos', 'Tráfego pago']);
+  assert.deepEqual(result.services, ['Landing pages']);
   assert.match(result.summary, /interesse a confirmar/);
 });
