@@ -147,3 +147,18 @@ test('Semantic criticism reaches the repair instead of losing the unsupported pr
   return response(JSON.stringify({strategy:'descoberta',text:'Marina, a empresa trabalha com manutenção de equipamentos?',opportunity:{status:'exploratory',evidenceRefs:['context:sector'],missingEvidence:'Serviços',discoveryTarget:'Serviços'}}));
  });assert.equal(generations,2);assert.equal(reviews,2);assert.equal(result.generationMeta.requestAttempts,4);
 });
+test('Source audit rejects unsupported claims even when summary flags incorrectly approve',async()=>{
+ let reviews=0;
+ await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
+  const body=JSON.parse(o.body);
+  if(body.generationConfig.responseSchema.properties.questionCount){reviews++;return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'O nicho não confirma manutenção.',factChecks:[{claim:'A empresa faz manutenção',sourceId:'context:sector',sourceQuote:'Climatização',verdict:'unsupported'}]}));}
+  return response(JSON.stringify({strategy:'motivo',text:'Marina, meu contato é sobre a divulgação da manutenção.'}));
+ }),e=>e.code==='quality_block'&&e.qualityIssues.includes('unsupported_claim'));assert.equal(reviews,2);
+});
+test('Source audit refuses a fabricated quotation attached to a real source ID',async()=>{
+ await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
+  const body=JSON.parse(o.body);
+  if(body.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'',factChecks:[{claim:'Manutenção',sourceId:'context:sector',sourceQuote:'Fazemos manutenção',verdict:'supported'}]}));
+  return response(JSON.stringify({strategy:'motivo',text:'Marina, meu contato é sobre a divulgação da manutenção.'}));
+ }),e=>e.code==='quality_block');
+});
