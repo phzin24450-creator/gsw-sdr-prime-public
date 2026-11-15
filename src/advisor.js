@@ -89,9 +89,11 @@ strategyConsistent: estratégia, evidência, alvo da descoberta e texto devem co
  let verdict;try{const data=await r.json();const candidate=data.candidates?.[0];if(data.promptFeedback?.blockReason||candidate?.finishReason!=='STOP')throw Error();verdict=JSON.parse(candidate.content.parts.filter(p=>!p.thought).map(p=>p.text||'').join(''));}catch{throw new GenerationError('invalid_response')}
  if(!Number.isInteger(verdict.questionCount)||!Array.isArray(verdict.unsupportedClaims)||['wrongIdentity','repeatedQuestion','pressureAfterRefusal','genericApproach','strategyConsistent'].some(k=>typeof verdict[k]!=='boolean'))throw new GenerationError('invalid_response');
  const issues=[];
- if(verdict.messageSegments){
-  const compact=s=>s.replace(/\s/g,'');
-  if(!Array.isArray(verdict.messageSegments)||compact(verdict.messageSegments.map(x=>x.text).join(''))!==compact(assessment.text))issues.push('incomplete_semantic_review');
+ if(!Array.isArray(verdict.messageSegments))issues.push('incomplete_semantic_review');
+ else {
+  const compact=s=>String(s).replace(/\s/g,'');
+  if(verdict.messageSegments.some(x=>typeof x.text!=='string'||typeof x.acceptable!=='boolean'))throw new GenerationError('invalid_response');
+  if(compact(verdict.messageSegments.map(x=>x.text).join(''))!==compact(assessment.text))issues.push('incomplete_semantic_review');
   if(verdict.messageSegments.some(x=>x.acceptable!==true))issues.push('semantic_message_issue');
  }
  const register=JSON.parse(prompt.input).evidenceRegister;

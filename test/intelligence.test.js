@@ -7,7 +7,8 @@ import { draftVisual } from '../src/visual.js';
 import { createStore } from '../src/core.js';
 const decision=text=>({latest:{text},intent:'OTHER'});
 const conversation=text=>({mode:'HUMAN',context:{company:'Brisa Técnica Climatização',sector:'Climatização'},messages:[{id:'1',direction:'inbound',text}]});
-const acceptedReview=()=>response(JSON.stringify({questionCount:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));
+const audit=o=>({messageSegments:[{text:JSON.parse(JSON.parse(o.body).contents[0].parts[0].text).draft.text,acceptable:true,assessment:'Synthetic transport fixture'}],factChecks:[],feedback:''});
+const acceptedReview=o=>response(JSON.stringify({...audit(o),questionCount:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));
 const response=text=>({ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text}]}}]})});
 for(const [text,role] of [
  ['Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?','desconhecido'],
@@ -70,7 +71,7 @@ test('Review distinguishes SDR identity from invented customer identity',()=>{
 test('Gemini structured strategy is retained with evidence and unknowns',async()=>{
  const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
  const r=await requestModelDraft(c,d,{geminiApiKey:'fake'},async(u,o)=>{
-  if(JSON.parse(o.body).generationConfig.responseSchema.properties.questionCount)return acceptedReview();
+  if(JSON.parse(o.body).generationConfig.responseSchema.properties.questionCount)return acceptedReview(o);
   assert.equal(JSON.parse(o.body).generationConfig.responseMimeType,'application/json');
   return response(JSON.stringify({strategy:'motivo',focus:{topic:'Apresentação dos serviços',basis:'hypothesis',relevance:'Facilitar consulta antes de pedir orçamento'},interlocutor:'Desconhecido',evidence:'Saudação não define cargo',unknowns:['responsabilidade'],nextStep:'Explicar contato',text:'Sou o Pedro, da GSW. Posso explicar o contato?'}));
  });assert.equal(r.generationMeta.commercialDecision.strategy,'motivo');assert.equal(r.generationMeta.commercialDecision.focus.basis,'hypothesis');assert.deepEqual(r.generationMeta.commercialDecision.unknowns,['responsabilidade']);
@@ -79,7 +80,7 @@ test('Semantic review catches a compound question with one question mark and rep
  let generated=0,reviewed=0;
  const r=await requestModelDraft(conversation('Quanto custa um site?'),decision('Quanto custa um site?'),{geminiApiKey:'fake'},async(u,o)=>{
   const schema=JSON.parse(o.body).generationConfig.responseSchema;
-  if(schema.properties.questionCount){reviewed++;return response(JSON.stringify({questionCount:reviewed===1?2:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));}
+  if(schema.properties.questionCount){reviewed++;return response(JSON.stringify({...audit(o),questionCount:reviewed===1?2:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));}
   generated++;return response(JSON.stringify({strategy:'esclarecimento',interlocutor:'Desconhecido',evidence:'Pedido de preço',unknowns:['objetivo'],nextStep:'Entender objetivo',text:generated===1?'O valor depende do escopo. Você quer catálogo e também precisa de pagamento online?':'O valor depende do escopo e será definido após uma avaliação da necessidade.'}));
  });assert.equal(generated,2);assert.equal(reviewed,2);assert.equal(r.generationMeta.qualityReview,'gemini_semantic_and_local');
 });
@@ -98,14 +99,14 @@ test('Generation and semantic review receive separate bounded deadlines',async()
  const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
  const result=await requestModelDraft(c,d,{geminiApiKey:'fake',timeoutMs:100},async(u,o)=>{
   await new Promise((resolve,reject)=>{const t=setTimeout(resolve,65);o.signal.addEventListener('abort',()=>{clearTimeout(t);reject(Object.assign(Error(),{name:'AbortError'}));},{once:true});});
-  if(JSON.parse(o.body).generationConfig.responseSchema.properties.questionCount)return acceptedReview();
+  if(JSON.parse(o.body).generationConfig.responseSchema.properties.questionCount)return acceptedReview(o);
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação',unknowns:['empresa'],nextStep:'Conhecer segmento',text:'Sou Pedro, da GSW. Qual é a área de atuação da empresa?'}));
  });assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');assert.equal(result.generationMeta.requestAttempts,2);
 });
 test('Compound-question repair removes secondary requests without using a canned reply',async()=>{
  const rejected=[];let generations=0;
  const result=await requestModelDraft(conversation('Me chamo Marina. Como posso ajudar?'),decision('Me chamo Marina. Como posso ajudar?'),{geminiApiKey:'fake',onQualityRejection:item=>rejected.push(item)},async(u,o)=>{
-  const b=JSON.parse(o.body);if(b.generationConfig.responseSchema.properties.questionCount)return acceptedReview();
+  const b=JSON.parse(o.body);if(b.generationConfig.responseSchema.properties.questionCount)return acceptedReview(o);
   generations++;
   if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Escolha uma única informação/);
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Marina',evidence:'Saudação',unknowns:['processo'],nextStep:'Explicar contato',text:generations===1?'Marina, quem decide? Como recebem os pedidos?':'Marina, o contato é sobre a apresentação dos serviços de climatização para quem solicita orçamento.'}));
@@ -141,7 +142,7 @@ test('Semantic criticism reaches the repair instead of losing the unsupported pr
  let generations=0,reviews=0;
  const result=await requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
   const b=JSON.parse(o.body);
-  if(b.generationConfig.responseSchema.properties.questionCount){reviews++;return response(JSON.stringify({questionCount:1,unsupportedClaims:reviews===1?['Processo inexistente no contexto']:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'Não foi confirmado que recebem solicitações de assistência.'}));}
+  if(b.generationConfig.responseSchema.properties.questionCount){reviews++;return response(JSON.stringify({...audit(o),questionCount:1,unsupportedClaims:reviews===1?['Processo inexistente no contexto']:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'Não foi confirmado que recebem solicitações de assistência.'}));}
   generations++;if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Não foi confirmado que recebem solicitações/);
   return response(JSON.stringify({strategy:'descoberta',text:'Marina, a empresa trabalha com manutenção de equipamentos?',opportunity:{status:'exploratory',evidenceRefs:['context:sector'],missingEvidence:'Serviços',discoveryTarget:'Serviços'}}));
  });assert.equal(generations,2);assert.equal(reviews,2);assert.equal(result.generationMeta.requestAttempts,4);
@@ -150,21 +151,29 @@ test('Source audit rejects unsupported claims even when summary flags incorrectl
  let reviews=0;
  await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
   const body=JSON.parse(o.body);
-  if(body.generationConfig.responseSchema.properties.questionCount){reviews++;return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'O nicho não confirma manutenção.',factChecks:[{claim:'A empresa faz manutenção',sourceId:'context:sector',sourceQuote:'Climatização',verdict:'unsupported'}]}));}
+  if(body.generationConfig.responseSchema.properties.questionCount){reviews++;return response(JSON.stringify({...audit(o),questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'O nicho não confirma manutenção.',factChecks:[{claim:'A empresa faz manutenção',sourceId:'context:sector',sourceQuote:'Climatização',verdict:'unsupported'}]}));}
   return response(JSON.stringify({strategy:'motivo',text:'Marina, meu contato é sobre a divulgação da manutenção.'}));
  }),e=>e.code==='quality_block'&&e.qualityIssues.includes('unsupported_claim'));assert.equal(reviews,2);
 });
 test('Source audit refuses a fabricated quotation attached to a real source ID',async()=>{
  await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
   const body=JSON.parse(o.body);
-  if(body.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'',factChecks:[{claim:'Manutenção',sourceId:'context:sector',sourceQuote:'Fazemos manutenção',verdict:'supported'}]}));
+  if(body.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({...audit(o),questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'',factChecks:[{claim:'Manutenção',sourceId:'context:sector',sourceQuote:'Fazemos manutenção',verdict:'supported'}]}));
   return response(JSON.stringify({strategy:'motivo',text:'Marina, meu contato é sobre a divulgação da manutenção.'}));
  }),e=>e.code==='quality_block');
 });
 test('Semantic audit must cover the entire generated message, including the offer',async()=>{
  await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
   const body=JSON.parse(o.body);
-  if(body.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'',factChecks:[],messageSegments:[{text:'Olá, Marina.',assessment:'Saudação',acceptable:true}]}));
+  if(body.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({...audit(o),questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'',factChecks:[],messageSegments:[{text:'Olá, Marina.',assessment:'Saudação',acceptable:true}]}));
   return response(JSON.stringify({strategy:'motivo',text:'Olá, Marina. A página é ideal para converter inscrições.'}));
+ }),e=>e.code==='quality_block'&&e.qualityIssues.includes('incomplete_semantic_review'));
+});
+
+test('Missing full-message review cannot be presented as reviewed',async()=>{
+ await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
+  const b=JSON.parse(o.body);
+  if(b.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));
+  return response(JSON.stringify({strategy:'motivo',text:'Marina, podemos conversar sobre seu site?'}));
  }),e=>e.code==='quality_block'&&e.qualityIssues.includes('incomplete_semantic_review'));
 });

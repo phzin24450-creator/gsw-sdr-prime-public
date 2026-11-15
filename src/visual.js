@@ -19,6 +19,7 @@ const INSTRUCTIONS = [
   'Retorne as mensagens na ordem cronológica quando houver evidência. Se a ordem for ambígua, retorne a ordem visível e uncertainOrder true. Não ordene só pela hora se o dia for incerto.',
   'Não deduza empresa pelo nome de um contato. Informe company apenas se houver nome de empresa legível, com a transcrição literal da evidência.',
   'Em restrictionEvidence, transcreva a recusa, pedido de parar ou de atendimento humano do lead. Deixe vazio quando ausente.',
+  'Em opportunity, só registre site profissional ou landing page quando o trecho literal do lead mencionar explicitamente site ou landing page e um interesse/objetivo relacionado. Uma pergunta genérica sobre como funciona não identifica uma oportunidade: use value e evidence vazios.',
   'Em sector, intent e opportunity, indique um possível nicho, intenção e oportunidade comercial como hipóteses com trecho literal de uma mensagem do lead. Sem evidência use value e evidence vazios. Não presuma que já existe consentimento ou que algo foi enviado.',
 ].join('\n');
 
@@ -111,6 +112,15 @@ function groundedField(field, messages, company = false) {
   return { value, status: company ? 'visible' : 'hypothesis', evidence };
 }
 
+function groundedSiteOpportunity(field,messages) {
+  const grounded=groundedField(field,messages);
+  // Conservative extraction contract: a cited sentence must name the service.
+  // Broad commercial discovery remains generative after the operator's review.
+  if(grounded.status==='unknown'||! /\b(?:sites?|landing pages?)\b/.test(fold(grounded.evidence))||! /\b(?:sites?|landing pages?)\b/.test(fold(grounded.value)))
+    return {value:UNKNOWN,status:'unknown',evidence:''};
+  return grounded;
+}
+
 export function visualStop(messages) {
   return messages.some(row => row.direction !== 'outbound' && (
     [INTENTS.OPT_OUT, INTENTS.HUMAN_REQUEST].includes(classify(row.text)) ||
@@ -154,7 +164,7 @@ export async function analyzeVisual(data, config = {}, fetcher = fetch) {
     company: groundedField(result.company, messages, true),
     sector: groundedField(result.sector, messages),
     intent: groundedField(result.intent, messages),
-    opportunity: groundedField(result.opportunity, messages),
+    opportunity: groundedSiteOpportunity(result.opportunity, messages),
     uncertainOrder: result.uncertainOrder !== false || messages.some(row => row.direction === 'unknown' || row.cropped || !row.source),
     blocked: visualStop(messages) || Boolean(restriction && messages.some(row =>
       row.direction !== 'outbound' && fold(row.text).includes(restriction)))

@@ -35,7 +35,7 @@ test('análise multimodal envia imagens únicas e separa evidência visível de 
   assert.equal(result.company.status, 'visible');
   assert.equal(result.sector.status, 'hypothesis');
   assert.equal(result.intent.value, 'organizar orçamento');
-  assert.equal(result.opportunity.value, 'painel de orçamentos');
+  assert.equal(result.opportunity.status, 'unknown');
   assert.deepEqual(result.messages.map(m => m.direction), ['outbound', 'inbound']);
 });
 
@@ -154,4 +154,13 @@ test('visual generation rejects concurrent submissions and releases lock afterwa
  const options={method:'POST',headers:{authorization:'Bearer visual-test-admin-key-123','content-type':'application/json'},body:JSON.stringify({reviewed:true})};
  try{const first=fetch(url,options);await begin;const second=await fetch(url,options);assert.equal(second.status,409);release();assert.equal((await first).status,200);}
  finally{release?.();await new Promise(r=>app.close(r));}
+});
+
+test('A literal generic question does not ground a website opportunity',async()=>{
+ const result=await analyze({...sample,opportunity:{value:'Site profissional ou landing page',evidence:'Vocês podem me explicar como funciona?'},messages:[row('Vocês podem me explicar como funciona?')]});
+ assert.equal(result.opportunity.status,'unknown');assert.equal(result.opportunity.value,'Desconhecido');
+});
+test('An explicit website objective can ground a provisional opportunity',async()=>{
+ const result=await analyze({...sample,opportunity:{value:'Site profissional',evidence:'Quero um site para apresentar os móveis.'},messages:[row('Quero um site para apresentar os móveis.')]});
+ assert.equal(result.opportunity.status,'hypothesis');
 });
