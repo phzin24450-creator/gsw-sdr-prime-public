@@ -1,0 +1,35 @@
+name: PRIME real visual acceptance
+on:
+  push:
+    branches: [work/v4.2-visual-copilot]
+    paths: ['.github/workflows/prime-visual-candidate-test.yml']
+permissions:
+  contents: read
+jobs:
+  prime-visual:
+    if: github.ref == 'refs/heads/work/v4.2-visual-copilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: gemini-v42-tests
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 8775b0eaa0a0d585c6777de78509e654dcdbcb3e
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Synthetic PRIME screenshots and manual review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+        run: node scripts/prime-visual-gemini-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prime-visual-synthetic-evidence
+          path: test-results/prime-visual-live/
+          retention-days: 14
