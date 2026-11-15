@@ -18,10 +18,10 @@ for(const [id,context,turns] of cases){
  if(selected.size&&!selected.has(id))continue;
  const conversation={mode:'HUMAN',context,messages:turns.map((text,i)=>({id:String(i),direction:'inbound',text})),drafts:[]};
  const decision=prepareDecision(conversation,{manual:true});
- const report={id,synthetic:true,model:GEMINI_MODEL,context,messages:conversation.messages,rejectedDrafts:[],commercialApproval:'Requires complete response assessment; technical success is insufficient'};
+ const report={id,synthetic:true,model:GEMINI_MODEL,context,messages:conversation.messages,rejectedDrafts:[],generatedCandidates:[],commercialApproval:'Requires complete response assessment; technical success is insufficient'};
  if(!decision.canDraft){report.blocked=true;report.pass=['recusa','optout'].includes(id);}
  else try{
-  const r=await requestModelDraft(conversation,decision,{onQualityRejection:x=>report.rejectedDrafts.push(x)});
+  const r=await requestModelDraft(conversation,decision,{onQualityRejection:x=>report.rejectedDrafts.push(x),onGeneratedCandidate:x=>report.generatedCandidates.push(x)});
   report.response=r.text;report.metadata=r.generationMeta;
   report.pass=r.generationMeta.qualityReview==='gemini_semantic_and_local'&&!!r.generationMeta.commercialDecision?.knowledge;
  }catch(e){report.pass=false;report.error={code:e.code,stage:e.stage||null,httpStatus:e.httpStatus||null,qualityIssues:e.qualityIssues||[]};}
