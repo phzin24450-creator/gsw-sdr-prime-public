@@ -1,4 +1,4 @@
-name: PRIME real visual acceptance
+name: PRIME cropped evidence regression
 on:
   push:
     branches: [work/v4.2-visual-copilot]
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 2a64a2351676a3b7bb5de2aa94bc0e8fc21f35ce
+          ref: 228370406508d7143e4d594ae0f371bf3bb27a60
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
@@ -26,10 +26,10 @@ jobs:
       - name: Synthetic PRIME screenshots and manual review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
-        run: node scripts/prime-visual-gemini-live.mjs
+        run: node scripts/prime-crop-regression.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: prime-visual-synthetic-evidence
-          path: test-results/prime-visual-live/
+          path: test-results/prime-crop/
           retention-days: 14
