@@ -71,6 +71,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
   return http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://localhost');
+      if (req.method === 'GET' && url.pathname === '/favicon.svg') { res.writeHead(200,{'content-type':'image/svg+xml','cache-control':'public, max-age=3600'});return res.end(await readFile(new URL('../web/favicon.svg',import.meta.url))); }
       if (req.method === 'GET' && url.pathname === '/health') return json(res, 200, { ok: true, stage: 'v4.2.0', autoSend: false, storage: typeof store.close === 'function' ? 'postgres' : 'memory' });
       if (req.method === 'GET' && url.pathname === '/ready') {
         try { if (store.ping) await store.ping(); return json(res,200,{ok:true}); }
@@ -112,7 +113,7 @@ export function createApp({ adminKey, metaSecret, verifyToken, demo = false, aut
       if (req.method === 'GET' && url.pathname === '/') {
         const nonce=randomBytes(18).toString('base64');
         res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff',
-          'content-security-policy': `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'` });
+          'content-security-policy': `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'` });
         return res.end((await readFile(htmlPath,'utf8')).replaceAll('__CSP_NONCE__',nonce));
       }
       if (url.pathname.startsWith('/api/')) {

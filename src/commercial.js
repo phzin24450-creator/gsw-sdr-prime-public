@@ -1,6 +1,6 @@
 import { PRIME_POLICY } from './brand.js';
 import { fold } from './intent.js';
-import { commercialSignals, ADAPTIVE_POLICY, isOrientationTurn, ORIENTATION_POLICY } from './intelligence.js';
+import { commercialSignals } from './intelligence.js';
 
 export const CONTEXT_FIELDS = ['company', 'sector', 'challenge', 'goal', 'offer', 'observation', 'sourceUrl', 'verifiedOn', 'interlocutor'];
 export const TONES = ['consultivo', 'objetivo', 'estrategico', 'acolhedor'];
