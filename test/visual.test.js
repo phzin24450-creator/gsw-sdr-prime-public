@@ -141,7 +141,7 @@ test('rotas exigem autorização e revisão, preservam correções e não criam 
   assert.equal(generated.status, 200);
   assert.equal((await generated.json()).provider, 'gemini');
   assert.equal((await post('draft', { ...draft, reviewed: true, reviewToken: '' })).status, 400);
-  assert.equal((await post('opening', { reviewed: true })).status, 409);
+  const noResearch=await post('opening', { reviewed: true });assert.equal(noResearch.status,200);assert.equal((await noResearch.json()).ready,false);
   assert.deepEqual(store.list(), []);
 });
 

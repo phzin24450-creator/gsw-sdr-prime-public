@@ -261,6 +261,12 @@ $('visual-draft').onclick=()=>runVisual('visual-fields','visual-status',async()=
  showStandaloneAnswer('visual',result);
 });
 function showStandaloneAnswer(prefix,result){
+ if(result.ready===false){
+  $(prefix+'-answer').value='';
+  for(const id of ['answer','copy','whatsapp'])$(prefix+'-'+id).disabled=true;
+  showVisualStatus(prefix+'-status',result.reason||'É necessário revisar o contexto antes de abordar.',false);
+  return;
+ }
  $(prefix+'-answer').value=result.text;
  $(prefix+'-answer').disabled=false;
  $(prefix+'-copy').disabled=false;

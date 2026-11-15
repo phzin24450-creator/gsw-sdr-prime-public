@@ -54,6 +54,10 @@ export function generationFailure(error) {
   const code=error instanceof GenerationError?error.code:'provider_unavailable';
   return {provider:'gemini',status:'fallback',errorCode:code,message:GENERATION_ERRORS[code],...(error.httpStatus?{httpStatus:error.httpStatus}:{})};
 }
+export function commercialRecommendation(error,model=GEMINI_MODEL) {
+  const provider=error.planningProvider||'gemini';
+  return {created:false,ready:false,text:'',provider,reason:error.message,generationMeta:{provider,model:provider==='rules'?null:model,status:error.code==='no_opportunity'?'not_recommended':'needs_context',errorCode:error.code,commercialDecision:error.contactPlan?{contactPlan:error.contactPlan}:null}};
+}
 export const generationPrompt = commercialPrompt;
 const COMMERCIAL_SCHEMA={type:'OBJECT',properties:{
  contactPlan:{type:'OBJECT',properties:{action:{type:'STRING',enum:['draft','research','do_not_approach']},strength:{type:'STRING',enum:['strong','plausible','insufficient']},service:{type:'STRING',enum:['site','landing_page','none']},evidenceRefs:{type:'ARRAY',items:{type:'STRING'}},buyerTask:{type:'STRING'},contactReason:{type:'STRING'},pageRole:{type:'STRING'},nextMove:{type:'STRING'},researchNeeded:{type:'STRING'}},required:['action','strength','service','evidenceRefs','buyerTask','contactReason','pageRole','nextMove','researchNeeded']},
@@ -198,7 +202,7 @@ async function generate(store, phone, config, fetcher) {
   let generated;
   try { generated = await requestModelDraft(conversation, decision, config, fetcher); }
   catch(error) {
-    if(['research_required','no_opportunity'].includes(error.code))return {created:false,reason:error.message,generationMeta:{provider:error.planningProvider||'gemini',model:error.planningProvider==='rules'?null:config.geminiModel??GEMINI_MODEL,status:'needs_context',errorCode:error.code,commercialDecision:error.contactPlan?{contactPlan:error.contactPlan}:null}};
+    if(['research_required','no_opportunity'].includes(error.code))return commercialRecommendation(error,config.geminiModel??GEMINI_MODEL);
     const code=error instanceof GenerationError?error.code:'provider_unavailable';
     const generationMeta={...generationFailure(error),model:config.geminiModel??process.env.GEMINI_MODEL??GEMINI_MODEL};
     if(['safety_block','quality_block'].includes(code))return {created:false,reason:generationMeta.message,generationMeta:{...generationMeta,status:'error'}};

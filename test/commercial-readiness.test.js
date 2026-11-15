@@ -56,7 +56,8 @@ test('Research recommendation from the model remains an operator decision, not a
  assert.equal(r.created,false);assert.equal(r.generationMeta.status,'needs_context');assert.equal(r.generationMeta.commercialDecision.contactPlan.researchNeeded,'Confirmar o objetivo da página');assert.deepEqual(store.get(phone),before);
 });
 test('Visual opening with no evidence reports research rather than a Gemini fallback',async()=>{
- await assert.rejects(draftVisual({reviewed:true,company:'Fixture',sector:'Marcenaria'},{opening:true,config:{geminiApiKey:'fake'},fetcher:()=>assert.fail('No API')}),e=>e.visual&&e.status===409&&/pesquise/.test(e.message));
+ const r=await draftVisual({reviewed:true,company:'Fixture',sector:'Marcenaria'},{opening:true,config:{geminiApiKey:'fake'},fetcher:()=>assert.fail('No API')});
+ assert.equal(r.ready,false);assert.equal(r.text,'');assert.equal(r.provider,'rules');assert.equal(r.generationMeta.status,'needs_context');assert.match(r.reason,/pesquise/);
 });
 test('Context hierarchy preserves sources and answered questions without duplicating declarations',()=>{
  const c={context:observation,messages:[{direction:'outbound',text:'Como apresentam os trabalhos?'},{direction:'inbound',text:'Num catálogo em PDF.'}]};
