@@ -90,9 +90,9 @@ test('Semantic review failures block instead of exposing an unreviewed draft',as
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Desconhecido',evidence:'Saudação',unknowns:['empresa'],nextStep:'Conhecer contexto',text:'Aqui é o Pedro, da GSW. Qual é a área de atuação da empresa?'}));
  }),e=>e.code==='quota_exceeded');assert.equal(calls,2);
 });
-test('Portfolio pitch is blocked without an explicit request for services',()=>{
+test('Current policy excludes the former portfolio without a lexical portfolio filter',()=>{
  const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
- assert.equal(reviewCopy('Oferecemos sites, automações de atendimento e painéis de gestão. Qual desafio você tem?',c,d),'portfolio_pitch');
+ assert.match(commercialPrompt(c,d).system,/Não ofereça sistemas/);
 });
 test('Generation and semantic review receive separate bounded deadlines',async()=>{
  const c=conversation('Como posso ajudar?'),d=decision('Como posso ajudar?');
@@ -127,7 +127,7 @@ test('Current PRIME policy governs neutral replies, pricing and established disc
 test('A conditional integration into one process is not mistaken for a portfolio list',()=>{
  const c=conversation('Quero integrar o agendamento ao sistema.'),d=decision(c.messages[0].text);
  assert.equal(reviewCopy('Uma integração poderia conectar a automação do agendamento ao sistema, dependendo da viabilidade técnica.',c,d),null);
- assert.equal(reviewCopy('Oferecemos sites, automações e painéis de gestão. Qual o desafio?',c,d),'portfolio_pitch');
+ assert.match(commercialPrompt(c,d).system,/EXCLUSIVAMENTE sites profissionais e landing pages/);
 });
 
 test('Evidence register separates operator intentions from client facts and excludes drafts',()=>{

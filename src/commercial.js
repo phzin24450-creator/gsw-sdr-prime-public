@@ -54,6 +54,8 @@ export function commercialPrompt(conversation, decision, config = {}) {
     input: JSON.stringify({senderIdentity:{name:'Pedro',company:'PRIME',role:'proprietário que conduz a negociação'},tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
       commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(commercialSignals(conversation, decision), (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,
       evidenceRegister: [
+        {id:'policy:portfolio',kind:'current_brand_policy',text:'A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.'},
+        {id:'policy:sender',kind:'current_brand_policy',text:'Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.'},
         ...Object.entries(commercialContext).map(([key,value])=>({id:'context:'+key,kind:['goal','offer'].includes(key)?'operator_intention':'operator_record',text:value})),
         ...(observation?[{id:'public:observation',kind:'provided_verified_observation',text:observation}]:[]),
         ...(conversation.messages||[]).filter(m=>m.direction==='inbound').map((m,i)=>({id:'inbound:'+i,kind:'client_statement',text:minimize(m.text,1000)}))
@@ -93,8 +95,6 @@ export function reviewCopy(text, conversation, decision, now = Date.now()) {
   const signals = commercialSignals(conversation, decision);
   const leadEvidence=fold((conversation.messages||[]).filter(m=>m.direction==='inbound').map(m=>m.text).join(' ')+' '+(conversation.context?.interlocutor||''));
   if (/\bpedro\b/.test(clean) && !/\bpedro\b/.test(leadEvidence) && !/(?:sou (?:o )?|e o |me chamo |aqui e (?:o )?|aqui quem fala e (?:o )?)pedro|pedro (?:aqui|da prime)/.test(clean)) return 'wrong_interlocutor_name';
-  const serviceFamilies=[/sites?|landing page/,/automac|atendimento/,/paineis|painel|sistemas?/].filter(re=>re.test(clean)).length;
-  if(serviceFamilies>1 && /(?:oferecemos|servicos|solucoes.{0,30}como|sites?.{0,30}(?:,| e | ou ).{0,20}(?:sistemas?|automac|paineis))/.test(clean) && !/quais.{0,20}servicos|portfolio|todos os servicos/.test(fold(decision.latest.text))) return 'portfolio_pitch';
   if (/entendo perfeitamente|compreendo perfeitamente/.test(clean)) return 'canned_empathy';
   if (/qual.{0,70}(?:segmento|setor).{0,35}e (?:qual|se)|como.{0,80}ou (?:o |a )?(?:controle|atendimento)/.test(clean)) return 'multiple_questions';
   if (/(?:como|gostaria de (?:saber|entender)).{0,200}\bou (?:o |a )?(?:fluxo|organizacao|gestao|controle|atendimento|recebimento|presenca)\b/.test(clean)) return 'multiple_questions';

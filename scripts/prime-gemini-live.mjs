@@ -4,6 +4,7 @@ import {requestModelDraft,prepareDecision,GEMINI_MODEL} from '../src/advisor.js'
 const cases=[
  ['marina', {company:'Brisa Técnica Climatização',sector:'Climatização'}, ['Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?']],
  ['recepcionista',{company:'Brisa Técnica Climatização',sector:'Climatização'},['Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?']],
+ ['recepcionista-necessidade',{company:'Brisa Técnica Climatização',sector:'Climatização'},['Sou Marina da recepção. O proprietário pediu informações sobre uma página exclusiva para apresentar nosso serviço de higienização de ar-condicionado. O que vocês fazem nessa página?']],
  ['site-confirmado',{company:'Ateliê Aurora Fictício',sector:'Marcenaria'},['Sou a dona. Não temos site; só enviamos fotos pelo WhatsApp. Quero uma página para apresentar nossos móveis sob medida e os contatos.']],
  ['site-adequado',{company:'Clínica Cedro Fictícia'},['Temos um site atualizado que apresenta nossos serviços e recebe contatos normalmente. Estamos satisfeitos com a agência atual.']],
  ['landing-page',{company:'Estúdio Lume Fictício'},['Já temos um bom site institucional. Queremos apresentar só o workshop fictício de fotografia, com programa, data e link de inscrição que já existe.']],
