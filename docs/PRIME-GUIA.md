@@ -13,3 +13,5 @@ Regras locais/fallback são identificados e orientam revisão manual; não são 
 Busca, filtros, arquivar/restaurar e histórico permanecem no aplicativo. Prospecta não foi modificado. Testes mobile em navegador emulado não comprovam funcionamento em Android físico.
 
 A versão só pode ser publicada após autorização específica. Não usar este guia como autorização de deploy, migração ou exportação. Backup: ver procedimento separado de criptografia/restauração; bucket vazio não equivale a backup restaurável.
+
+Pedido de atendimento humano: o proprietário pode usar “Assumir conversa como proprietário”. Isso não envia mensagem nem remove opt-out. O pedido de falar com humano continua respeitado; o botão apenas encerra a espera técnica por atendimento, sem transferir para terceiros.
