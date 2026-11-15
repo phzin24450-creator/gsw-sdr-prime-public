@@ -1,0 +1,35 @@
+name: PRIME real candidate acceptance
+on:
+  push:
+    branches: [work/v4.2-visual-copilot]
+    paths: ['.github/workflows/prime-candidate-test.yml']
+permissions:
+  contents: read
+jobs:
+  prime-synthetic:
+    if: github.ref == 'refs/heads/work/v4.2-visual-copilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: gemini-v42-tests
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dabcac6bc9ff00cc4240fffd8438ee1ffc096d9f
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: PRIME candidate synthetic Gemini calls
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+          PRIME_LIVE_CASES: marina,recepcionista,site-confirmado,landing-page
+        run: node scripts/prime-gemini-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prime-synthetic-evidence
+          path: test-results/prime-live/
+          retention-days: 14
