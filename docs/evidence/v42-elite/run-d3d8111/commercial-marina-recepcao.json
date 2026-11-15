@@ -1,0 +1,59 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [],
+  "response": "Olá Marina, agradeço o retorno. O assunto é sobre como a Brisa Técnica organiza hoje o recebimento e o direcionamento de novos pedidos de manutenção dos clientes. Você saberia me indicar quem cuida dessa parte de atendimento ou agendamento de serviços?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2670,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A abordagem é adequada ao contexto de recepção, mas a estratégia de focar em 'gestão de solicitações' é uma hipótese não confirmada pela interlocutora, que apenas declarou não ser decisora. O texto está alinhado com a necessidade de identificar o responsável.",
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "context:company",
+          "context:sector",
+          "inbound:0"
+        ],
+        "missingEvidence": "Como a Brisa Técnica organiza hoje a entrada e o direcionamento de novos pedidos de serviço.",
+        "discoveryTarget": "Identificar se existe um gargalo na recepção de chamados de clientes."
+      },
+      "focus": {
+        "topic": "Gestão de solicitações de manutenção via canais digitais",
+        "basis": "hypothesis",
+        "relevance": "Permite avaliar se a empresa possui um fluxo estruturado para receber pedidos de orçamento ou agendamento técnico, o que pode impactar a capacidade de resposta ao cliente final."
+      },
+      "interlocutor": "Marina (Recepção)",
+      "evidence": "Marina confirmou ser da recepção e declarou não tomar decisões sobre tecnologia.",
+      "unknowns": [
+        "Processo atual de entrada de solicitações de clientes",
+        "Responsável pela gestão de atendimento técnico"
+      ],
+      "nextStep": "Identificar o responsável pelo fluxo de atendimento ao cliente."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report"
+}

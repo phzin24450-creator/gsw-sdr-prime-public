@@ -1,0 +1,90 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá Marina, obrigado pelo retorno. O assunto é sobre como a Brisa Técnica organiza o fluxo de ordens de serviço e o agendamento das visitas técnicas. Você saberia me informar quem cuida dessa parte operacional para que eu possa apresentar o tema?",
+      "issues": [
+        "unsupported_claim",
+        "generic_approach",
+        "inconsistent_strategy"
+      ],
+      "stage": "semantic",
+      "feedback": "A mensagem pressupõe que a empresa possui um fluxo de ordens de serviço e agendamento, o que não foi declarado. A abordagem ignora a declaração da interlocutora de que não decide sobre tecnologia ao insistir em um tema operacional complexo."
+    }
+  ],
+  "response": "Olá Marina, obrigado pelo retorno. O assunto é sobre como a Brisa Técnica organiza hoje o recebimento de novos pedidos de manutenção e instalação. Você poderia me indicar quem seria a pessoa responsável por cuidar dessa parte operacional?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2573,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A estratégia é consistente com a limitação declarada pela interlocutora. O texto respeita a recusa de decisão técnica e foca na identificação do responsável, conforme solicitado.",
+    "semanticFactChecks": [
+      {
+        "claim": "A Brisa Técnica atua no setor de climatização.",
+        "sourceId": "context:sector",
+        "sourceQuote": "Climatização",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Marina é da recepção.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Sou a Marina da recepção.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Marina não decide sobre tecnologia.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Não decido sobre tecnologia.",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "context:company",
+          "context:sector",
+          "inbound:0"
+        ],
+        "missingEvidence": "Como a empresa gerencia a entrada de novos pedidos de clientes hoje.",
+        "discoveryTarget": "Identificar o responsável pela gestão das solicitações de serviço."
+      },
+      "focus": {
+        "topic": "Processo de registro de solicitações de serviço",
+        "basis": "hypothesis",
+        "relevance": "Entender como a empresa atualmente recebe e organiza novos pedidos de clientes permite avaliar se o formato atual atende ao volume de demanda da Brisa Técnica."
+      },
+      "interlocutor": "Marina (Recepção)",
+      "evidence": "Marina confirmou ser da recepção e não decidir sobre tecnologia. A empresa atua no setor de climatização.",
+      "unknowns": [
+        "quem cuida da gestão de solicitações",
+        "como a empresa organiza o fluxo de trabalho atual"
+      ],
+      "nextStep": "Identificar quem cuida da gestão de solicitações de serviço na empresa."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report"
+}

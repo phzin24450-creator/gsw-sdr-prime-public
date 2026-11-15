@@ -1,0 +1,31 @@
+{
+  "id": "sem-nicho",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Como posso ajudar?"
+    }
+  ],
+  "expected": "Não inventar segmento",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "O assunto é a estruturação da presença digital e canais de atração de clientes. Para que eu possa ser mais específico, poderia me dizer qual o setor da sua empresa?",
+      "issues": [
+        "unsupported_claim",
+        "generic_approach",
+        "inconsistent_strategy"
+      ],
+      "stage": "semantic",
+      "feedback": "A mensagem assume que o interlocutor possui uma empresa e que o assunto de 'estruturação de presença digital' é pertinente para ele, sem que o interlocutor tenha fornecido qualquer contexto ou sinal de interesse."
+    }
+  ],
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "errorStage": "semantic_review",
+  "qualityIssues": []
+}
