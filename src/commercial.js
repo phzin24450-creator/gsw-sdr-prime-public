@@ -51,7 +51,7 @@ export function commercialPrompt(conversation, decision, config = {}) {
   const drafts = (conversation.drafts ?? []).slice(-3).map(d=>({text:minimize(d.text),note:'Rascunho: NÃO comprova envio nem aceite do lead'}));
   return {
     system: PLAYBOOK + '\nVincule opportunity aos IDs de evidenceRegister. Setor, metas do operador e oferta desejada não provam necessidade. Use exploratory para assunto ainda a verificar e grounded somente para oportunidade apoiada por necessidade ou objetivo confirmado do cliente. Sem base, use unknown e escolha uma lacuna útil para descoberta.' + (strategy ? '\nPrimeiro contato sem mensagem do lead. ' + OPENINGS[strategy] : ''),
-    input: JSON.stringify({tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
+    input: JSON.stringify({senderIdentity:{name:'Pedro',company:'PRIME',role:'proprietário que conduz a negociação'},tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
       commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(commercialSignals(conversation, decision), (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,
       evidenceRegister: [
         ...Object.entries(commercialContext).map(([key,value])=>({id:'context:'+key,kind:['goal','offer'].includes(key)?'operator_intention':'operator_record',text:value})),

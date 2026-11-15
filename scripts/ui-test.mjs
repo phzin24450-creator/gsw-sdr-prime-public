@@ -36,6 +36,7 @@ try{
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No horizontal overflow '+width);
  await page.reload();await page.locator('#conversation').selectOption(phone);await page.waitForFunction(()=>document.getElementById('active-label').textContent.includes('Conversa ativa'));
  assert.ok(await page.locator('#answer').inputValue());
+ store.ingest({phone,id:'human-'+width,text:'Quero falar com uma pessoa',manual:true});await page.reload();await page.locator('#conversation').selectOption(phone);await page.locator('#assume-human').waitFor({state:'visible'});await page.locator('#assume-human').click();await page.waitForFunction(()=>document.getElementById('assume-human').hidden);assert.equal(store.get(phone).mode,'HUMAN');
  await page.locator('#lead').fill('Não me envie mais mensagens');await page.locator('#generate').click();await page.waitForFunction(()=>!document.getElementById('generate').disabled);assert.equal(store.get(phone).optedOut,true);assert.equal(await page.locator('#copy').isDisabled(),true);
  await page.locator('#conversation-status').selectOption('optout');
  await page.waitForFunction(()=>document.querySelectorAll('#conversation option').length>1);

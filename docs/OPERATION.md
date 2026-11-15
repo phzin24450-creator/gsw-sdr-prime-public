@@ -1,6 +1,8 @@
-# Operação assistida — GSW SDR PRIME
+# Operação assistida — PRIME
 
-Ambiente: https://gsw-sdr-prime-dev.onrender.com/
+Versão PRIME em branch isolada, ainda não publicada. O endereço técnico legado https://gsw-sdr-prime-dev.onrender.com/ permanece sem alteração e não é domínio oficial PRIME. Guia atual: [PRIME](PRIME-GUIA.md).
+
+Portfólio atual: sites profissionais e landing pages. O proprietário conduz a negociação diretamente. Os nomes técnicos de cookies, schema e variáveis são preservados para compatibilidade.
 
 ## Acesso
 
@@ -15,7 +17,7 @@ A sessão usa cookie HttpOnly, Secure e SameSite=Strict, expira em uma hora e é
 3. Colar a mensagem efetivamente recebida em “Registrar mensagem recebida”. A operação registra o histórico no banco; não representa recebimento pela API Meta.
 4. Preencher contexto comercial verificado.
 5. Se o lead não recusou contato nem pediu humano, selecionar “IA (rascunhos)” e salvar.
-6. Gerar e revisar o rascunho. A interface mostra o provedor usado: `rules`/`rules_fallback` indica regras locais, não uma resposta da OpenAI.
+6. Gerar e revisar o rascunho. A interface mostra o provedor usado: `rules`/`rules_fallback` indica regras locais, não uma resposta do Gemini.
 7. Aprovar registra a decisão, sem enviar. O operador deve conferir o texto antes de qualquer uso manual no WhatsApp.
 8. Sair ao terminar. Pedidos de humano e opt-out interrompem a geração; opt-out impede reativar o modo IA.
 

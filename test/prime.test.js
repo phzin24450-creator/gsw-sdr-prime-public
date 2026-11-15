@@ -23,3 +23,7 @@ test('Qualification does not offer excluded services from old conversations',()=
  const c={messages:[{direction:'inbound',text:'Quero sistema, automação, SEO, tráfego e painel.'}]};
  assert.deepEqual(summarizeQualification(c).services,[]);
 });
+test('Sender identity is independent of the prospect company',()=>{
+ const p=commercialPrompt({context:{company:'Brisa Técnica Fictícia'},messages:[]},{latest:{text:''},opening:true});
+ assert.deepEqual(JSON.parse(p.input).senderIdentity,{name:'Pedro',company:'PRIME',role:'proprietário que conduz a negociação'});
+});

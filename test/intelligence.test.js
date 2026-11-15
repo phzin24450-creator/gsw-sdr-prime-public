@@ -161,3 +161,10 @@ test('Source audit refuses a fabricated quotation attached to a real source ID',
   return response(JSON.stringify({strategy:'motivo',text:'Marina, meu contato é sobre a divulgação da manutenção.'}));
  }),e=>e.code==='quality_block');
 });
+test('Semantic audit must cover the entire generated message, including the offer',async()=>{
+ await assert.rejects(requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
+  const body=JSON.parse(o.body);
+  if(body.generationConfig.responseSchema.properties.questionCount)return response(JSON.stringify({questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'',factChecks:[],messageSegments:[{text:'Olá, Marina.',assessment:'Saudação',acceptable:true}]}));
+  return response(JSON.stringify({strategy:'motivo',text:'Olá, Marina. A página é ideal para converter inscrições.'}));
+ }),e=>e.code==='quality_block'&&e.qualityIssues.includes('incomplete_semantic_review'));
+});
