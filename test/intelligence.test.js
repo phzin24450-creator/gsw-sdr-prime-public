@@ -107,7 +107,7 @@ test('Compound-question repair removes secondary requests without using a canned
  const result=await requestModelDraft(conversation('Me chamo Marina. Como posso ajudar?'),decision('Me chamo Marina. Como posso ajudar?'),{geminiApiKey:'fake',onQualityRejection:item=>rejected.push(item)},async(u,o)=>{
   const b=JSON.parse(o.body);if(b.generationConfig.responseSchema.properties.questionCount)return acceptedReview();
   generations++;
-  if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Não faça NENHUMA pergunta/);
+  if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Escolha uma única informação/);
   return response(JSON.stringify({strategy:'motivo',interlocutor:'Marina',evidence:'Saudação',unknowns:['processo'],nextStep:'Explicar contato',text:generations===1?'Marina, quem decide? Como recebem os pedidos?':'Marina, o contato é sobre a apresentação dos serviços de climatização para quem solicita orçamento.'}));
  });assert.equal(generations,2);assert.equal(rejected[0].issues[0],'multiple_questions');assert.equal(result.generationMeta.qualityReview,'gemini_semantic_and_local');
 });
@@ -129,4 +129,21 @@ test('A conditional integration into one process is not mistaken for a portfolio
  const c=conversation('Quero integrar o agendamento ao sistema.'),d=decision(c.messages[0].text);
  assert.equal(reviewCopy('Uma integração poderia conectar a automação do agendamento ao sistema, dependendo da viabilidade técnica.',c,d),null);
  assert.equal(reviewCopy('Oferecemos sites, automações e painéis de gestão. Qual o desafio?',c,d),'portfolio_pitch');
+});
+
+test('Evidence register separates operator intentions from client facts and excludes drafts',()=>{
+ const c=conversation('Sou Marina da recepção.');c.context.goal='Vender automação';c.drafts=[{text:'Vocês perdem pedidos.'}];
+ const register=JSON.parse(commercialPrompt(c,decision(c.messages[0].text)).input).evidenceRegister;
+ assert.equal(register.find(x=>x.id==='context:goal').kind,'operator_intention');
+ assert.equal(register.find(x=>x.id==='inbound:0').text,'Sou Marina da recepção.');
+ assert.ok(!JSON.stringify(register).includes('perdem pedidos'));
+});
+test('Semantic criticism reaches the repair instead of losing the unsupported premise',async()=>{
+ let generations=0,reviews=0;
+ const result=await requestModelDraft(conversation('Como posso ajudar?'),decision('Como posso ajudar?'),{geminiApiKey:'fake'},async(u,o)=>{
+  const b=JSON.parse(o.body);
+  if(b.generationConfig.responseSchema.properties.questionCount){reviews++;return response(JSON.stringify({questionCount:1,unsupportedClaims:reviews===1?['Processo inexistente no contexto']:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'Não foi confirmado que recebem solicitações de assistência.'}));}
+  generations++;if(generations===2)assert.match(b.systemInstruction.parts[0].text,/Não foi confirmado que recebem solicitações/);
+  return response(JSON.stringify({strategy:'descoberta',text:'Marina, a empresa trabalha com manutenção de equipamentos?',opportunity:{status:'exploratory',evidenceRefs:['context:sector'],missingEvidence:'Serviços',discoveryTarget:'Serviços'}}));
+ });assert.equal(generations,2);assert.equal(reviews,2);assert.equal(result.generationMeta.requestAttempts,4);
 });
