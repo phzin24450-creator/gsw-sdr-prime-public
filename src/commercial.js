@@ -54,6 +54,7 @@ export function commercialPrompt(conversation, decision, config = {}) {
       commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(signalSummary, (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,strategyHintOnly:true,
       evidenceRegister: [
         {id:'policy:portfolio',kind:'current_brand_policy',text:'A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.'},
+        {id:'policy:functions',kind:'current_brand_policy',text:'Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.'},
         {id:'policy:sender',kind:'current_brand_policy',text:'Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.'},
         ...Object.entries(commercialContext).map(([key,value])=>({id:'context:'+key,kind:['goal','offer'].includes(key)?'operator_intention':'operator_record',text:value})),
         ...(raw.interlocutor?[{id:'context:interlocutor',kind:'operator_record',text:minimize(raw.interlocutor,200)}]:[]),
