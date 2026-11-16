@@ -56,3 +56,22 @@ test('Repair receives concrete findings instead of unqualified praise from appro
  });
  assert.equal(gen,2);assert.equal(rev,2);assert.ok(rejected[0].reviewerFeedback.includes('Tudo está excelente'));assert.match(rejected[0].feedback,/reprovada/);assert.ok(r.text);
 });
+
+test('Sender policy can support identity without conflating the prospect role',()=>{
+ const source={id:'policy:sender',text:'Pedro representa a PRIME.'};
+ const u=claimUnits({text:'Sou o Pedro, da PRIME.'})[0];
+ assert.deepEqual(auditClaims([u],[entry(u,{domain:'identity',evidence:[{sourceId:source.id,quote:source.text,relation:'entails'}]})],[source]).issues,[]);
+});
+test('Explicit functional proposal preserves legitimate utility even in present-tense grammar',()=>{
+ const source={id:'policy:portfolio',text:'A PRIME oferece sites e landing pages.'};
+ const u=claimUnits({text:'A proposta é reunir o programa e o link em uma página.'})[0];
+ const e=entry(u,{commitment:'functional_proposal',classification:'admissible_inference',domain:'function',evidence:[{sourceId:source.id,quote:source.text,relation:'supports_possibility'}]});
+ assert.deepEqual(auditClaims([u],[e],[source]).issues,[]);
+ assert.ok(auditClaims([u],[{...e,domain:'implementation'}],[source]).issues.includes('unbounded_inference'));
+});
+test('Question and intention do not require fabricating factual evidence',()=>{
+ for(const [text,commitment] of [['Qual conteúdo vocês querem apresentar?','question'],['Pretendo estudar essa possibilidade com vocês.','intention']]){
+  const u=claimUnits({text})[0];
+  assert.deepEqual(auditClaims([u],[entry(u,{commitment,classification:'non_assertive',domain:'function',language:commitment==='question'?'question':'non_assertive'})],[]).issues,[]);
+ }
+});
