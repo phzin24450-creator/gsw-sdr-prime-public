@@ -1,4 +1,4 @@
-import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, evidenceScope, repairFindings, claimAuditSchema } from './claims.js';
+import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, evidenceScope, repairFindings, claimAuditSchema, decodeClaimAudit } from './claims.js';
 import { classify, fold, INTENTS } from './intent.js';
 import { MODES } from './core.js';
 
@@ -110,7 +110,7 @@ async function semanticReview({assessment,prompt,apiKey,model,fetcher,trace,time
  },{fetcher,trace,stage:'semantic_review',timeoutMs});
  let verdict;try{const candidate=data.candidates?.[0];if(data.promptFeedback?.blockReason||candidate?.finishReason!=='STOP')throw Error();verdict=JSON.parse(candidate.content.parts.filter(p=>!p.thought).map(p=>p.text||'').join(''));}catch{throw new GenerationError('invalid_response')}
  if((!Number.isInteger(verdict.questionCount)||verdict.questionCount<0)||!Array.isArray(verdict.unsupportedClaims)||['wrongIdentity','repeatedQuestion','pressureAfterRefusal','genericApproach','strategyConsistent'].some(k=>typeof verdict[k]!=='boolean'))throw new GenerationError('invalid_response');
- const audited=auditClaims(units,verdict.claimAudit,input.evidenceRegister);
+ const audited=auditClaims(units,decodeClaimAudit(verdict.claimAudit),input.evidenceRegister);
  const issues=[...audited.issues];
  if(!verdict.quality||['factualSafety','planQuality','messageQuality'].some(k=>!['pass','revise'].includes(verdict.quality[k])))issues.push('incomplete_quality_review');
  else for(const k of ['factualSafety','planQuality','messageQuality'])if(verdict.quality[k]==='revise')issues.push(k);

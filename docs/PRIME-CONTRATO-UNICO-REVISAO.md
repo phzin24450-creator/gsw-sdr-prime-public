@@ -24,3 +24,11 @@ Arquivos: src/claims.js, src/advisor.js, scripts/prime-round2-live.mjs, scripts/
 ## Validação real
 
 Validar SHA fixo desta correção com os mesmos cinco cenários e três controles, usando ambiente e segredo já autorizados. Máximo de 20 chamadas, parada em quota/autenticação ou falhas repetidas. Avaliar o texto integral e a decisão; não reduzir o critério a HTTP ou liberação pelo validador. Nenhum deploy ou mensagem real faz parte da validação.
+
+## Primeira execução real desta correção e ajuste
+
+Execução 43846321415, código 14e606b: interrompida após 5 chamadas com HTTP 400 em semantic_review de Vértice. Ipê recomendou pesquisa; Bruma foi liberada pelo validador, porém ainda inventou Instagram e não foi aprovada comercialmente. Nenhum outro caso foi gerado após a falha de configuração. Causa exata do HTTP 400 não comprovada; não foi atribuído a credencial, quota ou timeout. Evidências completas em docs/evidence/prime-round5-real.
+
+A estrutura foi alterada novamente: claimAudit é agora um objeto com uma chave obrigatória por ID. Isso remove a combinação dinâmica de quantidade de itens e enum de IDs numa matriz. A cobertura local continua obrigatória e chaves extras/ausentes não são aceitas. Normalização canônica preservada. 181 testes locais passaram, incluindo tentativa de sobrescrever o ID do servidor. Essa correção estrutural ainda precisa da API real; o sucesso anterior de Bruma não aprova a segurança semântica do modelo.
+
+A validação complementar fica limitada a 15 chamadas; somada às cinco da primeira execução, mantém o teto de 20 nesta etapa. Nenhum orçamento ilimitado foi autorizado. Controles sem rede podem continuar mesmo após interrupção das gerações. O limite padrão continua 20 para o harness, e a variável aceita somente a redução para 15.

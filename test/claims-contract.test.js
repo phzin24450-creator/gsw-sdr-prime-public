@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {auditClaims,canonicalClaim,claimAuditSchema,claimUnits,repairFindings} from '../src/claims.js';
+import {auditClaims,canonicalClaim,claimAuditSchema,decodeClaimAudit,claimUnits,repairFindings} from '../src/claims.js';
 import {liveOutcome} from '../scripts/prime-live-outcome.mjs';
 const historical=async id=>JSON.parse(await readFile(new URL(`../docs/evidence/prime-round4-real/${id}.json`,import.meta.url),'utf8'));
 
@@ -24,8 +24,8 @@ test('A canonical proposal cannot erase contradiction or false citation',()=>{
 test('Provider schema forces inventory length and allowed IDs without modifying shared schema',()=>{
  const a=claimUnits({contactPlan:{contactReason:'Programa anunciado'},text:'Olá. Há uma página do programa?'}),b=claimUnits({text:'Obrigado.'});
  const sa=claimAuditSchema(a),sb=claimAuditSchema(b);
- assert.equal(sa.minItems,a.length);assert.equal(sa.maxItems,a.length);assert.deepEqual(sa.items.properties.id.enum,a.map(x=>x.id));assert.equal(sb.maxItems,b.length);
- assert.ok(!sa.items.required.includes('classification'));assert.ok(!sa.items.required.includes('language'));assert.ok(sa.items.required.includes('commitment'));
+ assert.equal(sa.type,'OBJECT');assert.deepEqual(sa.required,a.map(x=>x.id));assert.equal(Object.keys(sb.properties).length,b.length);
+ const item=Object.values(sa.properties)[0];assert.ok(!item.required.includes('classification'));assert.ok(!item.required.includes('language'));assert.ok(item.required.includes('commitment'));
 });
 test('Omitted real plan units are pinpointed, not hidden behind a generic code',async()=>{
  const d=await historical('bruma-social'),candidate=d.generatedCandidates[0];
@@ -42,4 +42,12 @@ test('Research is a technical result requiring human assessment; quota and empty
  assert.equal(liveOutcome({}, {code:'research_required'},{...p,researchNeeded:''}).pass,false);
  assert.equal(liveOutcome({}, {code:'quota_exceeded'},p).pass,false);
  assert.equal(liveOutcome({expectedDecision:'blocked'},{code:'research_required'},p).pass,false);
+});
+
+
+test('Keyed audit decoding cannot replace server IDs and still rejects missing keys',()=>{
+ const u=claimUnits({text:'Olá. Quem decide?'});
+ const obj=Object.fromEntries(u.map(x=>[x.id,{id:'spoof',commitment:'greeting',domain:'other',evidence:[],reason:'Fixture',missingAction:'none',acceptable:true}]));
+ assert.deepEqual(decodeClaimAudit(obj).map(x=>x.id),u.map(x=>x.id));
+ assert.ok(auditClaims(u,decodeClaimAudit({}),[]).issues.includes('incomplete_claim_audit'));
 });
