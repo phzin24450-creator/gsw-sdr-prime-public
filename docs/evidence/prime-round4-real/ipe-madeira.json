@@ -1,0 +1,139 @@
+{
+  "id": "ipe-madeira",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Relacionar projetos de cozinhas e destino observado sem afirmar inexistência de site.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "ipe.example.invalid",
+      "verifiedOn": "2026-11-16"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Ipê Madeira Fictícia",
+      "sector": "Marcenaria"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Ipê Madeira Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Marcenaria",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+        "scope": [
+          "observation",
+          "search_result"
+        ]
+      }
+    ],
+    "verifiedObservation": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 1,
+  "generatedCandidates": [],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "research_required",
+    "httpStatus": null,
+    "stage": "generation"
+  },
+  "telemetry": {
+    "startedAt": 1794796187727,
+    "calls": [
+      {
+        "stage": "generation",
+        "attempt": 1,
+        "requestBytes": 10986,
+        "httpStatus": 200,
+        "durationMs": 2287,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1917,
+          "candidatesTokenCount": 238,
+          "totalTokenCount": 2155
+        },
+        "finishReason": "STOP"
+      }
+    ]
+  },
+  "plan": {
+    "action": "research",
+    "strength": "plausible",
+    "service": "site",
+    "evidenceRefs": [
+      "public:observation"
+    ],
+    "buyerTask": "apresentar portfólio de marcenaria",
+    "contactReason": "observação de perfil ativo sem domínio próprio identificado",
+    "pageRole": "centralizar a visualização das cozinhas autorais para consulta organizada",
+    "nextMove": "confirmar se o portfólio já é organizado em algum endereço web ou se a operação ocorre exclusivamente via redes sociais",
+    "researchNeeded": "verificar se a empresa possui site em domínios não indexados ou se a presença digital é restrita a redes sociais"
+  },
+  "pass": false
+}
