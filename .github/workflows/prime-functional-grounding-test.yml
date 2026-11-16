@@ -1,0 +1,36 @@
+name: PRIME functional grounding real commercial acceptance
+on:
+  push:
+    branches: [work/v4.2-visual-copilot]
+    paths: ['.github/workflows/prime-functional-grounding-test.yml']
+permissions:
+  contents: read
+jobs:
+  synthetic-commercial:
+    if: github.ref == 'refs/heads/work/v4.2-visual-copilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: gemini-v42-tests
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 9c07cad75c14ed8467b2685579b21315c374542d
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run approved fictional cases with bounded request budget
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+          PRIME_ROUND2_REAL_AUTHORIZED: 'yes'
+          PRIME_LIVE_MAX_CALLS: '15'
+        run: node scripts/prime-round2-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prime-functional-grounding-fictional-evidence
+          path: test-results/prime-round2/
+          retention-days: 14
