@@ -1,0 +1,35 @@
+name: PRIME round 3 real commercial acceptance
+on:
+  push:
+    branches: [work/v4.2-visual-copilot]
+    paths: ['.github/workflows/prime-round3-approved-test.yml']
+permissions:
+  contents: read
+jobs:
+  synthetic-commercial:
+    if: github.ref == 'refs/heads/work/v4.2-visual-copilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: gemini-v42-tests
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 144138b2ddf12ee5174b7511b0fd074fe0df3228
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run approved fictional cases with bounded request budget
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+          PRIME_ROUND2_REAL_AUTHORIZED: 'yes'
+        run: node scripts/prime-round2-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prime-round3-fictional-evidence
+          path: test-results/prime-round2/
+          retention-days: 14
