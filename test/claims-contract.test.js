@@ -21,11 +21,11 @@ test('A canonical proposal cannot erase contradiction or false citation',()=>{
  assert.ok(auditClaims([unit],[base],[{id:'policy:portfolio',text:'Sites e landing pages'}]).issues.includes('invalid_claim_evidence'));
  for(const extra of [{classification:'unsupported'},{acceptable:false}])assert.ok(auditClaims([unit],[{...base,...extra}],[]).issues.includes('unsupported_claim'));
 });
-test('Provider schema forces inventory length and allowed IDs without modifying shared schema',()=>{
+test('Provider uses constant-size partition schema; local validator enforces IDs and coverage',()=>{
  const a=claimUnits({contactPlan:{contactReason:'Programa anunciado'},text:'Olá. Há uma página do programa?'}),b=claimUnits({text:'Obrigado.'});
  const sa=claimAuditSchema(a),sb=claimAuditSchema(b);
- assert.equal(sa.type,'OBJECT');assert.deepEqual(sa.required,a.map(x=>x.id));assert.equal(Object.keys(sb.properties).length,b.length);
- const item=Object.values(sa.properties)[0].properties.parts.items;assert.ok(!item.required.includes('classification'));assert.ok(!item.required.includes('language'));assert.ok(item.required.includes('commitment'));
+ assert.equal(sa.type,'ARRAY');assert.deepEqual(sa,sb);assert.deepEqual(sa.items.required,['id','parts']);
+ const item=sa.items.properties.parts.items;assert.ok(!item.required.includes('classification'));assert.ok(!item.required.includes('language'));assert.ok(item.required.includes('commitment'));
 });
 test('Omitted real plan units are pinpointed, not hidden behind a generic code',async()=>{
  const d=await historical('bruma-social'),candidate=d.generatedCandidates[0];
