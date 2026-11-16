@@ -1,4 +1,5 @@
 // Prepared only. Running this suite requires the owner's separate approval.
+import {liveOutcome} from './prime-live-outcome.mjs';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {refinementCases} from './prime-refinement-cases.mjs';
 import {requestModelDraft,prepareDecision,GEMINI_MODEL} from '../src/advisor.js';
@@ -23,7 +24,7 @@ for(const item of refinementCases){
   e.pass=!item.expectedDecision&&r.generationMeta.qualityReview==='gemini_semantic_and_local'&&r.generationMeta.claimLedger.length>0&&Object.values(r.generationMeta.qualityAssessment).every(x=>x==='pass');
  }catch(err){
   e.error={code:err.code||'unknown',httpStatus:err.httpStatus||null,stage:err.stage||null};e.telemetry=err.telemetry||null;e.plan=err.contactPlan||null;
-  e.pass=!!item.expectedDecision&&err.code===item.expectedDecision;
+  Object.assign(e,liveOutcome(item,err,e.plan));
   if(['quota_exceeded','invalid_key','permission_denied','invalid_request','invalid_model','model_unavailable'].includes(err.code))stopReason=err.code;
   if(['timeout','network_error','provider_unavailable'].includes(err.code)&&++providerFailures>=2)stopReason='provider_unreliable';
   if(totalCalls>=20)stopReason='suite_budget';

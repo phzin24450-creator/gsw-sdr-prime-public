@@ -1,4 +1,4 @@
-import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, evidenceScope, repairFindings } from './claims.js';
+import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, evidenceScope, repairFindings, claimAuditSchema } from './claims.js';
 import { classify, fold, INTENTS } from './intent.js';
 import { MODES } from './core.js';
 
@@ -103,9 +103,10 @@ async function semanticReview({assessment,prompt,apiKey,model,fetcher,trace,time
  const context={turnPurpose:input.turnPurpose,history:input.history,latestMessage:input.latestMessage,
   interlocutorDeclared:input.interlocutorDeclared,commercialSignals:input.commercialSignals,
   evidenceRegister:input.evidenceRegister.map(e=>({...e,scope:evidenceScope(e)}))};
+ const schema={...REVIEW_SCHEMA,properties:{...REVIEW_SCHEMA.properties,claimAudit:claimAuditSchema(units)}};
  const data=await modelJSON(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
   method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
-  body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:JSON.stringify({context,draft:{text:assessment.text},claimUnits:units})}]}],generationConfig:{temperature:0,maxOutputTokens:2048,thinkingConfig:{thinkingLevel:'MINIMAL'},responseMimeType:'application/json',responseSchema:REVIEW_SCHEMA}})
+  body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:JSON.stringify({context,requiredClaimIds:units.map(u=>u.id),claimUnits:units,draft:{text:assessment.text}})}]}],generationConfig:{temperature:0,maxOutputTokens:2048,thinkingConfig:{thinkingLevel:'MINIMAL'},responseMimeType:'application/json',responseSchema:schema}})
  },{fetcher,trace,stage:'semantic_review',timeoutMs});
  let verdict;try{const candidate=data.candidates?.[0];if(data.promptFeedback?.blockReason||candidate?.finishReason!=='STOP')throw Error();verdict=JSON.parse(candidate.content.parts.filter(p=>!p.thought).map(p=>p.text||'').join(''));}catch{throw new GenerationError('invalid_response')}
  if((!Number.isInteger(verdict.questionCount)||verdict.questionCount<0)||!Array.isArray(verdict.unsupportedClaims)||['wrongIdentity','repeatedQuestion','pressureAfterRefusal','genericApproach','strategyConsistent'].some(k=>typeof verdict[k]!=='boolean'))throw new GenerationError('invalid_response');
