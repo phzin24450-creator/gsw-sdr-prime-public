@@ -57,6 +57,8 @@ async function modelJSON(url, options, {fetcher,trace,stage,timeoutMs=45000}) {
  if(remaining<=0||trace.calls.length>=4)throw new GenerationError('timeout');
  const timeout=Math.min(45000,timeoutMs,remaining);
  const call={stage,attempt:trace.calls.length+1,requestBytes:Buffer.byteLength(options.body),httpStatus:null,durationMs:0,timeoutMs:timeout};
+ const requestedThinking=JSON.parse(options.body).generationConfig?.thinkingConfig?.thinkingLevel;
+ if(['MINIMAL','LOW','MEDIUM','HIGH'].includes(requestedThinking))call.thinkingLevel=requestedThinking;
  trace.calls.push(call);
  const timer=setTimeout(()=>controller.abort(),timeout);
  try {
@@ -106,7 +108,7 @@ async function semanticReview({assessment,prompt,apiKey,model,fetcher,trace,time
  const schema={...REVIEW_SCHEMA,properties:{...REVIEW_SCHEMA.properties,claimAudit:claimAuditSchema(units)}};
  const data=await modelJSON(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
   method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
-  body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:JSON.stringify({context,requiredClaimIds:units.map(u=>u.id),claimUnits:units,decision:{contactPlan:assessment.contactPlan||null,strategy:assessment.strategy,interlocutor:assessment.interlocutor||null,unknowns:assessment.unknowns||[]},draft:{text:assessment.text}})}]}],generationConfig:{temperature:0,maxOutputTokens:4096,thinkingConfig:{thinkingLevel:'MINIMAL'},responseMimeType:'application/json',responseSchema:schema}})
+  body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:JSON.stringify({context,requiredClaimIds:units.map(u=>u.id),claimUnits:units,decision:{contactPlan:assessment.contactPlan||null,strategy:assessment.strategy,interlocutor:assessment.interlocutor||null,unknowns:assessment.unknowns||[]},draft:{text:assessment.text}})}]}],generationConfig:{temperature:0,maxOutputTokens:4096,thinkingConfig:{thinkingLevel:'MEDIUM'},responseMimeType:'application/json',responseSchema:schema}})
  },{fetcher,trace,stage:'semantic_review',timeoutMs});
  let verdict;try{const candidate=data.candidates?.[0];if(data.promptFeedback?.blockReason||candidate?.finishReason!=='STOP')throw Error();verdict=JSON.parse(candidate.content.parts.filter(p=>!p.thought).map(p=>p.text||'').join(''));}catch{throw new GenerationError('invalid_response')}
  if((!Number.isInteger(verdict.questionCount)||verdict.questionCount<0)||!Array.isArray(verdict.unsupportedClaims)||['wrongIdentity','repeatedQuestion','pressureAfterRefusal','genericApproach','strategyConsistent'].some(k=>typeof verdict[k]!=='boolean'))throw new GenerationError('invalid_response');
@@ -154,7 +156,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     let data;
     try {data=await modelJSON(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
       method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
-      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:2048,thinkingConfig:{thinkingLevel:'MINIMAL'},responseMimeType:'application/json',responseSchema:COMMERCIAL_SCHEMA}})
+      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:4096,thinkingConfig:{thinkingLevel:'MEDIUM'},responseMimeType:'application/json',responseSchema:COMMERCIAL_SCHEMA}})
     },{fetcher,trace,stage:'generation',timeoutMs:config.timeoutMs});
     }catch(error){
       if([500,502,503,504].includes(error.httpStatus)&&!config.transientRetry&&!config.qualityRetry)

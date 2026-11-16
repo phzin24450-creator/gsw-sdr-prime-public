@@ -66,3 +66,18 @@ test('Legitimate partition preserves a functional benefit and a single question'
  const result=auditClaims([unit],[{id:unit.id,parts:[part]}],register);
  assert.deepEqual(result.issues,[]);assert.equal(result.ledger[0].text,unit.text);
 });
+
+test('Reasoning budget is bounded, recorded without thought text, and final text remains original',async()=>{
+ const text='A página poderia reunir o programa e o link de inscrição que vocês já têm.';
+ const response=x=>({ok:true,status:200,json:async()=>({usageMetadata:{promptTokenCount:100,candidatesTokenCount:100,thoughtsTokenCount:200,totalTokenCount:400},candidates:[{finishReason:'STOP',content:{parts:[{thought:true,text:'PRIVATE-THOUGHT-FIXTURE'},{text:JSON.stringify(x)}]}}]})});
+ let calls=0;
+ const result=await requestModelDraft(conversation,decision,{geminiApiKey:'fixture'},async(url,options)=>{
+  const body=JSON.parse(options.body);calls++;
+  assert.equal(body.generationConfig.thinkingConfig.thinkingLevel,'MEDIUM');
+  assert.equal(body.generationConfig.maxOutputTokens,4096);
+  if(!body.generationConfig.responseSchema.properties.questionCount)return response({strategy:'valor',text});
+  return response({...transportAudit(options),questionCount:0,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'Transport fixture'});
+ });
+ assert.equal(calls,2);assert.equal(result.text,text);assert.ok(!JSON.stringify(result).includes('PRIVATE-THOUGHT-FIXTURE'));
+ for(const call of result.generationMeta.telemetry.calls){assert.equal(call.thinkingLevel,'MEDIUM');assert.equal(call.timeoutMs,45000);assert.equal(call.tokens.thoughtsTokenCount,200);}
+});
