@@ -1,0 +1,775 @@
+{
+  "id": "objecao-fornecedor",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "SERVICES",
+    "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+    "commercialContext": {
+      "company": "Trilha Viva Fictícia",
+      "sector": "Passeios guiados"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "inbound",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+      },
+      {
+        "direction": "outbound",
+        "text": "Podemos avaliar uma página dedicada à expedição."
+      },
+      {
+        "direction": "inbound",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "decidir pelo contexto",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Trilha Viva Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Passeios guiados",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom.",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      },
+      {
+        "id": "inbound:1",
+        "kind": "client_statement",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 4,
+  "generatedCandidates": [
+    {
+      "text": "A intenção não é substituir o trabalho da sua agência nem alterar o seu site institucional. Como o seu objetivo é apresentar especificamente a expedição de observação de aves, podemos estruturar uma landing page independente para esse serviço. Ela funcionaria como um destino exclusivo para essa oferta, sem tocar na estrutura que você já mantém. Faz sentido explorarmos essa possibilidade?",
+      "decision": {
+        "strategy": "objecao",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "strong",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0",
+            "inbound:1"
+          ],
+          "buyerTask": "apresentar a expedição de observação de aves",
+          "contactReason": "o cliente deseja divulgar um serviço específico sem alterar o site institucional mantido pela agência atual",
+          "pageRole": "conter exclusivamente as informações e o próximo passo para os interessados na expedição, operando de forma independente do site principal",
+          "nextMove": "validar se a criação de uma página isolada atende ao desejo de manter a agência atual para o site",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "se o cliente aceita uma página independente do site atual"
+        ],
+        "nextStep": ""
+      }
+    },
+    {
+      "text": "A intenção não é substituir sua agência nem alterar o site que você já mantém. A landing page é uma página dedicada exclusivamente a essa expedição de observação de aves, focada em apresentar os detalhes e o próximo passo para o interessado. Como ela é um projeto à parte, ela não precisa interferir no seu site institucional. Faz sentido explorarmos como essa página poderia ser estruturada para o seu objetivo?",
+      "decision": {
+        "strategy": "objecao",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0",
+            "inbound:1"
+          ],
+          "buyerTask": "apresentar a expedição de observação de aves",
+          "contactReason": "esclarecer a viabilidade de uma landing page para um serviço específico sem substituir o site ou a agência atual",
+          "pageRole": "concentrar informações e o próximo passo para o interessado na expedição",
+          "nextMove": "verificar se o cliente deseja conhecer como uma landing page pode atuar em paralelo ao site",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "preferência técnica por integração ou página isolada"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "A intenção não é substituir o trabalho da sua agência nem alterar o seu site institucional. Como o seu objetivo é apresentar especificamente a expedição de observação de aves, podemos estruturar uma landing page independente para esse serviço. Ela funcionaria como um destino exclusivo para essa oferta, sem tocar na estrutura que você já mantém. Faz sentido explorarmos essa possibilidade?",
+      "issues": [
+        "unsupported_claim",
+        "unbounded_inference",
+        "factualSafety"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "apresentar a expedição de observação de aves",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "Quero apresentar só nossa expedição fictícia de observação de aves.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A proposta de função está alinhada com o desejo expresso pelo cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "o cliente deseja divulgar um serviço específico sem alterar o site institucional mantido pela agência atual",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "inbound:1",
+              "quote": "Minha agência já cuida dele e não quero trocar de fornecedor.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "O fato reflete a declaração direta do cliente sobre a gestão atual.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "conter exclusivamente as informações e o próximo passo para os interessados na expedição, operando de forma independente do site principal",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "implementation",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A proposta de uma página independente é tecnicamente possível dentro do portfólio, mas a afirmação de que ela operará sem interferência técnica no site principal é uma premissa não sustentada.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u3",
+          "path": "contactPlan.nextMove",
+          "text": "validar se a criação de uma página isolada atende ao desejo de manter a agência atual para o site",
+          "role": "planned_action",
+          "reviewerClassification": null,
+          "commitment": "intention",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "A intenção de validar a compatibilidade com a agência atual é uma ação de planejamento adequada.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma",
+          "role": "research_status",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Não há necessidade de pesquisa externa no momento, pois o foco é a viabilidade da proposta.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "O papel do interlocutor não foi declarado e permanece desconhecido.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6",
+          "path": "unknowns.0",
+          "text": "se o cliente aceita uma página independente do site atual",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "A aceitação do cliente sobre a solução proposta é uma lacuna a ser preenchida.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u7",
+          "path": "text",
+          "text": "A intenção não é substituir o trabalho da sua agência nem alterar o seu site institucional. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "intention",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Declara a intenção de não interferir na relação do cliente com terceiros.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "Como o seu objetivo é apresentar especificamente a expedição de observação de aves, podemos estruturar uma landing page independente para esse serviço. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A oferta de landing page está dentro do escopo da marca.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Ela funcionaria como um destino exclusivo para essa oferta, sem tocar na estrutura que você já mantém. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "implementation",
+          "language": "conditional",
+          "evidence": [],
+          "reason": "Afirma que a página não tocará na estrutura atual, o que é uma premissa técnica não sustentada por evidência de compatibilidade entre sistemas.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Faz sentido explorarmos essa possibilidade?",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "question",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta aberta para verificar o interesse do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "revise",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "unsupported_claim",
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "conter exclusivamente as informações e o próximo passo para os interessados na expedição, operando de forma independente do site principal",
+          "reason": "A proposta de uma página independente é tecnicamente possível dentro do portfólio, mas a afirmação de que ela operará sem interferência técnica no site principal é uma premissa não sustentada."
+        },
+        {
+          "code": "unbounded_inference",
+          "id": "u9",
+          "path": "text",
+          "text": "Ela funcionaria como um destino exclusivo para essa oferta, sem tocar na estrutura que você já mantém. ",
+          "reason": "A possibilidade precisa de fundamento e linguagem proporcional. Proposta interna não é constatação sobre o prospect."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u9",
+          "path": "text",
+          "text": "Ela funcionaria como um destino exclusivo para essa oferta, sem tocar na estrutura que você já mantém. ",
+          "reason": "Afirma que a página não tocará na estrutura atual, o que é uma premissa técnica não sustentada por evidência de compatibilidade entre sistemas."
+        },
+        {
+          "code": "semantic_criticism",
+          "text": "operando de forma independente do site principal; sem tocar na estrutura que você já mantém",
+          "reason": "As unidades u2 e u9 foram marcadas como inaceitáveis pois afirmam que a nova página não interferirá na estrutura atual do site, o que é uma premissa técnica não sustentada. O restante do plano e da mensagem está adequado."
+        },
+        {
+          "code": "factualSafety",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "As unidades u2 e u9 foram marcadas como inaceitáveis pois afirmam que a nova página não interferirá na estrutura atual do site, o que é uma premissa técnica não sustentada. O restante do plano e da mensagem está adequado."
+    },
+    {
+      "text": "A intenção não é substituir sua agência nem alterar o site que você já mantém. A landing page é uma página dedicada exclusivamente a essa expedição de observação de aves, focada em apresentar os detalhes e o próximo passo para o interessado. Como ela é um projeto à parte, ela não precisa interferir no seu site institucional. Faz sentido explorarmos como essa página poderia ser estruturada para o seu objetivo?",
+      "issues": [
+        "claim_not_entailed",
+        "unsupported_claim",
+        "factualSafety",
+        "multiple_questions"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "apresentar a expedição de observação de aves",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "Quero apresentar só nossa expedição fictícia de observação de aves.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A proposta reflete a necessidade declarada pelo cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer a viabilidade de uma landing page para um serviço específico sem substituir o site ou a agência atual",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "implementation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A landing page é um produto da agência, mas a viabilidade técnica de não interferência no site de terceiros é uma premissa não sustentada.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "concentrar informações e o próximo passo para o interessado na expedição",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [],
+          "reason": "Descreve a função proposta da página sem prometer resultados.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3",
+          "path": "contactPlan.nextMove",
+          "text": "verificar se o cliente deseja conhecer como uma landing page pode atuar em paralelo ao site",
+          "role": "planned_action",
+          "reviewerClassification": null,
+          "commitment": "question",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta legítima para verificar o interesse do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma",
+          "role": "research_status",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Não há necessidade de pesquisa adicional no momento.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "O papel do interlocutor não foi identificado.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6",
+          "path": "unknowns.0",
+          "text": "preferência técnica por integração ou página isolada",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "function",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Lacuna sobre a preferência técnica do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u7",
+          "path": "text",
+          "text": "A intenção não é substituir sua agência nem alterar o site que você já mantém. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "implementation",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Afirmação sobre a intenção da agência, mas a viabilidade técnica de não interferência não é comprovada.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "A landing page é uma página dedicada exclusivamente a essa expedição de observação de aves, focada em apresentar os detalhes e o próximo passo para o interessado. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "Define a função da landing page conforme o portfólio da agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Como ela é um projeto à parte, ela não precisa interferir no seu site institucional. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "implementation",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Afirma que não precisa interferir no site, o que é uma premissa técnica não sustentada.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Faz sentido explorarmos como essa página poderia ser estruturada para o seu objetivo?",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "question",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta aberta para progressão da conversa.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "revise",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "claim_not_entailed",
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer a viabilidade de uma landing page para um serviço específico sem substituir o site ou a agência atual",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer a viabilidade de uma landing page para um serviço específico sem substituir o site ou a agência atual",
+          "reason": "A landing page é um produto da agência, mas a viabilidade técnica de não interferência no site de terceiros é uma premissa não sustentada."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u7",
+          "path": "text",
+          "text": "A intenção não é substituir sua agência nem alterar o site que você já mantém. ",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u7",
+          "path": "text",
+          "text": "A intenção não é substituir sua agência nem alterar o site que você já mantém. ",
+          "reason": "Afirmação sobre a intenção da agência, mas a viabilidade técnica de não interferência não é comprovada."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u9",
+          "path": "text",
+          "text": "Como ela é um projeto à parte, ela não precisa interferir no seu site institucional. ",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u9",
+          "path": "text",
+          "text": "Como ela é um projeto à parte, ela não precisa interferir no seu site institucional. ",
+          "reason": "Afirma que não precisa interferir no site, o que é uma premissa técnica não sustentada."
+        },
+        {
+          "code": "semantic_criticism",
+          "text": "A landing page não precisa interferir no seu site institucional.",
+          "reason": "As unidades u1, u7 e u9 afirmam viabilidade técnica de não interferência no site de terceiros sem evidência. Embora a landing page seja um produto da agência, a independência técnica em relação a um site gerido por outra agência não é um fato garantido."
+        },
+        {
+          "code": "factualSafety",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        },
+        {
+          "code": "multiple_questions",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "As unidades u1, u7 e u9 afirmam viabilidade técnica de não interferência no site de terceiros sem evidência. Embora a landing page seja um produto da agência, a independência técnica em relação a um site gerido por outra agência não é um fato garantido."
+    }
+  ],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "quality_block",
+    "httpStatus": null,
+    "stage": "semantic_review"
+  },
+  "telemetry": {
+    "startedAt": 1794824087817,
+    "calls": [
+      {
+        "stage": "generation",
+        "attempt": 1,
+        "requestBytes": 11600,
+        "httpStatus": 200,
+        "durationMs": 1493,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2048,
+          "candidatesTokenCount": 321,
+          "totalTokenCount": 2369
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 2,
+        "requestBytes": 20656,
+        "httpStatus": 200,
+        "durationMs": 4599,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2149,
+          "candidatesTokenCount": 1196,
+          "totalTokenCount": 3345
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "generation",
+        "attempt": 3,
+        "requestBytes": 15860,
+        "httpStatus": 200,
+        "durationMs": 3277,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2899,
+          "candidatesTokenCount": 319,
+          "totalTokenCount": 3218
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 4,
+        "requestBytes": 20638,
+        "httpStatus": 200,
+        "durationMs": 3151,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2157,
+          "candidatesTokenCount": 1090,
+          "totalTokenCount": 3247
+        },
+        "finishReason": "STOP"
+      }
+    ]
+  },
+  "plan": null,
+  "pass": false,
+  "outcome": "quality_block"
+}

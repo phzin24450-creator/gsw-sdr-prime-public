@@ -1,0 +1,720 @@
+{
+  "id": "interesse-explicacao",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Entregar a explicação pedida antes de qualquer pergunta técnica, usando programa e link existentes.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OTHER",
+    "latestMessage": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?",
+    "commercialContext": {
+      "company": "Rumo Idiomas Fictício",
+      "sector": "Idiomas"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "outbound",
+        "text": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?"
+      },
+      {
+        "direction": "inbound",
+        "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "decidir pelo contexto",
+      "answeredQuestionPairs": [
+        {
+          "question": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?",
+          "answer": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+        }
+      ],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Rumo Idiomas Fictício",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Idiomas",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 4,
+  "generatedCandidates": [
+    {
+      "text": "A ideia seria criar um ambiente focado apenas no intensivo, separado do restante da sua comunicação. Nela, organizamos os benefícios do curso, o cronograma e os diferenciais para o público adulto, com o botão de inscrição posicionado logo após as informações principais. Isso ajuda a filtrar quem já tem interesse no programa, entregando o link de inscrição para quem já percorreu o conteúdo. Faz sentido para o que você planejou?",
+      "decision": {
+        "strategy": "valor",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "strong",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "buyerTask": "apresentar o programa de intensivo para adultos",
+          "contactReason": "o lead solicitou explicação sobre como uma página dedicada funcionaria para o programa de intensivo",
+          "pageRole": "organizar o conteúdo do programa e direcionar o interessado diretamente para o link de inscrição",
+          "nextMove": "aguardar retorno sobre a clareza da estrutura proposta",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "decisor",
+          "preferência por agência"
+        ],
+        "nextStep": ""
+      }
+    },
+    {
+      "text": "A ideia é criar uma página focada exclusivamente no intensivo, separada da sua comunicação geral. Nela, organizamos os diferenciais do curso, o cronograma e o público-alvo, permitindo que o interessado consulte esses detalhes antes de seguir para o link de inscrição que você já utiliza. Dessa forma, a página centraliza as informações essenciais para quem busca esse programa específico. O que acha dessa organização?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "strong",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "buyerTask": "apresentar o programa intensivo de conversação para adultos",
+          "contactReason": "interlocutor solicitou explicação sobre como uma página dedicada se aplicaria ao intensivo já existente",
+          "pageRole": "organizar as informações do intensivo e centralizar o acesso ao link de inscrição",
+          "nextMove": "aguardar retorno sobre a adequação da estrutura proposta",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "preferência por agência",
+          "estrutura atual do programa"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "A ideia seria criar um ambiente focado apenas no intensivo, separado do restante da sua comunicação. Nela, organizamos os benefícios do curso, o cronograma e os diferenciais para o público adulto, com o botão de inscrição posicionado logo após as informações principais. Isso ajuda a filtrar quem já tem interesse no programa, entregando o link de inscrição para quem já percorreu o conteúdo. Faz sentido para o que você planejou?",
+      "issues": [
+        "unbounded_inference"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "apresentar o programa de intensivo para adultos",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "já temos o programa",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A proposta de apresentar o programa existente em uma página é uma função legítima de uma landing page.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "o lead solicitou explicação sobre como uma página dedicada funcionaria para o programa de intensivo",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "Como seria essa página?",
+              "relation": "entails"
+            }
+          ],
+          "reason": "O lead solicitou explicitamente a explicação sobre o funcionamento da página.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "organizar o conteúdo do programa e direcionar o interessado diretamente para o link de inscrição",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "inscrição por um link",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A função de organizar conteúdo e direcionar para link é a finalidade técnica de uma landing page.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3",
+          "path": "contactPlan.nextMove",
+          "text": "aguardar retorno sobre a clareza da estrutura proposta",
+          "role": "planned_action",
+          "reviewerClassification": null,
+          "commitment": "intention",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Ação planejada de verificar a aceitação da proposta.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma",
+          "role": "research_status",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Não há lacunas de pesquisa impeditivas para a proposta funcional.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "O interlocutor não se identificou.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6",
+          "path": "unknowns.0",
+          "text": "decisor",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Não há confirmação de que o interlocutor é o decisor.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u7",
+          "path": "unknowns.1",
+          "text": "preferência por agência",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Não há informação sobre preferência por agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "A ideia seria criar um ambiente focado apenas no intensivo, separado do restante da sua comunicação. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A proposta de criar um ambiente focado é consistente com a oferta de landing pages.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Nela, organizamos os benefícios do curso, o cronograma e os diferenciais para o público adulto, com o botão de inscrição posicionado logo após as informações principais. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "já temos o programa",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A organização de conteúdo é uma função técnica da página.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Isso ajuda a filtrar quem já tem interesse no programa, entregando o link de inscrição para quem já percorreu o conteúdo. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [],
+          "reason": "A descrição de como a página auxilia na conversão é uma proposta funcional, não uma garantia de resultado.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u11",
+          "path": "text",
+          "text": "Faz sentido para o que você planejou?",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "question",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta aberta para validar a proposta com o cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "pass",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "unbounded_inference",
+          "id": "u10",
+          "path": "text",
+          "text": "Isso ajuda a filtrar quem já tem interesse no programa, entregando o link de inscrição para quem já percorreu o conteúdo. ",
+          "reason": "A possibilidade precisa de fundamento e linguagem proporcional. Proposta interna não é constatação sobre o prospect."
+        }
+      ],
+      "reviewerFeedback": "A mensagem está clara, profissional e alinhada com as políticas da PRIME, focando na função da página sem prometer resultados de vendas."
+    },
+    {
+      "text": "A ideia é criar uma página focada exclusivamente no intensivo, separada da sua comunicação geral. Nela, organizamos os diferenciais do curso, o cronograma e o público-alvo, permitindo que o interessado consulte esses detalhes antes de seguir para o link de inscrição que você já utiliza. Dessa forma, a página centraliza as informações essenciais para quem busca esse programa específico. O que acha dessa organização?",
+      "issues": [
+        "unbounded_inference"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "apresentar o programa intensivo de conversação para adultos",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "Nosso intensivo é para adultos, já temos o programa e a inscrição por um link.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A proposta de apresentar o programa na página é funcional e alinhada ao que o cliente já possui.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "interlocutor solicitou explicação sobre como uma página dedicada se aplicaria ao intensivo já existente",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "Como seria essa página?",
+              "relation": "entails"
+            }
+          ],
+          "reason": "O interlocutor solicitou explicitamente a explicação.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "organizar as informações do intensivo e centralizar o acesso ao link de inscrição",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A função proposta de organizar informações e centralizar links é compatível com o portfólio da agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3",
+          "path": "contactPlan.nextMove",
+          "text": "aguardar retorno sobre a adequação da estrutura proposta",
+          "role": "planned_action",
+          "reviewerClassification": null,
+          "commitment": "intention",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Ação planejada de aguardar feedback é condizente com a negociação.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma",
+          "role": "research_status",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Não há necessidade de pesquisa adicional para descrever a função da página.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "O papel do interlocutor não foi declarado.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6",
+          "path": "unknowns.0",
+          "text": "preferência por agência",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Não há informação sobre a preferência por agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u7",
+          "path": "unknowns.1",
+          "text": "estrutura atual do programa",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "observation",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "A estrutura detalhada do programa ainda não foi fornecida.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "A ideia é criar uma página focada exclusivamente no intensivo, separada da sua comunicação geral. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "Proposta de criação de página focada é uma função legítima da agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Nela, organizamos os diferenciais do curso, o cronograma e o público-alvo, permitindo que o interessado consulte esses detalhes antes de seguir para o link de inscrição que você já utiliza. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "já temos o programa e a inscrição por um link",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A proposta de organizar o conteúdo existente é funcional e não promete resultados.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Dessa forma, a página centraliza as informações essenciais para quem busca esse programa específico. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [],
+          "reason": "A descrição da centralização de informações é uma proposta funcional.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u11",
+          "path": "text",
+          "text": "O que acha dessa organização?",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "question",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta aberta sobre a opinião do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "pass",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "unbounded_inference",
+          "id": "u10",
+          "path": "text",
+          "text": "Dessa forma, a página centraliza as informações essenciais para quem busca esse programa específico. ",
+          "reason": "A possibilidade precisa de fundamento e linguagem proporcional. Proposta interna não é constatação sobre o prospect."
+        }
+      ],
+      "reviewerFeedback": "A mensagem está clara, profissional e responde diretamente à solicitação do cliente sem promessas indevidas."
+    }
+  ],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "quality_block",
+    "httpStatus": null,
+    "stage": "semantic_review"
+  },
+  "telemetry": {
+    "startedAt": 1794824069465,
+    "calls": [
+      {
+        "stage": "generation",
+        "attempt": 1,
+        "requestBytes": 11377,
+        "httpStatus": 200,
+        "durationMs": 1462,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2001,
+          "candidatesTokenCount": 298,
+          "totalTokenCount": 2299
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 2,
+        "requestBytes": 21333,
+        "httpStatus": 200,
+        "durationMs": 3737,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2135,
+          "candidatesTokenCount": 1178,
+          "totalTokenCount": 3313
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "generation",
+        "attempt": 3,
+        "requestBytes": 12807,
+        "httpStatus": 200,
+        "durationMs": 1382,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2283,
+          "candidatesTokenCount": 300,
+          "totalTokenCount": 2583
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 4,
+        "requestBytes": 21336,
+        "httpStatus": 200,
+        "durationMs": 3760,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2133,
+          "candidatesTokenCount": 1192,
+          "totalTokenCount": 3325
+        },
+        "finishReason": "STOP"
+      }
+    ]
+  },
+  "plan": null,
+  "pass": false,
+  "outcome": "quality_block"
+}
