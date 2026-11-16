@@ -44,3 +44,25 @@ test('Reviewer receives complete commercial decision and only customer text as d
  });
  assert.equal(reviewed,true);
 });
+
+test('Mixed sentence partitions cannot hide a guarantee behind a legitimate function',()=>{
+ const unit=claimUnits({text:'A página pode reunir a coleção, garantindo independência das redes.'})[0];
+ const annotate=(text,domain,commitment)=>({text,domain,commitment,evidence:[{...ref,relation:'entails'}],reason:'Explicit expert annotation',acceptable:true,missingAction:'none'});
+ const parts=[annotate('A página pode reunir a coleção, ','function','functional_proposal'),annotate('garantindo independência das redes.','implementation','fact')];
+ const result=auditClaims([unit],[{id:unit.id,parts}],register);
+ assert.ok(result.issues.includes('claim_not_entailed'));
+ assert.equal(result.ledger.map(c=>c.text).join(''),unit.text);
+ assert.equal(result.findings[0].text,'garantindo independência das redes.');
+});
+test('Literal partitions cannot omit, paraphrase or reorder any clause',()=>{
+ const unit=claimUnits({text:'Vi a coleção, que está muito bem organizada.'})[0];
+ for(const parts of [[{text:'Vi a coleção.'}],[{text:'que está muito bem organizada.'},{text:'Vi a coleção, '}],[]]){
+  assert.ok(auditClaims([unit],[{id:unit.id,parts}],register).issues.includes('incomplete_claim_partition'));
+ }
+});
+test('Legitimate partition preserves a functional benefit and a single question',()=>{
+ const unit=claimUnits({text:'Uma página pode reunir o programa e o link.'})[0];
+ const part={text:unit.text,commitment:'functional_proposal',domain:'function',evidence:[ref],reason:'Function supported',acceptable:true,missingAction:'none'};
+ const result=auditClaims([unit],[{id:unit.id,parts:[part]}],register);
+ assert.deepEqual(result.issues,[]);assert.equal(result.ledger[0].text,unit.text);
+});
