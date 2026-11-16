@@ -1,0 +1,9 @@
+{
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "totalCalls": 4,
+  "maxCalls": 15,
+  "failed": 5,
+  "stopReason": "provider_unreliable",
+  "commercialApproval": "Pending human evaluation"
+}
