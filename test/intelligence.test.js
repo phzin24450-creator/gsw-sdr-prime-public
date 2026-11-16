@@ -1,3 +1,4 @@
+import {transportAudit} from './helpers/claim-review.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { commercialSignals } from '../src/intelligence.js';
@@ -7,7 +8,7 @@ import { draftVisual } from '../src/visual.js';
 import { createStore } from '../src/core.js';
 const decision=text=>({latest:{text},intent:'OTHER'});
 const conversation=text=>({mode:'HUMAN',context:{company:'Brisa Técnica Climatização',sector:'Climatização'},messages:[{id:'1',direction:'inbound',text}]});
-const audit=o=>({messageSegments:[{text:JSON.parse(JSON.parse(o.body).contents[0].parts[0].text).draft.text,acceptable:true,assessment:'Synthetic transport fixture'}],factChecks:[],feedback:''});
+const audit=o=>({...transportAudit(o),messageSegments:[{text:JSON.parse(JSON.parse(o.body).contents[0].parts[0].text).draft.text,acceptable:true,assessment:'Synthetic transport fixture'}],factChecks:[],feedback:''});
 const acceptedReview=o=>response(JSON.stringify({...audit(o),questionCount:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true}));
 const response=text=>({ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text}]}}]})});
 for(const [text,role] of [

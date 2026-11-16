@@ -1,0 +1,146 @@
+{
+  "id": "vertice-turma",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Investigar página específica para a turma antes de ofertar outra página.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "vertice.example.invalid",
+      "verifiedOn": "2026-11-15"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Vértice Escola Fictícia",
+      "sector": "Cursos livres"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Vértice Escola Fictícia"
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Cursos livres"
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir."
+      }
+    ],
+    "verifiedObservation": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 3,
+  "generatedCandidates": [
+    {
+      "text": "Olá. Sou o Pedro, da PRIME. Acompanhei o post sobre a nova turma de fotografia noturna da Vértice e notei que o link leva para a lista geral de cursos. Faz sentido para vocês concentrar as informações e o próximo passo dessa turma específica em uma página dedicada, ou preferem manter o fluxo atual?",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "divulgar turmas específicas de cursos livres",
+          "contactReason": "observação de que o link de 'Saiba mais' direciona para uma página geral, perdendo a especificidade da oferta de fotografia noturna",
+          "pageRole": "concentrar os detalhes, programa e próxima ação específica para a turma de fotografia noturna",
+          "nextMove": "verificar se a escola utiliza páginas focadas para cada turma ou se centraliza tudo no site geral",
+          "researchNeeded": "nenhuma, a observação é suficiente para o contato"
+        },
+        "knowledge": {
+          "facts": [
+            "A Vértice Escola Fictícia oferece cursos livres",
+            "O post de fotografia noturna leva para a página geral de cursos"
+          ],
+          "indications": [
+            "O fluxo atual pode dificultar o acesso do interessado ao programa específico da turma"
+          ],
+          "hypotheses": [
+            "Uma página dedicada ao curso de fotografia noturna poderia facilitar a conversão de interessados"
+          ],
+          "unknowns": [
+            "Se a escola já utiliza páginas específicas para outros cursos",
+            "Quem é o responsável pelas decisões de marketing da escola"
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "missingEvidence": "interesse da escola em otimizar a jornada de inscrição por curso",
+          "discoveryTarget": "decisor de marketing ou proprietário"
+        },
+        "focus": {
+          "topic": "especificidade da oferta de fotografia noturna",
+          "basis": "hypothesis",
+          "relevance": "melhorar a clareza para o aluno interessado no curso específico"
+        },
+        "interlocutor": "Responsável pela Vértice Escola Fictícia",
+        "evidence": "Post de fotografia noturna redireciona para a página geral de cursos, ocultando detalhes específicos da turma.",
+        "unknowns": [
+          "decisor",
+          "interesse em otimização de conversão"
+        ],
+        "nextStep": "enviar mensagem para o responsável pela Vértice sobre a experiência na página de fotografia"
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human assessment of the full response; not implied by pass",
+  "error": {
+    "code": "timeout",
+    "httpStatus": null,
+    "stage": "semantic_review"
+  },
+  "plan": null,
+  "pass": false
+}

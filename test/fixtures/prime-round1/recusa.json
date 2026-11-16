@@ -1,0 +1,80 @@
+{
+  "id": "recusa",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Encerrar sem chamada Gemini ou nova abordagem.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "latestMessage": "Não temos interesse. Obrigado.",
+    "commercialContext": {
+      "company": "Recusa Fictícia"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "inbound",
+        "text": "Não temos interesse. Obrigado."
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": true,
+      "objectionCues": [],
+      "strategyConstraint": "encerrar cordialmente sem pergunta ou retomada",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "segmento",
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Recusa Fictícia"
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Não temos interesse. Obrigado."
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 0,
+  "generatedCandidates": [],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human assessment of the full response; not implied by pass",
+  "decision": "blocked",
+  "pass": true
+}

@@ -1,0 +1,33 @@
+{
+  "baseCommit": "e20e4bf2938c04c341814f32eca31b413650189a",
+  "previousRun": 43762062968,
+  "node": {
+    "total": 163,
+    "passed": 163,
+    "failed": 0
+  },
+  "ui": {
+    "widths": [
+      360,
+      1440
+    ],
+    "modes": [
+      "rules",
+      "simulated_gemini"
+    ],
+    "physicalAndroid": false
+  },
+  "newRealGeminiCalls": 0,
+  "liveApproval": "pending",
+  "scope": "isolated commercial reasoning branch; no workflows changed",
+  "baselineEvidenceHashes": {
+    "pesquisa-insuficiente.json": "723744b62f7772f9d6739947556ce13cb4cfd57517e08077a95395383108add3",
+    "ipe-madeira.json": "3d953ab3952c3d7889a3a7261168d88d2242cae9070b35cb6c53df0aef16fbcc",
+    "interesse-explicacao.json": "65ae3e773129587796d41864b0993641726b8a5b970990d8353f9c330a217585",
+    "objecao-fornecedor.json": "17e0aba94b81378b8769bd879cd82fcc8c7266e8b2154da213317abe0c0314f5",
+    "recusa.json": "3e95544055ff77e237de4c069d06f6802115168fa6ebf20637024c83feb51e8e",
+    "bruma-social.json": "e39a92aa695e558fbd2184405d2765544717bfabef40a361761936e4a659f47a",
+    "optout.json": "25aeec69814f57952f73b8db38bccad4515bca5cc561a182733113ddeb8d8832",
+    "vertice-turma.json": "19b6d92ab7c8e51ceffc701bfb8cfe7f9b168dc7e76b0e8877fdccb786ee3d20"
+  }
+}

@@ -208,7 +208,7 @@ export async function draftVisual(data, { blocked = false, opening = false, conf
   // Optional operator research keeps phone-free cold outreach available through the existing API.
   // This is not inferred from the screenshot and cannot override system rules.
   if(data.research&&typeof data.research==='object'){
-    for(const field of ['observation','sourceUrl','verifiedOn'])if(typeof data.research[field]==='string')context[field]=data.research[field].slice(0,1000);
+    for(const field of ['observation','sourceUrl','verifiedOn'])if(typeof data.research[field]==='string'&&data.research[field].length<=1000)context[field]=data.research[field];
   }
   const conversation = { mode: MODES.HUMAN, context, messages };
   const decision = prepareDecision(conversation, { manual: true, opening });

@@ -1,3 +1,4 @@
+import { evidenceScope } from './claims.js';
 import { PRIME_POLICY } from './brand.js';
 import { fold } from './intent.js';
 import { commercialSignals } from './intelligence.js';
@@ -24,7 +25,9 @@ function publicObservation(context, now) {
     const url = new URL(context.sourceUrl);
     if (url.protocol !== 'https:' || url.username || url.password || !url.hostname.includes('.')) return '';
   } catch { return ''; }
-  return minimize(context.observation, 200);
+  // Never retain the positive half of an observation while dropping its caveat.
+  if(String(context.observation).length>1000)return '';
+  return minimize(context.observation, 1000);
 }
 
 export function handoffAccepted(latest) {
@@ -53,9 +56,10 @@ export function commercialPrompt(conversation, decision, config = {}) {
         {id:'policy:portfolio',kind:'current_brand_policy',text:'A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.'},
         {id:'policy:sender',kind:'current_brand_policy',text:'Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.'},
         ...Object.entries(commercialContext).map(([key,value])=>({id:'context:'+key,kind:['goal','offer'].includes(key)?'operator_intention':'operator_record',text:value})),
+        ...(raw.interlocutor?[{id:'context:interlocutor',kind:'operator_record',text:minimize(raw.interlocutor,200)}]:[]),
         ...(observation?[{id:'public:observation',kind:'provided_verified_observation',text:observation}]:[]),
         ...(conversation.messages||[]).filter(m=>m.direction==='inbound').map((m,i)=>({id:'inbound:'+i,kind:'client_statement',text:minimize(m.text,1000)}))
-      ],
+      ].map(source=>({...source,scope:evidenceScope(source)})),
       verifiedObservation:observation||null, handoffAccepted:handoffAccepted(decision.latest.text),
       regenerate:config.regenerate===true})
   };

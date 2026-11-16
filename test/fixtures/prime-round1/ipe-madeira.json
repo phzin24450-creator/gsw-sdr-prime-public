@@ -1,0 +1,246 @@
+{
+  "id": "ipe-madeira",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Relacionar projetos de cozinhas e destino observado sem afirmar inexistência de site.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "ipe.example.invalid",
+      "verifiedOn": "2026-11-15"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Ipê Madeira Fictícia",
+      "sector": "Marcenaria"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Ipê Madeira Fictícia"
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Marcenaria"
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço."
+      }
+    ],
+    "verifiedObservation": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 2,
+  "generatedCandidates": [
+    {
+      "text": "Olá. Acompanhei o trabalho de vocês na Ipê Madeira Fictícia e as cozinhas autorais estão muito bem feitas. Notei que hoje vocês concentram a apresentação dos projetos no Instagram. Sou o Pedro, da PRIME, e trabalho com a criação de sites profissionais focados justamente em organizar esse portfólio para facilitar o acesso de quem busca conhecer seus projetos. Você já considerou ter um espaço próprio para exibir esses trabalhos ou o Instagram atende bem o que você precisa hoje?",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "site",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "apresentar portfólio de cozinhas autorais",
+          "contactReason": "observação de que a marcenaria utiliza apenas o Instagram para exibir projetos",
+          "pageRole": "organizar e apresentar o portfólio de forma profissional e independente das redes sociais",
+          "nextMove": "validar se o proprietário considera importante ter um espaço próprio para o portfólio",
+          "researchNeeded": "nenhuma necessária para esta abordagem inicial"
+        },
+        "knowledge": {
+          "facts": [
+            "A Ipê Madeira Fictícia atua no setor de marcenaria",
+            "O perfil no Instagram é utilizado para exibir cozinhas autorais",
+            "Não foi localizado domínio próprio vinculado à empresa"
+          ],
+          "indications": [
+            "O contato direto via bio do Instagram sugere um fluxo de atendimento manual"
+          ],
+          "hypotheses": [
+            "Um site permitiria organizar as fotos das cozinhas de forma mais estruturada que o feed"
+          ],
+          "unknowns": [
+            "Se a empresa já avaliou a criação de um site",
+            "Se o volume de clientes via Instagram atende à demanda atual"
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "missingEvidence": "intenção do dono da marcenaria em expandir a presença digital",
+          "discoveryTarget": "percepção sobre a organização atual do portfólio"
+        },
+        "focus": {
+          "topic": "presença digital através de um site profissional",
+          "basis": "hypothesis",
+          "relevance": "a centralização e organização das fotos dos trabalhos autorais"
+        },
+        "interlocutor": "proprietário da Ipê Madeira Fictícia",
+        "evidence": "A empresa utiliza o Instagram como canal principal de exposição de projetos e contato, sem domínio próprio identificado.",
+        "unknowns": [
+          "Interesse atual em mudar a forma de exibição dos projetos"
+        ],
+        "nextStep": "enviar mensagem curta destacando a organização de portfólio"
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human assessment of the full response; not implied by pass",
+  "response": "Olá. Acompanhei o trabalho de vocês na Ipê Madeira Fictícia e as cozinhas autorais estão muito bem feitas. Notei que hoje vocês concentram a apresentação dos projetos no Instagram. Sou o Pedro, da PRIME, e trabalho com a criação de sites profissionais focados justamente em organizar esse portfólio para facilitar o acesso de quem busca conhecer seus projetos. Você já considerou ter um espaço próprio para exibir esses trabalhos ou o Instagram atende bem o que você precisa hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 26101,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de observação, utilizando o contexto disponível sem inventar necessidades ou prometer resultados, mantendo o foco no serviço permitido.",
+    "semanticFactChecks": [
+      {
+        "claim": "A Ipê Madeira Fictícia utiliza o Instagram para exibir cozinhas autorais.",
+        "sourceId": "public:observation",
+        "sourceQuote": "Perfil publica cozinhas autorais e a bio abre WhatsApp.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "A PRIME oferece sites profissionais.",
+        "sourceId": "policy:portfolio",
+        "sourceQuote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Olá.",
+        "assessment": "Saudação padrão, aceitável.",
+        "acceptable": true
+      },
+      {
+        "text": "Acompanhei o trabalho de vocês na Ipê Madeira Fictícia e as cozinhas autorais estão muito bem feitas.",
+        "assessment": "Observação baseada em evidência pública, demonstra interesse genuíno.",
+        "acceptable": true
+      },
+      {
+        "text": "Notei que hoje vocês concentram a apresentação dos projetos no Instagram.",
+        "assessment": "Constatação factual sobre o canal de comunicação do lead.",
+        "acceptable": true
+      },
+      {
+        "text": "Sou o Pedro, da PRIME, e trabalho com a criação de sites profissionais focados justamente em organizar esse portfólio para facilitar o acesso de quem busca conhecer seus projetos.",
+        "assessment": "Apresentação do remetente e do serviço alinhada à política da marca.",
+        "acceptable": true
+      },
+      {
+        "text": "Você já considerou ter um espaço próprio para exibir esses trabalhos ou o Instagram atende bem o que você precisa hoje?",
+        "assessment": "Pergunta exploratória que busca entender a necessidade sem pressupor falha no modelo atual.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "contactPlan": {
+        "action": "draft",
+        "strength": "plausible",
+        "service": "site",
+        "evidenceRefs": [
+          "public:observation"
+        ],
+        "buyerTask": "apresentar portfólio de cozinhas autorais",
+        "contactReason": "observação de que a marcenaria utiliza apenas o Instagram para exibir projetos",
+        "pageRole": "organizar e apresentar o portfólio de forma profissional e independente das redes sociais",
+        "nextMove": "validar se o proprietário considera importante ter um espaço próprio para o portfólio",
+        "researchNeeded": "nenhuma necessária para esta abordagem inicial"
+      },
+      "knowledge": {
+        "facts": [
+          "A Ipê Madeira Fictícia atua no setor de marcenaria",
+          "O perfil no Instagram é utilizado para exibir cozinhas autorais",
+          "Não foi localizado domínio próprio vinculado à empresa"
+        ],
+        "indications": [
+          "O contato direto via bio do Instagram sugere um fluxo de atendimento manual"
+        ],
+        "hypotheses": [
+          "Um site permitiria organizar as fotos das cozinhas de forma mais estruturada que o feed"
+        ],
+        "unknowns": [
+          "Se a empresa já avaliou a criação de um site",
+          "Se o volume de clientes via Instagram atende à demanda atual"
+        ]
+      },
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "public:observation"
+        ],
+        "missingEvidence": "intenção do dono da marcenaria em expandir a presença digital",
+        "discoveryTarget": "percepção sobre a organização atual do portfólio"
+      },
+      "focus": {
+        "topic": "presença digital através de um site profissional",
+        "basis": "hypothesis",
+        "relevance": "a centralização e organização das fotos dos trabalhos autorais"
+      },
+      "interlocutor": "proprietário da Ipê Madeira Fictícia",
+      "evidence": "A empresa utiliza o Instagram como canal principal de exposição de projetos e contato, sem domínio próprio identificado.",
+      "unknowns": [
+        "Interesse atual em mudar a forma de exibição dos projetos"
+      ],
+      "nextStep": "enviar mensagem curta destacando a organização de portfólio"
+    }
+  },
+  "pass": true
+}

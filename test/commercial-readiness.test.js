@@ -1,3 +1,4 @@
+import {transportAudit} from './helpers/claim-review.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createStore} from '../src/core.js';
@@ -11,7 +12,7 @@ const response=x=>({ok:true,json:async()=>({candidates:[{finishReason:'STOP',con
 function transport(contactPlan,text='Há um portfólio próprio para consultar os trabalhos?'){
  return async(_u,o)=>{
   const b=JSON.parse(o.body);
-  if(b.generationConfig.responseSchema.properties.questionCount){const text=JSON.parse(b.contents[0].parts[0].text).draft.text;return response({questionCount:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'Synthetic transport fixture',factChecks:[],messageSegments:[{text,assessment:'Synthetic transport fixture',acceptable:true}]});}
+  if(b.generationConfig.responseSchema.properties.questionCount){const text=JSON.parse(b.contents[0].parts[0].text).draft.text;return response({...transportAudit(o),questionCount:1,unsupportedClaims:[],wrongIdentity:false,repeatedQuestion:false,pressureAfterRefusal:false,genericApproach:false,strategyConsistent:true,feedback:'Synthetic transport fixture',factChecks:[],messageSegments:[{text,assessment:'Synthetic transport fixture',acceptable:true}]});}
   return response({strategy:'descoberta',contactPlan,text});
  };
 }
