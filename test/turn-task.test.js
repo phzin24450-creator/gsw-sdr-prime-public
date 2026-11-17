@@ -24,3 +24,9 @@ test('Real supplier response is safe but bureaucratic; concrete next step remain
  assert.deepEqual(taskIssues(turnTask(d.input),d.response),['bureaucratic_supplier_reply']);
  assert.deepEqual(taskIssues(turnTask(d.input),'Podemos avaliar a apresentação da expedição junto com sua agência antes de definir o formato. Você prefere seguir dessa forma?'),[]);
 });
+
+test('Actual full-round supplier guarantee is rejected locally before semantic review',()=>{
+ const {files}=JSON.parse(readFileSync(new URL('../docs/evidence/prime-full-final-real.json',import.meta.url),'utf8'));
+ const d=files.find(x=>x.file==='objecao-fornecedor.json').data;
+ assert.deepEqual(taskIssues(turnTask(d.input),d.generatedCandidates[0].text),['unverified_supplier_compatibility']);
+});
