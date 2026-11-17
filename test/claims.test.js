@@ -145,3 +145,27 @@ test('Visual research cannot discard the tail of an oversized observation',async
  const r=await draftVisual({reviewed:true,company:'Empresa Fictícia',research},{opening:true,config:{geminiApiKey:'fixture'},fetcher:()=>assert.fail('No call for truncated research')});
  assert.equal(r.ready,false);assert.equal(r.generationMeta.errorCode,'research_required');
 });
+
+test('503 then actual supplier local rejection still allows one reviewed repair within four calls',async()=>{
+ const {files}=JSON.parse(await readFile(new URL('../docs/evidence/prime-full-final-real.json',import.meta.url),'utf8'));
+ const original=files.find(x=>x.file==='objecao-fornecedor.json').data;
+ const c={mode:'HUMAN',context:{},messages:original.input.history};
+ let calls=0;
+ const fixed={strategy:'objecao',text:'Você prefere avaliar a ideia com sua agência antes de definir o formato?'};
+ const r=await requestModelDraft(c,prepareDecision(c,{manual:true}),{geminiApiKey:'fixture'},async(u,o)=>{
+  calls++;
+  if(calls===1)return {ok:false,status:503};
+  if(calls===2)return json({strategy:'objecao',text:original.generatedCandidates[0].text});
+  return json(calls===3?fixed:verdict(o));
+ });
+ assert.equal(calls,4);assert.equal(r.text,fixed.text);
+ assert.deepEqual(r.generationMeta.telemetry.calls.map(x=>x.stage),['generation','generation','generation','semantic_review']);
+});
+test('503 plus a semantic rejection does not exceed four-call repair budget',async()=>{
+ let calls=0;
+ await assert.rejects(requestModelDraft(conversation,prepareDecision(conversation,{manual:true}),{geminiApiKey:'fixture'},async(u,o)=>{
+  calls++;if(calls===1)return {ok:false,status:503};
+  return json(calls===2?draft:verdict(o,{genericApproach:true}));
+ }),e=>e.code==='quality_block');
+ assert.equal(calls,3);
+});
