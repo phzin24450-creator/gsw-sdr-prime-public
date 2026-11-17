@@ -7,10 +7,15 @@ import {commercialPrompt} from '../src/commercial.js';
 if(process.env.PRIME_ROUND2_REAL_AUTHORIZED!=='yes'||!process.env.GEMINI_API_KEY){
  console.error('Rodada real 2 não habilitada: exige autorização específica e segredo dedicado. Zero chamadas.');process.exit(2);
 }
-const maxCalls=process.env.PRIME_LIVE_MAX_CALLS==='15'?15:20;
+const requestedMax=Number(process.env.PRIME_LIVE_MAX_CALLS||20);
+if(!Number.isInteger(requestedMax)||requestedMax<1||requestedMax>20)throw Error('Invalid suite budget');
+const maxCalls=requestedMax;
+const ids=process.env.PRIME_LIVE_CASE_IDS?.split(',');
+if(ids&&ids.some(id=>!refinementCases.some(c=>c.id===id)))throw Error('Unknown fictional case');
+const cases=ids?refinementCases.filter(c=>ids.includes(c.id)||c.expectedDecision):refinementCases;
 const dir='test-results/prime-round2';await mkdir(dir,{recursive:true});
 let failed=0,totalCalls=0,stopReason=null,providerFailures=0;
-for(const item of refinementCases){
+for(const item of cases){
  const context={...item.context,...(item.context.sourceUrl?{verifiedOn:new Date().toISOString().slice(0,10)}:{})};
  const c={mode:'HUMAN',context,messages:item.turns.map(([direction,text],i)=>({id:String(i),direction,text})),drafts:[]};
  const d=prepareDecision(c,{manual:true,opening:!c.messages.length});
