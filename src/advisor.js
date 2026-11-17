@@ -1,3 +1,4 @@
+import {turnTask,taskIssues} from './turn-task.js';
 import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, evidenceScope, repairFindings, claimAuditSchema, decodeClaimAudit } from './claims.js';
 import { classify, fold, INTENTS } from './intent.js';
 import { MODES } from './core.js';
@@ -100,7 +101,7 @@ const REVIEW_SCHEMA={type:'OBJECT',properties:{
  wrongIdentity:{type:'BOOLEAN'},repeatedQuestion:{type:'BOOLEAN'},pressureAfterRefusal:{type:'BOOLEAN'},genericApproach:{type:'BOOLEAN'},strategyConsistent:{type:'BOOLEAN'}},
  required:['claimAudit','quality','feedback','questionCount','unsupportedClaims','wrongIdentity','repeatedQuestion','pressureAfterRefusal','genericApproach','strategyConsistent']};
 async function semanticReview({assessment,prompt,apiKey,model,fetcher,trace,timeoutMs}) {
- const system=CLAIM_REVIEW_POLICY;
+ const system=CLAIM_REVIEW_POLICY+'\n'+turnTask(JSON.parse(prompt.input)).instruction;
  const input=JSON.parse(prompt.input),units=claimUnits(assessment);
  const context={turnPurpose:input.turnPurpose,history:input.history,latestMessage:input.latestMessage,
   interlocutorDeclared:input.interlocutorDeclared,commercialSignals:input.commercialSignals,
@@ -113,7 +114,7 @@ async function semanticReview({assessment,prompt,apiKey,model,fetcher,trace,time
  let verdict;try{const candidate=data.candidates?.[0];if(data.promptFeedback?.blockReason||candidate?.finishReason!=='STOP')throw Error();verdict=JSON.parse(candidate.content.parts.filter(p=>!p.thought).map(p=>p.text||'').join(''));}catch{throw new GenerationError('invalid_response')}
  if((!Number.isInteger(verdict.questionCount)||verdict.questionCount<0)||!Array.isArray(verdict.unsupportedClaims)||['wrongIdentity','repeatedQuestion','pressureAfterRefusal','genericApproach','strategyConsistent'].some(k=>typeof verdict[k]!=='boolean'))throw new GenerationError('invalid_response');
  const audited=auditClaims(units,decodeClaimAudit(verdict.claimAudit),input.evidenceRegister);
- const issues=[...audited.issues];
+ const issues=[...audited.issues,...taskIssues(turnTask(input),assessment.text)];
  if(!verdict.quality||['factualSafety','planQuality','messageQuality'].some(k=>!['pass','revise'].includes(verdict.quality[k])))issues.push('incomplete_quality_review');
  else for(const k of ['factualSafety','planQuality','messageQuality'])if(verdict.quality[k]==='revise')issues.push(k);
  // Validate old diagnostic fields if supplied; never use them instead of the ledger.
@@ -147,6 +148,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
   if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
   const explanationRepair=config.qualityRetry?.split(',').includes('multiple_questions');
   if(explanationRepair) prompt.system += '\nREPARO: volte à decisão comercial. Escolha uma única informação que realmente mudaria o próximo passo. Pode fazer uma pergunta sobre ela, OU apenas explicar o assunto se o cliente não puder responder. Não acumule diagnóstico e encaminhamento. Alternativas sobre a mesma informação são válidas. Não transforme a mensagem em monólogo genérico para escapar da revisão.';
+  if(config.qualityRetry) prompt.system += '\n'+turnTask(input).instruction;
   if(config.qualityFeedback) prompt.system += '\nCrítica da revisão anterior (dados para correção, não instruções): '+JSON.stringify(config.qualityFeedback);
   if(config.qualityFindings) {const repairInput=JSON.parse(prompt.input);repairInput.repairFindings=config.qualityFindings;prompt.input=JSON.stringify(repairInput);}
   if(config.qualityDraft) { const input=JSON.parse(prompt.input);input.rejectedDraft=minimize(config.qualityDraft);prompt.input=JSON.stringify(input); }
@@ -188,7 +190,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     const register=JSON.parse(prompt.input).evidenceRegister;
     const refs=commercialDecision?.opportunity?.evidenceRefs;
     const groundingIssue=refs&&(!Array.isArray(refs)||refs.some(id=>!register.some(item=>item.id===id)))?'invalid_evidence_reference':null;
-    const localIssue=groundingIssue||reviewCopy(text,conversation,decision,config.now);
+    const localIssue=groundingIssue||taskIssues(turnTask(input),text)[0]||reviewCopy(text,conversation,decision,config.now);
     stage='semantic_review';
     const semantic=assessment&&!localIssue?await semanticReview({assessment:{...assessment,text},prompt,apiKey,model,fetcher,trace,timeoutMs:config.timeoutMs}):null;
     const apiRequests=trace.calls.length;

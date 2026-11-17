@@ -6,7 +6,7 @@ export const CLAIM_AUDIT_SCHEMA = {type:'ARRAY',items:{type:'OBJECT',properties:
  commitment:{type:'STRING',enum:['fact','functional_proposal','intention','question','unknown','greeting']},
  id:{type:'STRING'},
  domain:{type:'STRING',enum:CLAIM_DOMAINS},
- evidence:{type:'ARRAY',items:{type:'OBJECT',properties:{sourceId:{type:'STRING'},quote:{type:'STRING'},relation:{type:'STRING',enum:['entails','supports_possibility','does_not_establish','contradicts']}},required:['sourceId','quote','relation']}},
+ evidence:{type:'ARRAY',items:{type:'OBJECT',properties:{sourceId:{type:'STRING'},quote:{type:'STRING',description:'Copie um trecho CONTÍGUO da fonte exatamente, incluindo acentos. Nunca inserir reticências nem juntar trechos separados; use duas referências se necessário.'},relation:{type:'STRING',enum:['entails','supports_possibility','does_not_establish','contradicts']}},required:['sourceId','quote','relation']}},
  reason:{type:'STRING'}, missingAction:{type:'STRING',enum:['none','research','ask','omit']}, acceptable:{type:'BOOLEAN'}},
  required:['commitment','id','domain','evidence','reason','missingAction','acceptable']}};
 
@@ -88,7 +88,7 @@ export function premiseFindings(units,register) {
   const checks=[
    [/\binstagram\b/, /\binstagram\b/, 'Plataforma não identificada pela fonte; preserve a descrição de perfil.'],
    [/\bacompanho\b|\bacompanhei\b/, /\bacompanho\b|\bacompanhei\b/, 'Consulta pontual não comprova acompanhamento; descreva somente o que foi observado.'],
-   [/\b(?:exclusiv[oa]s?|canal principal)\b/, /\b(?:exclusiv[oa]s?|canal principal)\b/, 'A fonte não confirma exclusividade ou canal principal; não pressupor isso em perguntas.']
+   [/\b(?:exclusiv[oa]s?|canal principal|unico canal)\b/, /\b(?:exclusiv[oa]s?|canal principal|unico canal)\b/, 'A fonte não confirma exclusividade ou canal principal; não pressupor isso em perguntas.']
   ];
   for(const [claim,proof,reason]of checks){
    // Exclusive focus of a proposed page is legitimate; channel exclusivity is not.
@@ -146,7 +146,7 @@ export function auditClaims(units,checks,register) {
   if(!metadata&&!proposal&&check.classification==='supported'&&!supported)issue('claim_not_entailed',unit,'A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão.');
   if(!metadata&&check.classification==='admissible_inference'&&((!possible&&!proposal)||(!proposal&&!functionalProposal&&!['conditional','question'].includes(check.language))))issue('unbounded_inference',unit,'Identifique uma fonte literal que sustente ESTA função: policy:functions para capacidade geral de apresentação, e declaração/observação para conteúdo específico. Sem essa relação, remova a conclusão; não basta reescrevê-la no condicional. Resultado sobre pessoas e compatibilidade técnica não são funções de apresentação.');
   if(!metadata&&!proposal&&check.classification==='hypothesis'&&(!['conditional','question'].includes(check.language)||check.missingAction==='none'))issue('unbounded_hypothesis',unit,'Hipótese ao cliente exige linguagem de possibilidade e validação; desconhecidos internos não são afirmações ao cliente.');
-  if(!metadata&&!proposal&&!pureQuestion&&!intention&&check.classification==='non_assertive'&&(check.evidence.length||check.domain!=='other'||!['non_assertive','question'].includes(check.language)))issues.push('invalid_non_assertion');
+  if(!metadata&&!proposal&&!pureQuestion&&!intention&&!(check.commitment==='greeting'&&check.domain==='identity'&&supported)&&check.classification==='non_assertive'&&(check.evidence.length||check.domain!=='other'||!['non_assertive','question'].includes(check.language)))issues.push('invalid_non_assertion');
   if(!metadata&&!proposal&&check.classification==='hypothesis'&&!possible&&['global_absence','channel_exclusivity','relationship','quality','outcome','implementation','identity'].includes(check.domain)&&!unit.path.includes('unknowns')&&!unit.path.includes('knowledge.hypotheses'))issues.push('unsupported_claim');
   if(check.classification==='unsupported'||!check.acceptable||bases.some(b=>b.relation==='contradicts'))issue('unsupported_claim',unit,check.reason);
   if(unit.path.startsWith('knowledge.facts.')&&check.classification!=='supported')issues.push('hypothesis_as_fact');

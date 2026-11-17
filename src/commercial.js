@@ -1,3 +1,4 @@
+import {turnTask} from './turn-task.js';
 import { evidenceScope } from './claims.js';
 import { PRIME_POLICY } from './brand.js';
 import { fold } from './intent.js';
@@ -49,7 +50,7 @@ export function commercialPrompt(conversation, decision, config = {}) {
   const {declaredEvidence,...signalSummary}=signals;
   const drafts = (conversation.drafts ?? []).slice(-3).map(d=>({text:minimize(d.text),note:'Rascunho: NÃO comprova envio nem aceite do lead'}));
   return {
-    system: PLAYBOOK,
+    system: PLAYBOOK+'\n'+turnTask({turnPurpose:decision.opening?'cold_outreach':'reply',verifiedObservation:observation,latestMessage:decision.latest.text}).instruction,
     input: JSON.stringify({turnPurpose:decision.opening?'cold_outreach':'reply',researchAvailable:!!observation,sourceProvenance:observation?{kind:'operator_provided_observation',host:new URL(raw.sourceUrl).hostname,verifiedOn:raw.verifiedOn}:null,senderIdentity:{name:'Pedro',company:'PRIME',role:'proprietário que conduz a negociação'},tone:config.tone||'consultivo',intent:decision.intent, latestMessage:minimize(decision.latest.text,1800),
       commercialContext, interlocutorDeclared:raw.interlocutor?minimize(raw.interlocutor,200):null, history, previousDrafts:drafts, commercialSignals: JSON.parse(JSON.stringify(signalSummary, (key,value)=>typeof value==='string'?minimize(value):value)), operatorFeedback: (conversation.feedback || []).slice(-10), channel:'WhatsApp manual', strategy,strategyHintOnly:true,
       evidenceRegister: [
