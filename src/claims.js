@@ -88,11 +88,18 @@ export function premiseFindings(units,register) {
   const checks=[
    [/\binstagram\b/, /\binstagram\b/, 'Plataforma não identificada pela fonte; preserve a descrição de perfil.'],
    [/\bacompanho\b|\bacompanhei\b/, /\bacompanho\b|\bacompanhei\b/, 'Consulta pontual não comprova acompanhamento; descreva somente o que foi observado.'],
-   [/\b(?:exclusiv[oa]s?|canal principal|unico canal)\b/, /\b(?:exclusiv[oa]s?|canal principal|unico canal)\b/, 'A fonte não confirma exclusividade ou canal principal; não pressupor isso em perguntas.']
+   [/\b(?:exclusiv[oa]s?|(?:canal|rota) principal|unico canal)\b/, /\b(?:exclusiv[oa]s?|(?:canal|rota) principal|unico canal)\b/, 'A fonte não confirma exclusividade ou canal principal; não pressupor isso em perguntas.']
   ];
+  // Specific content described as already available needs its own provenance.
+  // An explicit request to confirm availability remains admissible.
+  if(u.path==='text'&&!/\b(?:se houver|caso tenham|se voces tiverem|voces (?:tem|possuem))\b/.test(text)){
+   for(const term of ['metodologia','diferenciais','depoimentos','cronograma']){
+    if(new RegExp('\\b'+term+'\\b').test(text)&&!new RegExp('\\b'+term+'\\b').test(evidence))findings.push({code:'unconfirmed_content',id:u.id,path:u.path,text:u.text,reason:'O conteúdo '+term+' não foi fornecido. Use apenas o conteúdo confirmado ou pergunte sobre sua existência, sem pressupor disponibilidade.'});
+   }
+  }
   for(const [claim,proof,reason]of checks){
    // Exclusive focus of a proposed page is legitimate; channel exclusivity is not.
-   if(reason.startsWith('A fonte')&&!/atendimento|redes|canal|whatsapp/.test(text))continue;
+   if(reason.startsWith('A fonte')&&!/atendimento|redes|canal|rota|whatsapp/.test(text))continue;
    if(claim.test(text)&&!proof.test(evidence))findings.push({code:'unsupported_premise',id:u.id,path:u.path,text:u.text,reason});
   }
  }

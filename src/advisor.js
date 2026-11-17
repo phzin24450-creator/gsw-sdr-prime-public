@@ -158,7 +158,7 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     let data;
     try {data=await modelJSON(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
       method:'POST',headers:{'x-goog-api-key':apiKey,'content-type':'application/json'},
-      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:4096,thinkingConfig:{thinkingLevel:'MEDIUM'},responseMimeType:'application/json',responseSchema:COMMERCIAL_SCHEMA}})
+      body:JSON.stringify({systemInstruction:{parts:[{text:prompt.system}]},contents:[{role:'user',parts:[{text:prompt.input}]}],generationConfig:{temperature:0.6,maxOutputTokens:4096,thinkingConfig:{thinkingLevel:'MEDIUM'},responseMimeType:'application/json',responseSchema:{...COMMERCIAL_SCHEMA,properties:{...COMMERCIAL_SCHEMA.properties,text:{...COMMERCIAL_SCHEMA.properties.text,description:turnTask(input).instruction},contactPlan:{...COMMERCIAL_SCHEMA.properties.contactPlan,properties:{...COMMERCIAL_SCHEMA.properties.contactPlan.properties,contactReason:{type:'STRING',description:'Somente o detalhe observado ou a fala do cliente que motivou este turno. Sem inferir canal principal, dificuldade, exclusividade, efeitos ou independência técnica.'},nextMove:{type:'STRING',description:turnTask(input).instruction},pageRole:{type:'STRING',description:'Uma função de apresentação do conteúdo confirmado. Não declarar conteúdo extra ou condição técnica.'}}}}}}})
     },{fetcher,trace,stage:'generation',timeoutMs:config.timeoutMs});
     }catch(error){
       if([500,502,503,504].includes(error.httpStatus)&&!config.transientRetry&&!config.qualityRetry)
