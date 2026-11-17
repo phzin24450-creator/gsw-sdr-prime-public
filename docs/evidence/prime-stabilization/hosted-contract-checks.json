@@ -1,0 +1,55 @@
+{
+  "runtime": "hosted JavaScript isolate; not Node/local suite",
+  "nodeSuiteExecuted": false,
+  "geminiCalls": 0,
+  "results": [
+    {
+      "name": "Preserved MINIMAL candidate rejects unproven ipe-madeira/quality",
+      "pass": true
+    },
+    {
+      "name": "Preserved MINIMAL candidate rejects unproven ipe-madeira/relationship",
+      "pass": true
+    },
+    {
+      "name": "Preserved MINIMAL candidate rejects unproven ipe-madeira/channel_exclusivity",
+      "pass": true
+    },
+    {
+      "name": "Preserved MINIMAL candidate rejects unproven vertice-turma/outcome",
+      "pass": true
+    },
+    {
+      "name": "Preserved MINIMAL candidate rejects unproven interesse-explicacao/outcome",
+      "pass": true
+    },
+    {
+      "name": "Preserved MINIMAL candidate rejects unproven objecao-fornecedor/implementation",
+      "pass": true
+    },
+    {
+      "name": "Plan field cannot exempt unsupported factual premise: buyerTask",
+      "pass": true
+    },
+    {
+      "name": "Plan field cannot exempt unsupported factual premise: pageRole",
+      "pass": true
+    },
+    {
+      "name": "Plan field cannot exempt unsupported factual premise: nextMove",
+      "pass": true
+    },
+    {
+      "name": "Plan field cannot exempt unsupported factual premise: researchNeeded",
+      "pass": true
+    },
+    {
+      "name": "Functional plan requires a source and preserves legitimate proposed presentation",
+      "pass": true
+    },
+    {
+      "name": "Actual planned intention and unknown remain exempt from proof of occurrence",
+      "pass": true
+    }
+  ]
+}
