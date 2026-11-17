@@ -26,8 +26,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
           PRIME_ROUND2_REAL_AUTHORIZED: 'yes'
-          PRIME_LIVE_MAX_CALLS: '4'
-          PRIME_LIVE_CASE_IDS: 'objecao-fornecedor'
+          PRIME_LIVE_MAX_CALLS: '20'
         run: node scripts/prime-round2-live.mjs
       - name: Preserve fictional evidence for review
         if: always()
