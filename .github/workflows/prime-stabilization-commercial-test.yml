@@ -1,0 +1,48 @@
+name: PRIME corrected commercial acceptance
+on:
+  push:
+    branches: [work/v4.2-visual-copilot]
+    paths: ['.github/workflows/prime-stabilization-commercial-test.yml']
+permissions:
+  contents: read
+jobs:
+  commercial:
+    if: github.ref == 'refs/heads/work/v4.2-visual-copilot' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: gemini-v42-tests
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: d644531bd3bcc5cd4aebc680cdf6c9b8151c9dea
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run fictional commercial regression cases
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+          PRIME_ROUND2_REAL_AUTHORIZED: 'yes'
+          PRIME_LIVE_MAX_CALLS: '20'
+        run: node scripts/prime-round2-live.mjs
+      - name: Preserve fictional evidence for review
+        if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import {readdir,readFile} from 'node:fs/promises';
+          const dir='test-results/prime-round2';
+          for(const file of await readdir(dir)){
+            if(!file.endsWith('.json'))continue;
+            const data=JSON.parse(await readFile(dir+'/'+file,'utf8'));
+            console.log('PRIME_EVIDENCE '+JSON.stringify({file,data}));
+          }
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prime-stabilization-commercial-evidence
+          path: test-results/prime-round2/
+          retention-days: 14
