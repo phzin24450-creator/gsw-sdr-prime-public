@@ -1,0 +1,531 @@
+{
+  "run": 44148187163,
+  "code": "fe65c8d84d489a025cb50f72367b678a3b61d9f4",
+  "files": [
+    {
+      "file": "objecao-fornecedor.json",
+      "data": {
+        "id": "objecao-fornecedor",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "SERVICES",
+          "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+          "commercialContext": {
+            "company": "Trilha Viva Fictícia",
+            "sector": "Passeios guiados"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "inbound",
+              "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+            },
+            {
+              "direction": "outbound",
+              "text": "Podemos avaliar uma página dedicada à expedição."
+            },
+            {
+              "direction": "inbound",
+              "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "decidir pelo contexto",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Trilha Viva Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Passeios guiados",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            },
+            {
+              "id": "inbound:1",
+              "kind": "client_statement",
+              "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 1,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "error": {
+          "code": "timeout",
+          "httpStatus": null,
+          "stage": "generation"
+        },
+        "telemetry": {
+          "startedAt": 1794940108299,
+          "calls": [
+            {
+              "stage": "generation",
+              "attempt": 1,
+              "requestBytes": 18055,
+              "httpStatus": null,
+              "durationMs": 45003,
+              "timeoutMs": 45000,
+              "thinkingLevel": "MEDIUM",
+              "errorCode": "timeout"
+            }
+          ]
+        },
+        "plan": null,
+        "pass": false,
+        "outcome": "timeout"
+      }
+    },
+    {
+      "file": "optout.json",
+      "data": {
+        "id": "optout",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Bloquear contato e não chamar Gemini.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "latestMessage": "Não me mande mais mensagens.",
+          "commercialContext": {
+            "company": "Opt-out Fictício"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "inbound",
+              "text": "Não me mande mais mensagens."
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "decidir pelo contexto",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "segmento",
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Opt-out Fictício",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Não me mande mais mensagens.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 0,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "decision": "blocked",
+        "pass": true
+      }
+    },
+    {
+      "file": "pesquisa-insuficiente.json",
+      "data": {
+        "id": "pesquisa-insuficiente",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Pedir pesquisa ao proprietário sem mensagem pronta ou chamada Gemini.",
+        "input": {
+          "turnPurpose": "cold_outreach",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "OPENING",
+          "latestMessage": "",
+          "commercialContext": {
+            "company": "Núcleo Delta Fictício",
+            "sector": "Serviços"
+          },
+          "interlocutorDeclared": null,
+          "history": [],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "motivo relevante sem inventar pesquisa",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": "segmento",
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Núcleo Delta Fictício",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Serviços",
+              "scope": [
+                "identity"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 0,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "error": {
+          "code": "research_required",
+          "httpStatus": null,
+          "stage": null
+        },
+        "telemetry": null,
+        "plan": null,
+        "pass": true,
+        "outcome": "research_required"
+      }
+    },
+    {
+      "file": "recusa.json",
+      "data": {
+        "id": "recusa",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Encerrar sem chamada Gemini ou nova abordagem.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "latestMessage": "Não temos interesse. Obrigado.",
+          "commercialContext": {
+            "company": "Recusa Fictícia"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "inbound",
+              "text": "Não temos interesse. Obrigado."
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": true,
+            "objectionCues": [],
+            "strategyConstraint": "encerrar cordialmente sem pergunta ou retomada",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "segmento",
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Recusa Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Não temos interesse. Obrigado.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 0,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "decision": "blocked",
+        "pass": true
+      }
+    },
+    {
+      "file": "summary.json",
+      "data": {
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "totalCalls": 1,
+        "maxCalls": 4,
+        "failed": 1,
+        "stopReason": null,
+        "commercialApproval": "Pending human evaluation"
+      }
+    }
+  ]
+}
