@@ -17,3 +17,10 @@ test('Both real Trilha promises are rejected, including rephrased repair',()=>{
 test('Real Rumo explanation is not forced into new cold discovery',()=>{
  const d=get('interesse-explicacao');assert.equal(turnTask(d.input).id,'explain');assert.deepEqual(taskIssues(turnTask(d.input),d.response),[]);
 });
+
+test('Real supplier response is safe but bureaucratic; concrete next step remains allowed',()=>{
+ const {files}=JSON.parse(readFileSync(new URL('../docs/evidence/prime-supplier-targeted-real.json',import.meta.url),'utf8'));
+ const d=files.find(x=>x.file==='objecao-fornecedor.json').data;
+ assert.deepEqual(taskIssues(turnTask(d.input),d.response),['bureaucratic_supplier_reply']);
+ assert.deepEqual(taskIssues(turnTask(d.input),'Podemos avaliar a apresentação da expedição junto com sua agência antes de definir o formato. Você prefere seguir dessa forma?'),[]);
+});
