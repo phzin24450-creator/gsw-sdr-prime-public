@@ -1,5 +1,5 @@
 import {turnTask,taskIssues} from './turn-task.js';
-import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, evidenceScope, repairFindings, claimAuditSchema, decodeClaimAudit } from './claims.js';
+import { CLAIM_AUDIT_SCHEMA, CLAIM_REVIEW_POLICY, claimUnits, auditClaims, premiseFindings, evidenceScope, repairFindings, claimAuditSchema, decodeClaimAudit } from './claims.js';
 import { classify, fold, INTENTS } from './intent.js';
 import { MODES } from './core.js';
 
@@ -190,16 +190,18 @@ export async function requestModelDraft(conversation, decision, config = {}, fet
     const register=JSON.parse(prompt.input).evidenceRegister;
     const refs=commercialDecision?.opportunity?.evidenceRefs;
     const groundingIssue=refs&&(!Array.isArray(refs)||refs.some(id=>!register.some(item=>item.id===id)))?'invalid_evidence_reference':null;
-    const localIssue=groundingIssue||taskIssues(turnTask(input),text)[0]||reviewCopy(text,conversation,decision,config.now);
+    const localFindings=assessment?premiseFindings(claimUnits({...assessment,text}),register):[];
+    const localIssue=groundingIssue||localFindings[0]?.code||taskIssues(turnTask(input),text)[0]||reviewCopy(text,conversation,decision,config.now);
     stage='semantic_review';
     const semantic=assessment&&!localIssue?await semanticReview({assessment:{...assessment,text},prompt,apiKey,model,fetcher,trace,timeoutMs:config.timeoutMs}):null;
     const apiRequests=trace.calls.length;
     const issue=localIssue||semantic?.issues.join(',');
+    const findings=localFindings.length?localFindings:semantic?.repairFindings||[];
     if(issue) {
-      if(config.onQualityRejection) config.onQualityRejection({text:minimize(text),issues:issue.split(','),stage:localIssue?'local':'semantic',feedback:semantic?.feedback||null,claimLedger:semantic?.claimLedger||[],quality:semantic?.quality||null,repairFindings:semantic?.repairFindings||[],reviewerFeedback:semantic?.reviewerFeedback||null});
+      if(config.onQualityRejection) config.onQualityRejection({text:minimize(text),issues:issue.split(','),stage:localIssue?'local':'semantic',feedback:semantic?.feedback||null,claimLedger:semantic?.claimLedger||[],quality:semantic?.quality||null,repairFindings:findings,reviewerFeedback:semantic?.reviewerFeedback||null});
       // Reserve two calls for repair + review, even after a transport retry.
       // A transient failure must not consume the independent quality repair.
-      if (!config.qualityRetry && apiRequests<=2) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue,qualityDraft:text,qualityFeedback:semantic?.repairFindings?.length?JSON.stringify(semantic.repairFindings):semantic?.feedback,qualityFindings:semantic?.repairFindings||[],callsBefore:apiRequests},fetcher);
+      if (!config.qualityRetry && apiRequests<=2) return requestModelDraft(conversation,decision,{...config,qualityRetry:issue,qualityDraft:text,qualityFeedback:findings.length?JSON.stringify(findings):semantic?.feedback,qualityFindings:findings,callsBefore:apiRequests},fetcher);
       const failure=new GenerationError('quality_block'); failure.qualityIssues=issue.split(','); throw failure;
     }
     return {text,provider:'gemini',generationMeta:{provider:'gemini',model,status:'success',durationMs:Date.now()-started,qualityReview:semantic?'gemini_semantic_and_local':'legacy_local_rules',semanticQuestionCount:semantic?.questionCount??null,semanticFeedback:semantic?.feedback||null,claimLedger:semantic?.claimLedger||[],qualityAssessment:semantic?.quality||null,semanticFactChecks:semantic?.factChecks||[],semanticSegments:semantic?.messageSegments||[],qualityAttempts:config.qualityRetry?2:1,requestAttempts:apiRequests,telemetry:trace,generationAttempts:trace.calls.filter(c=>c.stage==='generation').length,commercialDecision:commercialDecision?JSON.parse(JSON.stringify(commercialDecision,(key,value)=>typeof value==='string'?minimize(value):value)):null}};

@@ -169,3 +169,22 @@ test('503 plus a semantic rejection does not exceed four-call repair budget',asy
  }),e=>e.code==='quality_block');
  assert.equal(calls,3);
 });
+
+test('Actual Ipe premise after 503 is rejected before remote review, with evidence in repair',async()=>{
+ const {refinementCases}=await import('../scripts/prime-refinement-cases.mjs');
+ const {files}=JSON.parse(await readFile(new URL('../docs/evidence/prime-final-confirmation-preflight.json',import.meta.url),'utf8'));
+ const actual=files.find(x=>x.file==='ipe-madeira.json').data;
+ const item=refinementCases.find(x=>x.id==='ipe-madeira');
+ const c={mode:'HUMAN',context:{...item.context,verifiedOn:new Date().toISOString().slice(0,10)},messages:[]};
+ const original=actual.generatedCandidates[0];
+ const corrected={strategy:'descoberta',text:'Olá, aqui é o Pedro, da PRIME. Onde vocês apresentam as cozinhas autorais?'};
+ let calls=0;const rejections=[];
+ const r=await requestModelDraft(c,prepareDecision(c,{manual:true,opening:true}),{geminiApiKey:'fixture',onQualityRejection:x=>rejections.push(x)},async(u,o)=>{
+  calls++;if(calls===1)return {ok:false,status:503};
+  if(calls===2)return json({...original.decision,text:original.text});
+  if(calls===3){const payload=JSON.parse(JSON.parse(o.body).contents[0].parts[0].text);assert.ok(payload.repairFindings.some(f=>f.reason.includes('acompanhamento')));return json(corrected);}
+  return json(verdict(o));
+ });
+ assert.equal(calls,4);assert.equal(r.text,corrected.text);assert.equal(rejections[0].stage,'local');
+ assert.deepEqual(r.generationMeta.telemetry.calls.map(x=>x.stage),['generation','generation','generation','semantic_review']);
+});
