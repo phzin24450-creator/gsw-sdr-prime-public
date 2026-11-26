@@ -1,0 +1,130 @@
+{
+  "id": "landing-page",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Estúdio Lume Fictício"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Já temos um bom site institucional. Queremos apresentar só o workshop fictício de fotografia, com programa, data e link de inscrição que já existe."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Entendido. Como o Estúdio Lume já possui um site institucional, uma landing page focada exclusivamente no workshop é o caminho ideal para converter as inscrições sem dispersar o público. Para alinharmos, você prefere que essa página siga a identidade visual do seu site atual ou busca uma comunicação independente para este evento?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "O cliente possui um site institucional atual.",
+            "O objetivo é divulgar um workshop de fotografia específico.",
+            "O workshop possui programa, data e link de inscrição definidos."
+          ],
+          "indications": [
+            "Há uma necessidade de foco em uma oferta específica, o que se alinha com o escopo de uma landing page."
+          ],
+          "hypotheses": [
+            "O cliente busca uma página dedicada para converter inscrições no workshop sem desviar o tráfego do site institucional."
+          ],
+          "unknowns": [
+            "Se o cliente deseja que a nova página tenha uma identidade visual vinculada ao site atual ou algo distinto.",
+            "Se há urgência na publicação devido à data do workshop."
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Preferências de prazo ou integração visual com o site atual.",
+          "discoveryTarget": "Entender se a landing page deve seguir a identidade visual do site institucional ou se o foco é uma comunicação independente."
+        },
+        "focus": {
+          "topic": "Landing page para o workshop de fotografia",
+          "basis": "confirmed",
+          "relevance": "O cliente declarou explicitamente a intenção de apresentar uma oferta específica (workshop) com um próximo passo claro (inscrição)."
+        },
+        "interlocutor": "desconhecido",
+        "evidence": "O cliente afirmou ter um site institucional e deseja apresentar um workshop com link de inscrição existente.",
+        "unknowns": [
+          "Identidade visual desejada",
+          "Prazo de lançamento"
+        ],
+        "nextStep": "Validar se a landing page deve manter a identidade visual do site institucional ou se o objetivo é uma página com comunicação independente."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Entendido. Como o Estúdio Lume já possui um site institucional, uma landing page focada exclusivamente no workshop é o caminho ideal para converter as inscrições sem dispersar o público. Para alinharmos, você prefere que essa página siga a identidade visual do seu site atual ou busca uma comunicação independente para este evento?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 7590,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A estratégia está alinhada ao escopo da PRIME (landing page). A pergunta sobre identidade visual é pertinente para definir o projeto sem assumir necessidades técnicas não declaradas.",
+    "semanticFactChecks": [
+      {
+        "claim": "O cliente possui um site institucional atual.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Já temos um bom site institucional.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O cliente deseja apresentar um workshop de fotografia com programa, data e link de inscrição.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Queremos apresentar só o workshop fictício de fotografia, com programa, data e link de inscrição que já existe.",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "O cliente possui um site institucional atual.",
+          "O objetivo é divulgar um workshop de fotografia específico.",
+          "O workshop possui programa, data e link de inscrição definidos."
+        ],
+        "indications": [
+          "Há uma necessidade de foco em uma oferta específica, o que se alinha com o escopo de uma landing page."
+        ],
+        "hypotheses": [
+          "O cliente busca uma página dedicada para converter inscrições no workshop sem desviar o tráfego do site institucional."
+        ],
+        "unknowns": [
+          "Se o cliente deseja que a nova página tenha uma identidade visual vinculada ao site atual ou algo distinto.",
+          "Se há urgência na publicação devido à data do workshop."
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Preferências de prazo ou integração visual com o site atual.",
+        "discoveryTarget": "Entender se a landing page deve seguir a identidade visual do site institucional ou se o foco é uma comunicação independente."
+      },
+      "focus": {
+        "topic": "Landing page para o workshop de fotografia",
+        "basis": "confirmed",
+        "relevance": "O cliente declarou explicitamente a intenção de apresentar uma oferta específica (workshop) com um próximo passo claro (inscrição)."
+      },
+      "interlocutor": "desconhecido",
+      "evidence": "O cliente afirmou ter um site institucional e deseja apresentar um workshop com link de inscrição existente.",
+      "unknowns": [
+        "Identidade visual desejada",
+        "Prazo de lançamento"
+      ],
+      "nextStep": "Validar se a landing page deve manter a identidade visual do site institucional ou se o objetivo é uma página com comunicação independente."
+    }
+  },
+  "pass": true
+}

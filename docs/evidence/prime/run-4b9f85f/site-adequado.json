@@ -1,0 +1,131 @@
+{
+  "id": "site-adequado",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Clínica Cedro Fictícia"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Temos um site atualizado que apresenta nossos serviços e recebe contatos normalmente. Estamos satisfeitos com a agência atual."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Fico contente em saber que a presença digital da Clínica Cedro já está bem estruturada e atendendo às suas expectativas. Como já possuem um parceiro que supre suas necessidades, não há motivo para interromper esse trabalho. Deixo aqui meu contato à disposição caso surja algum projeto específico no futuro em que eu possa colaborar.",
+      "decision": {
+        "strategy": "encerramento",
+        "knowledge": {
+          "facts": [
+            "O cliente possui um site atualizado.",
+            "O cliente declara satisfação com o fornecedor atual."
+          ],
+          "indications": [
+            "Não há lacuna aparente no serviço de presença digital atual."
+          ],
+          "hypotheses": [],
+          "unknowns": [
+            "Se há algum projeto futuro ou necessidade de expansão que justifique uma nova avaliação."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Não há necessidade declarada ou problema identificado para a PRIME atuar.",
+          "discoveryTarget": "Nenhum"
+        },
+        "focus": {
+          "topic": "Satisfação com o fornecedor atual",
+          "basis": "confirmed",
+          "relevance": "Respeitar a relação comercial estabelecida e encerrar o contato de forma ética."
+        },
+        "interlocutor": "Representante da Clínica Cedro",
+        "evidence": "O cliente afirmou explicitamente que possui site atualizado e está satisfeito com a agência atual.",
+        "unknowns": [
+          "Necessidades futuras de presença digital."
+        ],
+        "nextStep": "Encerrar o atendimento de forma cordial, deixando a porta aberta para futuras necessidades."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Fico contente em saber que a presença digital da Clínica Cedro já está bem estruturada e atendendo às suas expectativas. Como já possuem um parceiro que supre suas necessidades, não há motivo para interromper esse trabalho. Deixo aqui meu contato à disposição caso surja algum projeto específico no futuro em que eu possa colaborar.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 10840,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 0,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de encerramento, respeitando a satisfação do cliente e a política da PRIME.",
+    "semanticFactChecks": [
+      {
+        "claim": "A Clínica Cedro possui um site atualizado e está satisfeita com a agência atual.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Temos um site atualizado que apresenta nossos serviços e recebe contatos normalmente. Estamos satisfeitos com a agência atual.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Fico contente em saber que a presença digital da Clínica Cedro já está bem estruturada e atendendo às suas expectativas.",
+        "assessment": "Reconhecimento empático da situação declarada pelo cliente.",
+        "acceptable": true
+      },
+      {
+        "text": "Como já possuem um parceiro que supre suas necessidades, não há motivo para interromper esse trabalho.",
+        "assessment": "Respeito à relação comercial atual, sem pressão ou tentativa de conversão.",
+        "acceptable": true
+      },
+      {
+        "text": "Deixo aqui meu contato à disposição caso surja algum projeto específico no futuro em que eu possa colaborar.",
+        "assessment": "Encerramento cordial e profissional, mantendo a porta aberta sem forçar nova negociação.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "encerramento",
+      "knowledge": {
+        "facts": [
+          "O cliente possui um site atualizado.",
+          "O cliente declara satisfação com o fornecedor atual."
+        ],
+        "indications": [
+          "Não há lacuna aparente no serviço de presença digital atual."
+        ],
+        "hypotheses": [],
+        "unknowns": [
+          "Se há algum projeto futuro ou necessidade de expansão que justifique uma nova avaliação."
+        ]
+      },
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Não há necessidade declarada ou problema identificado para a PRIME atuar.",
+        "discoveryTarget": "Nenhum"
+      },
+      "focus": {
+        "topic": "Satisfação com o fornecedor atual",
+        "basis": "confirmed",
+        "relevance": "Respeitar a relação comercial estabelecida e encerrar o contato de forma ética."
+      },
+      "interlocutor": "Representante da Clínica Cedro",
+      "evidence": "O cliente afirmou explicitamente que possui site atualizado e está satisfeito com a agência atual.",
+      "unknowns": [
+        "Necessidades futuras de presença digital."
+      ],
+      "nextStep": "Encerrar o atendimento de forma cordial, deixando a porta aberta para futuras necessidades."
+    }
+  },
+  "pass": true
+}

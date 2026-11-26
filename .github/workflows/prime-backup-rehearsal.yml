@@ -1,0 +1,29 @@
+name: PRIME synthetic encrypted restore
+on:
+  push:
+    branches: [work/prime-commercial-elite]
+    paths: ['scripts/prime-backup*', '.github/workflows/prime-backup-rehearsal.yml']
+permissions:
+  contents: read
+jobs:
+  isolated-restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: sudo apt-get update -qq && sudo apt-get install -y age
+      - run: |
+          docker run -d --name prime-backup-pg -e POSTGRES_PASSWORD=synthetic-only-not-a-real-credential -p 127.0.0.1:55487:5432 postgres:17
+          for i in $(seq 1 30); do docker exec prime-backup-pg pg_isready -U postgres && break; sleep 1; done
+          mkdir -p test-results
+          bash scripts/prime-backup-rehearsal.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prime-synthetic-backup-result
+          path: test-results/prime-backup.json

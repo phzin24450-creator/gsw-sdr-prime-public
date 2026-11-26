@@ -1,0 +1,45 @@
+{
+  "id": "preco",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Quanto custa um site?"
+    }
+  ],
+  "expected": "Não inventar preço ou pacote",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. O valor de um site na GSW depende das necessidades específicas de cada negócio, como o objetivo da página e as funcionalidades desejadas. Para que eu possa te orientar melhor, poderia me contar um pouco sobre o que busca para a sua empresa?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2033,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "interlocutor": "interlocutor",
+      "evidence": "O lead solicitou o preço de um site sem fornecer detalhes do projeto.",
+      "unknowns": [
+        "segmento da empresa",
+        "objetivo do site",
+        "funcionalidades necessárias"
+      ],
+      "nextStep": "Qualificar a necessidade para que o responsável técnico possa avaliar o escopo."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado com ressalvas",
+    "note": "Resposta contextual, sem dado inventado, uma solicitação; estilo ainda pode ser mais direto.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

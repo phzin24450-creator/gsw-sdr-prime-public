@@ -1,0 +1,16 @@
+{
+  "id": "abertura-sem-pesquisa",
+  "context": {},
+  "conversation": [],
+  "expected": "Explicar motivo sem alegar pesquisa",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

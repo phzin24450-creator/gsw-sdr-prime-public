@@ -1,0 +1,148 @@
+{
+  "id": "marina",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Prazer, Marina. Sou o Pedro, da PRIME. Entro em contato para entender melhor como a Brisa Técnica Climatização apresenta seus serviços hoje. Vocês já possuem um site profissional ou utilizam outro canal para divulgar o trabalho de climatização?",
+      "decision": {
+        "strategy": "descoberta",
+        "knowledge": {
+          "facts": [
+            "Interlocutora se chama Marina",
+            "Empresa é Brisa Técnica Climatização"
+          ],
+          "indications": [
+            "Marina está em um canal de atendimento da empresa"
+          ],
+          "hypotheses": [
+            "Marina pode ser recepcionista ou parte da equipe administrativa"
+          ],
+          "unknowns": [
+            "Se a empresa possui site próprio",
+            "Qual o objetivo atual da empresa para sua presença digital",
+            "Se Marina é a decisora"
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Necessidade ou objetivo da empresa em relação a um site ou landing page",
+          "discoveryTarget": "Verificar se a Brisa Técnica Climatização já conta com um site profissional"
+        },
+        "focus": {
+          "topic": "presença digital da empresa",
+          "basis": "unknown",
+          "relevance": "Entender se a empresa já utiliza um site para apresentar seus serviços de climatização"
+        },
+        "interlocutor": "Marina",
+        "evidence": "Marina se identificou e perguntou como pode ajudar, sem mencionar necessidades digitais ou cargo de decisão.",
+        "unknowns": [
+          "presença digital",
+          "decisor"
+        ],
+        "nextStep": "Perguntar sobre a presença digital da empresa para identificar se há interesse ou necessidade de um site."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Prazer, Marina. Sou o Pedro, da PRIME. Entro em contato para entender melhor como a Brisa Técnica Climatização apresenta seus serviços hoje. Vocês já possuem um site profissional ou utilizam outro canal para divulgar o trabalho de climatização?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 11561,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de descoberta e o escopo da PRIME, sem assumir necessidades ou prometer resultados.",
+    "semanticFactChecks": [
+      {
+        "claim": "A empresa é Brisa Técnica Climatização",
+        "sourceId": "context:company",
+        "sourceQuote": "Brisa Técnica Climatização",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O setor é Climatização",
+        "sourceId": "context:sector",
+        "sourceQuote": "Climatização",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Prazer, Marina. Sou o Pedro, da PRIME.",
+        "assessment": "Apresentação clara do remetente e da empresa, mantendo a identidade correta.",
+        "acceptable": true
+      },
+      {
+        "text": "Entro em contato para entender melhor como a Brisa Técnica Climatização apresenta seus serviços hoje.",
+        "assessment": "Abordagem consultiva focada no contexto da empresa, sem assumir problemas ou oferecer soluções prematuras.",
+        "acceptable": true
+      },
+      {
+        "text": "Vocês já possuem um site profissional ou utilizam outro canal para divulgar o trabalho de climatização?",
+        "assessment": "Pergunta direta para descoberta, alinhada com o escopo de serviços da PRIME.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "knowledge": {
+        "facts": [
+          "Interlocutora se chama Marina",
+          "Empresa é Brisa Técnica Climatização"
+        ],
+        "indications": [
+          "Marina está em um canal de atendimento da empresa"
+        ],
+        "hypotheses": [
+          "Marina pode ser recepcionista ou parte da equipe administrativa"
+        ],
+        "unknowns": [
+          "Se a empresa possui site próprio",
+          "Qual o objetivo atual da empresa para sua presença digital",
+          "Se Marina é a decisora"
+        ]
+      },
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Necessidade ou objetivo da empresa em relação a um site ou landing page",
+        "discoveryTarget": "Verificar se a Brisa Técnica Climatização já conta com um site profissional"
+      },
+      "focus": {
+        "topic": "presença digital da empresa",
+        "basis": "unknown",
+        "relevance": "Entender se a empresa já utiliza um site para apresentar seus serviços de climatização"
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina se identificou e perguntou como pode ajudar, sem mencionar necessidades digitais ou cargo de decisão.",
+      "unknowns": [
+        "presença digital",
+        "decisor"
+      ],
+      "nextStep": "Perguntar sobre a presença digital da empresa para identificar se há interesse ou necessidade de um site."
+    }
+  },
+  "pass": true
+}

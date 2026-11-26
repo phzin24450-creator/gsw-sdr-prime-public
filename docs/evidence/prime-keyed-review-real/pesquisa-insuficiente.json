@@ -1,0 +1,97 @@
+{
+  "id": "pesquisa-insuficiente",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Pedir pesquisa ao proprietário sem mensagem pronta ou chamada Gemini.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Núcleo Delta Fictício",
+      "sector": "Serviços"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "segmento",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Núcleo Delta Fictício",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Serviços",
+        "scope": [
+          "identity"
+        ]
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 0,
+  "generatedCandidates": [],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "research_required",
+    "httpStatus": null,
+    "stage": null
+  },
+  "telemetry": null,
+  "plan": null,
+  "pass": true,
+  "outcome": "research_required"
+}

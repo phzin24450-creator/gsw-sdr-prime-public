@@ -1,0 +1,38 @@
+{
+  "code": "8dc3b42b75c6d5189ab1ce96ec18b5e6561c967a",
+  "run": 45478842600,
+  "date": "2026-11-24",
+  "scope": "Cinco cenários comerciais fictícios e três controles da suíte prime-round2; não equivale a deploy ou garantia geral de qualidade.",
+  "automatedResult": "pass",
+  "editorialReview": {
+    "reviewer": "assistant",
+    "result": "approved_for_defined_suite",
+    "criteria": [
+      "aderência às fontes e ao histórico",
+      "ausência de garantia técnica indevida",
+      "progressão compatível com estágio",
+      "no máximo uma pergunta",
+      "respeito a agência, recusa e opt-out"
+    ],
+    "cases": {
+      "ipe-madeira": "Identidade PRIME explícita, detalhe observado e uma pergunta sobre a rota atual do portfólio; não inventa acompanhamento, plataforma nem ausência de site.",
+      "bruma-social": "Usa coleção Terra e pergunta como o catálogo é organizado; não converte perfil em prova de necessidade de site. A pergunta é ampla, mas pertinente ao estágio de descoberta.",
+      "vertice-turma": "Distingue o destino observado da existência global de uma página; pergunta pela rota do programa antes de ofertar outra.",
+      "interesse-explicacao": "Explica programa e link já confirmados, sem pergunta técnica desnecessária nem garantia de conversão. 'Sem distrações' é descrição do formato proposto, não alegação de resultado; pode ser encurtada pelo operador.",
+      "objecao-fornecedor": "Respeita a agência, liga o próximo passo à expedição e pergunta pela avaliação conjunta antes de definir o formato; mantém viabilidade técnica desconhecida."
+    }
+  },
+  "transport": {
+    "calls": 10,
+    "http200": 10,
+    "retries": 0,
+    "timeouts": 0,
+    "previous503RootCause": "not_established"
+  },
+  "localTests": {
+    "passed": 221,
+    "failed": 0
+  },
+  "ciRun": 45478777717,
+  "productionDeployment": false
+}

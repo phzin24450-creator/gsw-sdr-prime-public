@@ -1,0 +1,138 @@
+{
+  "id": "landing-page",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Estúdio Lume Fictício"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Já temos um bom site institucional. Queremos apresentar só o workshop fictício de fotografia, com programa, data e link de inscrição que já existe."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Entendo, o site institucional atende bem a marca, mas para o workshop, uma landing page pode concentrar as informações e o link de inscrição sem desviar a atenção do visitante. Você prefere que essa página seja uma extensão do seu site atual ou algo independente para este evento?",
+      "decision": {
+        "strategy": "valor",
+        "knowledge": {
+          "facts": [
+            "O Estúdio Lume Fictício possui um site institucional ativo",
+            "O cliente deseja divulgar um workshop específico de fotografia",
+            "O workshop possui programa, data e link de inscrição definidos"
+          ],
+          "indications": [
+            "Existe uma necessidade de foco isolado para uma oferta específica, o que se alinha com o propósito de uma landing page"
+          ],
+          "hypotheses": [
+            "O site institucional atual pode não permitir a criação de páginas de alta conversão para eventos específicos"
+          ],
+          "unknowns": [
+            "Se o site atual permite a criação de novas páginas ou se o cliente prefere um ambiente isolado para o workshop"
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Preferência por manter a página dentro do domínio atual ou criar uma estrutura independente",
+          "discoveryTarget": "alinhamento da finalidade da landing page com a infraestrutura atual do site"
+        },
+        "focus": {
+          "topic": "Landing page para o workshop de fotografia",
+          "basis": "confirmed",
+          "relevance": "O cliente declarou o objetivo de apresentar um produto específico de forma isolada do site institucional"
+        },
+        "interlocutor": "Responsável pelo Estúdio Lume Fictício",
+        "evidence": "O cliente confirmou possuir site e expressou o desejo de apresentar uma oferta específica (workshop) com informações de programa, data e inscrição.",
+        "unknowns": [
+          "limitações técnicas da gestão do site institucional atual"
+        ],
+        "nextStep": "Validar se a intenção é uma página independente para este evento ou uma nova seção no site atual."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Entendo, o site institucional atende bem a marca, mas para o workshop, uma landing page pode concentrar as informações e o link de inscrição sem desviar a atenção do visitante. Você prefere que essa página seja uma extensão do seu site atual ou algo independente para este evento?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 17497,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a política da marca e responde diretamente à necessidade do cliente, mantendo o foco na oferta de landing page.",
+    "semanticFactChecks": [
+      {
+        "claim": "O cliente possui um site institucional.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Já temos um bom site institucional.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O cliente deseja apresentar um workshop de fotografia.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Queremos apresentar só o workshop fictício de fotografia",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Entendo, o site institucional atende bem a marca, mas para o workshop, uma landing page pode concentrar as informações e o link de inscrição sem desviar a atenção do visitante.",
+        "assessment": "Reconhece a necessidade declarada e apresenta a landing page como solução pertinente, alinhada ao portfólio da PRIME.",
+        "acceptable": true
+      },
+      {
+        "text": "Você prefere que essa página seja uma extensão do seu site atual ou algo independente para este evento?",
+        "assessment": "Pergunta objetiva para validar a necessidade técnica sem pressupor limitações do site atual.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "knowledge": {
+        "facts": [
+          "O Estúdio Lume Fictício possui um site institucional ativo",
+          "O cliente deseja divulgar um workshop específico de fotografia",
+          "O workshop possui programa, data e link de inscrição definidos"
+        ],
+        "indications": [
+          "Existe uma necessidade de foco isolado para uma oferta específica, o que se alinha com o propósito de uma landing page"
+        ],
+        "hypotheses": [
+          "O site institucional atual pode não permitir a criação de páginas de alta conversão para eventos específicos"
+        ],
+        "unknowns": [
+          "Se o site atual permite a criação de novas páginas ou se o cliente prefere um ambiente isolado para o workshop"
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Preferência por manter a página dentro do domínio atual ou criar uma estrutura independente",
+        "discoveryTarget": "alinhamento da finalidade da landing page com a infraestrutura atual do site"
+      },
+      "focus": {
+        "topic": "Landing page para o workshop de fotografia",
+        "basis": "confirmed",
+        "relevance": "O cliente declarou o objetivo de apresentar um produto específico de forma isolada do site institucional"
+      },
+      "interlocutor": "Responsável pelo Estúdio Lume Fictício",
+      "evidence": "O cliente confirmou possuir site e expressou o desejo de apresentar uma oferta específica (workshop) com informações de programa, data e inscrição.",
+      "unknowns": [
+        "limitações técnicas da gestão do site institucional atual"
+      ],
+      "nextStep": "Validar se a intenção é uma página independente para este evento ou uma nova seção no site atual."
+    }
+  },
+  "pass": true
+}

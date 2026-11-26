@@ -1,0 +1,142 @@
+{
+  "id": "recepcionista",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Olá, Marina. A PRIME atua no desenvolvimento de sites e landing pages profissionais para empresas. Como não é sua área, você poderia me indicar quem seria a pessoa responsável por cuidar da comunicação ou da gestão da Brisa Técnica Climatização?",
+      "decision": {
+        "strategy": "descoberta",
+        "knowledge": {
+          "facts": [
+            "A interlocutora se identificou como Marina, recepcionista da Brisa Técnica Climatização.",
+            "Marina declarou não ter poder de decisão sobre tecnologia."
+          ],
+          "indications": [
+            "A empresa atua no setor de climatização."
+          ],
+          "hypotheses": [],
+          "unknowns": [
+            "Quem é o responsável pela tomada de decisão técnica ou estratégica na empresa.",
+            "Se a empresa possui um site ou landing page atual e se há alguma necessidade relacionada a esses ativos."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "contato com o decisor e entendimento da necessidade atual da empresa.",
+          "discoveryTarget": "identificar o responsável pela gestão da empresa ou marketing."
+        },
+        "focus": {
+          "topic": "identificação do decisor",
+          "basis": "unknown",
+          "relevance": "necessário para prosseguir com qualquer diagnóstico consultivo sobre a presença digital da empresa."
+        },
+        "interlocutor": "Marina",
+        "evidence": "A interlocutora Marina, recepcionista da Brisa Técnica Climatização, afirmou não decidir sobre tecnologia.",
+        "unknowns": [
+          "decisor",
+          "necessidade"
+        ],
+        "nextStep": "Solicitar a indicação de quem cuida da área de marketing ou gestão da Brisa Técnica Climatização."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá, Marina. A PRIME atua no desenvolvimento de sites e landing pages profissionais para empresas. Como não é sua área, você poderia me indicar quem seria a pessoa responsável por cuidar da comunicação ou da gestão da Brisa Técnica Climatização?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 7451,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está correta, respeita a limitação da interlocutora e foca na identificação do decisor sem assumir necessidades.",
+    "semanticFactChecks": [
+      {
+        "claim": "Marina é recepcionista da Brisa Técnica Climatização.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Sou a Marina da recepção.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Marina não decide sobre tecnologia.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Não decido sobre tecnologia.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Olá, Marina.",
+        "assessment": "Saudação adequada e personalizada.",
+        "acceptable": true
+      },
+      {
+        "text": "A PRIME atua no desenvolvimento de sites e landing pages profissionais para empresas.",
+        "assessment": "Apresentação clara e alinhada ao escopo da marca.",
+        "acceptable": true
+      },
+      {
+        "text": "Como não é sua área, você poderia me indicar quem seria a pessoa responsável por cuidar da comunicação ou da gestão da Brisa Técnica Climatização?",
+        "assessment": "Pergunta direta para identificar o decisor, respeitando a limitação declarada pela interlocutora.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "knowledge": {
+        "facts": [
+          "A interlocutora se identificou como Marina, recepcionista da Brisa Técnica Climatização.",
+          "Marina declarou não ter poder de decisão sobre tecnologia."
+        ],
+        "indications": [
+          "A empresa atua no setor de climatização."
+        ],
+        "hypotheses": [],
+        "unknowns": [
+          "Quem é o responsável pela tomada de decisão técnica ou estratégica na empresa.",
+          "Se a empresa possui um site ou landing page atual e se há alguma necessidade relacionada a esses ativos."
+        ]
+      },
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "contato com o decisor e entendimento da necessidade atual da empresa.",
+        "discoveryTarget": "identificar o responsável pela gestão da empresa ou marketing."
+      },
+      "focus": {
+        "topic": "identificação do decisor",
+        "basis": "unknown",
+        "relevance": "necessário para prosseguir com qualquer diagnóstico consultivo sobre a presença digital da empresa."
+      },
+      "interlocutor": "Marina",
+      "evidence": "A interlocutora Marina, recepcionista da Brisa Técnica Climatização, afirmou não decidir sobre tecnologia.",
+      "unknowns": [
+        "decisor",
+        "necessidade"
+      ],
+      "nextStep": "Solicitar a indicação de quem cuida da área de marketing ou gestão da Brisa Técnica Climatização."
+    }
+  },
+  "pass": true
+}

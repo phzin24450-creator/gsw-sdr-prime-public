@@ -1,0 +1,42 @@
+{
+  "id": "aceite-handoff",
+  "context": {
+    "challenge": "Orçamentos sem acompanhamento"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Pode encaminhar meu contexto ao responsável de desenvolvimento."
+    }
+  ],
+  "expected": "Resumir propósito sem inventar agenda ou afirmar transferência",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Perfeito. Vou repassar o seu contexto sobre o desafio com o acompanhamento de orçamentos para o nosso responsável de desenvolvimento, que poderá avaliar a viabilidade de uma solução específica para a sua operação. Você poderia apenas me confirmar o nome da sua empresa e o segmento de atuação para que eu possa estruturar essa transição?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "autorizacao",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead solicitou explicitamente o encaminhamento do contexto ao responsável de desenvolvimento.",
+      "unknowns": [
+        "nome da empresa",
+        "segmento de atuação"
+      ],
+      "nextStep": "Realizar o handoff interno para o responsável de desenvolvimento com o contexto coletado."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Pediu nome da empresa e segmento na mesma pergunta.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

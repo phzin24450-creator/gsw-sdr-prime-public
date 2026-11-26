@@ -1,0 +1,66 @@
+{
+  "id": "marina-necessidade-confirmada",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou Marina, da recepção. Fazemos manutenção de ar-condicionado e anotamos os retornos em papel. Às vezes esquecemos de retornar os orçamentos. Como a GSW poderia ajudar?"
+    }
+  ],
+  "expected": "Usar necessidade declarada, sem inventar volume, integração ou resultados",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina. Na GSW, trabalhamos conectando soluções digitais a processos reais. Para esse desafio com os orçamentos, um painel administrativo ou sistema sob medida poderia organizar essas informações e facilitar o acompanhamento dos retornos. Hoje, vocês utilizam algum sistema ou computador para registrar esses contatos ou tudo é centralizado apenas no papel?",
+      "issues": [
+        "unsupported_claim"
+      ],
+      "stage": "semantic",
+      "feedback": "O texto assume que um sistema sob medida é a solução antes de entender o fluxo atual, e a afirmação de que a GSW trabalha conectando soluções digitais a processos reais é uma promessa de valor genérica que antecipa uma oferta sem necessidade confirmada."
+    }
+  ],
+  "response": "Olá, Marina. Para evitar que retornos sejam esquecidos, uma possibilidade é centralizar essas informações em um painel que organize os status de cada orçamento. Como vocês registram os dados dos clientes hoje, além das anotações em papel?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 2791,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "O rascunho é adequado. A pergunta sobre o registro atual é pertinente para entender o fluxo de trabalho e validar a necessidade de digitalização, mantendo o foco no problema relatado sem promessas de automação.",
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Fluxo atual de registro e volume de orçamentos.",
+        "discoveryTarget": "Entender como os dados de orçamentos são geridos hoje para avaliar a viabilidade de uma ferramenta de suporte."
+      },
+      "focus": {
+        "topic": "Digitalização do controle de retornos de orçamentos",
+        "basis": "hypothesis",
+        "relevance": "O lead mencionou perda de orçamentos por uso de papel, indicando uma oportunidade de estruturar o acompanhamento."
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina, da Brisa Técnica Climatização, informou que utilizam papel para anotar retornos de manutenção e que esquecem de contatar clientes.",
+      "unknowns": [
+        "Volume médio de orçamentos",
+        "Existência de ferramentas digitais auxiliares"
+      ],
+      "nextStep": "Investigar o processo atual de registro de orçamentos."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report"
+}

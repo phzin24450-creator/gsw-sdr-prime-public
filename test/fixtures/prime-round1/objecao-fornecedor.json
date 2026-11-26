@@ -1,0 +1,252 @@
+{
+  "id": "objecao-fornecedor",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "SERVICES",
+    "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+    "commercialContext": {
+      "company": "Trilha Viva Fictícia",
+      "sector": "Passeios guiados"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "inbound",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+      },
+      {
+        "direction": "outbound",
+        "text": "Podemos avaliar uma página dedicada à expedição."
+      },
+      {
+        "direction": "inbound",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "decidir pelo contexto",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Trilha Viva Fictícia"
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Passeios guiados"
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+      },
+      {
+        "id": "inbound:1",
+        "kind": "client_statement",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 2,
+  "generatedCandidates": [
+    {
+      "text": "A proposta aqui é justamente criar uma página independente para a expedição de observação de aves, que não toca em nada do seu site atual nem interfere no trabalho da sua agência. Ela funcionaria como um destino exclusivo para o link da sua divulgação. Faz sentido para você avaliarmos como seria esse formato isolado?",
+      "decision": {
+        "strategy": "objecao",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "strong",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0",
+            "inbound:1"
+          ],
+          "buyerTask": "apresentar uma expedição específica de observação de aves sem alterar o site institucional",
+          "contactReason": "o cliente deseja isolar a divulgação de um produto específico mantendo a estrutura atual intacta",
+          "pageRole": "apresentação focada e conversão para a expedição de observação de aves",
+          "nextMove": "validar se a criação de uma página independente, que não interfere no site atual, faz sentido para o objetivo da expedição",
+          "researchNeeded": "nenhuma, o escopo da objeção está claro"
+        },
+        "knowledge": {
+          "facts": [
+            "O cliente possui um site institucional mantido por uma agência",
+            "O cliente tem receio de alterar o site atual",
+            "O cliente deseja focar na divulgação de uma expedição específica"
+          ],
+          "indications": [
+            "Existe abertura para a expedição, desde que não afete o site existente"
+          ],
+          "hypotheses": [
+            "A agência atual do cliente não oferece flexibilidade para páginas promocionais independentes"
+          ],
+          "unknowns": [
+            "Se a agência atual permite a criação de subdomínios ou links externos"
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0",
+            "inbound:1"
+          ],
+          "missingEvidence": "nenhuma",
+          "discoveryTarget": "viabilidade de adicionar um link de destino da expedição"
+        },
+        "focus": {
+          "topic": "independência da landing page em relação ao site principal",
+          "basis": "confirmed",
+          "relevance": "atende diretamente ao receio do cliente de mexer na estrutura atual"
+        },
+        "interlocutor": "Responsável pela Trilha Viva Fictícia",
+        "evidence": "O cliente declarou que o site atual está bom e possui receio de alterá-lo, mas manifestou interesse em apresentar a expedição de observação de aves.",
+        "unknowns": [
+          "Se o cliente tem autonomia para apontar um domínio ou subdomínio para uma nova página"
+        ],
+        "nextStep": "Esclarecer que a landing page é um projeto independente que não interfere no site mantido pela agência."
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human assessment of the full response; not implied by pass",
+  "response": "A proposta aqui é justamente criar uma página independente para a expedição de observação de aves, que não toca em nada do seu site atual nem interfere no trabalho da sua agência. Ela funcionaria como um destino exclusivo para o link da sua divulgação. Faz sentido para você avaliarmos como seria esse formato isolado?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 7712,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de contornar a objeção do cliente, respeitando a limitação de serviços da PRIME e o desejo do cliente de manter o site atual intacto.",
+    "semanticFactChecks": [
+      {
+        "claim": "A PRIME oferece landing pages como projeto independente.",
+        "sourceId": "policy:portfolio",
+        "sourceQuote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O cliente possui site institucional mantido por agência.",
+        "sourceId": "inbound:1",
+        "sourceQuote": "Minha agência já cuida dele e não quero trocar de fornecedor.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "A proposta aqui é justamente criar uma página independente para a expedição de observação de aves, que não toca em nada do seu site atual nem interfere no trabalho da sua agência.",
+        "assessment": "Explicação funcional condicional que respeita a objeção do cliente e o escopo da PRIME.",
+        "acceptable": true
+      },
+      {
+        "text": "Ela funcionaria como um destino exclusivo para o link da sua divulgação.",
+        "assessment": "Descrição técnica do papel da landing page sem promessa de resultado.",
+        "acceptable": true
+      },
+      {
+        "text": "Faz sentido para você avaliarmos como seria esse formato isolado?",
+        "assessment": "Pergunta de validação alinhada ao objetivo de negócio.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "objecao",
+      "contactPlan": {
+        "action": "draft",
+        "strength": "strong",
+        "service": "landing_page",
+        "evidenceRefs": [
+          "inbound:0",
+          "inbound:1"
+        ],
+        "buyerTask": "apresentar uma expedição específica de observação de aves sem alterar o site institucional",
+        "contactReason": "o cliente deseja isolar a divulgação de um produto específico mantendo a estrutura atual intacta",
+        "pageRole": "apresentação focada e conversão para a expedição de observação de aves",
+        "nextMove": "validar se a criação de uma página independente, que não interfere no site atual, faz sentido para o objetivo da expedição",
+        "researchNeeded": "nenhuma, o escopo da objeção está claro"
+      },
+      "knowledge": {
+        "facts": [
+          "O cliente possui um site institucional mantido por uma agência",
+          "O cliente tem receio de alterar o site atual",
+          "O cliente deseja focar na divulgação de uma expedição específica"
+        ],
+        "indications": [
+          "Existe abertura para a expedição, desde que não afete o site existente"
+        ],
+        "hypotheses": [
+          "A agência atual do cliente não oferece flexibilidade para páginas promocionais independentes"
+        ],
+        "unknowns": [
+          "Se a agência atual permite a criação de subdomínios ou links externos"
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0",
+          "inbound:1"
+        ],
+        "missingEvidence": "nenhuma",
+        "discoveryTarget": "viabilidade de adicionar um link de destino da expedição"
+      },
+      "focus": {
+        "topic": "independência da landing page em relação ao site principal",
+        "basis": "confirmed",
+        "relevance": "atende diretamente ao receio do cliente de mexer na estrutura atual"
+      },
+      "interlocutor": "Responsável pela Trilha Viva Fictícia",
+      "evidence": "O cliente declarou que o site atual está bom e possui receio de alterá-lo, mas manifestou interesse em apresentar a expedição de observação de aves.",
+      "unknowns": [
+        "Se o cliente tem autonomia para apontar um domínio ou subdomínio para uma nova página"
+      ],
+      "nextStep": "Esclarecer que a landing page é um projeto independente que não interfere no site mantido pela agência."
+    }
+  },
+  "pass": true
+}

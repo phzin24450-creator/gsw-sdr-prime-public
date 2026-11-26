@@ -1,0 +1,149 @@
+{
+  "id": "objecao-fornecedor",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "SERVICES",
+    "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+    "commercialContext": {
+      "company": "Trilha Viva Fictícia",
+      "sector": "Passeios guiados"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "inbound",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+      },
+      {
+        "direction": "outbound",
+        "text": "Podemos avaliar uma página dedicada à expedição."
+      },
+      {
+        "direction": "inbound",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "decidir pelo contexto",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:functions",
+        "kind": "current_brand_policy",
+        "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+        "scope": [
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Trilha Viva Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Passeios guiados",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom.",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      },
+      {
+        "id": "inbound:1",
+        "kind": "client_statement",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 0,
+  "generatedCandidates": [],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "skipped": "invalid_request",
+  "pass": false
+}

@@ -1,0 +1,444 @@
+{
+  "id": "ipe-madeira",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Relacionar projetos de cozinhas e destino observado sem afirmar inexistência de site.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "ipe.example.invalid",
+      "verifiedOn": "2026-11-16"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Ipê Madeira Fictícia",
+      "sector": "Marcenaria"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:functions",
+        "kind": "current_brand_policy",
+        "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+        "scope": [
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Ipê Madeira Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Marcenaria",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+        "scope": [
+          "observation",
+          "search_result"
+        ]
+      }
+    ],
+    "verifiedObservation": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 2,
+  "generatedCandidates": [
+    {
+      "text": "Olá, aqui é o Pedro, da PRIME. Acompanhei as cozinhas autorais que vocês publicam no perfil e notei que o atendimento é feito diretamente pelo WhatsApp. Como não encontrei um site, queria saber se vocês já consideraram ter um espaço próprio para organizar esses projetos de forma que os clientes possam consultar o portfólio completo com mais facilidade.",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "site",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "apresentar portfólio de cozinhas autorais",
+          "contactReason": "observação de que o perfil no Instagram é o canal central de exibição dos projetos",
+          "pageRole": "organizar os projetos de cozinhas em um catálogo visual de fácil consulta",
+          "nextMove": "verificar se o proprietário tem interesse em centralizar o portfólio em um endereço próprio",
+          "researchNeeded": "nenhuma, a observação do perfil é suficiente para o contato"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "se a empresa utiliza outro canal além do Instagram",
+          "se há interesse em organizar os projetos fora da rede social"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "response": "Olá, aqui é o Pedro, da PRIME. Acompanhei as cozinhas autorais que vocês publicam no perfil e notei que o atendimento é feito diretamente pelo WhatsApp. Como não encontrei um site, queria saber se vocês já consideraram ter um espaço próprio para organizar esses projetos de forma que os clientes possam consultar o portfólio completo com mais facilidade.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 14037,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "O plano e a mensagem estão alinhados com as políticas da PRIME e com as observações realizadas, mantendo a neutralidade e o foco funcional.",
+    "claimLedger": [
+      {
+        "id": "u0",
+        "path": "contactPlan.buyerTask",
+        "text": "apresentar portfólio de cozinhas autorais",
+        "role": "proposed_function",
+        "reviewerClassification": null,
+        "commitment": "functional_proposal",
+        "classification": "admissible_inference",
+        "domain": "function",
+        "language": "conditional",
+        "evidence": [
+          {
+            "sourceId": "policy:functions",
+            "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A proposta de apresentar portfólio é uma função legítima de um site conforme a política.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u1",
+        "path": "contactPlan.contactReason",
+        "text": "observação de que o perfil no Instagram é o canal central de exibição dos projetos",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "observation",
+        "language": "factual",
+        "evidence": [
+          {
+            "sourceId": "public:observation",
+            "quote": "Perfil publica cozinhas autorais e a bio abre WhatsApp.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A afirmação reflete a observação verificada no perfil.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u2",
+        "path": "contactPlan.pageRole",
+        "text": "organizar os projetos de cozinhas em um catálogo visual de fácil consulta",
+        "role": "proposed_function",
+        "reviewerClassification": null,
+        "commitment": "functional_proposal",
+        "classification": "admissible_inference",
+        "domain": "function",
+        "language": "conditional",
+        "evidence": [
+          {
+            "sourceId": "policy:functions",
+            "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "Organizar projetos em catálogo visual é uma função de apresentação de trabalhos.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u3",
+        "path": "contactPlan.nextMove",
+        "text": "verificar se o proprietário tem interesse em centralizar o portfólio em um endereço próprio",
+        "role": "planned_action",
+        "reviewerClassification": null,
+        "commitment": "intention",
+        "classification": "non_assertive",
+        "domain": "relationship",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "Declaração de intenção de sondagem comercial.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u4",
+        "path": "contactPlan.researchNeeded",
+        "text": "nenhuma, a observação do perfil é suficiente para o contato",
+        "role": "research_status",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "other",
+        "language": "factual",
+        "evidence": [],
+        "reason": "Avaliação interna de suficiência de dados para o primeiro contato.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u5",
+        "path": "interlocutor",
+        "text": "Desconhecido",
+        "role": "uncertainty",
+        "reviewerClassification": null,
+        "commitment": "unknown",
+        "classification": "non_assertive",
+        "domain": "identity",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "O interlocutor não foi identificado.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u6",
+        "path": "unknowns.0",
+        "text": "se a empresa utiliza outro canal além do Instagram",
+        "role": "uncertainty",
+        "reviewerClassification": null,
+        "commitment": "unknown",
+        "classification": "non_assertive",
+        "domain": "search_result",
+        "language": "non_assertive",
+        "evidence": [
+          {
+            "sourceId": "public:observation",
+            "quote": "Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A lacuna sobre outros canais é reconhecida pela própria observação.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u7",
+        "path": "unknowns.1",
+        "text": "se há interesse em organizar os projetos fora da rede social",
+        "role": "uncertainty",
+        "reviewerClassification": null,
+        "commitment": "unknown",
+        "classification": "non_assertive",
+        "domain": "relationship",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "O interesse do cliente é uma variável desconhecida.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u8",
+        "path": "text",
+        "text": "Olá, aqui é o Pedro, da PRIME. ",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "identity",
+        "language": "factual",
+        "evidence": [
+          {
+            "sourceId": "policy:sender",
+            "quote": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "Identificação correta conforme política de remetente.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u9",
+        "path": "text",
+        "text": "Acompanhei as cozinhas autorais que vocês publicam no perfil e notei que o atendimento é feito diretamente pelo WhatsApp. ",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "observation",
+        "language": "factual",
+        "evidence": [
+          {
+            "sourceId": "public:observation",
+            "quote": "Perfil publica cozinhas autorais e a bio abre WhatsApp.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A afirmação é sustentada pela observação do perfil.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u10",
+        "path": "text",
+        "text": "Como não encontrei um site, queria saber se vocês já consideraram ter um espaço próprio para organizar esses projetos de forma que os clientes possam consultar o portfólio completo com mais facilidade.",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "question",
+        "classification": "non_assertive",
+        "domain": "function",
+        "language": "question",
+        "evidence": [
+          {
+            "sourceId": "policy:functions",
+            "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A pergunta sobre o interesse em um espaço próprio para organizar projetos é uma sondagem funcional legítima.",
+        "missingAction": "none",
+        "acceptable": true
+      }
+    ],
+    "qualityAssessment": {
+      "factualSafety": "pass",
+      "planQuality": "pass",
+      "messageQuality": "pass"
+    },
+    "semanticFactChecks": [],
+    "semanticSegments": [
+      {
+        "text": "Olá, aqui é o Pedro, da PRIME. ",
+        "assessment": "Identificação correta conforme política de remetente.",
+        "acceptable": true
+      },
+      {
+        "text": "Acompanhei as cozinhas autorais que vocês publicam no perfil e notei que o atendimento é feito diretamente pelo WhatsApp. ",
+        "assessment": "A afirmação é sustentada pela observação do perfil.",
+        "acceptable": true
+      },
+      {
+        "text": "Como não encontrei um site, queria saber se vocês já consideraram ter um espaço próprio para organizar esses projetos de forma que os clientes possam consultar o portfólio completo com mais facilidade.",
+        "assessment": "A pergunta sobre o interesse em um espaço próprio para organizar projetos é uma sondagem funcional legítima.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "telemetry": {
+      "startedAt": 1794825181277,
+      "calls": [
+        {
+          "stage": "generation",
+          "attempt": 1,
+          "requestBytes": 12432,
+          "httpStatus": 200,
+          "durationMs": 10220,
+          "timeoutMs": 45000,
+          "tokens": {
+            "promptTokenCount": 2193,
+            "candidatesTokenCount": 317,
+            "totalTokenCount": 2510
+          },
+          "finishReason": "STOP"
+        },
+        {
+          "stage": "semantic_review",
+          "attempt": 2,
+          "requestBytes": 21841,
+          "httpStatus": 200,
+          "durationMs": 3806,
+          "timeoutMs": 45000,
+          "tokens": {
+            "promptTokenCount": 2397,
+            "candidatesTokenCount": 1234,
+            "totalTokenCount": 3631
+          },
+          "finishReason": "STOP"
+        }
+      ]
+    },
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "contactPlan": {
+        "action": "draft",
+        "strength": "plausible",
+        "service": "site",
+        "evidenceRefs": [
+          "public:observation"
+        ],
+        "buyerTask": "apresentar portfólio de cozinhas autorais",
+        "contactReason": "observação de que o perfil no Instagram é o canal central de exibição dos projetos",
+        "pageRole": "organizar os projetos de cozinhas em um catálogo visual de fácil consulta",
+        "nextMove": "verificar se o proprietário tem interesse em centralizar o portfólio em um endereço próprio",
+        "researchNeeded": "nenhuma, a observação do perfil é suficiente para o contato"
+      },
+      "knowledge": null,
+      "opportunity": null,
+      "focus": null,
+      "interlocutor": "Desconhecido",
+      "evidence": "",
+      "unknowns": [
+        "se a empresa utiliza outro canal além do Instagram",
+        "se há interesse em organizar os projetos fora da rede social"
+      ],
+      "nextStep": ""
+    }
+  },
+  "pass": true
+}

@@ -1,0 +1,30 @@
+{
+  "id": "marina-sem-pergunta",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou Marina. Pode dizer o motivo do contato, mas não tenho tempo para responder perguntas agora."
+    }
+  ],
+  "expected": "Explicar motivo contextual sem pergunta, oferta múltipla ou pressão",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina. Entro em contato pois a GSW atua conectando soluções digitais, como sites e automações, a operações reais de empresas de climatização. Como você não tem disponibilidade agora, deixo este registro e fico à disposição para conversarmos quando for mais conveniente para você.",
+      "issues": [
+        "portfolio_pitch"
+      ],
+      "stage": "local"
+    }
+  ],
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "qualityIssues": []
+}

@@ -1,0 +1,124 @@
+{
+  "id": "fora-escopo",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Oficina Vale Fictícia"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Vocês fazem automação de WhatsApp e sistemas? Não estou procurando site."
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "Entendido. A PRIME é focada exclusivamente no desenvolvimento de sites e landing pages para apresentação de empresas e serviços. Não trabalhamos com automação de WhatsApp ou sistemas de gestão, por isso não consigo atender ao que você busca no momento.",
+      "issues": [
+        "portfolio_pitch"
+      ],
+      "stage": "local",
+      "feedback": null
+    },
+    {
+      "text": "Entendo. A PRIME é focada exclusivamente no desenvolvimento de sites e landing pages para apresentação de empresas. Como não trabalhamos com automação de WhatsApp ou sistemas, não conseguirei atender à sua demanda atual. Caso precise de um site para apresentar a Oficina Vale no futuro, fico à disposição.",
+      "issues": [
+        "unsupported_claim"
+      ],
+      "stage": "semantic",
+      "feedback": "A mensagem está alinhada com o escopo da PRIME e respeita a negativa do cliente, encerrando a negociação de forma profissional."
+    }
+  ],
+  "generatedCandidates": [
+    {
+      "text": "Entendido. A PRIME é focada exclusivamente no desenvolvimento de sites e landing pages para apresentação de empresas e serviços. Não trabalhamos com automação de WhatsApp ou sistemas de gestão, por isso não consigo atender ao que você busca no momento.",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "O lead questionou sobre automação de WhatsApp e sistemas.",
+            "O lead declarou explicitamente que não busca um site."
+          ],
+          "indications": [
+            "O lead possui uma intenção clara de busca por ferramentas de automação e gestão."
+          ],
+          "hypotheses": [
+            "O lead pode estar buscando otimização operacional ou de atendimento."
+          ],
+          "unknowns": [
+            "Qual é o papel do interlocutor na empresa.",
+            "O que exatamente o lead entende por 'sistemas' no contexto da oficina."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Não há oportunidade para a PRIME, visto que o escopo solicitado (automação/sistemas) é externo à oferta de sites e landing pages.",
+          "discoveryTarget": "Nenhum, o foco é o alinhamento de expectativas."
+        },
+        "focus": {
+          "topic": "Limites de atuação da PRIME",
+          "basis": "confirmed",
+          "relevance": "O cliente solicitou serviços fora do escopo de sites e landing pages da PRIME."
+        },
+        "interlocutor": "Desconhecido",
+        "evidence": "O lead afirmou que não procura site e questionou sobre automação de WhatsApp e sistemas.",
+        "unknowns": [
+          "Necessidade real por trás do interesse em automação."
+        ],
+        "nextStep": "Esclarecer o escopo de atuação da PRIME e encerrar a exploração comercial caso não haja demanda por site ou landing page."
+      }
+    },
+    {
+      "text": "Entendo. A PRIME é focada exclusivamente no desenvolvimento de sites e landing pages para apresentação de empresas. Como não trabalhamos com automação de WhatsApp ou sistemas, não conseguirei atender à sua demanda atual. Caso precise de um site para apresentar a Oficina Vale no futuro, fico à disposição.",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "O cliente busca automação de WhatsApp e sistemas.",
+            "O cliente declarou explicitamente que não está procurando site."
+          ],
+          "indications": [
+            "A demanda do cliente está fora do escopo de atuação da PRIME."
+          ],
+          "hypotheses": [],
+          "unknowns": [
+            "Se o cliente possui interesse em algum momento futuro em presença digital profissional via site ou landing page."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Necessidade de presença digital que possa ser atendida por site ou landing page.",
+          "discoveryTarget": "Verificar se há interesse em apresentação de serviços, caso o foco em sistemas mude."
+        },
+        "focus": {
+          "topic": "Limites de escopo da PRIME",
+          "basis": "confirmed",
+          "relevance": "Esclarecer a especialização da empresa para alinhar expectativas."
+        },
+        "interlocutor": "Desconhecido",
+        "evidence": "O cliente afirmou: 'Vocês fazem automação de WhatsApp e sistemas? Não estou procurando site.'",
+        "unknowns": [
+          "Necessidade atual do cliente para além de sistemas."
+        ],
+        "nextStep": "Encerrar a consulta sobre sistemas com clareza e deixar a porta aberta para futuras necessidades de site, caso surjam."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "pass": false,
+  "error": {
+    "code": "quality_block",
+    "stage": null,
+    "httpStatus": null,
+    "qualityIssues": [
+      "unsupported_claim"
+    ]
+  }
+}

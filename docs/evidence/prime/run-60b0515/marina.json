@@ -1,0 +1,129 @@
+{
+  "id": "marina",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Olá, Marina. Tudo bem por aqui também. Entro em contato pela Brisa Técnica Climatização para entender como vocês apresentam seus serviços hoje. Vocês já possuem algum site profissional para os clientes conhecerem o trabalho de vocês?",
+      "decision": {
+        "strategy": "descoberta",
+        "knowledge": {
+          "facts": [
+            "A interlocutora se identificou como Marina.",
+            "A empresa é a Brisa Técnica Climatização."
+          ],
+          "indications": [
+            "Marina atua como recepcionista ou ponto de contato inicial."
+          ],
+          "hypotheses": [
+            "A empresa pode estar avaliando canais de comunicação ou presença digital."
+          ],
+          "unknowns": [
+            "Qual a necessidade ou objetivo atual da Marina/Brisa Técnica.",
+            "Se a empresa já possui um site ou landing page."
+          ]
+        },
+        "opportunity": {
+          "status": "unknown",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "necessidade de site ou landing page",
+          "discoveryTarget": "entender o momento atual da Brisa Técnica"
+        },
+        "focus": {
+          "topic": "presença digital",
+          "basis": "unknown",
+          "relevance": "Entender se a empresa já utiliza um site para apresentar seus serviços de climatização."
+        },
+        "interlocutor": "Marina",
+        "evidence": "Marina se identificou e perguntou como pode ajudar, sem especificar demanda.",
+        "unknowns": [
+          "necessidade do cliente",
+          "presença digital atual"
+        ],
+        "nextStep": "Confirmar se a empresa já possui um site institucional ou página de serviços."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá, Marina. Tudo bem por aqui também. Entro em contato pela Brisa Técnica Climatização para entender como vocês apresentam seus serviços hoje. Vocês já possuem algum site profissional para os clientes conhecerem o trabalho de vocês?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 5120,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A abordagem é adequada para o contexto de descoberta, pois reconhece a empresa e foca na verificação de presença digital sem assumir necessidades inexistentes.",
+    "semanticFactChecks": [
+      {
+        "claim": "A interlocutora se chama Marina.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Me chamo Marina.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "A empresa é a Brisa Técnica Climatização.",
+        "sourceId": "context:company",
+        "sourceQuote": "Brisa Técnica Climatização",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "knowledge": {
+        "facts": [
+          "A interlocutora se identificou como Marina.",
+          "A empresa é a Brisa Técnica Climatização."
+        ],
+        "indications": [
+          "Marina atua como recepcionista ou ponto de contato inicial."
+        ],
+        "hypotheses": [
+          "A empresa pode estar avaliando canais de comunicação ou presença digital."
+        ],
+        "unknowns": [
+          "Qual a necessidade ou objetivo atual da Marina/Brisa Técnica.",
+          "Se a empresa já possui um site ou landing page."
+        ]
+      },
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "necessidade de site ou landing page",
+        "discoveryTarget": "entender o momento atual da Brisa Técnica"
+      },
+      "focus": {
+        "topic": "presença digital",
+        "basis": "unknown",
+        "relevance": "Entender se a empresa já utiliza um site para apresentar seus serviços de climatização."
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina se identificou e perguntou como pode ajudar, sem especificar demanda.",
+      "unknowns": [
+        "necessidade do cliente",
+        "presença digital atual"
+      ],
+      "nextStep": "Confirmar se a empresa já possui um site institucional ou página de serviços."
+    }
+  },
+  "pass": true
+}

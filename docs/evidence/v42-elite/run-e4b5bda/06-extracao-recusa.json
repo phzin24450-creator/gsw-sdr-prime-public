@@ -1,0 +1,42 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "messages": [
+    {
+      "direction": "outbound",
+      "time": "13:00",
+      "text": "Querem conhecer uma opção de painel?",
+      "source": 1,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "13:01",
+      "text": "Não tenho interesse. Obrigado.",
+      "source": 1,
+      "cropped": false
+    }
+  ],
+  "company": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "sector": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "intent": {
+    "value": "Negativa",
+    "status": "hypothesis",
+    "evidence": "Não tenho interesse."
+  },
+  "opportunity": {
+    "value": "Baixa",
+    "status": "hypothesis",
+    "evidence": "Não tenho interesse."
+  },
+  "uncertainOrder": false,
+  "blocked": true
+}

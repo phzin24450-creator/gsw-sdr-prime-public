@@ -1,0 +1,248 @@
+{
+  "id": "interesse-explicacao",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Entregar a explicação pedida antes de qualquer pergunta técnica, usando programa e link existentes.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OTHER",
+    "latestMessage": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?",
+    "commercialContext": {
+      "company": "Rumo Idiomas Fictício",
+      "sector": "Idiomas"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "outbound",
+        "text": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?"
+      },
+      {
+        "direction": "inbound",
+        "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "decidir pelo contexto",
+      "answeredQuestionPairs": [
+        {
+          "question": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?",
+          "answer": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+        }
+      ],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Rumo Idiomas Fictício"
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Idiomas"
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 2,
+  "generatedCandidates": [
+    {
+      "text": "A ideia é concentrar em uma única tela os diferenciais do intensivo, o cronograma e o perfil de quem aproveita melhor o curso, deixando o botão de inscrição em destaque logo após esses pontos. Como o seu link de inscrição já existe, a página serve como um filtro que prepara o aluno e reforça a decisão antes do clique. O que não pode faltar nessa apresentação para passar segurança aos interessados?",
+      "decision": {
+        "strategy": "valor",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "strong",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "buyerTask": "apresentar o programa de intensivo de conversação para adultos",
+          "contactReason": "esclarecer como uma landing page organiza o conteúdo e o fluxo de inscrição",
+          "pageRole": "centralizar informações do programa e direcionar o clique para o link de inscrição atual",
+          "nextMove": "explicar a estrutura da página",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": {
+          "facts": [
+            "O lead possui programa e link de inscrição prontos.",
+            "O intensivo é voltado para adultos."
+          ],
+          "indications": [
+            "O lead busca entender como a página agrega valor ao processo atual."
+          ],
+          "hypotheses": [
+            "A página pode reduzir a dispersão de informações sobre o programa."
+          ],
+          "unknowns": [
+            "Quais informações específicas do programa o lead considera essenciais."
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "feedback sobre a proposta de estrutura",
+          "discoveryTarget": "validar se a estrutura proposta atende à clareza que o lead busca"
+        },
+        "focus": {
+          "topic": "estrutura de landing page para conversão",
+          "basis": "confirmed",
+          "relevance": "responde diretamente à pergunta do lead sobre como seria a página"
+        },
+        "interlocutor": "Responsável pela Rumo Idiomas",
+        "evidence": "O interlocutor confirmou que já possui o programa e um link de inscrição, buscando compreender a função de uma landing page neste cenário.",
+        "unknowns": [
+          "Dúvidas adicionais sobre o custo ou prazo que podem surgir após a explicação."
+        ],
+        "nextStep": "Apresentar a estrutura da página e aguardar feedback sobre a adequação ao programa."
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human assessment of the full response; not implied by pass",
+  "response": "A ideia é concentrar em uma única tela os diferenciais do intensivo, o cronograma e o perfil de quem aproveita melhor o curso, deixando o botão de inscrição em destaque logo após esses pontos. Como o seu link de inscrição já existe, a página serve como um filtro que prepara o aluno e reforça a decisão antes do clique. O que não pode faltar nessa apresentação para passar segurança aos interessados?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 5219,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a política da marca e responde diretamente à dúvida do cliente sobre a função da página, mantendo o foco na estrutura sem promessas de resultados.",
+    "semanticFactChecks": [
+      {
+        "claim": "A PRIME oferece landing pages.",
+        "sourceId": "policy:portfolio",
+        "sourceQuote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O lead possui um programa de intensivo para adultos.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Nosso intensivo é para adultos",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O lead possui um link de inscrição.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "já temos o programa e a inscrição por um link",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "A ideia é concentrar em uma única tela os diferenciais do intensivo, o cronograma e o perfil de quem aproveita melhor o curso, deixando o botão de inscrição em destaque logo após esses pontos.",
+        "assessment": "Explicação funcional da estrutura da landing page, alinhada ao serviço da PRIME.",
+        "acceptable": true
+      },
+      {
+        "text": "Como o seu link de inscrição já existe, a página serve como um filtro que prepara o aluno e reforça a decisão antes do clique.",
+        "assessment": "Explicação do papel da página no fluxo atual do cliente.",
+        "acceptable": true
+      },
+      {
+        "text": "O que não pode faltar nessa apresentação para passar segurança aos interessados?",
+        "assessment": "Pergunta aberta para descoberta de conteúdo, sem pressupor necessidades não declaradas.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "contactPlan": {
+        "action": "draft",
+        "strength": "strong",
+        "service": "landing_page",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "buyerTask": "apresentar o programa de intensivo de conversação para adultos",
+        "contactReason": "esclarecer como uma landing page organiza o conteúdo e o fluxo de inscrição",
+        "pageRole": "centralizar informações do programa e direcionar o clique para o link de inscrição atual",
+        "nextMove": "explicar a estrutura da página",
+        "researchNeeded": "nenhuma"
+      },
+      "knowledge": {
+        "facts": [
+          "O lead possui programa e link de inscrição prontos.",
+          "O intensivo é voltado para adultos."
+        ],
+        "indications": [
+          "O lead busca entender como a página agrega valor ao processo atual."
+        ],
+        "hypotheses": [
+          "A página pode reduzir a dispersão de informações sobre o programa."
+        ],
+        "unknowns": [
+          "Quais informações específicas do programa o lead considera essenciais."
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "feedback sobre a proposta de estrutura",
+        "discoveryTarget": "validar se a estrutura proposta atende à clareza que o lead busca"
+      },
+      "focus": {
+        "topic": "estrutura de landing page para conversão",
+        "basis": "confirmed",
+        "relevance": "responde diretamente à pergunta do lead sobre como seria a página"
+      },
+      "interlocutor": "Responsável pela Rumo Idiomas",
+      "evidence": "O interlocutor confirmou que já possui o programa e um link de inscrição, buscando compreender a função de uma landing page neste cenário.",
+      "unknowns": [
+        "Dúvidas adicionais sobre o custo ou prazo que podem surgir após a explicação."
+      ],
+      "nextStep": "Apresentar a estrutura da página e aguardar feedback sobre a adequação ao programa."
+    }
+  },
+  "pass": true
+}

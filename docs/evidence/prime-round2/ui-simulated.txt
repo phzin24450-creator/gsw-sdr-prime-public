@@ -1,0 +1,7 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> gsw-sdr-prime-hibrido@4.2.0 test:ui
+> node scripts/ui-test.mjs
+
+UI PASS SIMULATED_GEMINI 360 login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo/revisão-visual
+UI PASS SIMULATED_GEMINI 1440 login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo/revisão-visual

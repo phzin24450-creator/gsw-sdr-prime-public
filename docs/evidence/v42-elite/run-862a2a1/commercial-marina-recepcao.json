@@ -1,0 +1,52 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [],
+  "response": "Olá, Marina. O assunto é sobre formas de automatizar o agendamento de visitas técnicas para reduzir o trabalho manual de registro. Você poderia me indicar quem cuida da parte operacional ou técnica da Brisa?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 6176,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "focus": {
+        "topic": "automação de agendamento de visitas técnicas",
+        "basis": "hypothesis",
+        "relevance": "Empresas de climatização frequentemente lidam com alto volume de solicitações, e a automação pode reduzir o trabalho manual da recepção no registro de chamados."
+      },
+      "interlocutor": "Marina",
+      "evidence": "A interlocutora se identificou como recepcionista da Brisa Técnica Climatização e afirmou não decidir sobre tecnologia.",
+      "unknowns": [
+        "quem é o responsável pela gestão operacional ou técnica",
+        "se a empresa utiliza sistemas para gerenciar agendamentos"
+      ],
+      "nextStep": "Obter o contato do responsável pela operação técnica ou agendamentos."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "reason": "Sugere automação antes de necessidade confirmada; justificativa presume volume e trabalho manual."
+  }
+}

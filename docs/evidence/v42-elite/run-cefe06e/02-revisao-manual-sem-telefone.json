@@ -1,0 +1,28 @@
+{
+  "reviewed": true,
+  "company": "Marcenaria Fictícia Pinhal Azul",
+  "sector": "Marcenaria sob medida",
+  "messages": [
+    {
+      "direction": "outbound",
+      "time": "10:02",
+      "text": "Qual processo vocês querem organizar?",
+      "source": 2,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "10:03",
+      "text": "Fabricamos móveis sob medida e fazemos orçamentos por planilha.",
+      "source": 2,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "10:04",
+      "text": "Quero saber se um painel ajuda a acompanhar os orçamentos que estão aguardando retorno.",
+      "source": 1,
+      "cropped": false
+    }
+  ]
+}

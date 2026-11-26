@@ -1,0 +1,46 @@
+{
+  "id": "decisor",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou eu o responsável."
+    }
+  ],
+  "expected": "Não perguntar novamente quem decide",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Sou o Pedro, da GSW. Como trabalhamos com soluções digitais e operações inteligentes, gostaria de entender: hoje, qual é o seu principal desafio na gestão da Brisa Técnica ou algum processo que você busca otimizar?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Responsável pela Brisa Técnica Climatização",
+      "evidence": "O interlocutor confirmou ser o responsável pela empresa.",
+      "unknowns": [
+        "necessidade atual",
+        "foco operacional"
+      ],
+      "nextStep": "Identificar a necessidade ou desafio atual da empresa para conectar com uma solução GSW."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Portfólio ou diagnóstico amplo/genérico apesar da revisão semântica.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

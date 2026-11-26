@@ -1,0 +1,80 @@
+{
+  "id": "marina-recepcao",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a Marina da recepção. Não decido sobre tecnologia. Qual o assunto?"
+    }
+  ],
+  "expected": "Não atribuir decisão, uma finalidade relevante sem perguntas duplas",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Oi, Marina. Entendo perfeitamente. O motivo do contato é verificar se a Brisa Técnica tem algum responsável interno ou canal específico para tratar de demandas de sistemas ou ferramentas digitais. Você saberia me dizer quem costuma acompanhar esse tipo de assunto por aí?",
+      "issues": [
+        "canned_empathy"
+      ],
+      "stage": "local",
+      "feedback": null
+    }
+  ],
+  "response": "Oi, Marina. O assunto é sobre como a Brisa Técnica gerencia seus sistemas e ferramentas digitais. Como não é algo que você cuida, poderia me indicar qual setor ou pessoa costuma acompanhar esse tipo de demanda internamente?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 15811,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A abordagem está correta e respeita a limitação da interlocutora, buscando apenas o direcionamento adequado conforme solicitado.",
+    "semanticFactChecks": [
+      {
+        "claim": "Marina é da recepção da Brisa Técnica.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Sou a Marina da recepção.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Marina não decide sobre tecnologia.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Não decido sobre tecnologia.",
+        "verdict": "supported"
+      }
+    ],
+    "qualityAttempts": 2,
+    "requestAttempts": 3,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "opportunity": {
+        "status": "unknown",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Quem é o responsável pela gestão de sistemas ou ferramentas digitais na Brisa Técnica.",
+        "discoveryTarget": "Identificar o setor ou pessoa que cuida da infraestrutura digital ou sistemas da empresa."
+      },
+      "focus": {
+        "topic": "Direcionamento de contato",
+        "basis": "unknown",
+        "relevance": "O interlocutor é da recepção e não possui autonomia para avaliar a proposta de valor, necessitando apenas identificar o setor ou pessoa responsável por tecnologia na empresa."
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina, da recepção da Brisa Técnica, confirmou que não toma decisões sobre tecnologia e solicitou o assunto do contato.",
+      "unknowns": [
+        "responsável pela área de tecnologia",
+        "estrutura interna de TI ou digital"
+      ],
+      "nextStep": "Obter indicação de setor ou pessoa responsável por tecnologia na empresa."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report"
+}

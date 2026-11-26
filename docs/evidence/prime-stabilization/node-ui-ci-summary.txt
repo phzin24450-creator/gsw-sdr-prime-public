@@ -1,0 +1,25 @@
+Run 43987384303; job 133718937940; commit b1760a936eebd2e272bff75c889a4fb8e4631e3b
+2026-11-17T00:24:53.0442510Z ok 76 - Preserved MINIMAL candidate rejects unproven ipe-madeira/quality
+2026-11-17T00:24:53.0445276Z ok 77 - Preserved MINIMAL candidate rejects unproven ipe-madeira/relationship
+2026-11-17T00:24:53.0447967Z ok 78 - Preserved MINIMAL candidate rejects unproven ipe-madeira/channel_exclusivity
+2026-11-17T00:24:53.0450558Z ok 79 - Preserved MINIMAL candidate rejects unproven vertice-turma/outcome
+2026-11-17T00:24:53.0453198Z ok 80 - Preserved MINIMAL candidate rejects unproven interesse-explicacao/outcome
+2026-11-17T00:24:53.0456667Z ok 81 - Preserved MINIMAL candidate rejects unproven objecao-fornecedor/implementation
+2026-11-17T00:24:53.0459279Z ok 82 - Plan field cannot exempt unsupported factual premise: buyerTask
+2026-11-17T00:24:53.0461821Z ok 83 - Plan field cannot exempt unsupported factual premise: pageRole
+2026-11-17T00:24:53.0464542Z ok 84 - Plan field cannot exempt unsupported factual premise: nextMove
+2026-11-17T00:24:53.0467438Z ok 85 - Plan field cannot exempt unsupported factual premise: researchNeeded
+2026-11-17T00:24:53.0470301Z ok 86 - Functional plan requires a source and preserves legitimate proposed presentation
+2026-11-17T00:24:53.0473206Z ok 87 - Actual planned intention and unknown remain exempt from proof of occurrence
+2026-11-17T00:24:54.6728251Z # tests 204
+2026-11-17T00:24:54.6728498Z # suites 0
+2026-11-17T00:24:54.6728728Z # pass 204
+2026-11-17T00:24:54.6728929Z # fail 0
+2026-11-17T00:24:54.6729145Z # cancelled 0
+2026-11-17T00:24:54.6729356Z # skipped 0
+2026-11-17T00:24:54.6729612Z # todo 0
+2026-11-17T00:24:54.6729827Z # duration_ms 2299.911725
+2026-11-17T00:25:35.8269832Z UI PASS RULES 360 login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo
+2026-11-17T00:25:38.5431325Z UI PASS RULES 1440 login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo
+2026-11-17T00:25:43.6948868Z UI PASS SIMULATED_GEMINI 360 login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo/revisão-visual
+2026-11-17T00:25:46.5437141Z UI PASS SIMULATED_GEMINI 1440 login/HUMAN/edit/copy/regenerate/reload/optout/no-overflow/CSP/abordagem-sem-telefone/arquivo/revisão-visual

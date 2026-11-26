@@ -1,0 +1,769 @@
+{
+  "id": "objecao-fornecedor",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+  "input": {
+    "turnPurpose": "reply",
+    "researchAvailable": false,
+    "sourceProvenance": null,
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "SERVICES",
+    "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+    "commercialContext": {
+      "company": "Trilha Viva Fictícia",
+      "sector": "Passeios guiados"
+    },
+    "interlocutorDeclared": null,
+    "history": [
+      {
+        "direction": "inbound",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+      },
+      {
+        "direction": "outbound",
+        "text": "Podemos avaliar uma página dedicada à expedição."
+      },
+      {
+        "direction": "inbound",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+      }
+    ],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "decidir pelo contexto",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": null,
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:functions",
+        "kind": "current_brand_policy",
+        "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+        "scope": [
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Trilha Viva Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Passeios guiados",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "inbound:0",
+        "kind": "client_statement",
+        "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom.",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      },
+      {
+        "id": "inbound:1",
+        "kind": "client_statement",
+        "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+        "scope": [
+          "brand",
+          "function",
+          "observation",
+          "search_result",
+          "global_absence",
+          "channel_exclusivity",
+          "relationship",
+          "quality",
+          "outcome",
+          "implementation",
+          "identity",
+          "other"
+        ]
+      }
+    ],
+    "verifiedObservation": null,
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 4,
+  "generatedCandidates": [
+    {
+      "text": "A ideia da página dedicada é justamente ser um complemento focado apenas na expedição de observação de aves, sem tocar no seu site institucional ou na estrutura que sua agência já gerencia. Ela funcionaria como um espaço isolado para esse roteiro específico. Faz sentido para você que essa página tenha uma gestão independente, mantendo o trabalho que você já possui com eles?",
+      "decision": {
+        "strategy": "objecao",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "strong",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0",
+            "inbound:1"
+          ],
+          "buyerTask": "apresentar uma expedição específica de observação de aves sem alterar o site institucional",
+          "contactReason": "esclarecer que a página dedicada à expedição pode coexistir com o site atual sem interferir na gestão da agência",
+          "pageRole": "apresentar o roteiro e as informações da expedição de observação de aves",
+          "nextMove": "explicar como a página pode ser estruturada de forma independente para atender a esse objetivo específico",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [],
+        "nextStep": ""
+      }
+    },
+    {
+      "text": "O objetivo da página dedicada é atuar como um espaço focado exclusivamente na apresentação da expedição de observação de aves, sem alterar a estrutura que sua agência já gerencia no site institucional. Caso tenha interesse em avaliar como esse conteúdo específico poderia ser organizado, fico à disposição para conversarmos sobre o formato.",
+      "decision": {
+        "strategy": "objecao",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "inbound:0",
+            "inbound:1"
+          ],
+          "buyerTask": "apresentar expedição de observação de aves",
+          "contactReason": "esclarecer que a landing page é um recurso de apresentação focado na expedição, respeitando a preferência do cliente por manter a agência atual no site institucional",
+          "pageRole": "apresentar conteúdo e detalhes específicos da expedição de observação de aves",
+          "nextMove": "aguardar retorno sobre o interesse em explorar o formato de página dedicada para o conteúdo da expedição",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "disponibilidade de conteúdo para a página",
+          "interesse em formato de página isolada"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "A ideia da página dedicada é justamente ser um complemento focado apenas na expedição de observação de aves, sem tocar no seu site institucional ou na estrutura que sua agência já gerencia. Ela funcionaria como um espaço isolado para esse roteiro específico. Faz sentido para você que essa página tenha uma gestão independente, mantendo o trabalho que você já possui com eles?",
+      "issues": [
+        "claim_not_entailed",
+        "unsupported_claim",
+        "factualSafety",
+        "planQuality",
+        "messageQuality"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0.0",
+          "path": "contactPlan.buyerTask",
+          "text": "apresentar uma expedição específica de observação de aves sem alterar o site institucional",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "inbound:0",
+              "quote": "Quero apresentar só nossa expedição fictícia de observação de aves.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "Reflete a necessidade do cliente de isolar a apresentação da expedição.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1.0",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer que a página dedicada à expedição pode coexistir com o site atual sem interferir na gestão da agência",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "implementation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "relation": "does_not_establish"
+            }
+          ],
+          "reason": "Afirma viabilidade técnica de não interferência sem evidência contratual ou técnica.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u2.0",
+          "path": "contactPlan.pageRole",
+          "text": "apresentar o roteiro e as informações da expedição de observação de aves",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A proposta de apresentar roteiro e informações está alinhada com a função de uma landing page.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3.0",
+          "path": "contactPlan.nextMove",
+          "text": "explicar como a página pode ser estruturada de forma independente para atender a esse objetivo específico",
+          "role": "planned_action",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "implementation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "relation": "does_not_establish"
+            }
+          ],
+          "reason": "Pressupõe viabilidade técnica de independência sem base contratual.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u4.0",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma",
+          "role": "research_status",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Lacuna de pesquisa não identificada.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5.0",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "O interlocutor não foi identificado.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6.0",
+          "path": "text",
+          "text": "A ideia da página dedicada é justamente ser um complemento focado apenas na expedição de observação de aves, sem tocar no seu site institucional ou na estrutura que sua agência já gerencia. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "implementation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "relation": "does_not_establish"
+            }
+          ],
+          "reason": "Afirma ausência de interferência técnica sem evidência de compatibilidade.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u7.0",
+          "path": "text",
+          "text": "Ela funcionaria como um espaço isolado para esse roteiro específico. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "Descreve a função de isolamento da página.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8.0",
+          "path": "text",
+          "text": "Faz sentido para você que essa página tenha uma gestão independente, mantendo o trabalho que você já possui com eles?",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "question",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta sobre a gestão, pressupondo viabilidade técnica de independência.",
+          "missingAction": "none",
+          "acceptable": false
+        }
+      ],
+      "quality": {
+        "factualSafety": "revise",
+        "planQuality": "revise",
+        "messageQuality": "revise"
+      },
+      "repairFindings": [
+        {
+          "code": "claim_not_entailed",
+          "id": "u1.0",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer que a página dedicada à expedição pode coexistir com o site atual sem interferir na gestão da agência",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u1.0",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer que a página dedicada à expedição pode coexistir com o site atual sem interferir na gestão da agência",
+          "reason": "Afirma viabilidade técnica de não interferência sem evidência contratual ou técnica."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u3.0",
+          "path": "contactPlan.nextMove",
+          "text": "explicar como a página pode ser estruturada de forma independente para atender a esse objetivo específico",
+          "reason": "Pressupõe viabilidade técnica de independência sem base contratual."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u3.0",
+          "path": "contactPlan.nextMove",
+          "text": "explicar como a página pode ser estruturada de forma independente para atender a esse objetivo específico",
+          "reason": "O plano cita uma fonte como prova de algo que ela não estabelece. Proposta não pode disfarçar premissa factual."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u6.0",
+          "path": "text",
+          "text": "A ideia da página dedicada é justamente ser um complemento focado apenas na expedição de observação de aves, sem tocar no seu site institucional ou na estrutura que sua agência já gerencia. ",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u6.0",
+          "path": "text",
+          "text": "A ideia da página dedicada é justamente ser um complemento focado apenas na expedição de observação de aves, sem tocar no seu site institucional ou na estrutura que sua agência já gerencia. ",
+          "reason": "Afirma ausência de interferência técnica sem evidência de compatibilidade."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u8.0",
+          "path": "text",
+          "text": "Faz sentido para você que essa página tenha uma gestão independente, mantendo o trabalho que você já possui com eles?",
+          "reason": "Pergunta sobre a gestão, pressupondo viabilidade técnica de independência."
+        },
+        {
+          "code": "semantic_criticism",
+          "text": "esclarecer que a página dedicada à expedição pode coexistir com o site atual sem interferir na gestão da agência; explicar como a página pode ser estruturada de forma independente para atender a esse objetivo específico; A ideia da página dedicada é justamente ser um complemento focado apenas na expedição de observação de aves, sem tocar no seu site institucional ou na estrutura que sua agência já gerencia.; Faz sentido para você que essa página tenha uma gestão independente, mantendo o trabalho que você já possui com eles?",
+          "reason": "As afirmações sobre a não interferência na agência e a independência técnica da página não possuem evidência contratual ou técnica, violando a política de funções que limita a apresentação de conteúdo. O plano e a mensagem devem evitar garantir viabilidade técnica que não pode ser assegurada."
+        },
+        {
+          "code": "factualSafety",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        },
+        {
+          "code": "planQuality",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        },
+        {
+          "code": "messageQuality",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "As afirmações sobre a não interferência na agência e a independência técnica da página não possuem evidência contratual ou técnica, violando a política de funções que limita a apresentação de conteúdo. O plano e a mensagem devem evitar garantir viabilidade técnica que não pode ser assegurada."
+    },
+    {
+      "text": "O objetivo da página dedicada é atuar como um espaço focado exclusivamente na apresentação da expedição de observação de aves, sem alterar a estrutura que sua agência já gerencia no site institucional. Caso tenha interesse em avaliar como esse conteúdo específico poderia ser organizado, fico à disposição para conversarmos sobre o formato.",
+      "issues": [
+        "unbounded_inference",
+        "unsupported_claim",
+        "factualSafety"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0.0",
+          "path": "contactPlan.buyerTask",
+          "text": "apresentar expedição de observação de aves",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A proposta de uso da página está alinhada com a política de funções da marca.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1.0",
+          "path": "contactPlan.contactReason",
+          "text": "esclarecer que a landing page é um recurso de apresentação focado na expedição, respeitando a preferência do cliente por manter a agência atual no site institucional",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "inbound:1",
+              "quote": "Minha agência já cuida dele e não quero trocar de fornecedor.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "O plano reconhece corretamente a preferência do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u2.0",
+          "path": "contactPlan.pageRole",
+          "text": "apresentar conteúdo e detalhes específicos da expedição de observação de aves",
+          "role": "proposed_function",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A função proposta é compatível com a política de landing pages.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3.0",
+          "path": "contactPlan.nextMove",
+          "text": "aguardar retorno sobre o interesse em explorar o formato de página dedicada para o conteúdo da expedição",
+          "role": "planned_action",
+          "reviewerClassification": null,
+          "commitment": "intention",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Ação futura condizente com a postura de respeito à decisão do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u4.0",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma",
+          "role": "research_status",
+          "reviewerClassification": null,
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Não há necessidade de pesquisa adicional no momento.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5.0",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "identity",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "O interlocutor não se identificou.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6.0",
+          "path": "unknowns.0",
+          "text": "disponibilidade de conteúdo para a página",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "function",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Lacuna sobre o conteúdo disponível.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u7.0",
+          "path": "unknowns.1",
+          "text": "interesse em formato de página isolada",
+          "role": "uncertainty",
+          "reviewerClassification": null,
+          "commitment": "unknown",
+          "classification": "non_assertive",
+          "domain": "function",
+          "language": "non_assertive",
+          "evidence": [],
+          "reason": "Lacuna sobre o interesse do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8.0",
+          "path": "text",
+          "text": "O objetivo da página dedicada é atuar como um espaço focado exclusivamente na apresentação da expedição de observação de aves, sem alterar a estrutura que sua agência já gerencia no site institucional. ",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "implementation",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A descrição da função da página é correta, mas a afirmação de que não altera a estrutura do site institucional é uma condição técnica que não pode ser garantida sem análise da infraestrutura atual.",
+          "missingAction": "none",
+          "acceptable": false
+        },
+        {
+          "id": "u9.0",
+          "path": "text",
+          "text": "Caso tenha interesse em avaliar como esse conteúdo específico poderia ser organizado, fico à disposição para conversarmos sobre o formato.",
+          "role": "assertion",
+          "reviewerClassification": null,
+          "commitment": "functional_proposal",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:functions",
+              "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+              "relation": "entails"
+            }
+          ],
+          "reason": "Proposta de conversa sobre o formato, mantendo a autonomia do cliente.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "revise",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "unbounded_inference",
+          "id": "u8.0",
+          "path": "text",
+          "text": "O objetivo da página dedicada é atuar como um espaço focado exclusivamente na apresentação da expedição de observação de aves, sem alterar a estrutura que sua agência já gerencia no site institucional. ",
+          "reason": "Identifique uma fonte literal que sustente ESTA função: policy:functions para capacidade geral de apresentação, e declaração/observação para conteúdo específico. Sem essa relação, remova a conclusão; não basta reescrevê-la no condicional. Resultado sobre pessoas e compatibilidade técnica não são funções de apresentação."
+        },
+        {
+          "code": "unsupported_claim",
+          "id": "u8.0",
+          "path": "text",
+          "text": "O objetivo da página dedicada é atuar como um espaço focado exclusivamente na apresentação da expedição de observação de aves, sem alterar a estrutura que sua agência já gerencia no site institucional. ",
+          "reason": "A descrição da função da página é correta, mas a afirmação de que não altera a estrutura do site institucional é uma condição técnica que não pode ser garantida sem análise da infraestrutura atual."
+        },
+        {
+          "code": "semantic_criticism",
+          "text": "sem alterar a estrutura que sua agência já gerencia no site institucional",
+          "reason": "A afirmação de que a página não altera a estrutura do site institucional é uma premissa técnica não sustentada, pois a integração ou o impacto no ecossistema digital do cliente depende de fatores externos não analisados."
+        },
+        {
+          "code": "factualSafety",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "A afirmação de que a página não altera a estrutura do site institucional é uma premissa técnica não sustentada, pois a integração ou o impacto no ecossistema digital do cliente depende de fatores externos não analisados."
+    }
+  ],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "quality_block",
+    "httpStatus": null,
+    "stage": "semantic_review"
+  },
+  "telemetry": {
+    "startedAt": 1794825777539,
+    "calls": [
+      {
+        "stage": "generation",
+        "attempt": 1,
+        "requestBytes": 13046,
+        "httpStatus": 200,
+        "durationMs": 3771,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2324,
+          "candidatesTokenCount": 305,
+          "totalTokenCount": 2629
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 2,
+        "requestBytes": 14789,
+        "httpStatus": 200,
+        "durationMs": 6583,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2636,
+          "candidatesTokenCount": 1667,
+          "totalTokenCount": 4303
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "generation",
+        "attempt": 3,
+        "requestBytes": 21833,
+        "httpStatus": 200,
+        "durationMs": 14108,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 4109,
+          "candidatesTokenCount": 319,
+          "totalTokenCount": 4428
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 4,
+        "requestBytes": 15011,
+        "httpStatus": 200,
+        "durationMs": 6334,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2669,
+          "candidatesTokenCount": 1548,
+          "totalTokenCount": 4217
+        },
+        "finishReason": "STOP"
+      }
+    ]
+  },
+  "plan": null,
+  "pass": false,
+  "outcome": "quality_block"
+}

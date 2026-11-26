@@ -1,0 +1,40 @@
+{
+  "id": "confianca",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Não conheço a GSW. Por que eu deveria confiar?"
+    }
+  ],
+  "expected": "Transparência sem cases inventados",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Compreendo sua cautela. Somos uma empresa de tecnologia focada em conectar soluções digitais — como sistemas, integrações e presença online — a processos reais de negócio. Não trabalhamos com promessas de resultados imediatos, mas com a viabilidade técnica de cada projeto. Para eu ser mais específico sobre como podemos apoiar, qual é o seu segmento de atuação hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead questionou a credibilidade da GSW e não forneceu contexto sobre sua empresa.",
+      "unknowns": [
+        "segmento da empresa",
+        "necessidade atual"
+      ],
+      "nextStep": "Aguardar retorno sobre a área de atuação para contextualizar a abordagem."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "ressalva",
+    "note": "Sem cases falsos, mas excessivamente institucional e amplo.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

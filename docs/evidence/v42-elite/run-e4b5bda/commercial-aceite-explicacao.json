@@ -1,0 +1,46 @@
+{
+  "id": "aceite-explicacao",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Posso explicar a possibilidade?"
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Sim."
+    }
+  ],
+  "expected": "Explicação não autoriza reunião",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Ótimo. Na GSW, conectamos soluções digitais aos processos reais das empresas, como sites, landing pages ou automações. Para que eu possa ser assertivo na explicação, qual é o seu segmento de atuação e o que hoje é o ponto de maior atenção na sua operação?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead autorizou a explicação da possibilidade de serviço da GSW.",
+      "unknowns": [
+        "segmento de atuação",
+        "objetivo principal da empresa",
+        "desafios operacionais atuais"
+      ],
+      "nextStep": "Identificar a necessidade do cliente para sugerir uma solução específica."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Listou serviços e pediu segmento mais ponto de atenção na mesma mensagem.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

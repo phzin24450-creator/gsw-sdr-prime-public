@@ -1,0 +1,136 @@
+{
+  "id": "landing-page",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Estúdio Lume Fictício"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Já temos um bom site institucional. Queremos apresentar só o workshop fictício de fotografia, com programa, data e link de inscrição que já existe."
+    }
+  ],
+  "rejectedDrafts": [],
+  "generatedCandidates": [
+    {
+      "text": "Entendo, o site institucional atende bem à marca, mas para o workshop, o foco precisa ser na inscrição. Vocês preferem criar essa página dentro da estrutura atual do site ou buscam um ambiente independente para essa campanha específica?",
+      "decision": {
+        "strategy": "qualificacao",
+        "knowledge": {
+          "facts": [
+            "O cliente possui um site institucional atual.",
+            "O objetivo declarado é a divulgação específica de um workshop de fotografia."
+          ],
+          "indications": [
+            "A necessidade de uma landing page para focar na conversão da inscrição do workshop é clara."
+          ],
+          "hypotheses": [
+            "O site atual pode não permitir a criação de páginas focadas em conversão isolada sem interferir na estrutura institucional."
+          ],
+          "unknowns": [
+            "Se o site atual possui suporte técnico para a criação de novas páginas internas ou se a empresa prefere um ambiente independente para a campanha."
+          ]
+        },
+        "opportunity": {
+          "status": "grounded",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Preferência por integração com o site atual ou independência do ambiente da landing page.",
+          "discoveryTarget": "Entender se a estrutura atual comporta a página do workshop ou se há preferência por uma solução separada."
+        },
+        "focus": {
+          "topic": "Landing page para o workshop de fotografia",
+          "basis": "confirmed",
+          "relevance": "Atende ao objetivo de apresentar o workshop com foco na inscrição."
+        },
+        "interlocutor": "Desconhecido",
+        "evidence": "O cliente declarou possuir site institucional e necessidade de divulgar workshop com link de inscrição.",
+        "unknowns": [
+          "Preferência por integração técnica ou ambiente separado."
+        ],
+        "nextStep": "Validar se a intenção é criar uma página dentro do site existente ou um ambiente externo independente."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Entendo, o site institucional atende bem à marca, mas para o workshop, o foco precisa ser na inscrição. Vocês preferem criar essa página dentro da estrutura atual do site ou buscam um ambiente independente para essa campanha específica?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 30982,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a oferta da PRIME e respeita o contexto fornecido pelo cliente, focando na necessidade de uma landing page para o workshop.",
+    "semanticFactChecks": [
+      {
+        "claim": "O cliente possui um site institucional.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Já temos um bom site institucional.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O cliente deseja apresentar um workshop de fotografia.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "Queremos apresentar só o workshop fictício de fotografia",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Entendo, o site institucional atende bem à marca, mas para o workshop, o foco precisa ser na inscrição.",
+        "assessment": "Reconhece a declaração do cliente e valida a necessidade de foco em conversão.",
+        "acceptable": true
+      },
+      {
+        "text": "Vocês preferem criar essa página dentro da estrutura atual do site ou buscam um ambiente independente para essa campanha específica?",
+        "assessment": "Pergunta direta sobre a viabilidade técnica da landing page, alinhada ao serviço oferecido pela PRIME.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "qualificacao",
+      "knowledge": {
+        "facts": [
+          "O cliente possui um site institucional atual.",
+          "O objetivo declarado é a divulgação específica de um workshop de fotografia."
+        ],
+        "indications": [
+          "A necessidade de uma landing page para focar na conversão da inscrição do workshop é clara."
+        ],
+        "hypotheses": [
+          "O site atual pode não permitir a criação de páginas focadas em conversão isolada sem interferir na estrutura institucional."
+        ],
+        "unknowns": [
+          "Se o site atual possui suporte técnico para a criação de novas páginas internas ou se a empresa prefere um ambiente independente para a campanha."
+        ]
+      },
+      "opportunity": {
+        "status": "grounded",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "Preferência por integração com o site atual ou independência do ambiente da landing page.",
+        "discoveryTarget": "Entender se a estrutura atual comporta a página do workshop ou se há preferência por uma solução separada."
+      },
+      "focus": {
+        "topic": "Landing page para o workshop de fotografia",
+        "basis": "confirmed",
+        "relevance": "Atende ao objetivo de apresentar o workshop com foco na inscrição."
+      },
+      "interlocutor": "Desconhecido",
+      "evidence": "O cliente declarou possuir site institucional e necessidade de divulgar workshop com link de inscrição.",
+      "unknowns": [
+        "Preferência por integração técnica ou ambiente separado."
+      ],
+      "nextStep": "Validar se a intenção é criar uma página dentro do site existente ou um ambiente externo independente."
+    }
+  },
+  "pass": true
+}

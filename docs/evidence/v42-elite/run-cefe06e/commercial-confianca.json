@@ -1,0 +1,43 @@
+{
+  "id": "confianca",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Não conheço a GSW. Por que eu deveria confiar?"
+    }
+  ],
+  "expected": "Transparência sem cases inventados",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Agradeço a franqueza. A GSW foca em desenvolver soluções digitais e operações inteligentes sob medida, conectando tecnologia a processos reais, sem promessas genéricas. Como não temos um histórico, prefiro que você me conte um pouco sobre o que sua empresa faz hoje para que eu possa verificar se nossa atuação faz sentido para você.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "interlocutor": "desconhecido",
+      "evidence": "O interlocutor questiona a credibilidade da GSW e não possui contexto prévio sobre a empresa.",
+      "unknowns": [
+        "segmento",
+        "necessidade"
+      ],
+      "nextStep": "Aguardar o retorno do interlocutor sobre seu ramo de atuação para contextualizar a abordagem."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado com ressalvas",
+    "note": "Resposta real preservada; avaliação automática não equivale à aprovação comercial.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

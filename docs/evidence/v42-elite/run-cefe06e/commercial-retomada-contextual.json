@@ -1,0 +1,42 @@
+{
+  "id": "retomada-contextual",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Retomando nossa conversa: agora anotamos os pedidos por etapa e queremos enxergar atrasos."
+    }
+  ],
+  "expected": "Usar novidade declarada",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Para entendermos como a GSW pode apoiar sua operação na visualização desses atrasos, você utiliza hoje algum sistema ou planilha para registrar as etapas dos pedidos?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 2,
+    "requestAttempts": 4,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead mencionou que anota pedidos por etapa e deseja visualizar atrasos.",
+      "unknowns": [
+        "ferramenta atual de anotação"
+      ],
+      "nextStep": "Identificar a viabilidade de um painel administrativo para monitoramento."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Aplicação ou pergunta contextual, sem promessa de resultado; aprovação restrita ao cenário.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

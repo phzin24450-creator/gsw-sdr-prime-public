@@ -1,0 +1,25 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "quality_block",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "bloqueado por qualidade",
+    "note": "Nenhum rascunho liberado; causa específica não registrada nesta versão.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

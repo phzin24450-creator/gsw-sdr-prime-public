@@ -1,0 +1,47 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [],
+  "response": "Olá, Marina! Tudo bem por aqui também. Entro em contato pela GSW, onde desenvolvemos soluções digitais e operações inteligentes. Gostaria de saber como a Brisa Técnica lida hoje com a organização do atendimento ou o fluxo de solicitações de orçamento, para entender se podemos apoiar em algum processo específico.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 21480,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "descoberta",
+      "interlocutor": "Marina",
+      "evidence": "Marina se identificou e perguntou como pode ajudar, sem especificar a necessidade da Brisa Técnica Climatização.",
+      "unknowns": [
+        "necessidade comercial",
+        "processo atual de atendimento ou vendas"
+      ],
+      "nextStep": "Qualificar a demanda para entender qual solução da GSW é pertinente."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "reason": "Solicita organização de atendimento OU fluxo de orçamentos, dois assuntos. A revisão Gemini retornou questionCount=1 incorretamente. Corrigido filtro local no commit 7e9d5f2; nova chamada necessária."
+  }
+}

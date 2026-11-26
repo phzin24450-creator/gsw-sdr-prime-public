@@ -1,0 +1,27 @@
+{
+  "id": "pergunta-respondida",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Como vocês registram os pedidos?"
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Usamos planilha. Quero acompanhar pedidos atrasados."
+    }
+  ],
+  "expected": "Não perguntar como registram novamente",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

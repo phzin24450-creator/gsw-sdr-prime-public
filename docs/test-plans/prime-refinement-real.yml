@@ -1,0 +1,38 @@
+# Proposal only. Not under .github/workflows; does not execute.
+# Requires explicit exception to the prohibition on modifying other branches.
+# Intended destination: .github/workflows/prime-refinement-approved-test.yml
+# Intended branch: work/v4.2-visual-copilot
+name: PRIME commercial reasoning real acceptance
+on:
+  push:
+    branches: [work/v4.2-visual-copilot]
+    paths: ['.github/workflows/prime-refinement-approved-test.yml']
+permissions:
+  contents: read
+jobs:
+  synthetic-commercial:
+    if: github.ref == 'refs/heads/work/v4.2-visual-copilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: gemini-v42-tests
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: e20e4bf2938c04c341814f32eca31b413650189a
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run five fictional commercial scenarios and stop controls
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_V42_TEST_API_KEY }}
+        run: node scripts/prime-refinement-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prime-refinement-real-fictional-evidence
+          path: test-results/prime-refinement/
+          retention-days: 14

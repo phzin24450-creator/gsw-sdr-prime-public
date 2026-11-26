@@ -1,0 +1,21 @@
+{
+  "text": "Sim, um painel administrativo pode centralizar esses dados, permitindo visualizar o status de cada orçamento e identificar quais aguardam retorno. Na GSW, desenvolvemos soluções para conectar informações dispersas em planilhas a uma visão consolidada. Como vocês organizam hoje a priorização desses retornos?",
+  "provider": "gemini",
+  "generationMeta": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "interlocutor": "Responsável pela Marcenaria Pinhal Azul",
+      "evidence": "O cliente utiliza planilhas para orçamentos de móveis sob medida e tem interesse em acompanhar o status de retorno desses orçamentos.",
+      "unknowns": [
+        "Volume mensal de orçamentos",
+        "Principais dificuldades na gestão atual das planilhas"
+      ],
+      "nextStep": "Validar se o painel atende à necessidade de centralização e controle de status."
+    }
+  }
+}

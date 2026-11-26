@@ -1,0 +1,444 @@
+{
+  "id": "vertice-turma",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Investigar página específica para a turma antes de ofertar outra página.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "vertice.example.invalid",
+      "verifiedOn": "2026-11-16"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Vértice Escola Fictícia",
+      "sector": "Cursos livres"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Vértice Escola Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Cursos livres",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+        "scope": [
+          "observation",
+          "search_result"
+        ]
+      }
+    ],
+    "verifiedObservation": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 4,
+  "generatedCandidates": [
+    {
+      "text": "Olá. Notei no Instagram da Vértice o anúncio da turma de fotografia noturna, mas ao clicar em 'Saiba mais', fui levado à página geral de cursos. Na PRIME, desenvolvemos landing pages focadas em um único curso, o que permite que o interessado consulte o programa completo e siga para a matrícula sem precisar buscar dentro de um catálogo. Faz sentido para vocês separar a comunicação de cursos específicos em páginas dedicadas?",
+      "decision": {
+        "strategy": "valor",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "promover turmas específicas de cursos livres",
+          "contactReason": "observação de que o link de 'Saiba mais' em um post de fotografia noturna direciona para uma página geral, dificultando o acesso direto ao programa daquela turma específica",
+          "pageRole": "centralizar informações detalhadas e o próximo passo de inscrição para uma oferta específica",
+          "nextMove": "verificar se o foco da escola é conduzir interessados por uma página geral ou se faz sentido criar uma página específica para cada turma",
+          "researchNeeded": "confirmar se existe uma rota direta para o programa do curso ou se o fluxo atual é o padrão de atendimento da escola"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "preferência da escola por fluxos de conversão",
+          "processo atual de atendimento aos interessados"
+        ],
+        "nextStep": ""
+      }
+    },
+    {
+      "text": "Olá. Sou o Pedro, da PRIME. Vi o anúncio da turma de fotografia noturna no Instagram e notei que, ao clicar em 'Saiba mais', o link direciona para a página geral de cursos da Vértice. A página geral de cursos atende bem a necessidade de quem busca detalhes específicos sobre essa turma de fotografia?",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "exibir informações específicas de um curso anunciado",
+          "contactReason": "observação de que o link do anúncio de fotografia noturna direciona para a listagem geral de cursos",
+          "pageRole": "centralizar informações e detalhes de um curso específico",
+          "nextMove": "verificar se a Vértice considera útil ter páginas dedicadas para cursos específicos",
+          "researchNeeded": "nenhuma"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "necessidade de páginas dedicadas",
+          "processo de matrícula atual"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "Olá. Notei no Instagram da Vértice o anúncio da turma de fotografia noturna, mas ao clicar em 'Saiba mais', fui levado à página geral de cursos. Na PRIME, desenvolvemos landing pages focadas em um único curso, o que permite que o interessado consulte o programa completo e siga para a matrícula sem precisar buscar dentro de um catálogo. Faz sentido para vocês separar a comunicação de cursos específicos em páginas dedicadas?",
+      "issues": [
+        "claim_not_entailed",
+        "incomplete_claim_audit"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "Olá. ",
+          "role": "greeting",
+          "commitment": "greeting",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Saudação padrão sem atribuição de identidade.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Notei no Instagram da Vértice o anúncio da turma de fotografia noturna, mas ao clicar em 'Saiba mais', fui levado à página geral de cursos. ",
+          "role": "assertion",
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A observação reflete exatamente o comportamento verificado no link do post.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Na PRIME, desenvolvemos landing pages focadas em um único curso, o que permite que o interessado consulte o programa completo e siga para a matrícula sem precisar buscar dentro de um catálogo. ",
+          "role": "assertion",
+          "commitment": "functional_proposal",
+          "classification": "supported",
+          "domain": "function",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A descrição da função da landing page é compatível com a política de portfólio da agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u11",
+          "path": "text",
+          "text": "Faz sentido para vocês separar a comunicação de cursos específicos em páginas dedicadas?",
+          "role": "assertion",
+          "commitment": "question",
+          "classification": "supported",
+          "domain": "function",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta aberta sobre a estratégia de comunicação, sem premissas falsas.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "pass",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "claim_not_entailed",
+          "id": "u10",
+          "path": "text",
+          "text": "Na PRIME, desenvolvemos landing pages focadas em um único curso, o que permite que o interessado consulte o programa completo e siga para a matrícula sem precisar buscar dentro de um catálogo. ",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u11",
+          "path": "text",
+          "text": "Faz sentido para vocês separar a comunicação de cursos específicos em páginas dedicadas?",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "incomplete_claim_audit",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "A mensagem está bem estruturada, baseada em observação real e alinhada às políticas da PRIME. Não há atribuição indevida de cargos ou promessas de resultados."
+    },
+    {
+      "text": "Olá. Sou o Pedro, da PRIME. Vi o anúncio da turma de fotografia noturna no Instagram e notei que, ao clicar em 'Saiba mais', o link direciona para a página geral de cursos da Vértice. A página geral de cursos atende bem a necessidade de quem busca detalhes específicos sobre essa turma de fotografia?",
+      "issues": [
+        "claim_not_entailed",
+        "incomplete_claim_audit"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "Olá. ",
+          "role": "greeting",
+          "commitment": "greeting",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Saudação padrão.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Sou o Pedro, da PRIME. ",
+          "role": "assertion",
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "identity",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:sender",
+              "quote": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "Identidade alinhada com a política da marca.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Vi o anúncio da turma de fotografia noturna no Instagram e notei que, ao clicar em 'Saiba mais', o link direciona para a página geral de cursos da Vértice. ",
+          "role": "assertion",
+          "commitment": "fact",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A observação reflete exatamente o que foi verificado no post.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u11",
+          "path": "text",
+          "text": "A página geral de cursos atende bem a necessidade de quem busca detalhes específicos sobre essa turma de fotografia?",
+          "role": "assertion",
+          "commitment": "question",
+          "classification": "supported",
+          "domain": "function",
+          "language": "question",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "sem programa da turma na seção observada",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "Pergunta legítima sobre a eficácia da página atual, baseada na ausência de detalhes específicos observada.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "pass",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "claim_not_entailed",
+          "id": "u11",
+          "path": "text",
+          "text": "A página geral de cursos atende bem a necessidade de quem busca detalhes específicos sobre essa turma de fotografia?",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "incomplete_claim_audit",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "A mensagem está clara, respeita as políticas da PRIME e utiliza a observação factual como gancho para a abordagem, sem promessas indevidas."
+    }
+  ],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "quality_block",
+    "httpStatus": null,
+    "stage": "semantic_review"
+  },
+  "telemetry": {
+    "startedAt": 1794796213331,
+    "calls": [
+      {
+        "stage": "generation",
+        "attempt": 1,
+        "requestBytes": 10978,
+        "httpStatus": 200,
+        "durationMs": 1577,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1916,
+          "candidatesTokenCount": 363,
+          "totalTokenCount": 2279
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 2,
+        "requestBytes": 11514,
+        "httpStatus": 200,
+        "durationMs": 2155,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1937,
+          "candidatesTokenCount": 624,
+          "totalTokenCount": 2561
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "generation",
+        "attempt": 3,
+        "requestBytes": 13603,
+        "httpStatus": 200,
+        "durationMs": 1372,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2463,
+          "candidatesTokenCount": 282,
+          "totalTokenCount": 2745
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 4,
+        "requestBytes": 10950,
+        "httpStatus": 200,
+        "durationMs": 2397,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1833,
+          "candidatesTokenCount": 647,
+          "totalTokenCount": 2480
+        },
+        "finishReason": "STOP"
+      }
+    ]
+  },
+  "plan": null,
+  "pass": false
+}

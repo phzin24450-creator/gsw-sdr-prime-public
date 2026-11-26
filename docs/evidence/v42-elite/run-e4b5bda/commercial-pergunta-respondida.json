@@ -1,0 +1,45 @@
+{
+  "id": "pergunta-respondida",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Como vocês registram os pedidos?"
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Usamos planilha. Quero acompanhar pedidos atrasados."
+    }
+  ],
+  "expected": "Não perguntar como registram novamente",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Entendo, a planilha é um ponto de partida comum. Na GSW, trabalhamos com painéis administrativos que podem centralizar essas informações, facilitando a visualização de status e prazos sem depender de atualizações manuais constantes. Como é o volume de pedidos que vocês gerenciam hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead utiliza planilhas para controle e manifestou interesse em acompanhar pedidos atrasados.",
+      "unknowns": [
+        "segmento de atuação",
+        "volume de pedidos"
+      ],
+      "nextStep": "Apresentar a possibilidade de um painel administrativo para centralizar as informações."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Não repetiu planilha, mas presumiu dispensa de atualizações manuais sem viabilidade.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

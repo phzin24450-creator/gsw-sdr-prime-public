@@ -1,0 +1,49 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "messages": [
+    {
+      "direction": "outbound",
+      "time": "10:02",
+      "text": "Qual processo vocês querem organizar?",
+      "source": 2,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "10:03",
+      "text": "Fabricamos móveis sob medida e fazemos orçamentos por planilha.",
+      "source": 2,
+      "cropped": false
+    },
+    {
+      "direction": "inbound",
+      "time": "10:04",
+      "text": "Quero saber se um painel ajuda a acompanhar os orçamentos.",
+      "source": 1,
+      "cropped": false
+    }
+  ],
+  "company": {
+    "value": "Oficina Fictícia Pinhal Azul",
+    "status": "visible",
+    "evidence": "Oficina Fictícia Pinhal Azul"
+  },
+  "sector": {
+    "value": "Móveis sob medida",
+    "status": "hypothesis",
+    "evidence": "Fabricamos móveis sob medida"
+  },
+  "intent": {
+    "value": "Organização de orçamentos",
+    "status": "hypothesis",
+    "evidence": "Quero saber se um painel ajuda a acompanhar os orçamentos."
+  },
+  "opportunity": {
+    "value": "Implementação de painel de gestão de orçamentos",
+    "status": "hypothesis",
+    "evidence": "Quero saber se um painel ajuda a acompanhar os orçamentos."
+  },
+  "uncertainOrder": false,
+  "blocked": false
+}

@@ -1,0 +1,35 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "messages": [
+    {
+      "direction": "inbound",
+      "time": "11:05",
+      "text": "Vocês podem me explicar como funciona?",
+      "source": 1,
+      "cropped": false
+    }
+  ],
+  "company": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "sector": {
+    "value": "Desconhecido",
+    "status": "unknown",
+    "evidence": ""
+  },
+  "intent": {
+    "value": "Solicitação de informações sobre o serviço",
+    "status": "hypothesis",
+    "evidence": "Vocês podem me explicar como funciona?"
+  },
+  "opportunity": {
+    "value": "Desenvolvimento de site profissional ou landing page",
+    "status": "hypothesis",
+    "evidence": "Vocês podem me explicar como funciona?"
+  },
+  "uncertainOrder": false,
+  "blocked": false
+}

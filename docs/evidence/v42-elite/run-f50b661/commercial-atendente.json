@@ -1,0 +1,43 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "rejectedDrafts": [
+    {
+      "text": "Bom dia, Marina. Sou o Pedro, da GSW. Entro em contato pois trabalhamos com soluções digitais e operações inteligentes para negócios, como a Brisa Técnica. Atualmente, vocês já contam com alguma estrutura para organizar o atendimento aos clientes ou a presença da empresa no Google?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "local"
+    },
+    {
+      "text": "Olá, Marina. Sou o Pedro, da GSW. Entro em contato pois desenvolvemos soluções digitais e automações operacionais que conectam a presença online de empresas de climatização aos seus processos reais de atendimento.",
+      "issues": [
+        "generic_approach"
+      ],
+      "stage": "semantic"
+    }
+  ],
+  "pass": false,
+  "errorCode": "quality_block",
+  "httpStatus": null,
+  "qualityIssues": [
+    "generic_approach"
+  ],
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "reason": "Primeira tentativa combina atendimento e Google. Reparo não solicita dados, mas permanece genérico e relaciona automação/presença online sem oportunidade fundamentada; corretamente bloqueado."
+  }
+}

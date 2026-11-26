@@ -1,0 +1,43 @@
+{
+  "id": "saber-mais",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Pode explicar como um painel acompanha orçamentos?"
+    }
+  ],
+  "expected": "Explicar sem presumir autorização para handoff",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá. Na GSW, desenvolvemos painéis administrativos personalizados para centralizar o fluxo de orçamentos. O objetivo é permitir que você visualize o status de cada solicitação, como pendente ou aprovado, e organize as informações em um único lugar. Para entender se essa estrutura atende ao seu volume, como vocês acompanham esses dados hoje?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "valor",
+      "interlocutor": "interlocutor",
+      "evidence": "O lead solicitou especificamente a explicação sobre o funcionamento de painéis para acompanhamento de orçamentos.",
+      "unknowns": [
+        "segmento de atuação",
+        "processo atual de gestão de orçamentos"
+      ],
+      "nextStep": "Aguardar retorno sobre o processo atual para validar a adequação da solução."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Aplicação ou pergunta contextual, sem promessa de resultado; aprovação restrita ao cenário.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

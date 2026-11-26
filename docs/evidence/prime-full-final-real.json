@@ -1,0 +1,2496 @@
+{
+  "run": 44146848824,
+  "code": "9bc6928d779ed82ed8d777a57c12314560565dd7",
+  "files": [
+    {
+      "file": "bruma-social.json",
+      "data": {
+        "id": "bruma-social",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Usar coleção e trabalhos publicados; não converter Instagram forte em necessidade comprovada de landing page.",
+        "input": {
+          "turnPurpose": "cold_outreach",
+          "researchAvailable": true,
+          "sourceProvenance": {
+            "kind": "operator_provided_observation",
+            "host": "bruma.example.invalid",
+            "verifiedOn": "2026-11-17"
+          },
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "OPENING",
+          "latestMessage": "",
+          "commercialContext": {
+            "company": "Bruma Cerâmica Fictícia",
+            "sector": "Cerâmica autoral"
+          },
+          "interlocutorDeclared": null,
+          "history": [],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "motivo relevante sem inventar pesquisa",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": "observacao",
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Bruma Cerâmica Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Cerâmica autoral",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "public:observation",
+              "kind": "provided_verified_observation",
+              "text": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+              "scope": [
+                "observation",
+                "search_result"
+              ]
+            }
+          ],
+          "verifiedObservation": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 4,
+        "generatedCandidates": [
+          {
+            "text": "Olá, aqui é o Pedro da PRIME. Vi que vocês apresentam as peças da coleção Terra no Instagram e que o link da bio direciona para um catálogo social. Como vocês organizam a apresentação dessas peças hoje?",
+            "decision": {
+              "strategy": "descoberta",
+              "contactPlan": {
+                "action": "draft",
+                "strength": "plausible",
+                "service": "site",
+                "evidenceRefs": [
+                  "public:observation"
+                ],
+                "buyerTask": "Apresentação e organização de peças de cerâmica autoral",
+                "contactReason": "Perfil exibe 40 peças da coleção Terra e link da bio direciona para catálogo social.",
+                "pageRole": "Organização e apresentação da coleção de cerâmica autoral.",
+                "nextMove": "Verificar onde o catálogo de peças é gerido e apresentado.",
+                "researchNeeded": ""
+              },
+              "knowledge": null,
+              "opportunity": null,
+              "focus": null,
+              "interlocutor": "Desconhecido",
+              "evidence": "",
+              "unknowns": [
+                "Onde a Bruma Cerâmica apresenta seu catálogo de peças"
+              ],
+              "nextStep": ""
+            }
+          },
+          {
+            "text": "Olá, aqui é o Pedro da PRIME. Notei que vocês exibem 40 peças da coleção Terra e que o link na bio direciona para um catálogo social. Como vocês organizam a apresentação desse conteúdo hoje?",
+            "decision": {
+              "strategy": "descoberta",
+              "contactPlan": {
+                "action": "draft",
+                "strength": "plausible",
+                "service": "site",
+                "evidenceRefs": [
+                  "public:observation"
+                ],
+                "buyerTask": "apresentar a coleção Terra",
+                "contactReason": "O perfil exibe 40 peças da coleção Terra e o link na bio direciona para um catálogo social.",
+                "pageRole": "apresentação de catálogo de cerâmica",
+                "nextMove": "perguntar sobre a rota existente para a coleção",
+                "researchNeeded": ""
+              },
+              "knowledge": null,
+              "opportunity": null,
+              "focus": null,
+              "interlocutor": "Desconhecido",
+              "evidence": "",
+              "unknowns": [
+                "rota de apresentação da coleção"
+              ],
+              "nextStep": ""
+            }
+          }
+        ],
+        "rejectedDrafts": [
+          {
+            "text": "Olá, aqui é o Pedro da PRIME. Vi que vocês apresentam as peças da coleção Terra no Instagram e que o link da bio direciona para um catálogo social. Como vocês organizam a apresentação dessas peças hoje?",
+            "issues": [
+              "unsupported_premise"
+            ],
+            "stage": "semantic",
+            "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+            "claimLedger": [
+              {
+                "id": "u0.0",
+                "path": "contactPlan.buyerTask",
+                "text": "Apresentação e organização de peças de cerâmica autoral",
+                "role": "proposed_function",
+                "reviewerClassification": null,
+                "commitment": "functional_proposal",
+                "classification": "admissible_inference",
+                "domain": "function",
+                "language": "conditional",
+                "evidence": [
+                  {
+                    "sourceId": "policy:functions",
+                    "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                    "relation": "entails"
+                  }
+                ],
+                "reason": "Apresentação de peças é uma função legítima de um site conforme política.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u1.0",
+                "path": "contactPlan.contactReason",
+                "text": "Perfil exibe 40 peças da coleção Terra e link da bio direciona para catálogo social.",
+                "role": "assertion",
+                "reviewerClassification": null,
+                "commitment": "fact",
+                "classification": "supported",
+                "domain": "observation",
+                "language": "factual",
+                "evidence": [
+                  {
+                    "sourceId": "public:observation",
+                    "quote": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social.",
+                    "relation": "entails"
+                  }
+                ],
+                "reason": "A afirmação reflete exatamente a observação verificada.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u2.0",
+                "path": "contactPlan.pageRole",
+                "text": "Organização e apresentação da coleção de cerâmica autoral.",
+                "role": "proposed_function",
+                "reviewerClassification": null,
+                "commitment": "functional_proposal",
+                "classification": "admissible_inference",
+                "domain": "function",
+                "language": "conditional",
+                "evidence": [
+                  {
+                    "sourceId": "policy:functions",
+                    "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                    "relation": "entails"
+                  }
+                ],
+                "reason": "Proposta funcional alinhada à política de uso de sites.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u3.0",
+                "path": "contactPlan.nextMove",
+                "text": "Verificar onde o catálogo de peças é gerido e apresentado.",
+                "role": "planned_action",
+                "reviewerClassification": null,
+                "commitment": "intention",
+                "classification": "non_assertive",
+                "domain": "observation",
+                "language": "non_assertive",
+                "evidence": [],
+                "reason": "Intenção de entender o fluxo atual do cliente.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u4.0",
+                "path": "interlocutor",
+                "text": "Desconhecido",
+                "role": "uncertainty",
+                "reviewerClassification": null,
+                "commitment": "unknown",
+                "classification": "non_assertive",
+                "domain": "identity",
+                "language": "non_assertive",
+                "evidence": [],
+                "reason": "O interlocutor não foi identificado.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u5.0",
+                "path": "unknowns.0",
+                "text": "Onde a Bruma Cerâmica apresenta seu catálogo de peças",
+                "role": "uncertainty",
+                "reviewerClassification": null,
+                "commitment": "unknown",
+                "classification": "non_assertive",
+                "domain": "observation",
+                "language": "non_assertive",
+                "evidence": [],
+                "reason": "Lacuna de informação sobre a infraestrutura do cliente.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u6.0",
+                "path": "text",
+                "text": "Olá, aqui é o Pedro da PRIME. ",
+                "role": "assertion",
+                "reviewerClassification": null,
+                "commitment": "greeting",
+                "classification": "non_assertive",
+                "domain": "identity",
+                "language": "non_assertive",
+                "evidence": [
+                  {
+                    "sourceId": "policy:sender",
+                    "quote": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+                    "relation": "entails"
+                  }
+                ],
+                "reason": "Saudação conforme identidade declarada.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u7.0",
+                "path": "text",
+                "text": "Vi que vocês apresentam as peças da coleção Terra no Instagram e que o link da bio direciona para um catálogo social. ",
+                "role": "assertion",
+                "reviewerClassification": null,
+                "commitment": "fact",
+                "classification": "supported",
+                "domain": "observation",
+                "language": "factual",
+                "evidence": [
+                  {
+                    "sourceId": "public:observation",
+                    "quote": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social.",
+                    "relation": "entails"
+                  }
+                ],
+                "reason": "Baseado em observação pública.",
+                "missingAction": "none",
+                "acceptable": true
+              },
+              {
+                "id": "u8.0",
+                "path": "text",
+                "text": "Como vocês organizam a apresentação dessas peças hoje?",
+                "role": "assertion",
+                "reviewerClassification": null,
+                "commitment": "question",
+                "classification": "non_assertive",
+                "domain": "observation",
+                "language": "question",
+                "evidence": [],
+                "reason": "Pergunta aberta sobre o processo atual, sem premissas falsas.",
+                "missingAction": "none",
+                "acceptable": true
+              }
+            ],
+            "quality": {
+              "factualSafety": "pass",
+              "planQuality": "pass",
+              "messageQuality": "pass"
+            },
+            "repairFindings": [
+              {
+                "code": "unsupported_premise",
+                "id": "u7",
+                "path": "text",
+                "text": "Vi que vocês apresentam as peças da coleção Terra no Instagram e que o link da bio direciona para um catálogo social. ",
+                "reason": "Plataforma não identificada pela fonte; preserve a descrição de perfil."
+              },
+              {
+                "code": "unsupported_premise",
+                "id": "u7.0",
+                "path": "text",
+                "text": "Vi que vocês apresentam as peças da coleção Terra no Instagram e que o link da bio direciona para um catálogo social. ",
+                "reason": "Plataforma não identificada pela fonte; preserve a descrição de perfil."
+              }
+            ],
+            "reviewerFeedback": "A abordagem está correta, baseada em observações verificadas e sem pressupostos indevidos."
+          }
+        ],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "response": "Olá, aqui é o Pedro da PRIME. Notei que vocês exibem 40 peças da coleção Terra e que o link na bio direciona para um catálogo social. Como vocês organizam a apresentação desse conteúdo hoje?",
+        "metadata": {
+          "provider": "gemini",
+          "model": "gemini-3.1-flash-lite",
+          "status": "success",
+          "durationMs": 17052,
+          "qualityReview": "gemini_semantic_and_local",
+          "semanticQuestionCount": 1,
+          "semanticFeedback": "A abordagem está alinhada com a estratégia de descoberta, respeitando as políticas de marca e as observações verificadas.",
+          "claimLedger": [
+            {
+              "id": "u0.0",
+              "path": "contactPlan.buyerTask",
+              "text": "apresentar a coleção Terra",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A proposta de apresentar a coleção é uma função legítima de um site conforme a política.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u1.0",
+              "path": "contactPlan.contactReason",
+              "text": "O perfil exibe 40 peças da coleção Terra e o link na bio direciona para um catálogo social.",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "public:observation",
+                  "quote": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A afirmação reflete exatamente a observação verificada.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u2.0",
+              "path": "contactPlan.pageRole",
+              "text": "apresentação de catálogo de cerâmica",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A função proposta é compatível com a política de uso de sites.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u3.0",
+              "path": "contactPlan.nextMove",
+              "text": "perguntar sobre a rota existente para a coleção",
+              "role": "planned_action",
+              "reviewerClassification": null,
+              "commitment": "intention",
+              "classification": "non_assertive",
+              "domain": "relationship",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "Ação planejada de descoberta, sem premissas indevidas.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u4.0",
+              "path": "interlocutor",
+              "text": "Desconhecido",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "identity",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "O interlocutor não foi identificado.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u5.0",
+              "path": "unknowns.0",
+              "text": "rota de apresentação da coleção",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "function",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "A forma como o cliente gerencia a apresentação é uma lacuna de conhecimento.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u6.0",
+              "path": "text",
+              "text": "Olá, aqui é o Pedro da PRIME. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "greeting",
+              "classification": "non_assertive",
+              "domain": "identity",
+              "language": "non_assertive",
+              "evidence": [
+                {
+                  "sourceId": "policy:sender",
+                  "quote": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "Saudação conforme a identidade do remetente.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u7.0",
+              "path": "text",
+              "text": "Notei que vocês exibem 40 peças da coleção Terra e que o link na bio direciona para um catálogo social. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "public:observation",
+                  "quote": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A afirmação é factual e baseada na observação.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u8.0",
+              "path": "text",
+              "text": "Como vocês organizam a apresentação desse conteúdo hoje?",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "question",
+              "classification": "non_assertive",
+              "domain": "function",
+              "language": "question",
+              "evidence": [],
+              "reason": "Pergunta aberta sobre a operação atual, sem premissas falsas.",
+              "missingAction": "none",
+              "acceptable": true
+            }
+          ],
+          "qualityAssessment": {
+            "factualSafety": "pass",
+            "planQuality": "pass",
+            "messageQuality": "pass"
+          },
+          "semanticFactChecks": [],
+          "semanticSegments": [
+            {
+              "text": "Olá, aqui é o Pedro da PRIME. ",
+              "assessment": "Saudação conforme a identidade do remetente.",
+              "acceptable": true
+            },
+            {
+              "text": "Notei que vocês exibem 40 peças da coleção Terra e que o link na bio direciona para um catálogo social. ",
+              "assessment": "A afirmação é factual e baseada na observação.",
+              "acceptable": true
+            },
+            {
+              "text": "Como vocês organizam a apresentação desse conteúdo hoje?",
+              "assessment": "Pergunta aberta sobre a operação atual, sem premissas falsas.",
+              "acceptable": true
+            }
+          ],
+          "qualityAttempts": 2,
+          "requestAttempts": 4,
+          "telemetry": {
+            "startedAt": 1794939676606,
+            "calls": [
+              {
+                "stage": "generation",
+                "attempt": 1,
+                "requestBytes": 14923,
+                "httpStatus": 200,
+                "durationMs": 3781,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2556,
+                  "candidatesTokenCount": 246,
+                  "totalTokenCount": 3229,
+                  "thoughtsTokenCount": 427
+                },
+                "finishReason": "STOP"
+              },
+              {
+                "stage": "semantic_review",
+                "attempt": 2,
+                "requestBytes": 15210,
+                "httpStatus": 200,
+                "durationMs": 4634,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2649,
+                  "candidatesTokenCount": 1345,
+                  "totalTokenCount": 3994
+                },
+                "finishReason": "STOP"
+              },
+              {
+                "stage": "generation",
+                "attempt": 3,
+                "requestBytes": 17029,
+                "httpStatus": 200,
+                "durationMs": 2873,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2988,
+                  "candidatesTokenCount": 220,
+                  "totalTokenCount": 3747,
+                  "thoughtsTokenCount": 539
+                },
+                "finishReason": "STOP"
+              },
+              {
+                "stage": "semantic_review",
+                "attempt": 4,
+                "requestBytes": 15018,
+                "httpStatus": 200,
+                "durationMs": 5758,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2617,
+                  "candidatesTokenCount": 1353,
+                  "totalTokenCount": 3970
+                },
+                "finishReason": "STOP"
+              }
+            ]
+          },
+          "generationAttempts": 2,
+          "commercialDecision": {
+            "strategy": "descoberta",
+            "contactPlan": {
+              "action": "draft",
+              "strength": "plausible",
+              "service": "site",
+              "evidenceRefs": [
+                "public:observation"
+              ],
+              "buyerTask": "apresentar a coleção Terra",
+              "contactReason": "O perfil exibe 40 peças da coleção Terra e o link na bio direciona para um catálogo social.",
+              "pageRole": "apresentação de catálogo de cerâmica",
+              "nextMove": "perguntar sobre a rota existente para a coleção",
+              "researchNeeded": ""
+            },
+            "knowledge": null,
+            "opportunity": null,
+            "focus": null,
+            "interlocutor": "Desconhecido",
+            "evidence": "",
+            "unknowns": [
+              "rota de apresentação da coleção"
+            ],
+            "nextStep": ""
+          }
+        },
+        "pass": true
+      }
+    },
+    {
+      "file": "interesse-explicacao.json",
+      "data": {
+        "id": "interesse-explicacao",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Entregar a explicação pedida antes de qualquer pergunta técnica, usando programa e link existentes.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "OTHER",
+          "latestMessage": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?",
+          "commercialContext": {
+            "company": "Rumo Idiomas Fictício",
+            "sector": "Idiomas"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "outbound",
+              "text": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?"
+            },
+            {
+              "direction": "inbound",
+              "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "decidir pelo contexto",
+            "answeredQuestionPairs": [
+              {
+                "question": "Uma página dedicada poderia apresentar o intensivo de conversação. Posso explicar a ideia?",
+                "answer": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?"
+              }
+            ],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Rumo Idiomas Fictício",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Idiomas",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Pode. Nosso intensivo é para adultos, já temos o programa e a inscrição por um link. Como seria essa página?",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 2,
+        "generatedCandidates": [
+          {
+            "text": "Com a landing page, organizamos o conteúdo do seu intensivo de conversação de forma direta para o público adulto. Em vez de enviar apenas o link, a página apresenta o programa e os pontos principais, deixando o botão para a inscrição logo em seguida. É uma forma de centralizar o que você já tem pronto, facilitando a consulta de quem acessa.",
+            "decision": {
+              "strategy": "esclarecimento",
+              "contactPlan": {
+                "action": "draft",
+                "strength": "strong",
+                "service": "landing_page",
+                "evidenceRefs": [
+                  "inbound:0"
+                ],
+                "buyerTask": "apresentar o intensivo de conversação para adultos",
+                "contactReason": "O cliente possui um programa de intensivo de conversação para adultos e um link de inscrição já definido.",
+                "pageRole": "organizar as informações do programa e o link de inscrição em um único espaço.",
+                "nextMove": "responder à explicação pedida usando somente conteúdo confirmado.",
+                "researchNeeded": ""
+              },
+              "knowledge": null,
+              "opportunity": null,
+              "focus": null,
+              "interlocutor": "Desconhecido",
+              "evidence": "",
+              "unknowns": [
+                "detalhes do programa",
+                "link de inscrição"
+              ],
+              "nextStep": ""
+            }
+          }
+        ],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "response": "Com a landing page, organizamos o conteúdo do seu intensivo de conversação de forma direta para o público adulto. Em vez de enviar apenas o link, a página apresenta o programa e os pontos principais, deixando o botão para a inscrição logo em seguida. É uma forma de centralizar o que você já tem pronto, facilitando a consulta de quem acessa.",
+        "metadata": {
+          "provider": "gemini",
+          "model": "gemini-3.1-flash-lite",
+          "status": "success",
+          "durationMs": 23721,
+          "qualityReview": "gemini_semantic_and_local",
+          "semanticQuestionCount": 0,
+          "semanticFeedback": "A resposta descreve a função da landing page conforme a política, sem promessas de resultado ou diferenciais não autorizados.",
+          "claimLedger": [
+            {
+              "id": "u0.0",
+              "path": "contactPlan.buyerTask",
+              "text": "apresentar o intensivo de conversação para adultos",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A proposta de apresentar o intensivo é uma função legítima de uma landing page conforme a política.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u1.0",
+              "path": "contactPlan.contactReason",
+              "text": "O cliente possui um programa de intensivo de conversação para adultos e um link de inscrição já definido.",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "inbound:0",
+                  "quote": "Nosso intensivo é para adultos, já temos o programa e a inscrição por um link.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "O cliente declarou explicitamente a existência do programa e do link.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u2.0",
+              "path": "contactPlan.pageRole",
+              "text": "organizar as informações do programa e o link de inscrição em um único espaço.",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A função de organizar informações e links é compatível com a política de landing pages.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u3.0",
+              "path": "contactPlan.nextMove",
+              "text": "responder à explicação pedida usando somente conteúdo confirmado.",
+              "role": "planned_action",
+              "reviewerClassification": null,
+              "commitment": "intention",
+              "classification": "non_assertive",
+              "domain": "other",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "Ação planejada interna.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u4.0",
+              "path": "interlocutor",
+              "text": "Desconhecido",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "identity",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "O interlocutor não se identificou.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u5.0",
+              "path": "unknowns.0",
+              "text": "detalhes do programa",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "other",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "O conteúdo específico do programa não foi fornecido.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u6.0",
+              "path": "unknowns.1",
+              "text": "link de inscrição",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "other",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "O link de inscrição não foi fornecido.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u7.0",
+              "path": "text",
+              "text": "Com a landing page, organizamos o conteúdo do seu intensivo de conversação de forma direta para o público adulto. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A proposta de organização é funcional e baseada na política.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u8.0",
+              "path": "text",
+              "text": "Em vez de enviar apenas o link, a página apresenta o programa e os pontos principais, deixando o botão para a inscrição logo em seguida. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "Descreve a função de apresentação de conteúdo e link.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u9.0",
+              "path": "text",
+              "text": "É uma forma de centralizar o que você já tem pronto, facilitando a consulta de quem acessa.",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A centralização é uma função de apresentação.",
+              "missingAction": "none",
+              "acceptable": true
+            }
+          ],
+          "qualityAssessment": {
+            "factualSafety": "pass",
+            "planQuality": "pass",
+            "messageQuality": "pass"
+          },
+          "semanticFactChecks": [],
+          "semanticSegments": [
+            {
+              "text": "Com a landing page, organizamos o conteúdo do seu intensivo de conversação de forma direta para o público adulto. ",
+              "assessment": "A proposta de organização é funcional e baseada na política.",
+              "acceptable": true
+            },
+            {
+              "text": "Em vez de enviar apenas o link, a página apresenta o programa e os pontos principais, deixando o botão para a inscrição logo em seguida. ",
+              "assessment": "Descreve a função de apresentação de conteúdo e link.",
+              "acceptable": true
+            },
+            {
+              "text": "É uma forma de centralizar o que você já tem pronto, facilitando a consulta de quem acessa.",
+              "assessment": "A centralização é uma função de apresentação.",
+              "acceptable": true
+            }
+          ],
+          "qualityAttempts": 1,
+          "requestAttempts": 2,
+          "telemetry": {
+            "startedAt": 1794939717472,
+            "calls": [
+              {
+                "stage": "generation",
+                "attempt": 1,
+                "requestBytes": 15078,
+                "httpStatus": 200,
+                "durationMs": 19395,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2612,
+                  "candidatesTokenCount": 280,
+                  "totalTokenCount": 2892
+                },
+                "finishReason": "STOP"
+              },
+              {
+                "stage": "semantic_review",
+                "attempt": 2,
+                "requestBytes": 16221,
+                "httpStatus": 200,
+                "durationMs": 4325,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2859,
+                  "candidatesTokenCount": 1532,
+                  "totalTokenCount": 4391
+                },
+                "finishReason": "STOP"
+              }
+            ]
+          },
+          "generationAttempts": 1,
+          "commercialDecision": {
+            "strategy": "esclarecimento",
+            "contactPlan": {
+              "action": "draft",
+              "strength": "strong",
+              "service": "landing_page",
+              "evidenceRefs": [
+                "inbound:0"
+              ],
+              "buyerTask": "apresentar o intensivo de conversação para adultos",
+              "contactReason": "O cliente possui um programa de intensivo de conversação para adultos e um link de inscrição já definido.",
+              "pageRole": "organizar as informações do programa e o link de inscrição em um único espaço.",
+              "nextMove": "responder à explicação pedida usando somente conteúdo confirmado.",
+              "researchNeeded": ""
+            },
+            "knowledge": null,
+            "opportunity": null,
+            "focus": null,
+            "interlocutor": "Desconhecido",
+            "evidence": "",
+            "unknowns": [
+              "detalhes do programa",
+              "link de inscrição"
+            ],
+            "nextStep": ""
+          }
+        },
+        "pass": true
+      }
+    },
+    {
+      "file": "ipe-madeira.json",
+      "data": {
+        "id": "ipe-madeira",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Relacionar projetos de cozinhas e destino observado sem afirmar inexistência de site.",
+        "input": {
+          "turnPurpose": "cold_outreach",
+          "researchAvailable": true,
+          "sourceProvenance": {
+            "kind": "operator_provided_observation",
+            "host": "ipe.example.invalid",
+            "verifiedOn": "2026-11-17"
+          },
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "OPENING",
+          "latestMessage": "",
+          "commercialContext": {
+            "company": "Ipê Madeira Fictícia",
+            "sector": "Marcenaria"
+          },
+          "interlocutorDeclared": null,
+          "history": [],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "motivo relevante sem inventar pesquisa",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": "observacao",
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Ipê Madeira Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Marcenaria",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "public:observation",
+              "kind": "provided_verified_observation",
+              "text": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+              "scope": [
+                "observation",
+                "search_result"
+              ]
+            }
+          ],
+          "verifiedObservation": "Perfil publica cozinhas autorais e a bio abre WhatsApp. Busca pelo nome/cidade e links oficiais consultados não localizou domínio próprio; pode existir em outro endereço.",
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 2,
+        "generatedCandidates": [
+          {
+            "text": "Olá, sou o Pedro, da PRIME. Notei que vocês publicam as cozinhas autorais da Ipê Madeira Fictícia e disponibilizam o contato pelo WhatsApp. Além do perfil, vocês utilizam algum outro endereço ou plataforma para apresentar o portfólio completo dos trabalhos?",
+            "decision": {
+              "strategy": "descoberta",
+              "contactPlan": {
+                "action": "draft",
+                "strength": "plausible",
+                "service": "site",
+                "evidenceRefs": [
+                  "public:observation"
+                ],
+                "buyerTask": "Apresentar cozinhas autorais",
+                "contactReason": "O perfil da marcenaria publica cozinhas autorais e direciona o contato diretamente para o WhatsApp na bio.",
+                "pageRole": "Apresentação de portfólio de marcenaria",
+                "nextMove": "Verificar se existe outro canal ou endereço onde o portfólio de cozinhas é apresentado.",
+                "researchNeeded": ""
+              },
+              "knowledge": null,
+              "opportunity": null,
+              "focus": null,
+              "interlocutor": "Desconhecido",
+              "evidence": "",
+              "unknowns": [
+                "onde apresentam portfólio completo"
+              ],
+              "nextStep": ""
+            }
+          }
+        ],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "response": "Olá, sou o Pedro, da PRIME. Notei que vocês publicam as cozinhas autorais da Ipê Madeira Fictícia e disponibilizam o contato pelo WhatsApp. Além do perfil, vocês utilizam algum outro endereço ou plataforma para apresentar o portfólio completo dos trabalhos?",
+        "metadata": {
+          "provider": "gemini",
+          "model": "gemini-3.1-flash-lite",
+          "status": "success",
+          "durationMs": 6780,
+          "qualityReview": "gemini_semantic_and_local",
+          "semanticQuestionCount": 1,
+          "semanticFeedback": "A abordagem está alinhada com a estratégia de descoberta, respeitando as políticas da marca e focando na observação verificada.",
+          "claimLedger": [
+            {
+              "id": "u0.0",
+              "path": "contactPlan.buyerTask",
+              "text": "Apresentar cozinhas autorais",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A função proposta é compatível com a política de uso de sites da marca.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u1.0",
+              "path": "contactPlan.contactReason",
+              "text": "O perfil da marcenaria publica cozinhas autorais e direciona o contato diretamente para o WhatsApp na bio.",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "public:observation",
+                  "quote": "Perfil publica cozinhas autorais e a bio abre WhatsApp.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A afirmação reflete a observação verificada no perfil.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u2.0",
+              "path": "contactPlan.pageRole",
+              "text": "Apresentação de portfólio de marcenaria",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A função proposta é compatível com a política de uso de sites da marca.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u3.0",
+              "path": "contactPlan.nextMove",
+              "text": "Verificar se existe outro canal ou endereço onde o portfólio de cozinhas é apresentado.",
+              "role": "planned_action",
+              "reviewerClassification": null,
+              "commitment": "intention",
+              "classification": "non_assertive",
+              "domain": "observation",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "Ação de descoberta necessária para entender o cenário atual antes de qualquer proposta.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u4.0",
+              "path": "interlocutor",
+              "text": "Desconhecido",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "identity",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "O interlocutor não foi identificado.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u5.0",
+              "path": "unknowns.0",
+              "text": "onde apresentam portfólio completo",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "observation",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "Lacuna de informação sobre a existência de outros canais.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u6.0",
+              "path": "text",
+              "text": "Olá, sou o Pedro, da PRIME. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "identity",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "policy:sender",
+                  "quote": "Pedro representa a PRIME",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "Identificação correta do remetente conforme política.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u7.0",
+              "path": "text",
+              "text": "Notei que vocês publicam as cozinhas autorais da Ipê Madeira Fictícia e disponibilizam o contato pelo WhatsApp. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "public:observation",
+                  "quote": "Perfil publica cozinhas autorais e a bio abre WhatsApp.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A afirmação reflete a observação verificada.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u8.0",
+              "path": "text",
+              "text": "Além do perfil, vocês utilizam algum outro endereço ou plataforma para apresentar o portfólio completo dos trabalhos?",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "question",
+              "classification": "non_assertive",
+              "domain": "observation",
+              "language": "question",
+              "evidence": [],
+              "reason": "Pergunta de descoberta sem premissas falsas.",
+              "missingAction": "none",
+              "acceptable": true
+            }
+          ],
+          "qualityAssessment": {
+            "factualSafety": "pass",
+            "planQuality": "pass",
+            "messageQuality": "pass"
+          },
+          "semanticFactChecks": [],
+          "semanticSegments": [
+            {
+              "text": "Olá, sou o Pedro, da PRIME. ",
+              "assessment": "Identificação correta do remetente conforme política.",
+              "acceptable": true
+            },
+            {
+              "text": "Notei que vocês publicam as cozinhas autorais da Ipê Madeira Fictícia e disponibilizam o contato pelo WhatsApp. ",
+              "assessment": "A afirmação reflete a observação verificada.",
+              "acceptable": true
+            },
+            {
+              "text": "Além do perfil, vocês utilizam algum outro endereço ou plataforma para apresentar o portfólio completo dos trabalhos?",
+              "assessment": "Pergunta de descoberta sem premissas falsas.",
+              "acceptable": true
+            }
+          ],
+          "qualityAttempts": 1,
+          "requestAttempts": 2,
+          "telemetry": {
+            "startedAt": 1794939661818,
+            "calls": [
+              {
+                "stage": "generation",
+                "attempt": 1,
+                "requestBytes": 14861,
+                "httpStatus": 200,
+                "durationMs": 3157,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2545,
+                  "candidatesTokenCount": 266,
+                  "totalTokenCount": 3305,
+                  "thoughtsTokenCount": 494
+                },
+                "finishReason": "STOP"
+              },
+              {
+                "stage": "semantic_review",
+                "attempt": 2,
+                "requestBytes": 15224,
+                "httpStatus": 200,
+                "durationMs": 3617,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2682,
+                  "candidatesTokenCount": 1350,
+                  "totalTokenCount": 4032
+                },
+                "finishReason": "STOP"
+              }
+            ]
+          },
+          "generationAttempts": 1,
+          "commercialDecision": {
+            "strategy": "descoberta",
+            "contactPlan": {
+              "action": "draft",
+              "strength": "plausible",
+              "service": "site",
+              "evidenceRefs": [
+                "public:observation"
+              ],
+              "buyerTask": "Apresentar cozinhas autorais",
+              "contactReason": "O perfil da marcenaria publica cozinhas autorais e direciona o contato diretamente para o WhatsApp na bio.",
+              "pageRole": "Apresentação de portfólio de marcenaria",
+              "nextMove": "Verificar se existe outro canal ou endereço onde o portfólio de cozinhas é apresentado.",
+              "researchNeeded": ""
+            },
+            "knowledge": null,
+            "opportunity": null,
+            "focus": null,
+            "interlocutor": "Desconhecido",
+            "evidence": "",
+            "unknowns": [
+              "onde apresentam portfólio completo"
+            ],
+            "nextStep": ""
+          }
+        },
+        "pass": true
+      }
+    },
+    {
+      "file": "objecao-fornecedor.json",
+      "data": {
+        "id": "objecao-fornecedor",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Respeitar a agência e o site; responder à preocupação sem prometer integração nem substituir fornecedor.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "SERVICES",
+          "latestMessage": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+          "commercialContext": {
+            "company": "Trilha Viva Fictícia",
+            "sector": "Passeios guiados"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "inbound",
+              "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom."
+            },
+            {
+              "direction": "outbound",
+              "text": "Podemos avaliar uma página dedicada à expedição."
+            },
+            {
+              "direction": "inbound",
+              "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor."
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "decidir pelo contexto",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Trilha Viva Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Passeios guiados",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Quero apresentar só nossa expedição fictícia de observação de aves. Nosso site institucional está bom.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            },
+            {
+              "id": "inbound:1",
+              "kind": "client_statement",
+              "text": "Tenho receio de mexer no site atual. Minha agência já cuida dele e não quero trocar de fornecedor.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 2,
+        "generatedCandidates": [
+          {
+            "text": "Você pode manter a gestão da sua agência e o site institucional como estão. A ideia de uma página dedicada à expedição de observação de aves é justamente para concentrar essas informações específicas sem precisar alterar a estrutura do seu site principal. Você prefere avaliar essa possibilidade de apresentação diretamente com sua agência antes de definirmos qualquer formato?",
+            "decision": {
+              "strategy": "objecao",
+              "contactPlan": {
+                "action": "draft",
+                "strength": "strong",
+                "service": "landing_page",
+                "evidenceRefs": [
+                  "inbound:1"
+                ],
+                "buyerTask": "apresentar a expedição de observação de aves",
+                "contactReason": "O cliente deseja manter o fornecedor atual e tem receio de alterações no site institucional.",
+                "pageRole": "apresentação de informações específicas sobre a expedição de observação de aves",
+                "nextMove": "perguntar se ele prefere avaliar a ideia da página dedicada junto com a agência atual",
+                "researchNeeded": ""
+              },
+              "knowledge": null,
+              "opportunity": null,
+              "focus": null,
+              "interlocutor": "Desconhecido",
+              "evidence": "",
+              "unknowns": [],
+              "nextStep": ""
+            }
+          }
+        ],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "error": {
+          "code": "timeout",
+          "httpStatus": null,
+          "stage": "semantic_review"
+        },
+        "telemetry": {
+          "startedAt": 1794939749199,
+          "calls": [
+            {
+              "stage": "generation",
+              "attempt": 1,
+              "requestBytes": 17413,
+              "httpStatus": 200,
+              "durationMs": 2110,
+              "timeoutMs": 45000,
+              "thinkingLevel": "MEDIUM",
+              "tokens": {
+                "promptTokenCount": 2814,
+                "candidatesTokenCount": 262,
+                "totalTokenCount": 3076
+              },
+              "finishReason": "STOP"
+            },
+            {
+              "stage": "semantic_review",
+              "attempt": 2,
+              "requestBytes": 16959,
+              "httpStatus": null,
+              "durationMs": 45002,
+              "timeoutMs": 45000,
+              "thinkingLevel": "MEDIUM",
+              "errorCode": "timeout"
+            }
+          ]
+        },
+        "plan": null,
+        "pass": false,
+        "outcome": "timeout"
+      }
+    },
+    {
+      "file": "optout.json",
+      "data": {
+        "id": "optout",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Bloquear contato e não chamar Gemini.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "latestMessage": "Não me mande mais mensagens.",
+          "commercialContext": {
+            "company": "Opt-out Fictício"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "inbound",
+              "text": "Não me mande mais mensagens."
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "decidir pelo contexto",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "segmento",
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Opt-out Fictício",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Não me mande mais mensagens.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 0,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "decision": "blocked",
+        "pass": true
+      }
+    },
+    {
+      "file": "pesquisa-insuficiente.json",
+      "data": {
+        "id": "pesquisa-insuficiente",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Pedir pesquisa ao proprietário sem mensagem pronta ou chamada Gemini.",
+        "input": {
+          "turnPurpose": "cold_outreach",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "OPENING",
+          "latestMessage": "",
+          "commercialContext": {
+            "company": "Núcleo Delta Fictício",
+            "sector": "Serviços"
+          },
+          "interlocutorDeclared": null,
+          "history": [],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "motivo relevante sem inventar pesquisa",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": "segmento",
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Núcleo Delta Fictício",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Serviços",
+              "scope": [
+                "identity"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 0,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "error": {
+          "code": "research_required",
+          "httpStatus": null,
+          "stage": null
+        },
+        "telemetry": null,
+        "plan": null,
+        "pass": true,
+        "outcome": "research_required"
+      }
+    },
+    {
+      "file": "recusa.json",
+      "data": {
+        "id": "recusa",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Encerrar sem chamada Gemini ou nova abordagem.",
+        "input": {
+          "turnPurpose": "reply",
+          "researchAvailable": false,
+          "sourceProvenance": null,
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "latestMessage": "Não temos interesse. Obrigado.",
+          "commercialContext": {
+            "company": "Recusa Fictícia"
+          },
+          "interlocutorDeclared": null,
+          "history": [
+            {
+              "direction": "inbound",
+              "text": "Não temos interesse. Obrigado."
+            }
+          ],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": true,
+            "objectionCues": [],
+            "strategyConstraint": "encerrar cordialmente sem pergunta ou retomada",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "segmento",
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": null,
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Recusa Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "inbound:0",
+              "kind": "client_statement",
+              "text": "Não temos interesse. Obrigado.",
+              "scope": [
+                "brand",
+                "function",
+                "observation",
+                "search_result",
+                "global_absence",
+                "channel_exclusivity",
+                "relationship",
+                "quality",
+                "outcome",
+                "implementation",
+                "identity",
+                "other"
+              ]
+            }
+          ],
+          "verifiedObservation": null,
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 0,
+        "generatedCandidates": [],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "decision": "blocked",
+        "pass": true
+      }
+    },
+    {
+      "file": "summary.json",
+      "data": {
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "totalCalls": 12,
+        "maxCalls": 20,
+        "failed": 1,
+        "stopReason": null,
+        "commercialApproval": "Pending human evaluation"
+      }
+    },
+    {
+      "file": "vertice-turma.json",
+      "data": {
+        "id": "vertice-turma",
+        "synthetic": true,
+        "model": "gemini-3.1-flash-lite",
+        "expected": "Investigar página específica para a turma antes de ofertar outra página.",
+        "input": {
+          "turnPurpose": "cold_outreach",
+          "researchAvailable": true,
+          "sourceProvenance": {
+            "kind": "operator_provided_observation",
+            "host": "vertice.example.invalid",
+            "verifiedOn": "2026-11-17"
+          },
+          "senderIdentity": {
+            "name": "Pedro",
+            "company": "PRIME",
+            "role": "proprietário que conduz a negociação"
+          },
+          "tone": "consultivo",
+          "intent": "OPENING",
+          "latestMessage": "",
+          "commercialContext": {
+            "company": "Vértice Escola Fictícia",
+            "sector": "Cursos livres"
+          },
+          "interlocutorDeclared": null,
+          "history": [],
+          "previousDrafts": [],
+          "commercialSignals": {
+            "interlocutor": {
+              "role": "desconhecido",
+              "confidence": "baixa",
+              "evidence": null
+            },
+            "refusal": false,
+            "objectionCues": [],
+            "strategyConstraint": "motivo relevante sem inventar pesquisa",
+            "answeredQuestionPairs": [],
+            "missingInformation": [
+              "necessidade"
+            ],
+            "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+          },
+          "operatorFeedback": [],
+          "channel": "WhatsApp manual",
+          "strategy": "observacao",
+          "strategyHintOnly": true,
+          "evidenceRegister": [
+            {
+              "id": "policy:portfolio",
+              "kind": "current_brand_policy",
+              "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+              "scope": [
+                "brand",
+                "function"
+              ]
+            },
+            {
+              "id": "policy:functions",
+              "kind": "current_brand_policy",
+              "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+              "scope": [
+                "function"
+              ]
+            },
+            {
+              "id": "policy:sender",
+              "kind": "current_brand_policy",
+              "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+              "scope": [
+                "brand",
+                "identity"
+              ]
+            },
+            {
+              "id": "context:company",
+              "kind": "operator_record",
+              "text": "Vértice Escola Fictícia",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "context:sector",
+              "kind": "operator_record",
+              "text": "Cursos livres",
+              "scope": [
+                "identity"
+              ]
+            },
+            {
+              "id": "public:observation",
+              "kind": "provided_verified_observation",
+              "text": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+              "scope": [
+                "observation",
+                "search_result"
+              ]
+            }
+          ],
+          "verifiedObservation": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+          "handoffAccepted": false,
+          "regenerate": false
+        },
+        "calls": 2,
+        "generatedCandidates": [
+          {
+            "text": "Olá, aqui é o Pedro, da PRIME. Vi o post sobre a nova turma de fotografia noturna e notei que o botão 'Saiba mais' direciona para a página geral de cursos. Onde vocês costumam apresentar o programa detalhado dessa turma específica para os interessados?",
+            "decision": {
+              "strategy": "descoberta",
+              "contactPlan": {
+                "action": "draft",
+                "strength": "plausible",
+                "service": "landing_page",
+                "evidenceRefs": [
+                  "public:observation"
+                ],
+                "buyerTask": "Informar detalhes específicos do programa de fotografia noturna aos interessados",
+                "contactReason": "O post sobre a turma de fotografia noturna direciona o usuário para a página geral de cursos da Vértice.",
+                "pageRole": "Apresentação detalhada do programa de fotografia noturna.",
+                "nextMove": "Perguntar sobre a rota onde o programa detalhado da turma de fotografia noturna é apresentado.",
+                "researchNeeded": ""
+              },
+              "knowledge": null,
+              "opportunity": null,
+              "focus": null,
+              "interlocutor": "Desconhecido",
+              "evidence": "",
+              "unknowns": [
+                "rota onde o programa da turma de fotografia noturna é apresentado"
+              ],
+              "nextStep": ""
+            }
+          }
+        ],
+        "rejectedDrafts": [],
+        "commercialApproval": "Pending human review; automated pass is not commercial approval",
+        "response": "Olá, aqui é o Pedro, da PRIME. Vi o post sobre a nova turma de fotografia noturna e notei que o botão 'Saiba mais' direciona para a página geral de cursos. Onde vocês costumam apresentar o programa detalhado dessa turma específica para os interessados?",
+        "metadata": {
+          "provider": "gemini",
+          "model": "gemini-3.1-flash-lite",
+          "status": "success",
+          "durationMs": 7804,
+          "qualityReview": "gemini_semantic_and_local",
+          "semanticQuestionCount": 1,
+          "semanticFeedback": "A abordagem está correta, focada na observação e na descoberta da rota existente sem pressupor problemas.",
+          "claimLedger": [
+            {
+              "id": "u0.0",
+              "path": "contactPlan.buyerTask",
+              "text": "Informar detalhes específicos do programa de fotografia noturna aos interessados",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos.",
+                  "relation": "supports_possibility"
+                }
+              ],
+              "reason": "A proposta de apresentar detalhes do programa é uma função legítima de uma landing page.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u1.0",
+              "path": "contactPlan.contactReason",
+              "text": "O post sobre a turma de fotografia noturna direciona o usuário para a página geral de cursos da Vértice.",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "public:observation",
+                  "quote": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "A observação reflete exatamente o comportamento verificado no post.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u2.0",
+              "path": "contactPlan.pageRole",
+              "text": "Apresentação detalhada do programa de fotografia noturna.",
+              "role": "proposed_function",
+              "reviewerClassification": null,
+              "commitment": "functional_proposal",
+              "classification": "admissible_inference",
+              "domain": "function",
+              "language": "conditional",
+              "evidence": [
+                {
+                  "sourceId": "policy:functions",
+                  "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica",
+                  "relation": "supports_possibility"
+                }
+              ],
+              "reason": "A função proposta está alinhada com a política de uso de landing pages.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u3.0",
+              "path": "contactPlan.nextMove",
+              "text": "Perguntar sobre a rota onde o programa detalhado da turma de fotografia noturna é apresentado.",
+              "role": "planned_action",
+              "reviewerClassification": null,
+              "commitment": "intention",
+              "classification": "non_assertive",
+              "domain": "observation",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "Ação planejada para investigar a existência de outra rota, conforme solicitado.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u4.0",
+              "path": "interlocutor",
+              "text": "Desconhecido",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "relationship",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "O interlocutor ainda não foi identificado.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u5.0",
+              "path": "unknowns.0",
+              "text": "rota onde o programa da turma de fotografia noturna é apresentado",
+              "role": "uncertainty",
+              "reviewerClassification": null,
+              "commitment": "unknown",
+              "classification": "non_assertive",
+              "domain": "function",
+              "language": "non_assertive",
+              "evidence": [],
+              "reason": "A existência de outra rota é uma lacuna de informação.",
+              "missingAction": "research",
+              "acceptable": true
+            },
+            {
+              "id": "u6.0",
+              "path": "text",
+              "text": "Olá, aqui é o Pedro, da PRIME. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "identity",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "policy:sender",
+                  "quote": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "Identificação correta conforme política de remetente.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u7.0",
+              "path": "text",
+              "text": "Vi o post sobre a nova turma de fotografia noturna e notei que o botão 'Saiba mais' direciona para a página geral de cursos. ",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "fact",
+              "classification": "supported",
+              "domain": "observation",
+              "language": "factual",
+              "evidence": [
+                {
+                  "sourceId": "public:observation",
+                  "quote": "O botão Saiba mais abre a página geral de cursos",
+                  "relation": "entails"
+                }
+              ],
+              "reason": "Relato fiel à observação pública.",
+              "missingAction": "none",
+              "acceptable": true
+            },
+            {
+              "id": "u8.0",
+              "path": "text",
+              "text": "Onde vocês costumam apresentar o programa detalhado dessa turma específica para os interessados?",
+              "role": "assertion",
+              "reviewerClassification": null,
+              "commitment": "question",
+              "classification": "non_assertive",
+              "domain": "function",
+              "language": "question",
+              "evidence": [],
+              "reason": "Pergunta aberta sobre a rota existente, sem premissas falsas.",
+              "missingAction": "none",
+              "acceptable": true
+            }
+          ],
+          "qualityAssessment": {
+            "factualSafety": "pass",
+            "planQuality": "pass",
+            "messageQuality": "pass"
+          },
+          "semanticFactChecks": [],
+          "semanticSegments": [
+            {
+              "text": "Olá, aqui é o Pedro, da PRIME. ",
+              "assessment": "Identificação correta conforme política de remetente.",
+              "acceptable": true
+            },
+            {
+              "text": "Vi o post sobre a nova turma de fotografia noturna e notei que o botão 'Saiba mais' direciona para a página geral de cursos. ",
+              "assessment": "Relato fiel à observação pública.",
+              "acceptable": true
+            },
+            {
+              "text": "Onde vocês costumam apresentar o programa detalhado dessa turma específica para os interessados?",
+              "assessment": "Pergunta aberta sobre a rota existente, sem premissas falsas.",
+              "acceptable": true
+            }
+          ],
+          "qualityAttempts": 1,
+          "requestAttempts": 2,
+          "telemetry": {
+            "startedAt": 1794939701663,
+            "calls": [
+              {
+                "stage": "generation",
+                "attempt": 1,
+                "requestBytes": 14853,
+                "httpStatus": 200,
+                "durationMs": 3329,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2544,
+                  "candidatesTokenCount": 276,
+                  "totalTokenCount": 3222,
+                  "thoughtsTokenCount": 402
+                },
+                "finishReason": "STOP"
+              },
+              {
+                "stage": "semantic_review",
+                "attempt": 2,
+                "requestBytes": 15426,
+                "httpStatus": 200,
+                "durationMs": 4474,
+                "timeoutMs": 45000,
+                "thinkingLevel": "MEDIUM",
+                "tokens": {
+                  "promptTokenCount": 2701,
+                  "candidatesTokenCount": 1377,
+                  "totalTokenCount": 4078
+                },
+                "finishReason": "STOP"
+              }
+            ]
+          },
+          "generationAttempts": 1,
+          "commercialDecision": {
+            "strategy": "descoberta",
+            "contactPlan": {
+              "action": "draft",
+              "strength": "plausible",
+              "service": "landing_page",
+              "evidenceRefs": [
+                "public:observation"
+              ],
+              "buyerTask": "Informar detalhes específicos do programa de fotografia noturna aos interessados",
+              "contactReason": "O post sobre a turma de fotografia noturna direciona o usuário para a página geral de cursos da Vértice.",
+              "pageRole": "Apresentação detalhada do programa de fotografia noturna.",
+              "nextMove": "Perguntar sobre a rota onde o programa detalhado da turma de fotografia noturna é apresentado.",
+              "researchNeeded": ""
+            },
+            "knowledge": null,
+            "opportunity": null,
+            "focus": null,
+            "interlocutor": "Desconhecido",
+            "evidence": "",
+            "unknowns": [
+              "rota onde o programa da turma de fotografia noturna é apresentado"
+            ],
+            "nextStep": ""
+          }
+        },
+        "pass": true
+      }
+    }
+  ]
+}

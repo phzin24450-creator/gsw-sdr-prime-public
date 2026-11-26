@@ -1,0 +1,27 @@
+{
+  "id": "apos-proposta",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Enviei a proposta que você pediu."
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Vou avaliar com meu sócio e retorno quando puder."
+    }
+  ],
+  "expected": "Respeitar momento sem follow-up genérico",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

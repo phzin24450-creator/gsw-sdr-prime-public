@@ -1,0 +1,478 @@
+{
+  "id": "vertice-turma",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Investigar página específica para a turma antes de ofertar outra página.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "vertice.example.invalid",
+      "verifiedOn": "2026-11-16"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Vértice Escola Fictícia",
+      "sector": "Cursos livres"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:functions",
+        "kind": "current_brand_policy",
+        "text": "Um site pode apresentar a empresa, seus serviços e trabalhos fornecidos. Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado. Estas são funções de apresentação propostas, não evidência de necessidade, conteúdo disponível, resultado de vendas ou compatibilidade técnica e contratual.",
+        "scope": [
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand",
+          "identity"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Vértice Escola Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Cursos livres",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+        "scope": [
+          "observation",
+          "search_result"
+        ]
+      }
+    ],
+    "verifiedObservation": "Post anuncia turma de fotografia noturna. O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada; outra rota pode existir.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 2,
+  "generatedCandidates": [
+    {
+      "text": "Olá. Sou o Pedro, da PRIME. Acompanhei o post da Vértice sobre a nova turma de fotografia noturna e notei que o link direciona para a página geral de cursos. Em situações assim, costumamos desenvolver landing pages focadas em um único curso, onde o aluno encontra diretamente o programa da turma e o caminho para a inscrição. Vocês já costumam utilizar páginas específicas para cada curso ou o modelo atual atende bem o que precisam?",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "landing_page",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "apresentar detalhes específicos de uma turma de curso livre",
+          "contactReason": "observação de que o link do post de fotografia noturna leva a uma página geral, dificultando o acesso direto ao programa da turma",
+          "pageRole": "centralizar informações específicas do curso e o próximo passo para inscrição",
+          "nextMove": "verificar se a escola já possui uma estrutura para páginas de cursos específicos",
+          "researchNeeded": "nenhuma pesquisa adicional necessária para o contato inicial"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "se a escola já utiliza páginas específicas para cada curso",
+          "se a decisão sobre a estrutura de divulgação é centralizada"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "response": "Olá. Sou o Pedro, da PRIME. Acompanhei o post da Vértice sobre a nova turma de fotografia noturna e notei que o link direciona para a página geral de cursos. Em situações assim, costumamos desenvolver landing pages focadas em um único curso, onde o aluno encontra diretamente o programa da turma e o caminho para a inscrição. Vocês já costumam utilizar páginas específicas para cada curso ou o modelo atual atende bem o que precisam?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 5402,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com as políticas, baseada em observação real e propõe funções de forma clara sem promessas indevidas.",
+    "claimLedger": [
+      {
+        "id": "u0",
+        "path": "contactPlan.buyerTask",
+        "text": "apresentar detalhes específicos de uma turma de curso livre",
+        "role": "proposed_function",
+        "reviewerClassification": null,
+        "commitment": "functional_proposal",
+        "classification": "admissible_inference",
+        "domain": "function",
+        "language": "conditional",
+        "evidence": [
+          {
+            "sourceId": "policy:functions",
+            "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A proposta de apresentar detalhes de curso é uma função legítima de landing page.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u1",
+        "path": "contactPlan.contactReason",
+        "text": "observação de que o link do post de fotografia noturna leva a uma página geral, dificultando o acesso direto ao programa da turma",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "observation",
+        "language": "factual",
+        "evidence": [
+          {
+            "sourceId": "public:observation",
+            "quote": "O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A observação reflete o estado verificado no post.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u2",
+        "path": "contactPlan.pageRole",
+        "text": "centralizar informações específicas do curso e o próximo passo para inscrição",
+        "role": "proposed_function",
+        "reviewerClassification": null,
+        "commitment": "functional_proposal",
+        "classification": "admissible_inference",
+        "domain": "function",
+        "language": "conditional",
+        "evidence": [
+          {
+            "sourceId": "policy:functions",
+            "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "A função de centralizar informações é compatível com a política de uso de landing pages.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u3",
+        "path": "contactPlan.nextMove",
+        "text": "verificar se a escola já possui uma estrutura para páginas de cursos específicos",
+        "role": "planned_action",
+        "reviewerClassification": null,
+        "commitment": "question",
+        "classification": "non_assertive",
+        "domain": "relationship",
+        "language": "question",
+        "evidence": [],
+        "reason": "Ação de verificação necessária para entender o contexto do cliente.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u4",
+        "path": "contactPlan.researchNeeded",
+        "text": "nenhuma pesquisa adicional necessária para o contato inicial",
+        "role": "research_status",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "other",
+        "language": "factual",
+        "evidence": [],
+        "reason": "O contato inicial não exige pesquisa prévia além da observação já realizada.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u5",
+        "path": "interlocutor",
+        "text": "Desconhecido",
+        "role": "uncertainty",
+        "reviewerClassification": null,
+        "commitment": "unknown",
+        "classification": "non_assertive",
+        "domain": "identity",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "O interlocutor não foi identificado.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u6",
+        "path": "unknowns.0",
+        "text": "se a escola já utiliza páginas específicas para cada curso",
+        "role": "uncertainty",
+        "reviewerClassification": null,
+        "commitment": "unknown",
+        "classification": "non_assertive",
+        "domain": "function",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "Lacuna sobre a prática atual da escola.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u7",
+        "path": "unknowns.1",
+        "text": "se a decisão sobre a estrutura de divulgação é centralizada",
+        "role": "uncertainty",
+        "reviewerClassification": null,
+        "commitment": "unknown",
+        "classification": "non_assertive",
+        "domain": "relationship",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "Lacuna sobre o processo de decisão da escola.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u8",
+        "path": "text",
+        "text": "Olá. ",
+        "role": "greeting",
+        "reviewerClassification": null,
+        "commitment": "greeting",
+        "classification": "non_assertive",
+        "domain": "other",
+        "language": "non_assertive",
+        "evidence": [],
+        "reason": "Saudação padrão.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u9",
+        "path": "text",
+        "text": "Sou o Pedro, da PRIME. ",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "identity",
+        "language": "factual",
+        "evidence": [
+          {
+            "sourceId": "policy:sender",
+            "quote": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "Identidade conforme política.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u10",
+        "path": "text",
+        "text": "Acompanhei o post da Vértice sobre a nova turma de fotografia noturna e notei que o link direciona para a página geral de cursos. ",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "fact",
+        "classification": "supported",
+        "domain": "observation",
+        "language": "factual",
+        "evidence": [
+          {
+            "sourceId": "public:observation",
+            "quote": "O botão Saiba mais abre a página geral de cursos, sem programa da turma na seção observada",
+            "relation": "entails"
+          }
+        ],
+        "reason": "Fato observado no post.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u11",
+        "path": "text",
+        "text": "Em situações assim, costumamos desenvolver landing pages focadas em um único curso, onde o aluno encontra diretamente o programa da turma e o caminho para a inscrição. ",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "functional_proposal",
+        "classification": "admissible_inference",
+        "domain": "function",
+        "language": "conditional",
+        "evidence": [
+          {
+            "sourceId": "policy:functions",
+            "quote": "Uma landing page pode reunir informações fornecidas sobre uma oferta específica e um link de próxima ação informado.",
+            "relation": "entails"
+          }
+        ],
+        "reason": "Apresenta a função da landing page sem prometer resultado.",
+        "missingAction": "none",
+        "acceptable": true
+      },
+      {
+        "id": "u12",
+        "path": "text",
+        "text": "Vocês já costumam utilizar páginas específicas para cada curso ou o modelo atual atende bem o que precisam?",
+        "role": "assertion",
+        "reviewerClassification": null,
+        "commitment": "question",
+        "classification": "non_assertive",
+        "domain": "relationship",
+        "language": "question",
+        "evidence": [],
+        "reason": "Pergunta aberta para entender a necessidade do cliente.",
+        "missingAction": "none",
+        "acceptable": true
+      }
+    ],
+    "qualityAssessment": {
+      "factualSafety": "pass",
+      "planQuality": "pass",
+      "messageQuality": "pass"
+    },
+    "semanticFactChecks": [],
+    "semanticSegments": [
+      {
+        "text": "Olá. ",
+        "assessment": "Saudação padrão.",
+        "acceptable": true
+      },
+      {
+        "text": "Sou o Pedro, da PRIME. ",
+        "assessment": "Identidade conforme política.",
+        "acceptable": true
+      },
+      {
+        "text": "Acompanhei o post da Vértice sobre a nova turma de fotografia noturna e notei que o link direciona para a página geral de cursos. ",
+        "assessment": "Fato observado no post.",
+        "acceptable": true
+      },
+      {
+        "text": "Em situações assim, costumamos desenvolver landing pages focadas em um único curso, onde o aluno encontra diretamente o programa da turma e o caminho para a inscrição. ",
+        "assessment": "Apresenta a função da landing page sem prometer resultado.",
+        "acceptable": true
+      },
+      {
+        "text": "Vocês já costumam utilizar páginas específicas para cada curso ou o modelo atual atende bem o que precisam?",
+        "assessment": "Pergunta aberta para entender a necessidade do cliente.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "telemetry": {
+      "startedAt": 1794825216493,
+      "calls": [
+        {
+          "stage": "generation",
+          "attempt": 1,
+          "requestBytes": 12424,
+          "httpStatus": 200,
+          "durationMs": 1704,
+          "timeoutMs": 45000,
+          "tokens": {
+            "promptTokenCount": 2192,
+            "candidatesTokenCount": 333,
+            "totalTokenCount": 2525
+          },
+          "finishReason": "STOP"
+        },
+        {
+          "stage": "semantic_review",
+          "attempt": 2,
+          "requestBytes": 23990,
+          "httpStatus": 200,
+          "durationMs": 3696,
+          "timeoutMs": 45000,
+          "tokens": {
+            "promptTokenCount": 2469,
+            "candidatesTokenCount": 1308,
+            "totalTokenCount": 3777
+          },
+          "finishReason": "STOP"
+        }
+      ]
+    },
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "contactPlan": {
+        "action": "draft",
+        "strength": "plausible",
+        "service": "landing_page",
+        "evidenceRefs": [
+          "public:observation"
+        ],
+        "buyerTask": "apresentar detalhes específicos de uma turma de curso livre",
+        "contactReason": "observação de que o link do post de fotografia noturna leva a uma página geral, dificultando o acesso direto ao programa da turma",
+        "pageRole": "centralizar informações específicas do curso e o próximo passo para inscrição",
+        "nextMove": "verificar se a escola já possui uma estrutura para páginas de cursos específicos",
+        "researchNeeded": "nenhuma pesquisa adicional necessária para o contato inicial"
+      },
+      "knowledge": null,
+      "opportunity": null,
+      "focus": null,
+      "interlocutor": "Desconhecido",
+      "evidence": "",
+      "unknowns": [
+        "se a escola já utiliza páginas específicas para cada curso",
+        "se a decisão sobre a estrutura de divulgação é centralizada"
+      ],
+      "nextStep": ""
+    }
+  },
+  "pass": true
+}

@@ -1,0 +1,24 @@
+{
+  "id": "possivel-chatbot",
+  "context": {
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou uma assistente virtual. Escolha o assunto."
+    }
+  ],
+  "expected": "Pedir encaminhamento adequado sem vender automação",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "pass": false,
+  "errorCode": "timeout",
+  "httpStatus": null,
+  "assistantSemanticReview": {
+    "status": "não avaliado — sem resposta",
+    "note": "timeout",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

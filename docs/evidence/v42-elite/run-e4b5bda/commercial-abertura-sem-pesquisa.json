@@ -1,0 +1,35 @@
+{
+  "id": "abertura-sem-pesquisa",
+  "context": {},
+  "conversation": [],
+  "expected": "Explicar motivo sem alegar pesquisa",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá! Sou o Pedro, da GSW. Ajudamos empresas a conectar soluções digitais como sistemas e automações aos seus processos operacionais reais. Gostaria de entender melhor como vocês operam hoje e se faz sentido explorarmos alguma melhoria na sua estrutura digital. Podemos conversar?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "interlocutor": "interlocutor",
+      "evidence": "Primeiro contato, sem informações prévias sobre a empresa ou segmento.",
+      "unknowns": [
+        "empresa",
+        "segmento",
+        "necessidade"
+      ],
+      "nextStep": "Aguardar retorno para entender o contexto e a viabilidade de uma parceria."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "ressalva",
+    "note": "Honesta sobre ausência de pesquisa, mas ainda genérica e com pitch amplo.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

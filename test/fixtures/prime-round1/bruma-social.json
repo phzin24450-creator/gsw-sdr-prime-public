@@ -1,0 +1,242 @@
+{
+  "id": "bruma-social",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Usar coleção e trabalhos publicados; não converter Instagram forte em necessidade comprovada de landing page.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "bruma.example.invalid",
+      "verifiedOn": "2026-11-15"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Bruma Cerâmica Fictícia",
+      "sector": "Cerâmica autoral"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente."
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente."
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Bruma Cerâmica Fictícia"
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Cerâmica autoral"
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida."
+      }
+    ],
+    "verifiedObservation": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 2,
+  "generatedCandidates": [
+    {
+      "text": "Olá. Acompanho o trabalho da Bruma Cerâmica e notei a coleção Terra no Instagram. Sou o Pedro, da PRIME. Como vocês utilizam o catálogo social para as peças, cheguei a avaliar se faz sentido para o negócio ter um site profissional próprio para organizar esse portfólio de forma mais fixa. Vocês já consideraram centralizar as coleções em um endereço próprio ou o formato atual atende bem o que precisam?",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "site",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "exposição de peças autorais",
+          "contactReason": "ausência de domínio próprio para centralizar a coleção Terra",
+          "pageRole": "apresentação fixa e organizada do portfólio",
+          "nextMove": "verificar interesse em centralizar o catálogo fora das redes sociais",
+          "researchNeeded": "nenhuma, observação concluída"
+        },
+        "knowledge": {
+          "facts": [
+            "Bruma Cerâmica Fictícia atua com cerâmica autoral",
+            "O perfil utiliza catálogo social para exibir 40 peças"
+          ],
+          "indications": [
+            "Não há domínio oficial registrado para a marca"
+          ],
+          "hypotheses": [
+            "O catálogo social pode limitar a organização ou a apresentação da coleção"
+          ],
+          "unknowns": [
+            "Se há interesse em gerir um espaço próprio de exibição"
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "missingEvidence": "intenção do proprietário em ter um canal próprio",
+          "discoveryTarget": "proprietário da Bruma"
+        },
+        "focus": {
+          "topic": "criação de site para portfólio",
+          "basis": "hypothesis",
+          "relevance": "oferece uma vitrine permanente e organizada para a coleção Terra, independente das redes sociais"
+        },
+        "interlocutor": "Responsável pela Bruma Cerâmica",
+        "evidence": "A marca utiliza Instagram para catálogo, sem domínio próprio identificado.",
+        "unknowns": [
+          "Necessidade atual de expansão da presença digital"
+        ],
+        "nextStep": "Enviar mensagem de sondagem sobre o interesse em um site para o catálogo."
+      }
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Pending human assessment of the full response; not implied by pass",
+  "response": "Olá. Acompanho o trabalho da Bruma Cerâmica e notei a coleção Terra no Instagram. Sou o Pedro, da PRIME. Como vocês utilizam o catálogo social para as peças, cheguei a avaliar se faz sentido para o negócio ter um site profissional próprio para organizar esse portfólio de forma mais fixa. Vocês já consideraram centralizar as coleções em um endereço próprio ou o formato atual atende bem o que precisam?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 17247,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com a estratégia de observação, utilizando o contexto real da marca para introduzir a possibilidade de um site profissional sem realizar promessas ou diagnósticos indevidos.",
+    "semanticFactChecks": [
+      {
+        "claim": "Bruma Cerâmica utiliza catálogo social para peças",
+        "sourceId": "public:observation",
+        "sourceQuote": "Link da bio abre catálogo social.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "Não há domínio oficial identificado",
+        "sourceId": "public:observation",
+        "sourceQuote": "Busca complementar não identificou domínio oficial",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Olá.",
+        "assessment": "Saudação padrão, neutra.",
+        "acceptable": true
+      },
+      {
+        "text": "Acompanho o trabalho da Bruma Cerâmica e notei a coleção Terra no Instagram.",
+        "assessment": "Demonstra observação do contexto real da empresa.",
+        "acceptable": true
+      },
+      {
+        "text": "Sou o Pedro, da PRIME.",
+        "assessment": "Identificação correta do remetente e da empresa.",
+        "acceptable": true
+      },
+      {
+        "text": "Como vocês utilizam o catálogo social para as peças, cheguei a avaliar se faz sentido para o negócio ter um site profissional próprio para organizar esse portfólio de forma mais fixa.",
+        "assessment": "Explicação funcional condicional baseada na observação, sem promessas.",
+        "acceptable": true
+      },
+      {
+        "text": "Vocês já consideraram centralizar as coleções em um endereço próprio ou o formato atual atende bem o que precisam?",
+        "assessment": "Pergunta de sondagem aberta, sem pressupor necessidade.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "contactPlan": {
+        "action": "draft",
+        "strength": "plausible",
+        "service": "site",
+        "evidenceRefs": [
+          "public:observation"
+        ],
+        "buyerTask": "exposição de peças autorais",
+        "contactReason": "ausência de domínio próprio para centralizar a coleção Terra",
+        "pageRole": "apresentação fixa e organizada do portfólio",
+        "nextMove": "verificar interesse em centralizar o catálogo fora das redes sociais",
+        "researchNeeded": "nenhuma, observação concluída"
+      },
+      "knowledge": {
+        "facts": [
+          "Bruma Cerâmica Fictícia atua com cerâmica autoral",
+          "O perfil utiliza catálogo social para exibir 40 peças"
+        ],
+        "indications": [
+          "Não há domínio oficial registrado para a marca"
+        ],
+        "hypotheses": [
+          "O catálogo social pode limitar a organização ou a apresentação da coleção"
+        ],
+        "unknowns": [
+          "Se há interesse em gerir um espaço próprio de exibição"
+        ]
+      },
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "public:observation"
+        ],
+        "missingEvidence": "intenção do proprietário em ter um canal próprio",
+        "discoveryTarget": "proprietário da Bruma"
+      },
+      "focus": {
+        "topic": "criação de site para portfólio",
+        "basis": "hypothesis",
+        "relevance": "oferece uma vitrine permanente e organizada para a coleção Terra, independente das redes sociais"
+      },
+      "interlocutor": "Responsável pela Bruma Cerâmica",
+      "evidence": "A marca utiliza Instagram para catálogo, sem domínio próprio identificado.",
+      "unknowns": [
+        "Necessidade atual de expansão da presença digital"
+      ],
+      "nextStep": "Enviar mensagem de sondagem sobre o interesse em um site para o catálogo."
+    }
+  },
+  "pass": true
+}

@@ -1,0 +1,46 @@
+{
+  "id": "apos-proposta",
+  "context": {},
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "outbound",
+      "text": "Enviei a proposta que você pediu."
+    },
+    {
+      "id": "1",
+      "direction": "inbound",
+      "text": "Vou avaliar com meu sócio e retorno quando puder."
+    }
+  ],
+  "expected": "Respeitar momento sem follow-up genérico",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Perfeito. Fico à disposição para esclarecer qualquer ponto que surja durante essa conversa com seu sócio. Quando tiverem uma definição ou novas dúvidas, é só me chamar por aqui.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 1,
+    "requestAttempts": 1,
+    "commercialDecision": {
+      "strategy": "encerramento",
+      "interlocutor": "interlocutor",
+      "evidence": "O lead afirmou que avaliará com o sócio e retornará quando possível.",
+      "unknowns": [
+        "empresa",
+        "segmento",
+        "necessidade"
+      ],
+      "nextStep": "Aguardar retorno do lead sem nova interação."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "aprovado",
+    "note": "Respeitou o prazo do interlocutor e aguardou retorno.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "id": "recepcionista-necessidade",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou Marina da recepção. O proprietário pediu informações sobre uma página exclusiva para apresentar nosso serviço de higienização de ar-condicionado. O que vocês fazem nessa página?"
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "Olá, Marina. Uma página exclusiva para a higienização de ar-condicionado serviria para organizar as informações desse serviço e facilitar o contato direto dos clientes interessados. Para eu entender melhor se essa é a melhor solução para o que o proprietário busca, você poderia me dizer qual é o principal objetivo dele com essa página? Além disso, seria possível conversar diretamente com ele para alinharmos os detalhes?",
+      "issues": [
+        "multiple_questions"
+      ],
+      "stage": "local",
+      "feedback": null
+    }
+  ],
+  "generatedCandidates": [
+    {
+      "text": "Olá, Marina. Uma página exclusiva para a higienização de ar-condicionado serviria para organizar as informações desse serviço e facilitar o contato direto dos clientes interessados. Para eu entender melhor se essa é a melhor solução para o que o proprietário busca, você poderia me dizer qual é o principal objetivo dele com essa página? Além disso, seria possível conversar diretamente com ele para alinharmos os detalhes?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "Marina é recepcionista na Brisa Técnica Climatização.",
+            "O proprietário solicitou informações sobre uma página exclusiva para o serviço de higienização de ar-condicionado."
+          ],
+          "indications": [
+            "Há um interesse em destacar um serviço específico (higienização) em um formato dedicado."
+          ],
+          "hypotheses": [
+            "A empresa pode estar buscando uma landing page para converter interessados no serviço de higienização."
+          ],
+          "unknowns": [
+            "Se a empresa já possui um site institucional ou se esta página seria o primeiro ponto de contato digital.",
+            "Qual é o objetivo final do proprietário com essa página (ex: agendamento, orçamento, contato direto)."
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "Objetivo principal do proprietário com a página (ex: agendamento, tirar dúvidas).",
+          "discoveryTarget": "Proprietário da Brisa Técnica Climatização"
+        },
+        "focus": {
+          "topic": "Landing page para higienização de ar-condicionado",
+          "basis": "hypothesis",
+          "relevance": "Esclarecer o valor de uma landing page dedicada para um serviço específico."
+        },
+        "interlocutor": "Marina (Recepção)",
+        "evidence": "O pedido de Marina é sobre uma página específica para higienização, o que se alinha ao escopo de landing pages da PRIME.",
+        "unknowns": [
+          "Necessidade de site institucional vs página única",
+          "Objetivo da página"
+        ],
+        "nextStep": "Esclarecer a função da landing page e solicitar a melhor forma de falar com o proprietário."
+      }
+    },
+    {
+      "text": "Olá, Marina. Uma página focada em higienização de ar-condicionado serve para apresentar o serviço de forma clara, com as informações que o cliente precisa para decidir e um caminho direto para o contato. Para eu entender se essa é a melhor forma de apoiar o que o proprietário planejou, você saberia me dizer se o objetivo principal é que o cliente entre em contato para orçamento ou apenas que ele tenha acesso a detalhes técnicos do serviço?",
+      "decision": {
+        "strategy": "esclarecimento",
+        "knowledge": {
+          "facts": [
+            "Marina é recepcionista na Brisa Técnica Climatização",
+            "O proprietário da empresa solicitou informações sobre uma página focada no serviço de higienização de ar-condicionado"
+          ],
+          "indications": [
+            "Existe um interesse em um entregável digital específico para um serviço da empresa"
+          ],
+          "hypotheses": [
+            "O proprietário deseja uma landing page para converter interessados no serviço de higienização"
+          ],
+          "unknowns": [
+            "Qual o objetivo principal do proprietário com a página (ex: converter orçamentos, informar detalhes técnicos ou apenas apresentar o serviço)"
+          ]
+        },
+        "opportunity": {
+          "status": "exploratory",
+          "evidenceRefs": [
+            "inbound:0"
+          ],
+          "missingEvidence": "objetivo específico do proprietário para a página",
+          "discoveryTarget": "proprietário"
+        },
+        "focus": {
+          "topic": "finalidade da landing page para o serviço de higienização",
+          "basis": "hypothesis",
+          "relevance": "define se o escopo atende ao objetivo do proprietário"
+        },
+        "interlocutor": "Marina",
+        "evidence": "Marina solicitou informações sobre uma página exclusiva para o serviço de higienização de ar-condicionado em nome do proprietário da Brisa Técnica Climatização.",
+        "unknowns": [
+          "objetivo do proprietário com a página"
+        ],
+        "nextStep": "Esclarecer a função da landing page e confirmar o objetivo do proprietário."
+      }
+    }
+  ],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "response": "Olá, Marina. Uma página focada em higienização de ar-condicionado serve para apresentar o serviço de forma clara, com as informações que o cliente precisa para decidir e um caminho direto para o contato. Para eu entender se essa é a melhor forma de apoiar o que o proprietário planejou, você saberia me dizer se o objetivo principal é que o cliente entre em contato para orçamento ou apenas que ele tenha acesso a detalhes técnicos do serviço?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "durationMs": 10222,
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "semanticFeedback": "A mensagem está alinhada com o portfólio da PRIME e utiliza uma abordagem exploratória adequada para o contexto de recepção, sem promessas indevidas ou pressão por negociação.",
+    "semanticFactChecks": [
+      {
+        "claim": "A PRIME oferece landing pages.",
+        "sourceId": "policy:portfolio",
+        "sourceQuote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+        "verdict": "supported"
+      },
+      {
+        "claim": "O proprietário da Brisa Técnica Climatização solicitou informações sobre uma página para higienização.",
+        "sourceId": "inbound:0",
+        "sourceQuote": "O proprietário pediu informações sobre uma página exclusiva para apresentar nosso serviço de higienização de ar-condicionado.",
+        "verdict": "supported"
+      }
+    ],
+    "semanticSegments": [
+      {
+        "text": "Olá, Marina.",
+        "assessment": "Saudação adequada ao interlocutor identificado.",
+        "acceptable": true
+      },
+      {
+        "text": "Uma página focada em higienização de ar-condicionado serve para apresentar o serviço de forma clara, com as informações que o cliente precisa para decidir e um caminho direto para o contato.",
+        "assessment": "Explicação funcional alinhada ao portfólio da PRIME (landing page).",
+        "acceptable": true
+      },
+      {
+        "text": "Para eu entender se essa é a melhor forma de apoiar o que o proprietário planejou, você saberia me dizer se o objetivo principal é que o cliente entre em contato para orçamento ou apenas que ele tenha acesso a detalhes técnicos do serviço?",
+        "assessment": "Pergunta exploratória pertinente para entender a necessidade sem assumir viabilidade ou exigir handoff imediato.",
+        "acceptable": true
+      }
+    ],
+    "qualityAttempts": 2,
+    "requestAttempts": 3,
+    "generationAttempts": 2,
+    "commercialDecision": {
+      "strategy": "esclarecimento",
+      "knowledge": {
+        "facts": [
+          "Marina é recepcionista na Brisa Técnica Climatização",
+          "O proprietário da empresa solicitou informações sobre uma página focada no serviço de higienização de ar-condicionado"
+        ],
+        "indications": [
+          "Existe um interesse em um entregável digital específico para um serviço da empresa"
+        ],
+        "hypotheses": [
+          "O proprietário deseja uma landing page para converter interessados no serviço de higienização"
+        ],
+        "unknowns": [
+          "Qual o objetivo principal do proprietário com a página (ex: converter orçamentos, informar detalhes técnicos ou apenas apresentar o serviço)"
+        ]
+      },
+      "opportunity": {
+        "status": "exploratory",
+        "evidenceRefs": [
+          "inbound:0"
+        ],
+        "missingEvidence": "objetivo específico do proprietário para a página",
+        "discoveryTarget": "proprietário"
+      },
+      "focus": {
+        "topic": "finalidade da landing page para o serviço de higienização",
+        "basis": "hypothesis",
+        "relevance": "define se o escopo atende ao objetivo do proprietário"
+      },
+      "interlocutor": "Marina",
+      "evidence": "Marina solicitou informações sobre uma página exclusiva para o serviço de higienização de ar-condicionado em nome do proprietário da Brisa Técnica Climatização.",
+      "unknowns": [
+        "objetivo do proprietário com a página"
+      ],
+      "nextStep": "Esclarecer a função da landing page e confirmar o objetivo do proprietário."
+    }
+  },
+  "pass": true
+}

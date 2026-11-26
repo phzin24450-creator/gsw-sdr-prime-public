@@ -1,0 +1,45 @@
+{
+  "id": "atendente",
+  "context": {
+    "company": "Brisa Técnica Climatização",
+    "sector": "Climatização"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Olá, bom dia. Tudo sim e com você? Me chamo Marina. Como posso ajudar?"
+    }
+  ],
+  "expected": "Explicar motivo, não presumir chatbot ou dor",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Olá Marina, tudo bem por aqui também. Entro em contato pois na GSW auxiliamos empresas como a Brisa Técnica a estruturar operações digitais, como sites profissionais, automações de atendimento ou painéis de gestão. Vocês possuem algum projeto ou desafio operacional no momento em que possamos apoiar?",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityReview": "gemini_semantic_and_local",
+    "semanticQuestionCount": 1,
+    "qualityAttempts": 1,
+    "requestAttempts": 2,
+    "generationAttempts": 1,
+    "commercialDecision": {
+      "strategy": "motivo",
+      "interlocutor": "Marina",
+      "evidence": "Marina se apresentou e perguntou como poderia ajudar, indicando disposição para o contato comercial.",
+      "unknowns": [
+        "necessidade específica da Brisa Técnica Climatização"
+      ],
+      "nextStep": "qualificar a necessidade operacional ou digital da empresa"
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "reprovado",
+    "note": "Portfólio ou diagnóstico amplo/genérico apesar da revisão semântica.",
+    "reviewer": "Codex; não é aprovação de operador humano"
+  }
+}

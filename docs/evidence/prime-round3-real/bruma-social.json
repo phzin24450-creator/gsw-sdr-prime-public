@@ -1,0 +1,710 @@
+{
+  "id": "bruma-social",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "expected": "Usar coleção e trabalhos publicados; não converter Instagram forte em necessidade comprovada de landing page.",
+  "input": {
+    "turnPurpose": "cold_outreach",
+    "researchAvailable": true,
+    "sourceProvenance": {
+      "kind": "operator_provided_observation",
+      "host": "bruma.example.invalid",
+      "verifiedOn": "2026-11-16"
+    },
+    "senderIdentity": {
+      "name": "Pedro",
+      "company": "PRIME",
+      "role": "proprietário que conduz a negociação"
+    },
+    "tone": "consultivo",
+    "intent": "OPENING",
+    "latestMessage": "",
+    "commercialContext": {
+      "company": "Bruma Cerâmica Fictícia",
+      "sector": "Cerâmica autoral"
+    },
+    "interlocutorDeclared": null,
+    "history": [],
+    "previousDrafts": [],
+    "commercialSignals": {
+      "interlocutor": {
+        "role": "desconhecido",
+        "confidence": "baixa",
+        "evidence": null
+      },
+      "refusal": false,
+      "objectionCues": [],
+      "strategyConstraint": "motivo relevante sem inventar pesquisa",
+      "answeredQuestionPairs": [],
+      "missingInformation": [
+        "necessidade"
+      ],
+      "limitation": "Sinais locais conservadores. Saudação não identifica robô. Declarações não são pesquisa pública."
+    },
+    "operatorFeedback": [],
+    "channel": "WhatsApp manual",
+    "strategy": "observacao",
+    "strategyHintOnly": true,
+    "evidenceRegister": [
+      {
+        "id": "policy:portfolio",
+        "kind": "current_brand_policy",
+        "text": "A PRIME oferece exclusivamente sites profissionais e landing pages. Não oferece automação de WhatsApp, sistemas, painéis, tráfego pago ou SEO independente.",
+        "scope": [
+          "brand",
+          "function"
+        ]
+      },
+      {
+        "id": "policy:sender",
+        "kind": "current_brand_policy",
+        "text": "Pedro representa a PRIME e é o proprietário que conduz a negociação diretamente.",
+        "scope": [
+          "brand"
+        ]
+      },
+      {
+        "id": "context:company",
+        "kind": "operator_record",
+        "text": "Bruma Cerâmica Fictícia",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "context:sector",
+        "kind": "operator_record",
+        "text": "Cerâmica autoral",
+        "scope": [
+          "identity"
+        ]
+      },
+      {
+        "id": "public:observation",
+        "kind": "provided_verified_observation",
+        "text": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+        "scope": [
+          "observation",
+          "search_result"
+        ]
+      }
+    ],
+    "verifiedObservation": "Perfil exibe 40 peças da coleção fictícia Terra e posts recentes. Link da bio abre catálogo social. Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+    "handoffAccepted": false,
+    "regenerate": false
+  },
+  "calls": 4,
+  "generatedCandidates": [
+    {
+      "text": "Olá, acompanhei a coleção Terra que vocês publicaram e notei que o catálogo atual está concentrado no Instagram. Sou o Pedro, da PRIME. Como vocês trabalham com peças autorais, pensei se faria sentido para a Bruma ter um site próprio para organizar essa coleção de forma independente e mais acessível para quem consulta. Faz sentido conversarmos sobre como isso funcionaria?",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "site",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "exibir e organizar o catálogo de peças da coleção Terra",
+          "contactReason": "observação de que a Bruma utiliza catálogo social na bio sem um domínio próprio para a coleção",
+          "pageRole": "organizar as peças da coleção Terra em um ambiente profissional independente das redes sociais",
+          "nextMove": "verificar se faz sentido para a Bruma ter um espaço próprio para o catálogo",
+          "researchNeeded": "nenhuma no momento"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "interesse em domínio próprio",
+          "dificuldade atual com catálogo social"
+        ],
+        "nextStep": ""
+      }
+    },
+    {
+      "text": "Olá. Notei que a coleção Terra da Bruma Cerâmica está exposta no Instagram. Como trabalho com a criação de sites, pergunto se vocês já avaliaram ter um espaço próprio para organizar essas peças de forma independente, fora da rede social. Caso queiram conversar sobre essa possibilidade, fico à disposição.",
+      "decision": {
+        "strategy": "motivo",
+        "contactPlan": {
+          "action": "draft",
+          "strength": "plausible",
+          "service": "site",
+          "evidenceRefs": [
+            "public:observation"
+          ],
+          "buyerTask": "organizar a visualização das peças da coleção Terra",
+          "contactReason": "observação de que o catálogo atual está restrito ao Instagram",
+          "pageRole": "apresentar a coleção de peças de forma independente",
+          "nextMove": "verificar se há interesse em avaliar uma página própria",
+          "researchNeeded": "verificar se existe algum site registrado ou em desenvolvimento pela marca"
+        },
+        "knowledge": null,
+        "opportunity": null,
+        "focus": null,
+        "interlocutor": "Desconhecido",
+        "evidence": "",
+        "unknowns": [
+          "interesse em site",
+          "cargo do interlocutor"
+        ],
+        "nextStep": ""
+      }
+    }
+  ],
+  "rejectedDrafts": [
+    {
+      "text": "Olá, acompanhei a coleção Terra que vocês publicaram e notei que o catálogo atual está concentrado no Instagram. Sou o Pedro, da PRIME. Como vocês trabalham com peças autorais, pensei se faria sentido para a Bruma ter um site próprio para organizar essa coleção de forma independente e mais acessível para quem consulta. Faz sentido conversarmos sobre como isso funcionaria?",
+      "issues": [
+        "claim_not_entailed",
+        "invalid_non_assertion"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "exibir e organizar o catálogo de peças da coleção Terra",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Perfil exibe 40 peças da coleção fictícia Terra",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A observação confirma a existência da coleção e a exibição de peças.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "observação de que a Bruma utiliza catálogo social na bio sem um domínio próprio para a coleção",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Link da bio abre catálogo social. Busca complementar não identificou domínio oficial",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A ausência de domínio oficial e o uso de catálogo social estão documentados.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "organizar as peças da coleção Terra em um ambiente profissional independente das redes sociais",
+          "role": "proposed_function",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A proposta de organizar peças em site profissional é uma função legítima do serviço oferecido.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3",
+          "path": "contactPlan.nextMove",
+          "text": "verificar se faz sentido para a Bruma ter um espaço próprio para o catálogo",
+          "role": "planned_action",
+          "classification": "hypothesis",
+          "domain": "relationship",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "context:company",
+              "quote": "Bruma Cerâmica Fictícia",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A verificação de interesse é uma etapa de prospecção válida.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma no momento",
+          "role": "research_status",
+          "classification": "supported",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A pesquisa atual é suficiente para a abordagem inicial.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u5",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "classification": "supported",
+          "domain": "identity",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "context:sector",
+              "quote": "Cerâmica autoral",
+              "relation": "entails"
+            }
+          ],
+          "reason": "O interlocutor não foi identificado nominalmente.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6",
+          "path": "unknowns.0",
+          "text": "interesse em domínio próprio",
+          "role": "uncertainty",
+          "classification": "hypothesis",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [],
+          "reason": "O interesse é uma variável desconhecida a ser validada.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u7",
+          "path": "unknowns.1",
+          "text": "dificuldade atual com catálogo social",
+          "role": "uncertainty",
+          "classification": "hypothesis",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [],
+          "reason": "A dificuldade com o canal atual é uma suposição de prospecção.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "Olá, acompanhei a coleção Terra que vocês publicaram e notei que o catálogo atual está concentrado no Instagram. ",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Perfil exibe 40 peças da coleção fictícia Terra",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A afirmação reflete a observação pública.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Sou o Pedro, da PRIME. ",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "identity",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:sender",
+              "quote": "Pedro representa a PRIME e é o proprietário",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A identificação está alinhada com a política da marca.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Como vocês trabalham com peças autorais, pensei se faria sentido para a Bruma ter um site próprio para organizar essa coleção de forma independente e mais acessível para quem consulta. ",
+          "role": "assertion",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "conditional",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A sugestão de site para organização é uma inferência funcional legítima.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u11",
+          "path": "text",
+          "text": "Faz sentido conversarmos sobre como isso funcionaria?",
+          "role": "assertion",
+          "classification": "non_assertive",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Pergunta de abertura sem premissas falsas.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "pass",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "claim_not_entailed",
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "nenhuma no momento",
+          "reason": "O plano cita uma fonte como prova de algo que ela não estabelece. Proposta não pode disfarçar premissa factual."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u9",
+          "path": "text",
+          "text": "Sou o Pedro, da PRIME. ",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "invalid_non_assertion",
+          "id": null,
+          "path": null,
+          "text": null,
+          "reason": "A auditoria falhou neste requisito; preserve o contexto e corrija o contrato sem inventar fatos."
+        }
+      ],
+      "reviewerFeedback": "A abordagem está alinhada com as políticas da PRIME, mantendo a identificação correta e uma proposta funcional baseada em observações públicas."
+    },
+    {
+      "text": "Olá. Notei que a coleção Terra da Bruma Cerâmica está exposta no Instagram. Como trabalho com a criação de sites, pergunto se vocês já avaliaram ter um espaço próprio para organizar essas peças de forma independente, fora da rede social. Caso queiram conversar sobre essa possibilidade, fico à disposição.",
+      "issues": [
+        "claim_not_entailed",
+        "unbounded_inference"
+      ],
+      "stage": "semantic",
+      "feedback": "Revisão reprovada: use os achados específicos, não o elogio do parecer.",
+      "claimLedger": [
+        {
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "organizar a visualização das peças da coleção Terra",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "function",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Perfil exibe 40 peças da coleção fictícia Terra",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A observação confirma a existência da coleção e a necessidade de organização visual.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u1",
+          "path": "contactPlan.contactReason",
+          "text": "observação de que o catálogo atual está restrito ao Instagram",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Link da bio abre catálogo social.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "O catálogo está restrito ao Instagram/catálogo social.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u2",
+          "path": "contactPlan.pageRole",
+          "text": "apresentar a coleção de peças de forma independente",
+          "role": "proposed_function",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A proposta de uso da página é compatível com a oferta da agência.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u3",
+          "path": "contactPlan.nextMove",
+          "text": "verificar se há interesse em avaliar uma página própria",
+          "role": "planned_action",
+          "classification": "hypothesis",
+          "domain": "relationship",
+          "language": "question",
+          "evidence": [],
+          "reason": "Ação futura baseada em interesse ainda não verificado.",
+          "missingAction": "ask",
+          "acceptable": true
+        },
+        {
+          "id": "u4",
+          "path": "contactPlan.researchNeeded",
+          "text": "verificar se existe algum site registrado ou em desenvolvimento pela marca",
+          "role": "research_status",
+          "classification": "hypothesis",
+          "domain": "search_result",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Busca complementar não identificou domínio oficial; presença própria é desconhecida.",
+              "relation": "entails"
+            }
+          ],
+          "reason": "A pesquisa atual é limitada e não exclui a existência de outros domínios.",
+          "missingAction": "research",
+          "acceptable": true
+        },
+        {
+          "id": "u5",
+          "path": "interlocutor",
+          "text": "Desconhecido",
+          "role": "uncertainty",
+          "classification": "supported",
+          "domain": "identity",
+          "language": "factual",
+          "evidence": [],
+          "reason": "O interlocutor não foi identificado no histórico.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u6",
+          "path": "unknowns.0",
+          "text": "interesse em site",
+          "role": "uncertainty",
+          "classification": "hypothesis",
+          "domain": "other",
+          "language": "factual",
+          "evidence": [],
+          "reason": "O interesse é uma lacuna de informação.",
+          "missingAction": "ask",
+          "acceptable": true
+        },
+        {
+          "id": "u7",
+          "path": "unknowns.1",
+          "text": "cargo do interlocutor",
+          "role": "uncertainty",
+          "classification": "hypothesis",
+          "domain": "identity",
+          "language": "factual",
+          "evidence": [],
+          "reason": "O cargo do interlocutor é desconhecido.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u8",
+          "path": "text",
+          "text": "Olá. ",
+          "role": "greeting",
+          "classification": "supported",
+          "domain": "other",
+          "language": "omit",
+          "evidence": [],
+          "reason": "Saudação neutra.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u9",
+          "path": "text",
+          "text": "Notei que a coleção Terra da Bruma Cerâmica está exposta no Instagram. ",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "observation",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "public:observation",
+              "quote": "Perfil exibe 40 peças da coleção fictícia Terra",
+              "relation": "entails"
+            }
+          ],
+          "reason": "Fato verificado em observação.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u10",
+          "path": "text",
+          "text": "Como trabalho com a criação de sites, pergunto se vocês já avaliaram ter um espaço próprio para organizar essas peças de forma independente, fora da rede social. ",
+          "role": "assertion",
+          "classification": "admissible_inference",
+          "domain": "function",
+          "language": "factual",
+          "evidence": [
+            {
+              "sourceId": "policy:portfolio",
+              "quote": "A PRIME oferece exclusivamente sites profissionais e landing pages.",
+              "relation": "supports_possibility"
+            }
+          ],
+          "reason": "A pergunta sobre a avaliação de um espaço próprio é uma inferência funcional legítima para o serviço oferecido.",
+          "missingAction": "none",
+          "acceptable": true
+        },
+        {
+          "id": "u11",
+          "path": "text",
+          "text": "Caso queiram conversar sobre essa possibilidade, fico à disposição.",
+          "role": "assertion",
+          "classification": "supported",
+          "domain": "relationship",
+          "language": "factual",
+          "evidence": [],
+          "reason": "Disponibilidade para conversa é uma declaração de intenção do remetente.",
+          "missingAction": "none",
+          "acceptable": true
+        }
+      ],
+      "quality": {
+        "factualSafety": "pass",
+        "planQuality": "pass",
+        "messageQuality": "pass"
+      },
+      "repairFindings": [
+        {
+          "code": "claim_not_entailed",
+          "id": "u0",
+          "path": "contactPlan.buyerTask",
+          "text": "organizar a visualização das peças da coleção Terra",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        },
+        {
+          "code": "unbounded_inference",
+          "id": "u10",
+          "path": "text",
+          "text": "Como trabalho com a criação de sites, pergunto se vocês já avaliaram ter um espaço próprio para organizar essas peças de forma independente, fora da rede social. ",
+          "reason": "A possibilidade precisa de fundamento e linguagem proporcional. Proposta interna não é constatação sobre o prospect."
+        },
+        {
+          "code": "claim_not_entailed",
+          "id": "u11",
+          "path": "text",
+          "text": "Caso queiram conversar sobre essa possibilidade, fico à disposição.",
+          "reason": "A citação não fornece suporte no domínio desta alegação. Preserve o alcance da fonte ou remova a conclusão."
+        }
+      ],
+      "reviewerFeedback": "A abordagem está alinhada com as políticas da PRIME e utiliza observações verificadas sem extrapolar resultados ou assumir cargos."
+    }
+  ],
+  "commercialApproval": "Pending human review; automated pass is not commercial approval",
+  "error": {
+    "code": "quality_block",
+    "httpStatus": null,
+    "stage": "semantic_review"
+  },
+  "telemetry": {
+    "startedAt": 1794795839827,
+    "calls": [
+      {
+        "stage": "generation",
+        "attempt": 1,
+        "requestBytes": 11035,
+        "httpStatus": 200,
+        "durationMs": 5263,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1926,
+          "candidatesTokenCount": 297,
+          "totalTokenCount": 2223
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 2,
+        "requestBytes": 10207,
+        "httpStatus": 200,
+        "durationMs": 6039,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1691,
+          "candidatesTokenCount": 1526,
+          "totalTokenCount": 3217
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "generation",
+        "attempt": 3,
+        "requestBytes": 13148,
+        "httpStatus": 200,
+        "durationMs": 1456,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 2388,
+          "candidatesTokenCount": 266,
+          "totalTokenCount": 2654
+        },
+        "finishReason": "STOP"
+      },
+      {
+        "stage": "semantic_review",
+        "attempt": 4,
+        "requestBytes": 9998,
+        "httpStatus": 200,
+        "durationMs": 3590,
+        "timeoutMs": 45000,
+        "tokens": {
+          "promptTokenCount": 1645,
+          "candidatesTokenCount": 1377,
+          "totalTokenCount": 3022
+        },
+        "finishReason": "STOP"
+      }
+    ]
+  },
+  "plan": null,
+  "pass": false
+}

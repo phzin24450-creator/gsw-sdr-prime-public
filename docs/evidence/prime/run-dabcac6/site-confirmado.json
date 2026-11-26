@@ -1,0 +1,25 @@
+{
+  "id": "site-confirmado",
+  "synthetic": true,
+  "model": "gemini-3.1-flash-lite",
+  "context": {
+    "company": "Ateliê Aurora Fictício",
+    "sector": "Marcenaria"
+  },
+  "messages": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Sou a dona. Não temos site; só enviamos fotos pelo WhatsApp. Quero uma página para apresentar nossos móveis sob medida e os contatos."
+    }
+  ],
+  "rejectedDrafts": [],
+  "commercialApproval": "Requires complete response assessment; technical success is insufficient",
+  "pass": false,
+  "error": {
+    "code": "timeout",
+    "stage": "generation",
+    "httpStatus": null,
+    "qualityIssues": []
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "orcamento",
+  "context": {
+    "sector": "Oficina"
+  },
+  "conversation": [
+    {
+      "id": "0",
+      "direction": "inbound",
+      "text": "Tenho interesse no painel, mas este mês estamos sem orçamento."
+    }
+  ],
+  "expected": "Respeitar restrição sem desconto inventado",
+  "model": "gemini-3.1-flash-lite",
+  "synthetic": true,
+  "response": "Agradeço o retorno sobre o interesse no painel para a oficina. Como o orçamento é um ponto limitante agora, podemos retomar esse assunto em um momento mais oportuno para vocês. Fico à disposição caso precise esclarecer alguma dúvida sobre como a ferramenta organiza as informações quando estiverem prontos para avançar.",
+  "metadata": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "status": "success",
+    "qualityAttempts": 2,
+    "requestAttempts": 2,
+    "commercialDecision": {
+      "strategy": "objecao",
+      "interlocutor": "Interlocutor",
+      "evidence": "O lead demonstrou interesse no painel, mas citou restrição orçamentária atual.",
+      "unknowns": [
+        "empresa",
+        "necessidade específica"
+      ],
+      "nextStep": "Aguardar retorno ou novo contato quando o orçamento permitir."
+    }
+  },
+  "failures": [],
+  "pass": true,
+  "semanticReview": "Human semantic assessment required in homologation report",
+  "assistantSemanticReview": {
+    "status": "ressalva",
+    "note": "Respeitou orçamento, mas retomada não foi especificamente autorizada.",
+    "reviewer": "Codex semantic inspection, not an independent human operator approval"
+  }
+}
