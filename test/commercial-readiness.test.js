@@ -6,6 +6,19 @@ import {requestModelDraft,prepareDecision,createReviewedDraft} from '../src/advi
 import {commercialPrompt} from '../src/commercial.js';
 import {draftVisual} from '../src/visual.js';
 const phone='000000099101';
+test('Rota Lumen: pedido sobre landing page chega como resposta, preservando site e agência',async()=>{
+ const store=createStore();
+ store.setContext(phone,{company:'Rota Lumen Idiomas',sector:'Escola de idiomas'});
+ const text='Sou o responsável. Já temos um site e um link de inscrição para nosso intensivo de inglês para adultos. Vamos divulgar a próxima turma, mas não quero trocar o site nem a agência. Queria entender se uma landing page específica faria sentido.';
+ store.ingest({phone,id:'lumen',text,manual:true});
+ const c=store.get(phone), decision=prepareDecision(c,{manual:true});
+ const prompt=commercialPrompt(c,decision);
+ assert.equal(JSON.parse(prompt.input).turnPurpose,'reply');
+ assert.equal(JSON.parse(prompt.input).latestMessage,text);
+ assert.match(prompt.system,/Responda à pergunta sobre a utilidade da landing page/);
+ const result=await requestModelDraft(c,decision,{geminiApiKey:'fake'},transport(plan({service:'landing_page',evidenceRefs:['inbound:0']}),'Uma página da turma poderia apresentar o intensivo e indicar o link de inscrição informado.'));
+ assert.ok(result.text);
+});
 const observation={observation:'Perfil fictício apresenta móveis autorais e link de contato.',sourceUrl:'https://fixture.example.invalid',verifiedOn:new Date().toISOString().slice(0,10)};
 const plan=(extra={})=>({action:'draft',strength:'plausible',service:'site',evidenceRefs:['public:observation'],buyerTask:'Apresentar trabalhos',contactReason:'Portfólio publicado e destino do link conhecidos',pageRole:'Apresentar os trabalhos',nextMove:'Verificar se existe portfólio próprio',researchNeeded:'',...extra});
 const response=x=>({ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(x)}]}}]})});

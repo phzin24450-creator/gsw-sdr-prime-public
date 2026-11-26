@@ -139,12 +139,11 @@ async function semanticReview({assessment,prompt,apiKey,model,fetcher,trace,time
 export async function requestModelDraft(conversation, decision, config = {}, fetcher = fetch) {
   const apiKey=config.geminiApiKey??process.env.GEMINI_API_KEY;
   const model=config.geminiModel??process.env.GEMINI_MODEL??GEMINI_MODEL;
-  if (!apiKey) throw new GenerationError('missing_key');
-  // Não troca silenciosamente para modelos/provedores potencialmente pagos.
-  if (model!==GEMINI_MODEL) throw new GenerationError('invalid_model');
   const prompt=generationPrompt(conversation,decision,config);
   const input=JSON.parse(prompt.input);
   if(decision.opening&&!input.verifiedObservation&&!conversation.context?.challenge){const failure=new GenerationError('research_required');failure.planningProvider='rules';throw failure;}
+  if (!apiKey) throw new GenerationError('missing_key');
+  if (model!==GEMINI_MODEL) throw new GenerationError('invalid_model');
   if(config.qualityRetry) prompt.system += '\nA tentativa anterior falhou na revisão ('+config.qualityRetry+'). Gere um texto novo corrigindo esse aspecto, sem adicionar fatos.';
   const explanationRepair=config.qualityRetry?.split(',').includes('multiple_questions');
   if(explanationRepair) prompt.system += '\nREPARO: volte à decisão comercial. Escolha uma única informação que realmente mudaria o próximo passo. Pode fazer uma pergunta sobre ela, OU apenas explicar o assunto se o cliente não puder responder. Não acumule diagnóstico e encaminhamento. Alternativas sobre a mesma informação são válidas. Não transforme a mensagem em monólogo genérico para escapar da revisão.';

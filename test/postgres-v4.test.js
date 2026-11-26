@@ -42,6 +42,9 @@ test('V4 PostgreSQL engine: draft/edit/regenerate/reconnect/history/duplicate/op
  assert.equal(restored.drafts.length,3);
  assert.equal((await s.list())[0].id,phone);
  const openingPhone='000000040003';
+ const insufficient=await createReviewedDraft(s,openingPhone,{manual:true,opening:true,geminiApiKey:''});
+ assert.equal(insufficient.generationMeta.errorCode,'research_required');
+ await s.setContext(openingPhone,{observation:'Perfil fictício apresenta um intensivo de idiomas.',sourceUrl:'https://example.invalid/intensivo',verifiedOn:new Date().toISOString().slice(0,10)});
  const initial=await createReviewedDraft(s,openingPhone,{manual:true,opening:true,geminiApiKey:''});
  assert.equal(initial.draft.sourceMessageId,null);
  assert.equal((await s.get(openingPhone)).messages.length,0);

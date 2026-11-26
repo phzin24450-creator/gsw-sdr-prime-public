@@ -45,7 +45,7 @@ fieldset.visual-fields{min-width:0;border:0;padding:0;margin:0} #visual-images{m
 <div class="hero"><div><div class="eyebrow">INTELIGÊNCIA COMERCIAL</div><h1 id="page-title">Seu próximo passo, <em>mais inteligente.</em></h1><p>Entenda o contexto, prepare a abordagem e mantenha você no comando da conversa.</p></div><div class="sparkline"><svg><use href="#ic-stars"/></svg></div></div>
 <div class="strip"><div class="mini"><span class="dot"></span> Copiloto assistido</div><div class="mini"><span class="dot blue"></span> WhatsApp manual</div><div class="mini"><span class="dot orange"></span> <span id="ai-status">Verificando conexão…</span></div></div>
 <div class="main-grid"><div class="workstack">
-<section class="card"><div class="cardbody"><div class="cardhead"><div class="step"><div class="stepnum">01</div><div><h2>Mensagem do lead</h2><p>O que o cliente respondeu no WhatsApp?</p></div></div><span class="sourcebadge">● ENTRADA MANUAL</span></div>
+<section class="card"><div class="cardbody"><div class="cardhead"><div class="step"><div class="stepnum">01</div><div><h2>Mensagem do lead</h2><p>Para responder, escolha uma conversa ou informe o número e toque em Abrir conversa. Depois, cole a mensagem recebida.</p></div></div><span class="sourcebadge">● ENTRADA MANUAL</span></div>
 <div class="conversation-picker"><label for="conversation">CONVERSA ATIVA</label><div class="formrow"><input id="conversation-search" aria-label="Buscar por empresa ou número" placeholder="Empresa ou número"><button class="secondary" type="button" id="search-conversations">Buscar</button></div><label class="repeat"><input type="checkbox" id="show-archived"> Mostrar arquivadas</label><label for="conversation-status">Filtrar conversas</label><select id="conversation-status"><option value="all">Todos os status</option><option value="HUMAN">Modo Humano</option><option value="AI_ACTIVE">IA ativa</option><option value="PAUSED">Pausadas</option><option value="HANDOFF_PENDING">Atendimento humano solicitado</option><option value="optout">Recusa / opt-out</option></select><select id="conversation"><option value="">Escolha uma conversa</option></select><div class="formrow"><input id="phone" inputmode="tel" aria-label="Número da conversa" placeholder="Número com DDI e DDD"><button class="secondary" id="open">Abrir conversa</button></div><p class="hint" id="active-label">Nenhuma conversa selecionada</p><button type="button" class="secondary" id="archive-conversation" hidden>Arquivar conversa</button><p class="feedback" id="mode-notice"></p><button type="button" class="secondary" id="assume-human" hidden>Assumir conversa como proprietário</button></div><label class="fieldlabel" for="lead"><span>MENSAGEM RECEBIDA</span><span id="lead-count">0 / 4000</span></label><textarea id="lead" class="leadtextarea" maxlength="4000" spellcheck="true" placeholder="Cole aqui a mensagem do lead..."></textarea>
 <label class="repeat"><input type="checkbox" id="allow-repeat"> Esta é uma nova mensagem, embora o texto seja igual ao anterior</label><p class="feedback" id="input-feedback" role="status" aria-live="polite"></p><div class="divider"></div><div class="formrow"><div><span class="inline-2 fieldlabel">ESTILO DA RESPOSTA</span><div class="tonegroup" aria-label="Estilo da sugestão"><button type="button" class="tone selected" data-tone="consultivo">Consultivo</button><button type="button" class="tone" data-tone="objetivo">Direto</button><button type="button" class="tone" data-tone="estrategico">Estratégico</button></div></div><button type="button" class="primary" id="generate"><svg><use href="#ic-stars"/></svg> Analisar e sugerir <svg><use href="#ic-arrow"/></svg></button></div><button type="button" class="secondary" id="opening" hidden>Preparar primeiro contato</button></div></section>
 <section class="card" id="response-card"><div class="cardbody"><div class="cardhead"><div class="step"><div class="stepnum">02</div><div><h2>Resposta preparada</h2><p>Edite, aprove e copie para o WhatsApp.</p></div></div><span class="sourcebadge" id="response-badge">AGUARDANDO</span></div>
@@ -80,7 +80,7 @@ fieldset.visual-fields{min-width:0;border:0;padding:0;margin:0} #visual-images{m
 <div class="divider"></div>
 <details id="standalone-opening"><summary>Primeira abordagem sem telefone</summary>
 <fieldset id="opening-fields" class="visual-fields">
-<p class="hint">Use para um primeiro contato independente. Informe apenas contexto confirmado. A sugestão fica nesta sessão.</p>
+<p class="hint">Use para prospecção fria. Se o cliente já escreveu, abra a conversa em Mensagem do lead. Para registrar pesquisa com fonte e data, use o contexto da conversa.</p>
 <label for="opening-company">Empresa</label><input id="opening-company" maxlength="200" placeholder="Desconhecido">
 <label for="opening-sector">Nicho confirmado</label><input id="opening-sector" maxlength="200" placeholder="Desconhecido">
 <button type="button" class="secondary" id="standalone-generate">Gerar primeira abordagem</button>
@@ -278,6 +278,10 @@ $('standalone-generate').onclick=()=>runVisual('opening-fields','standalone-stat
  $('standalone-answer').disabled=true;
  $('standalone-copy').disabled=true;
  $('standalone-whatsapp').disabled=true;
+ if($('lead').value.trim()){
+  showVisualStatus('standalone-status','Há uma mensagem no campo do lead. Para responder, use Analisar e sugerir na conversa ativa. Para iniciar um contato frio, limpe primeiro a mensagem.',true);
+  return;
+ }
  showVisualStatus('standalone-status','Preparando primeira abordagem…');
  const result=await api('/api/visual/opening',{reviewed:true,company:$('opening-company').value,sector:$('opening-sector').value,tone:state.tone});
  showStandaloneAnswer('standalone',result);
