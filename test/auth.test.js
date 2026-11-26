@@ -45,6 +45,7 @@ test('HTTP: sessão protege acesso, bloqueia CSRF e exclusão, logout revoga; CS
     const page=await fetch(url+'/');const html=await page.text();
     const nonce=/script-src 'nonce-([^']+)'/.exec(page.headers.get('content-security-policy'))[1];
     assert.ok(html.includes('<script nonce="'+nonce+'">'));assert.ok(!html.includes('__CSP_NONCE__'));assert.ok(!page.headers.get('content-security-policy').includes('unsafe-inline'));
+    assert.ok(html.includes("path==='/auth/login'?'Usuário ou senha incorretos.':'Sua sessão expirou. Entre novamente.'"));
     const second=await fetch(url+'/');assert.notEqual(page.headers.get('content-security-policy'),second.headers.get('content-security-policy'));
     assert.equal((await fetch(url+'/auth/logout',{method:'POST',headers})).status,200);
     assert.equal((await fetch(url+'/api/conversations',{headers})).status,401);
